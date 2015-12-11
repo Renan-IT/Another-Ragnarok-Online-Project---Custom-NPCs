@@ -525,14 +525,15 @@ izlude_in,115,164,1	script	Belior#iz	4_M_EDEN_GUARDER,{
 			mes "Mais ce n'est que le début, d'ailleurs j'en ai reçu une nouvelle pour toi.";
 			mes "Notre Capitaine get_name a perdu son Péco Péco, tu devrais aller le voir pour plus d'informations.";
 			mes "Bonne chance et qu'Odin te protège !";
-			setquest 60356; //Activation de la prochaine quête (PecoPeco);
+			setquest 20000; //Activation de la prochaine quête (PecoPeco);
 			dispbottom "Vous avez reçu une nouvelle quête consulté la avec alt+u";
 			close;
 		}
-		else if (questprogress(60356) == 1){ //Quête du PecoPeco Perdu - Obtenue & en cours
+		else if (questprogress(20000) == 1){ //Quête du PecoPeco Perdu - Obtenue & en cours
 			mes "Notre Capitaine get_name a perdu son Péco Péco, tu devrais vraiment aller le voir.";
+			close;
 		}
-		else if (questprogress(60356) == 2){ //Quête du PecoPeco Perdu - Finie
+		else if (questprogress(20000) == 2){ //Quête du PecoPeco Perdu - Finie
 			mes "Woah, tu as retrouvé le Péco Péco du capitaine, Super !";
 			mes "Bon, j'ai une autre quête pour toi, j'éspere, que tu pourras me donner un coup de main!";
 			mes "BLABLABLABLA"	;
@@ -547,7 +548,7 @@ izlude_in,115,164,1	script	Belior#iz	4_M_EDEN_GUARDER,{
 	}
 	OnInit:
 		questinfo 60350, QTYPE_QUEST, 0;
-		questinfo 60356, QTYPE_QUEST, 0;
+		questinfo 20000, QTYPE_QUEST, 0;
 		questinfo 60357, QTYPE_QUEST, 0;
 		end;	
 
