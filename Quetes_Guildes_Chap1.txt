@@ -26,13 +26,13 @@
 //////////////////////////////////////
 
 izlude_in,72,172,4	script	Amorl#iz	4_M_1STPRIN1,{
-	if (questprogress(60342) == -1){ //Quete pas encore commence
+	if ((questprogress(60343) == 2) && (BaseJob == Job_Swordman)){ //Quete pas encore commence
 		mes "^50A92C[Amorl]^000000";
-		mes "Tu n'es donc pas au courant des événements en cours, nous attendons l'élu, mais ce n'est pas toi.";
+		mes "Bonjour "+strcharinfo(0)+", comment vas tu ?";
 		mes "Suis ton propre déstin !";
 		close;
 	}
-	else if ((questprogress(60342) == 2) && (BaseJob == Job_Swordman)){ //Precedente quete fini (training ground)
+	else if ((questprogress(60343) == 1) && (BaseJob == Job_Swordman)){ //Precedente quete fini (training ground)
 		//Quete active
 		mes "^50A92C[Amorl]^000000";
 		mes "Bonjour "+strcharinfo(0)+", nous sommes la guilde des ^D41B1BSwordmans^000000,";
@@ -88,7 +88,7 @@ izlude_in,72,172,4	script	Amorl#iz	4_M_1STPRIN1,{
 		mes "puisse t-elle avoir raison ! Si c'est le cas nous le saurons bien assez tôt..!";
 		mes "Allé va maintenant..., adresse toi à ^0000FFBelior^000000 pour poursuivre ta formation, il t'attend dans la pièce à droite. Puisse Odin te guider";
 		setquest 60344; //Active la quete pour aller voir Swordman pour passer sa classe dans alt+u
-		completequest 60343; //Quête Destinée terminée, aller voir l'intendant
+		completequest 60343;//Quête Destinée terminée, aller voir l'intendant
 		dispbottom "Vous avez complete une quete";
 		getexp 20000,0; //Donne de l'xp a la fin de la quete 
 		dispbottom "Vous avez gagne 20,000 Xp Base";
@@ -124,14 +124,14 @@ izlude_in,72,172,4	script	Amorl#iz	4_M_1STPRIN1,{
 //////////////////////////////////////
 
 prt_church,103,84,3	script	Pere_Shawn#prt_in	4_M_OLDFRIAR,{
-	if (questprogress(60342) == -1){ //Avoir fini la quete avant (training ground){
+	if ((questprogress(60343) == 2) && (BaseJob == Job_Acolyte)){ //Avoir fini la quete avant (training ground){
 		//Quete pas encore commence
 		mes "^50A92C[Pere Shawn]^000000";
-		mes "Que fais tu ici ? Nous ne t'attendons pas ici, nous attendons un élu !";
+		mes "Bonjour "+strcharinfo(0)+", comment vas tu ?";
 		mes "Bonne chance à toi ! Et puisse Dieu guider tes pas ";
 		close;
 	}
-	else if ((questprogress(60342) == 2) && (BaseJob == Job_Acolyte)){ //Precedente quete fini (training ground)
+	else if ((questprogress(60343) == 1) && (BaseJob == Job_Acolyte)){ //Precedente quete fini (training ground)
 		//Quete active
 		mes "^50A92C[Pere Shawn]^000000";
 		mes "Bienvenu a toi "+strcharinfo(0)+",  si tu es ici c’est que tu as choisi de devenir un enfant de notre seigneur.";
@@ -191,7 +191,7 @@ prt_church,103,84,3	script	Pere_Shawn#prt_in	4_M_OLDFRIAR,{
     }
     else{
         mes "^50A92C[Pere Shawn]^000000";
-        mes "Que fais tu ici ? Tu dois davord passer ta quête d'^0000FFAcolyte^000000.";
+        mes "Que fais tu ici ? Tu dois d'abord passer ta quête d'^0000FFAcolyte^000000.";
         close;
     }
 }
@@ -209,14 +209,14 @@ prt_church,103,84,3	script	Pere_Shawn#prt_in	4_M_OLDFRIAR,{
 //////////////////////////////////////
 
 geffen_in,174,110,6	script	Aguara#geffen_in	1_F_SIGNZISK,{
-	if (questprogress(60342) == -1){ //Avoir fini la quete avant (training ground){
+	((questprogress(60343) == 2) && (BaseJob == Job_Mage)){ //Avoir fini la quete avant (training ground){
 		//Quete pas encore commence
 		mes "^50A92C[Aguara]^000000";
-		mes "Que fais tu ici ? Nous ne t'attendons pas ici, nous attendons un élu !";
+		mes "Bonjour "+strcharinfo(0)+", comment vas tu ?";
 		mes "Bonne chance à toi ! Et puisse Dieu guider tes pas ";
 		close;
 	}
-	else if ((questprogress(60342) == 2) && (BaseJob == Job_Mage)){ //Precedente quete fini (training ground)
+	else if ((questprogress(60343) == 1) && (BaseJob == Job_Mage)){ //Precedente quete fini (training ground)
 		//Quete active
 		mes "^50A92C[Aguara]^000000";
 		mes "Bonjour "+strcharinfo(0)+", laisse-moi deviner, tu es ici pour devenir ^D41B1BMage^000000 n’est-ce pas ? ";
@@ -293,14 +293,14 @@ geffen_in,174,110,6	script	Aguara#geffen_in	1_F_SIGNZISK,{
 //////////////////////////////////////
 
 moc_prydb1,46,135,4	script	Pydar#pyr	4_M_THIEF_RUMIN,{
-	if (questprogress(60342) == -1){ //Avoir fini la quete avant (training ground){
+	if ((questprogress(60343) == 2) && (BaseJob == Job_Thief)){ //Avoir fini la quete avant (training ground){
 		//Quete pas encore commence
 		mes "^50A92C[Pydar]^000000";
-		mes "Comment es-tu venu ici ? C'est un endroit secret que seul les personnes déstinés à devenir ^D41B1BThief trouve !";
+		mes "Bonjour "+strcharinfo(0)+", comment vas tu ?";
 		mes "Retourne de là où tu viens !";
 		close;
 	}
-	else if ((questprogress(60342) == 2) && (BaseJob == Job_Thief)){ //Precedente quete fini (training ground)
+	else if ((questprogress(60343) == 1) && (BaseJob == Job_Thief)){ //Precedente quete fini (training ground)
 		//Quete active
 		mes "^50A92C[Pydar]^000000";
 		mes "Bonjour "+strcharinfo(0)+",je m'appelle Pydar et si tu es ici c'est que tu as décidé de rallier la guilde secrète de Midgard, les ^D41B1BThiefs^000000.";
@@ -377,13 +377,13 @@ moc_prydb1,46,135,4	script	Pydar#pyr	4_M_THIEF_RUMIN,{
 //////////////////////////////////////
 
 payon_in02,60,70,3	script	Feleon#payon_in02	4_M_FARIY_HISIE,{
-	if (questprogress(60342) == -1){
+	if ((questprogress(60343) == 2) && (BaseJob == Job_Archer)){
 		mes "^50A92C[Feleon]^000000";
-		mes "Que fais tu ici ? Nous ne t'attendons pas ici, nous attendons un elu !";
+		mes "Bonjour "+strcharinfo(0)+", comment vas tu ?";
 		mes "Bonne chance a toi jeune pousse ! Et puisse la Déesse te proteger.";
 		close;
 	}
-	else if ((questprogress(60342) == 2) && (BaseJob == Job_Archer)){ 
+	else if ((questprogress(60343) == 1) && (BaseJob == Job_Archer)){ 
 		mes "^50A92C[Feleon]^000000";
 		mes "Salutation "+strcharinfo(0)+", serais-tu venu ici dans le but de communier avec mère Nature ?";
 		mes "Si c’est le cas, tu es au bon endroit petit bourgeon.";
@@ -458,7 +458,7 @@ payon_in02,60,70,3	script	Feleon#payon_in02	4_M_FARIY_HISIE,{
 //=Culvert=//
 
 izlude_in,115,164,1	script	Belior#iz	4_M_EDEN_GUARDER,{
-	if ((questprogress(60342) == 2) && (BaseJob == Job_Swordman)){ //Avoir fini la quete avant (training ground)
+	if ((questprogress(60343) == 1) && (BaseJob == Job_Swordman)){ //Avoir fini la quete avant (training ground)
 		//Quete pas encore commence
 		mes "^50A92C[Belior]^000000";
 		mes "Tu devrais commencer par allé voir ^0000FFAmorl^000000.";
