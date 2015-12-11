@@ -173,7 +173,7 @@ prt_church,103,84,3	script	Pere_Shawn#prt_in	4_M_OLDFRIAR,{
 		mes "^50A92C[Pere Shawn]^000000";
 		mes "Enfin bon, après t’avoir raconté tout ca, tu n’as sûrement qu’une envie c’est de commencer ta quête.";
 		mes "Tu peux y aller maintenant, je ne te retiens pas plus longtemps !";
-		mes "Soeur Mathild t'attend pour ton baptême, elle doit être en train de prier dans la nef."
+		mes "Soeur Mathild t'attend pour ton baptême, elle doit être en train de prier dans la nef.";
 		setquest 60345; //Active la quete pour aller voir Father X pour passer sa classe dans alt+u
 		completequest 60343; //Quête Destinée terminée, aller voir l'intendant
 		dispbottom "Vous avez complete une quete";
@@ -458,60 +458,60 @@ payon_in02,60,70,3	script	Feleon#payon_in02	4_M_FARIY_HISIE,{
 
 //=Culvert=//
 
-izlude,X,Y,Z	script	Belior#iz blablabla,{
-	if ((questprogress(60344) == 1)){ //Quête de Armol  en cours
-		mes "^0000FF[Belior]^000000";
-		mes "Ah tu tombe bien ! C'est Amorl qui t'envoie c'est ça ?";
-		mes "Il m'avait prévenu de ton arrivée imminente,";
-		mes "apparement tu serai un élu prêt à devenir notre mâitre à tous ?!";
-		switch("Oui, du moins je vais essayé","Euh non je ne cmesens pas encore prêt"){
-			case 1:
-				mes "^0000FF[Belior]^000000";
-				mes "Très bien tu as au moins du courage c'est le moins qu'on puisse voir !";
-				mes "Nous allons voir maintenant si tu es prêt à servir ta guilde comme il se doit.";
-				mes "Commence déjà par aller aider tes camarades à Culvert, l'égoût s'est infesté depuis peu et nous avons du mal à contenir la reproduction de ces bêtes";
-				switch("Euh d'accord, où se situe cet endroit?","Les égoûts ? Mais c'est sale et infesté !"){
-					case 1:
-						mes "^0000FF[Belior]^000000";
-						mes "Ah ! Tu es bien brave ! Ca me fait plaisir ! ";
-						mes "Culvert se trouve sur la partie Ouest de Prontera, C'est une petite entrée, surveillé par un Garde.";
-						mes "Tu ne peux pas te tromper !";
-						next;
-						mes "^0000FF[Belior]^000000";
-						mes "Au fait, tiens prend ça, elles te seront sûrement utile là bas !";
-						getitem Red_Potion,25;
-						mes "Rapporte moi la des 20 Earthworm Peeling, 10 Insect Peeler, 15 Feather pour me prouver ton envie !"
-						setquest 60350; //Activation quête (Culvert)
-						dispbottom "Vous avez reçu une nouvelle quête";
-						close;
-					case 2:
-						mes "^0000FF[Belior]^000000";
-						mes "Haha ! Et dire qu'ils t'ont laissé devenir Swordman ! Je n'y crois pas ! ";
-						mes "Reviens quand ton courage sera digne de l'uniforme que tu porte !";
-						close;
-				}
-			case 2:
-				mes "^0000FF[Belior]^000000";
-				mes "Pas encore prêt ? Qu'est-ce que ça veut dire ?";
-				mes "Qui a bien pû me passer un tiroflant pareil ..?";
-				close;
-				
-		OnInit:
-				questinfo 60350, QTYPE_QUEST, 0;
-				end;
-		}
+izlude_in,115,164,1	script	Belior#iz	4_M_EDEN_GUARDER,{
+	if (questprogress(60344) == -1 && BaseJob == Job_Swordman){ //Avoir fini la quete avant (training ground)
+		//Quete pas encore commence
+		mes "^50A92C[Belior]^000000";
+		mes "Tu devrais allez commencer par aller voir ^0000FFAmorl^000000.";
+		mes "Suis ton propre déstin !";
+		close;
 	}
-		else if ((countitem(Earthworm Peeling) < 20) || (countitem(Insect Peeler) < 10) || (countitem(Feather) < 15) && (questprogress(60350) == 1)){ //Quête de Culvert en cours mais pas encore les items
+	
+		else if	(questprogress(60344) == 1){ //Quête de Armol  en cours
+			mes "^0000FF[Belior]^000000";
+			mes "Ah tu tombe bien ! C'est Amorl qui t'envoie c'est ça ?";
+			mes "Il m'avait prévenu de ton arrivée imminente,";
+			mes "apparement tu serai un élu prêt à devenir notre mâitre à tous ?!";
+			switch(select("Oui, du moins je vais essayé","Euh non je ne me sens pas encore prêt")){
+				case 1:
+					mes "^0000FF[Belior]^000000";
+					mes "Très bien tu as au moins du courage c'est le moins qu'on puisse voir !";
+					mes "Nous allons voir maintenant si tu es prêt à servir ta guilde comme il se doit.";
+					mes "Commence déjà par aller aider tes camarades à Culvert, l'égoût s'est infesté depuis peu et nous avons du mal à contenir la reproduction de ces bêtes";
+					switch(select("Euh d'accord, où se situe cet endroit?","Les égoûts ? Mais c'est sale et infesté !")){
+						case 1:
+							mes "^0000FF[Belior]^000000";
+							mes "Ah ! Tu es bien brave ! Ca me fait plaisir ! ";
+							mes "Culvert se trouve sur la partie Ouest de Prontera, C'est une petite entrée, surveillé par un Garde.";
+							mes "Tu ne peux pas te tromper !";
+							next;
+							mes "^0000FF[Belior]^000000";
+							mes "Au fait, tiens prend ça, elles te seront sûrement utile là bas !";
+							getitem Red_Potion,25;
+							mes "Rapporte moi la des 20 Earthworm Peeling, 10 Insect Feeler, 15 Feather pour me prouver ton envie !";
+							setquest 60350; //Activation quête (Culvert)
+							dispbottom "Vous avez reçu une nouvelle quête";
+							close;
+						case 2:
+							mes "^0000FF[Belior]^000000";
+							mes "Haha ! Et dire qu'ils t'ont laissé devenir Swordman ! Je n'y crois pas ! ";
+							mes "Reviens quand ton courage sera digne de l'uniforme que tu porte !";
+							close;
+					}
+				case 2:
+					mes "^0000FF[Belior]^000000";
+					mes "Pas encore prêt ? Qu'est-ce que ça veut dire ?";
+					mes "Qui a bien pû me passer un tiroflant pareil ..?";
+					close;
+			}
+	}
+		else if (questprogress(60350) == 1 && (countitem(1055) < 20 || countitem(928) < 10 || countitem(949) < 15)){ //Quête de Culvert en cours mais pas encore les items
 			mes "^0000FF[Belior]^000000";
 			mes "Vous n'avez pas encore rapporté tous les items.";
 			mes "Reviens quand ce sera le cas !";
 			close;
-			
-		OnInit:
-			questinfo 60350, QTYPE_QUEST, 0;
-			end;
 		}
-		else if { //Quête de Culvert en cours et tout items
+		else if (questprogress(60350) == 1 && (countitem(1055) >= 20 && countitem(928) >= 10 && countitem(949) >= 15)){ //Quête de Culvert en cours et tout items
 			mes "^0000FF[Belior]^000000";
 			mes "Ah ! Amorl ne s'est pas trompé en te recrutant !";
 			mes "Félicitations tu as réussi ta première mission pour le compte de la guilde.";
@@ -522,36 +522,33 @@ izlude,X,Y,Z	script	Belior#iz blablabla,{
 			next;
 			mes "^0000FF[Belior]^000000";
 			mes "Mais ce n'est que le début, d'ailleurs j'en ai reçu une nouvelle pour toi.";
-			mes "Notre Capitaine get_name a perdu son Péco Péco, tu devrais aller le voir pour plus d'informations."
+			mes "Notre Capitaine get_name a perdu son Péco Péco, tu devrais aller le voir pour plus d'informations.";
 			mes "Bonne chance et qu'Odin te protège !";
-			setquest 60356; //Activation de la prochaine quête (PecoPeco)
+			setquest 60356; //Activation de la prochaine quête (PecoPeco);
 			dispbottom "Vous avez reçu une nouvelle quête consulté la avec alt+u";
 			close;
-			
-		OnInit:
-			questinfo 60356, QTYPE_QUEST, 0;
-			end;
 		}
-		else if ((questprogress(60356) == 1)){ //Quête du PecoPeco Perdu - Obtenue & en cours
-			mes "Notre Capitaine get_name a perdu son Péco Péco, tu devrais vraiment aller le voir."
+		else if (questprogress(60356) == 1){ //Quête du PecoPeco Perdu - Obtenue & en cours
+			mes "Notre Capitaine get_name a perdu son Péco Péco, tu devrais vraiment aller le voir.";
 		}
-		else if ((questprogress(60356) == 2)){ //Quête du PecoPeco Perdu - Finie
-			mes "Woah, tu as retrouvé le Péco Péco du capitaine, Super !"
-			mes "Bon, j'ai une autre quête pour toi, j'éspere, que tu pourras me donner un coup de main!"
-			mes "BLABLABLABLA"	
+		else if (questprogress(60356) == 2){ //Quête du PecoPeco Perdu - Finie
+			mes "Woah, tu as retrouvé le Péco Péco du capitaine, Super !";
+			mes "Bon, j'ai une autre quête pour toi, j'éspere, que tu pourras me donner un coup de main!";
+			mes "BLABLABLABLA"	;
 			setquest 60357; //Activation de la prochaine quête 
 			dispbottom "Vous avez reçu une nouvelle quête consulté la avec alt+u";	
 			close;
-			
-		OnInit:
-			questinfo 60356, QTYPE_QUEST, 0;
-			end;
 		}
 	else {
 		mes "^0000FF[Belior]^000000";
 		mes "Alors ? Tu avance dans ta quête";
 		close;
 	}
+	OnInit:
+		questinfo 60350, QTYPE_QUEST, 0;
+		questinfo 60356, QTYPE_QUEST, 0;
+		questinfo 60357, QTYPE_QUEST, 0;
+		end;	
 
 }
 
