@@ -1,0 +1,459 @@
+//===== Hercules Script ======================================
+//= Sample: Quest Test Swordman
+//===== By: ==================================================
+//= Baps & Syph
+//===== Current Version: =====================================
+//= 20131225
+//===== Script Version =======================================
+//= V1 NPC Swordman
+//= V1.1 NPC Mage
+//= V1.2 NPC Acolyte, Thief, Archer
+//===== Description: =========================================
+//= 1er NPC quete principale
+//============================================================
+
+////////////////////SWORDMAN QUEST///////////////////
+
+///////////////
+//NOMS NPCS///
+///////////////////////////////////////
+//Amorl = 1er NPC 1er Quête Déstinée
+//Barruk = Maître Guilde Thief		
+//Belior = 1er Instructeur
+//////////////////////////////////////
+
+izlude_in,72,172,4	script	Amorl#iz	4_M_1STPRIN1,{
+	if (questprogress(60342) == -1){ //Avoir fini la quete avant (training ground)
+		//Quete pas encore commence
+		mes "^50A92C[Amorl]^000000";
+		mes "Tu n'es donc pas au courant des événements en cours, nous attendons l'élu, mais ce n'est pas toi.";
+		mes "Suis ton propre déstin !";
+		close;
+	}
+	else if ((questprogress(60342) == 2) && (BaseJob == Job_Swordman)){ //Precedente quete fini (training ground)
+		//Quete active
+		mes "^50A92C[Amorl]^000000";
+		mes "Bonjour "+strcharinfo(0)+", nous sommes la guilde des ^D41B1BSwordmans^000000,";
+		mes "Nous sommes les plus anciens combattant de Midgard, nous sommes les descendants";
+		mes "direct de Odin !";
+		next;
+		mes "^50A92C[Amorl]^000000";
+		mes "Nos ancetres ont même combattu à ses côtés pendant la tragique guerre de Midgard...";
+		mes "Seul notre ^D41B1BMaitre Barruk^000000 peut encore nous la raconter, car c'est le dernier survivants,";
+		mes "alors il faut bien l'écouter et garder en mémoire nos qui ont combattu pour nous !";
+		next;
+		mes "^50A92C[Amorl]^000000";
+		mes "Avant lui, un grand homme, un héros même était à la tête de notre faction !";
+		mes "il s'appellait ^D41B1BAurus^000000, il avait sû maîtriser l'art du combat à la perfection et son ésprit";
+		mes "lui, était encore plus solide que n'importe quel bouclier fait avec le plus solide des métaux..!";
+		next;
+		mes "^50A92C[Amorl]^000000";
+		mes "Et sache que nous ne sommes pas que des combattants qui ne réfléchissent pas,";
+		mes "il faudra tout aussi bien que tu utilise ta tête pour vaincre tes énnemis ! Comme les ^D41B1BThiefs^000000 !";
+		mes "Pourquoi eux ? Car ils nous ont trahit il y a bien longtemps de ça, pendant que tout";
+		next;
+		mes "^50A92C[Amorl]^000000";
+		mes "Midgard était en guerre contre le mal ! A la derniére grande bataille de l'ancien temps,";
+		mes "nous avons combattu TOUS ensemble contre cet ennemi ! ";
+		mes "Nous étions arrive à le repousser le plus loin possible mais au moment de le renvoyer pour de bon six pieds sous terre,";
+		next;
+		mes "^50A92C[Amorl]^000000";
+		mes "^D41B1BSanafar^000000, chef de la guilde des ^0000FFThiefs^000000 n'a pas voulu vous aider et le mal à pu subsister ";
+		mes "à travers un ésprit à ce qu'on raconte... Depuis ce jour, nous haïssons les ^0000FFThiefs^000000,";
+		mes " ce ne sont que des voleurs qui assassinent leurs ennemies ! Alors ne t'avise pas à traiter avec ces";
+		next;
+		mes "^50A92C[Amorl]^000000";
+		mes "voleurs de sous categories ! Heureusement, les Acolytes ont toujours cru en nous et ont";
+		mes "voulu nous aider à vaincre ce mal. Malheureusement nous n'avons pas réussi...";
+		mes "Mais nous sommes resté en contact avec eux et nous sommes devenus de grand amis ! ";
+		next;
+		mes "^50A92C[Amorl]^000000";
+		mes "Ils prient Dieu sans cesse et ne se battent pas beaucoup c'est pour cela que nous avons decide de les";
+		mes "aider en combattant pour eux et en échange, ils nous soignent et nous permettent de rejoindre ";
+		mes "le ^0000FFValhalla^000000 au moment venu.";
+		next;
+		mes "^50A92C[Amorl]^000000";
+		mes "J'éspere seulement que cet ésprit est bien mort car ces derniers temps, ";
+		mes "on nous rapporte qu'un mal gronde un peu plus loin dans les montagnes de Prontera..! Mais tu en sais bien assez,";
+		mes "j'en ai même trop dit ! Tu n'es qu'une simple recrue, et a encore tout à apprendre !";
+		next;
+		mes "^50A92C[Amorl]^000000";
+		mes "Mais vous ne devez vous soucier de ses problemes, il faut d'abord que tu continu ta formation";
+		mes "au travers de cette guilde et de ses compagnons, et avec un peu de chance tu vivras longtemps et sans encombres !";
+		mes "Mais d'après nos seigneurs, tu serai un élu envoyé par la ^0000FFValkyrie^000000 elle même,";
+		next;
+		mes "^50A92C[Amorl]^000000";
+		mes "puisse t-elle avoir raison ! Si c'est le cas nous le saurons bien assez tôt..!";
+		mes "Allé va maintenant..., adresse toi à ^0000FFBelior^000000 pour poursuivre ta formation, il t'attend dans la pièce à droite. Puisse Odin te guider";
+		setquest 60344; //Active la quete pour aller voir Swordman pour passer sa classe dans alt+u
+		completequest 60343; //Quête Destinée terminée, aller voir l'intendant
+		dispbottom "Vous avez complete une quete";
+		getexp 20000,0; //Donne de l'xp a la fin de la quete 
+		dispbottom "Vous avez gagne 20,000 Xp Base";
+		dispbottom "Vous avez recus une nouvelle quete";
+		close;
+		OnInit:
+			questinfo 60344, QTYPE_QUEST, 0;
+		end;	
+	}
+	else if (questprogress(60344) == 1){
+		mes "^50A92C[Amorl]^000000";
+		mes "Bah alors qu'est-ce que tu attends ! ^0000FFBelior^000000 t'attend dans la pièce à droite!";
+		close;
+	}
+	else{
+		mes "^50A92C[Amorl]^000000";
+		mes "Mais tu ne fais pas encore partis de la guilde des Swordmans ! Passe donc le test pour devenir ^0000FFSwordman^000000.";
+		close;
+	}
+}
+
+////////////////////ACOLYTE QUEST//////////////////
+
+///////////////
+//NOMS NPCS///
+///////////////////////////////////////
+//Père Shawn = 1er NPC 1er Quête Déstinée
+//Ryoul = Maître Guilde Thief		
+//Soeur Mathild = 1er Instructeur
+//////////////////////////////////////
+
+prt_church,103,84,3	script	Pere_Shawn#prt_in	4_M_OLDFRIAR,{
+	if (questprogress(60342) == -1){ //Avoir fini la quete avant (training ground){
+		//Quete pas encore commence
+		mes "^50A92C[Pere Shawn]^000000";
+		mes "Que fais tu ici ? Nous ne t'attendons pas ici, nous attendons un élu !";
+		mes "Bonne chance à toi ! Et puisse Dieu guider tes pas ";
+		close;
+	}
+	else if ((questprogress(60342) == 2) && (BaseJob == Job_Acolyte)){ //Precedente quete fini (training ground)
+		//Quete active
+		mes "^50A92C[Pere Shawn]^000000";
+		mes "Bienvenu a toi "+strcharinfo(0)+",  si tu es ici c’est que tu as choisi de devenir un enfant de notre seigneur.";
+		mes "Celui-ci m’avait prevenu de ton arrivée, il faut selon lui te proteger contre le monde exterieur au maximum, car tu es l’élu !";
+		next;
+		mes "^50A92C[Pere Shawn]^000000";
+		mes "Sache que si c’est vrai, cela fait plusieurs siècles que nous attendions.";
+		mes "Je me presente, je m’appelle Pere Shawn et je suis Père dans cette église et dans ce monde qu’est Midgard en representant la guilde des ^D41B1BAcolytes^000000.";
+		mes "Nous nous sommes efforcés depuis toujours à respecter notre prochain et à aider Midgard au maximum.";
+		next;
+		mes "^50A92C[Pere Shawn]^000000";
+		mes "Effectivement nous ne sommes pas très fort, mais avec notre volonté et notre croyance en Dieu, nous pouvons aider n’importer qui.";
+		mes "Surtout que depuis quelque temps, nos émissaires des quatre coins de Midgard nous ont rapporté que certains phénomènes étranges se passent.";
+		mes "Certains ont meme cru voir un mal qui était si terrible qu’ils en sont devenus aveugles …";
+		next;
+		mes "^50A92C[Pere Shawn]^000000";
+		mes "Ce monde devient de plus en plus étrange au fil des jours.";
+		mes "Il me semblait pourtant qu’il n’y avait plus aucun mal en ce bas monde depuis la fin de la Grande Guerre.";
+		mes "^D41B1BSeigneur Ryoul^000000 peut te la conter si tu le souhaites, ce sera le seul de notre guilde à pouvoir le faire, car il etait vivant encore à cette époque.";
+		next;
+		mes "^50A92C[Pere Shawn]^000000";
+		mes "Tout ce que je peux te dire c'est que ce fut une bataille épique, toutes les guildes de tous les horizons s’étaient réunies sous la même couleur pour vaincre ce mal !";
+		mes "D’apres les derniers survivants, ce mal serait vaincu et n’existerait plus.";
+		mes "Mais dernierement, notre chef apres un conseil avec ^D41B1BBarruk^000000, le chef de la guilde des Swordmans avec laquelle nous entretenons d’excellentes relations depuis maintenant des siècles";
+		mes" grâce notamment à notre religion qui est la même, ce mal aurait survecu et il gagnerait en force pour réattaquer ce monde.";
+		next;
+		mes "^50A92C[Pere Shawn]^000000";
+		mes "M’enfin je t’en ai deja trop dit...";
+		mes "Tu ne devrais pas encore avoir à te soucier de tout ça, tu n’es pour le moment encore qu’un simple aspirant.";
+		mes "Ne te préoccupe guére de ce que je viens de te dire, car ce ne sont que speculations, aucun fait rapporté n’a encore été prouvé.";
+		next;
+		mes "^50A92C[Pere Shawn]^000000";
+		mes "Ce sont sûrement ces maudits ^0000FFMages^000000 qui font encore de la magie noire pour faire peur à tout le monde !";
+		mes "Ils doivent cacher quelque chose dans leur guilde et ils veulent que personne ne le découvre !";
+		mes "Nous les détestons, ce ne sont que des êtres malveillants qui pratique la magie interdite à des fins personnelles et malveillantes !";
+		mes "Une magie érudite que notre Dieu n’aurait jamais accordée à nous simples humains !";
+		next;
+		mes "^50A92C[Pere Shawn]^000000";
+		mes "Enfin bon, après t’avoir raconté tout ca, tu n’as sûrement qu’une envie c’est de commencer ta quête.";
+		mes "Tu peux y aller maintenant, je ne te retiens pas plus longtemps !";
+		mes "Soeur Mathild t'attend pour ton baptême, elle doit être en train de prier dans la nef."
+		setquest 60345; //Active la quete pour aller voir Father X pour passer sa classe dans alt+u
+		completequest 60343; //Quête Destinée terminée, aller voir l'intendant
+		dispbottom "Vous avez complete une quete";
+		getexp 20000,0; //Donne de l'xp a la fin de la quete 
+		dispbottom "Vous avez gagne 20,000 Xp Base";
+		dispbottom "Vous avez recus une nouvelle quete";
+		close;
+		OnInit: //Initialisation de la prochaine quete
+			questinfo 60345, QTYPE_QUEST, 0;
+		end;	
+	}
+	else if (questprogress(60345) == 1){ //Quete 60344 lancee
+        mes "^50A92C[Pere Shawn]^000000";
+        mes "Tu hésite mon enfant ? Va voir Soeur Mathild dans la nef.";
+        close;
+    }
+    else{
+        mes "^50A92C[Pere Shawn]^000000";
+        mes "Que fais tu ici ? Tu dois davord passer ta quête d'^0000FFAcolyte^000000.";
+        close;
+    }
+}
+
+/////////////////////MAGE QUEST//////////////////
+
+///////////////
+//NOMS NPCS///
+///////////////////////////////////////
+//Aguara = 1er NPC 1er Quête Déstinée
+//Eukra = Maître Guilde Thief		
+//Olafe = 1er Instructeur
+//////////////////////////////////////
+
+geffen_in,174,110,6	script	Aguara#geffen_in	1_F_SIGNZISK,{
+	if (questprogress(60342) == -1){ //Avoir fini la quete avant (training ground){
+		//Quete pas encore commence
+		mes "^50A92C[Aguara]^000000";
+		mes "Que fais tu ici ? Nous ne t'attendons pas ici, nous attendons un élu !";
+		mes "Bonne chance à toi ! Et puisse Dieu guider tes pas ";
+		close;
+	}
+	else if ((questprogress(60342) == 2) && (BaseJob == Job_Mage)){ //Precedente quete fini (training ground)
+		//Quete active
+		mes "^50A92C[Aguara]^000000";
+		mes "Bonjour "+strcharinfo(0)+", laisse-moi deviner, tu es ici pour devenir ^D41B1BMage^000000 n’est-ce pas ? ";
+		mes "Je dois d’abord t’avertir que devenir ^D41B1BMage^000000 te donnera accés à une magie que seuls les plus témeraires arriveront à maîtriser !";
+		mes "Et je peux te dire que ce n’est pas de tout repos !";
+		next;
+		mes "^50A92C[Aguara]^000000";
+		mes "Trêve de bavardage, je me présente, on m’appelle Aguara, je fais partie de la guilde des ^D41B1BMages^000000. Je ne suis pas le plus haut place, mais je me débrouille bien.";
+		mes "Si tu veux devenir le maître, il faudra avant tout que tu surpasses celui actuel qui est ^0000FFEukra^000000.";
+		mes "C’est lui le meilleur d’entre nous, il est très intelligent et manie les sorts comme personne en ce monde !";
+		next;
+		mes "^50A92C[Aguara]^000000";
+		mes "Effectivement nous ne sommes pas très fort, mais avec notre volonte et notre croyance en Dieu, nous pouvons aider n’importer qui.";
+		mes "Certaines personnes dans Midgard nous prennent pour des sorciers maléfiques qui utilisent leurs pouvoirs pour répandre la peur et la tristesse !";
+		mes "Comme les ^0000FFAcolytes^000000 par exemple, pour eux nous ne sommes pas des descendants d’Odin car nous pratiquons une magie bien differente de la leur !";
+		next;
+		mes "^50A92C[Aguara]^000000";
+		mes "Mais ils ont tort, nous nous éfforçons d’utiliser notre magie pour aider le monde de Midgard !!";
+		mes "Si seulement ils sortaient un peu de leur église !";
+		next;
+		mes "^50A92C[Aguara]^000000";
+		mes "Dans un ancien temps, nous avions combattu ensemble main dans la main pour détruire une force maléfique très puissante.";
+		mes "Mais depuis plusieurs décennies, notre relation s’est degradée jusqu’à ne plus exister du tout…";
+		mes "Celui qui pourra t’en parler le mieux est notre chef. Mais ce n’est pas grave, nous vivons très bien sans eux, nous n’avons pas besoin d’eux !";
+		next;
+		mes "^50A92C[Aguara]^000000";
+		mes "Heureusement nous avons encore un allié qui nous est très cher !";
+		mes "Ce sont les ^0000FFMerchants^000000, ils ne nous ont jamais laissé tomber.";
+		mes "Car comme tu peux t’en douter, en tant que Mage, nous avons sans cesse besoin d’objets pour créer des potions, car certains sorts nécessitent énormement d’énergie et nous devons donc nous regenerer grâce à elles.";
+		next;
+		mes "^50A92C[Aguara]^000000";
+		mes "De plus, nous avons besoin d’un certain type d’objets pour lancer certains sorts, des sorts très puissants.";
+		mes "Et ce sont les ^0000FFMerchants^000000 qui nous ont toujours fournies. Grâce à eux nous pouvons perdurer dans Midgard.";
+		mes "Nous avons donc bâti un partenariat depuis très longtemps maintenant.";
+		next;
+		mes "^50A92C[Aguara]^000000";
+		mes "Ce dernier nous sera peut-être bientôt encore plus utile, car d’après ce que mes superieurs ont entendu, un mal se fait de plus en plus présent…";
+		mes "Nous devons nous preparer a toutes les eventualites.";
+		mes "Tout ceci n’est que supputations et il ne faut sûrement pas en tenir compte, tu es jeune et faible encore, ces hypothèses ne doivent pas t’atteindre !";
+		mes "Commence déjà par apprendre la magie ! ^D41B1BOlafe^000000 t’attend, tu devrais aller le voir !";
+		setquest 60346; //Active la quete pour aller voir Father X pour passer sa classe dans alt+u
+		completequest 60343; //Quête Destinée terminée, aller voir l'intendant
+		dispbottom "Vous avez complete une quete";
+		getexp 20000,0; //Donne de l'xp a la fin de la quete 
+		dispbottom "Vous avez gagne 20,000 Xp Base";
+		dispbottom "Vous avez recus une nouvelle quete";
+		close;
+		OnInit: //Initialisation de la prochaine quete
+			questinfo 60346, QTYPE_QUEST, 0;
+		end;	
+	}
+	else if (questprogress(60346) == 1){ //Quete 60344 lancee
+        mes "^50A92C[Aguara]^000000";
+        mes "Tu ne veux pas devenir un puissant mage? Va voir ^0000FFOlafe^000000";
+        close;
+    }
+    else{
+        mes "^50A92C[Aguara]^000000";
+        mes "Que fais tu ici ? Tu dois d'abord devenir ^0000FFMage^0000FF.";
+        close;
+    }
+}
+
+///////////////////THIEF QUEST//////////////////
+
+///////////////
+//NOMS NPCS///
+///////////////////////////////////////
+//Pydar = 1er NPC 1er Quête Déstinée//
+//Sanafar = Maître Guilde Thief		//
+//Venem = 1er Instructeur
+//////////////////////////////////////
+
+moc_prydb1,46,135,4	script	Pydar#pyr	4_M_THIEF_RUMIN,{
+	if (questprogress(60342) == -1){ //Avoir fini la quete avant (training ground){
+		//Quete pas encore commence
+		mes "^50A92C[Pydar]^000000";
+		mes "Comment es-tu venu ici ? C'est un endroit secret que seul les personnes déstinés à devenir ^D41B1BThief trouve !";
+		mes "Retourne de là où tu viens !";
+		close;
+	}
+	else if ((questprogress(60342) == 2) && (BaseJob == Job_Thief)){ //Precedente quete fini (training ground)
+		//Quete active
+		mes "^50A92C[Pydar]^000000";
+		mes "Bonjour "+strcharinfo(0)+",je m'appelle Pydar et si tu es ici c'est que tu as décidé de rallier la guilde secrète de Midgard, les ^D41B1BThiefs^000000.";
+		mes "Nos échecs sont connus de tous, mais nos succès ne sont connu que de nous, tel est le prix à payer pour faire partie de la guilde.";
+		mes "Nous sommes les serviteurs de Loki, dieu de la sournoiserie et sa fille Hel, déesse des morts.";
+		next;
+		mes "^50A92C[Pydar]^000000";
+		mes "Tout le monde nous traite de voleurs ou bien encore d’assassins en particulier les ^0000FFSwordmans^000000, mais ne les écoute pas.";
+		mes "Nous menons une vie de vagabond et la vouons entièrement à l’art de la discrétion.";
+		mes "Ne te méprends pas jeune apprenti, la voix de ^D41B1BThief^000000 est dur. ";
+		next;
+		mes "^50A92C[Pydar]^000000";
+		mes "Tes entraînements seront longs et fastidieux. Seule une poignée d’initiées peuvent prétendre devenir maîtres un jour.";
+		mes "Il va falloir que tu deviennes une ombre pour surprendre et vaincre tes ennemis.";
+		mes "L'effet de surprise sera ta principale arme et tes lames ton salut ! ";
+		next;
+		mes "^50A92C[Pydar]^000000";
+		mes "Ton travail ne sera pas simple, tu devras tuer les monstres de Midgard mais aussi surveiller les ^0000FFSwordmans^000000, ces satanés épéistes !  ";
+		mes "Ces soldats de pacotilles, vivant dans les grandes villes et dans leurs châteaux qui ne sont que plus grands du fait de leur égo.";
+		mes "Ils veulent soi-disant faire justice, mais ne te fais pas berner.";
+		next;
+		mes "^50A92C[Pydar]^000000";
+		mes "Ils ne cherchent qu’à augmenter leur force et leur contrôle sur Midgard, terre de liberté et terre de tous.";
+		mes "Pourtant, l’on raconte que jadis, toutes les guildes s’étaient unies pour combattre un grand Mal.";
+		mes "Les Thiefs prêtaient main-forte aux combats pour arracher et soustraire, et parfois même, au péril de leurs vies, des informations à l’ennemi. ";
+		next;
+		mes "^50A92C[Pydar]^000000";
+		mes "C’est d’ailleurs durant cette grande guerre que naquit notre maître à tous « ^D41B1BSanafar^000000 ».";
+		mes "Il est le seul à avoir su manier à la perfection l’art, de la discrétion, du maniement des poisons et bien d’autres encore.";
+		mes "Suis ces pas et peut-être un jour toi aussi tu mériteras de porter l’habit des maîtres.";
+		mes "C'est aussi grâce aux ^0000FFArchers^000000 que nous avons acquis toutes ces connaissances au niveau du poison, ils nous ont toujours soutenus.";
+		mes "Et nous les en remercions car les alliés se comptent sur les doigts d'une main d'un mutilé aujourd'hui !";
+		next;
+		mes "^50A92C[Pydar]^000000";
+		mes "En éspérant que tu puisse y parvenir assez vite car d'après nos informateurs, un grand mal est revenu ces derniers temps..!";
+		mes "J'ai peur que notre mort soit déjà écrite ! Espérons que Midgard survive à ce nouvel épisode !";
+		mes "Mais je m’égare, tu n’es encore qu’un apprenti. Il te reste beaucoup à apprendre.";
+		next;
+		mes "^50A92C[Pydar]^000000";
+		mes "Suis le chemin des ombres et trouve ^0000FFVenem^000000 pour commencer ta quête.";
+		mes "Que Loki et Hel te garde et te montre le chemin à prendre.";
+		setquest 60347; //Active la quete pour aller voir X pour passer sa classe dans alt+u
+		completequest 60343; //Quête Destinée terminée, aller voir l'intendant
+		dispbottom "Vous avez complete une quete";
+		getexp 20000,0; //Donne de l'xp a la fin de la quete 
+		dispbottom "Vous avez gagne 20,000 Xp Base";
+		dispbottom "Vous avez recus une nouvelle quete";
+		close;
+		OnInit: //Initialisation de la prochaine quete
+			questinfo 60347, QTYPE_QUEST, 0;
+		end;	
+	}
+	else if (questprogress(60347) == 1){ //Quete 60344 lancee
+        mes "^50A92C[Pydar]^000000";
+        mes "Qu'attends-tu ? Retrouve ^0000FFVenem^000000 !";
+        close;
+    }
+    else{
+        mes "^50A92C[Pydar]^000000";
+        mes "Que fais tu ici ? Aprend les bases de nos précepte en passant ^0000FFTheif^000000";
+        close;
+    }
+}
+
+
+////////////////ARCHER QUEST//////////////////
+
+
+///////////////
+//NOMS NPCS///
+///////////////////////////////////////
+//Feleon = 1er NPC 1er Quête Déstinée//
+//Fohenn = 1er Instructeur
+//////////////////////////////////////
+
+payon_in02,60,70,3	script	Feleon#payon_in02	4_M_FARIY_HISIE,{
+	if (questprogress(60342) == -1){
+		mes "^50A92C[Feleon]^000000";
+		mes "Que fais tu ici ? Nous ne t'attendons pas ici, nous attendons un elu !";
+		mes "Bonne chance a toi jeune pousse ! Et puisse la Déesse te proteger.";
+		close;
+	}
+	else if ((questprogress(60342) == 2) && (BaseJob == Job_Archer)){ 
+		mes "^50A92C[Feleon]^000000";
+		mes "Salutation "+strcharinfo(0)+", serais-tu venu ici dans le but de communier avec mère Nature ?";
+		mes "Si c’est le cas, tu es au bon endroit petit bourgeon.";
+		next;
+		mes "^50A92C[Feleon]^000000";
+		mes "La guilde des Archers est prête à t’accueillir à branches ouvertes, ainsi que la Déesse Nerthus, mère de la Terre et de la fécondité, Déesse de la vie.";
+		next;
+		mes "^50A92C[Feleon]^000000";
+		mes "Cependant si tu n’es pas là pour la protéger et la servir, alors tu n’as qu’à rejoindre la guilde des MEURTRIERS et DESTRUCTEURS des Terres sauvages.";
+		next;
+		mes "^50A92C[Feleon]^000000";
+		mes "Cette guilde des Marchands, qui ne soucie que de ses profits, en pillant et saccageant les Terres !";
+		mes "… Je te prie de m’excuser, il m’arrive parfois de m’emporter un peu lorsque je parle de ces TRAITRES, ASSASSINS … Désolé je recommence …";
+		next;
+		mes "^50A92C[Feleon]^000000";
+		mes "*Prend une grande et lente respiration*";
+		mes "Tu es donc venu nous voir pour communier avec la nature et tu es le bien venu, sache-le. J’espère qu’un jour, toi aussi, tu auras la chance, que dis-je, le privilège de partit courir les bois avec nôtre chef, afin qu’il puisse te conter nôtre belle et grande histoire. Car malgré des jours funestes jadis, la guilde des archers n’a jamais failli à sa mission d’éclaireur et de protecteur des Terres sauvages.";
+		next;
+		mes "^50A92C[Feleon]^000000";
+		mes "Et nous continuerons cette quête, « Que Nerthus m’en soit témoin ! La guilde des archers ne faillera jamais ! ».";
+		mes "Mais il t’en parlera certainement mieux que moi. Je crains fort de ne pas être à la hauteur d’une si grande tâche.";
+		next;
+		mes "^50A92C[Feleon]^000000";
+		mes "Quoi qu’il en soit, jeune pousse, tu vas devoir grandir et éclore avant de pouvoir un jour, dépasser nôtre Maître à tous « Eoliate », qui d’après la légende, était capable de contrôler les oiseaux et était devenu maître dans le maniement de l’arc et des flèches. Mais là encore, je ne suis pas suffisamment digne pour te parler de ce héros avec toute l’éloquence requise.";
+		next;
+		mes "^50A92C[Feleon]^000000";
+		mes"Enfin … Il est grand temps pour toi d’ouvrir tes ailes et t’envoler voir ^0000FFFohenn^000000 pour commencer ta communion avec la nature."; 
+		mes "Trouve-le et épanoui toi petit scarabée.";
+		mes "Que Nerthus t’inonde de sa bienveillance et de sa bonté.« Arc Lointain !!! »";
+		setquest 60348; 
+		completequest 60343;		
+		getexp 20000,0; 
+		dispbottom "Vous avez gagne 20,000 Xp Base";
+		dispbottom "Vous avez reçus une nouvelle quête";
+		close;
+		OnInit: 
+			questinfo 60348, QTYPE_QUEST, 0;
+		end;	
+	}
+	else if (questprogress(60348) == 1){ 
+        mes "^50A92C[Feleon]^000000";
+        mes "Cours, chante, vole jusuq'a ^0000FFFohenn^000000 jeune pousse!";
+        close;
+    }
+    else{
+        mes "^50A92C[Feleon]^000000";
+        mes "De quelle branche est tu tombée jeune pousse? Rejoins nous en devenant ^0000FFArcher^000000";
+        close;
+    }
+}
+
+///////////////////MERCHANT QUEST///////////////////
+
+///////////////
+//NOMS NPCS///
+///////////////////////////////////////
+//
+//
+//////////////////////////////////////
+
+
+
+
+//////////////////
+//Quetes - Chap 1
+//////////////////
+
+///////////////////SWORDMAN QUEST///////////////////
+
+///////////////////ACOLYTE QUEST///////////////////
+
+///////////////////MAGE QUEST///////////////////
+
+///////////////////ARCHER QUEST///////////////////
+
+///////////////////THIEF QUEST///////////////////
+
+///////////////////MERCHANT QUEST///////////////////
+
+
+
+
