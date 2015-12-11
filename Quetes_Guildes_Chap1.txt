@@ -26,8 +26,7 @@
 //////////////////////////////////////
 
 izlude_in,72,172,4	script	Amorl#iz	4_M_1STPRIN1,{
-	if (questprogress(60342) == -1){ //Avoir fini la quete avant (training ground)
-		//Quete pas encore commence
+	if (questprogress(60342) == -1){ //Quete pas encore commence
 		mes "^50A92C[Amorl]^000000";
 		mes "Tu n'es donc pas au courant des événements en cours, nous attendons l'élu, mais ce n'est pas toi.";
 		mes "Suis ton propre déstin !";
@@ -459,10 +458,10 @@ payon_in02,60,70,3	script	Feleon#payon_in02	4_M_FARIY_HISIE,{
 //=Culvert=//
 
 izlude_in,115,164,1	script	Belior#iz	4_M_EDEN_GUARDER,{
-	if (questprogress(60344) == -1 && BaseJob == Job_Swordman){ //Avoir fini la quete avant (training ground)
+	if ((questprogress(60342) == 2) && (BaseJob == Job_Swordman)){ //Avoir fini la quete avant (training ground)
 		//Quete pas encore commence
 		mes "^50A92C[Belior]^000000";
-		mes "Tu devrais allez commencer par aller voir ^0000FFAmorl^000000.";
+		mes "Tu devrais commencer par allé voir ^0000FFAmorl^000000.";
 		mes "Suis ton propre déstin !";
 		close;
 	}
