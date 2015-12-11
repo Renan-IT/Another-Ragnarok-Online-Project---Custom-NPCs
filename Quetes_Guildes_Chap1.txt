@@ -12,7 +12,9 @@
 //= 1er NPC quete principale
 //============================================================
 
+/////////////////////////////////////////////////////
 ////////////////////SWORDMAN QUEST///////////////////
+/////////////////////////////////////////////////////
 
 ///////////////
 //NOMS NPCS///
@@ -108,7 +110,10 @@ izlude_in,72,172,4	script	Amorl#iz	4_M_1STPRIN1,{
 	}
 }
 
-////////////////////ACOLYTE QUEST//////////////////
+
+/////////////////////////////////////////////////////
+////////////////////ACOLYTE QUEST////////////////////
+/////////////////////////////////////////////////////
 
 ///////////////
 //NOMS NPCS///
@@ -191,7 +196,9 @@ prt_church,103,84,3	script	Pere_Shawn#prt_in	4_M_OLDFRIAR,{
     }
 }
 
-/////////////////////MAGE QUEST//////////////////
+/////////////////////////////////////////////////////
+/////////////////////MAGE QUEST//////////////////////
+/////////////////////////////////////////////////////
 
 ///////////////
 //NOMS NPCS///
@@ -273,7 +280,9 @@ geffen_in,174,110,6	script	Aguara#geffen_in	1_F_SIGNZISK,{
     }
 }
 
-///////////////////THIEF QUEST//////////////////
+/////////////////////////////////////////////////////
+///////////////////THIEF QUEST///////////////////////
+/////////////////////////////////////////////////////
 
 ///////////////
 //NOMS NPCS///
@@ -356,9 +365,9 @@ moc_prydb1,46,135,4	script	Pydar#pyr	4_M_THIEF_RUMIN,{
     }
 }
 
-
-////////////////ARCHER QUEST//////////////////
-
+/////////////////////////////////////////////////////
+////////////////ARCHER QUEST/////////////////////////
+/////////////////////////////////////////////////////
 
 ///////////////
 //NOMS NPCS///
@@ -426,7 +435,9 @@ payon_in02,60,70,3	script	Feleon#payon_in02	4_M_FARIY_HISIE,{
     }
 }
 
+/////////////////////////////////////////////////////
 ///////////////////MERCHANT QUEST///////////////////
+/////////////////////////////////////////////////////
 
 ///////////////
 //NOMS NPCS///
@@ -443,6 +454,95 @@ payon_in02,60,70,3	script	Feleon#payon_in02	4_M_FARIY_HISIE,{
 //////////////////
 
 ///////////////////SWORDMAN QUEST///////////////////
+
+//=Culvert=//
+
+izlude,X,Y,Z	script	Belior#iz blablabla,{
+	if ((questprogress(6034X) == 2) && (BaseJob == Job_Swordman)){ //Quête de Armol terminé et Swordman
+		mes "^0000FF[Belior]^000000";
+		mes "Ah tu tombe bien ! C'est Amorl qui t'envoie c'est ça ?";
+		mes "Il m'avait prévenu de ton arrivée imminente,";
+		mes "apparement tu serai un élu prêt à devenir notre mâitre à tous ?!";
+		switch("Oui, du moins je vais essayé","Euh non je ne cmesens pas encore prêt"){
+			case 1:
+				mes "^0000FF[Belior]^000000";
+				mes "Très bien tu as au moins du courage c'est le moins qu'on puisse voir !";
+				mes "Nous allons voir maintenant si tu es prêt à servir ta guilde comme il se doit.";
+				mes "Commence déjà par aller aider tes camarades à Culvert, l'égoût s'est infesté depuis peu et nous avons du mal à contenir la reproduction de ces bêtes";
+				switch("Euh d'accord, où se situe cet endroit?","Les égoûts ? Mais c'est sale et infesté !"){
+					case 1:
+						mes "^0000FF[Belior]^000000";
+						mes "Ah ! Tu es bien brave ! Ca me fait plaisir ! ";
+						mes "Culvert se trouve sur la partie Ouest de Prontera, C'est une petite entrée, surveillé par un Garde.";
+						mes "Tu ne peux pas te tromper !";
+						next;
+						mes "^0000FF[Belior]^000000";
+						mes "Au fait, tiens prend ça, elles te seront sûrement utile là bas !";
+						getitem Red_Potion,25;
+						mes "Rapporte moi la des 20 Earthworm Peeling, 10 Insect Peeler, 15 Feather pour me prouver ton envie !"
+						setquest 603XX; //Activation quête (Culvert)
+						dispbottom "Vous avez reçu une nouvelle quête";
+						close;
+						OnInit:
+							questinfo 603XX, QTYPE_QUEST, 0;
+						end;
+					case 2:
+						mes "^0000FF[Belior]^000000";
+						mes "Haha ! Et dire qu'ils t'ont laissé devenir Swordman ! Je n'y crois pas ! ";
+						mes "Reviens quand ton courage sera digne de l'uniforme que tu porte !";
+						close;
+				}
+			case 2:
+				mes "^0000FF[Belior]^000000";
+				mes "Pas encore prêt ? Qu'est-ce que ça veut dire ?";
+				mes "Qui a bien pû me passer un tiroflant pareil ..?";
+				close;
+		}
+	}
+		if ((countitem(Earthworm Peeling) < 20) || (countitem(Insect Peeler) < 10) || countitem(Feather) < 15) && questprogress(603XX) == 2){ //Quête de Culvert en court mais pas encore les items
+			mes "^0000FF[Belior]^000000";
+			mes "Vous n'avez pas encore rapporté tous les items.";
+			mes "Reviens quand ce sera le cas !";
+			close;
+		}
+		else{
+			mes "^0000FF[Belior]^000000";
+			mes "Ah ! Amorl ne s'est pas trompé en te recrutant !";
+			mes "Félicitations tu as réussi ta première mission pour le compte de la guilde.";
+			mes "Tout effort mérite récompte ! Tiens prends ceci";
+			completequest 603XX; //Quête donner par ce même NPC terminée
+			getexp 20000,10000;
+			dispbottom "Vous avez fini une quête";
+			next;
+			mes "^0000FF[Belior]^000000";
+			mes "Mais ce n'est que le début, d'ailleurs j'en ai reçu une nouvelle pour toi.";
+			mes "Notre Capitaine get_name a perdu son Péco Péco, tu devrais aller le voir pour plus d'information."
+			mes "Bonne chance et qu'Odin te protège !";
+			setquest 603XX; //Activation de la prochaine quête (PecoPeco)
+			dispbottom "Vous avez reçu une nouvelle quête consulté la avec alt+u";
+			setalrdytalk, 1; //Activaiton variable "déjà parlé"
+			close;
+			OnInit:
+				questinfo 603XXX, QTYPE_QUEST, 0;
+			end;
+		}
+		if ((questprogress(604XX) == 2) && setalrdytalk == 1){ //Quête de Culvert terminée
+			mes "^0000FF[Belior]^000000";
+			mes "Va voir le Capitaine get_name, il se trouve à Culvert à l'Ouest de Prontera."
+			close;
+		}
+		else{
+			mes "^0000FF[Belior]^000000";
+			mes "Oh ! "+strcharinfo(0)+" , comment se passe ton aventure au sein de la guilde ?";
+			close;
+		}
+	else{
+		mes "^0000FF[Belior]^000000";
+		mes "Que veux tu ? Je ne te suis pas d'une grande utilité pour toi désolé";
+		close;
+	}
+
+}
 
 ///////////////////ACOLYTE QUEST///////////////////
 
