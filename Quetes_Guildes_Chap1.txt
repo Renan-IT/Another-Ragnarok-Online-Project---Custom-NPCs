@@ -360,7 +360,7 @@ moc_prydb1,46,135,4	script	Pydar#pyr	4_M_THIEF_RUMIN,{
     }
     else{
         mes "^50A92C[Pydar]^000000";
-        mes "Que fais tu ici ? Aprend les bases de nos précepte en passant ^0000FFTheif^000000";
+        mes "Que fais tu ici ? Aprend les bases de nos précepte en passant ^0000FFThief^000000";
         close;
     }
 }
