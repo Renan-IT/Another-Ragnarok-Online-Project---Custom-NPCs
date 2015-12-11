@@ -459,7 +459,7 @@ payon_in02,60,70,3	script	Feleon#payon_in02	4_M_FARIY_HISIE,{
 //=Culvert=//
 
 izlude,X,Y,Z	script	Belior#iz blablabla,{
-	if ((questprogress(6034X) == 2) && (BaseJob == Job_Swordman)){ //Quête de Armol terminé et Swordman
+	if ((questprogress(60344) == 1)){ //Quête de Armol  en cours
 		mes "^0000FF[Belior]^000000";
 		mes "Ah tu tombe bien ! C'est Amorl qui t'envoie c'est ça ?";
 		mes "Il m'avait prévenu de ton arrivée imminente,";
@@ -481,12 +481,9 @@ izlude,X,Y,Z	script	Belior#iz blablabla,{
 						mes "Au fait, tiens prend ça, elles te seront sûrement utile là bas !";
 						getitem Red_Potion,25;
 						mes "Rapporte moi la des 20 Earthworm Peeling, 10 Insect Peeler, 15 Feather pour me prouver ton envie !"
-						setquest 603XX; //Activation quête (Culvert)
+						setquest 60350; //Activation quête (Culvert)
 						dispbottom "Vous avez reçu une nouvelle quête";
 						close;
-						OnInit:
-							questinfo 603XX, QTYPE_QUEST, 0;
-						end;
 					case 2:
 						mes "^0000FF[Belior]^000000";
 						mes "Haha ! Et dire qu'ils t'ont laissé devenir Swordman ! Je n'y crois pas ! ";
@@ -498,48 +495,61 @@ izlude,X,Y,Z	script	Belior#iz blablabla,{
 				mes "Pas encore prêt ? Qu'est-ce que ça veut dire ?";
 				mes "Qui a bien pû me passer un tiroflant pareil ..?";
 				close;
+				
+		OnInit:
+				questinfo 60350, QTYPE_QUEST, 0;
+				end;
 		}
 	}
-		if ((countitem(Earthworm Peeling) < 20) || (countitem(Insect Peeler) < 10) || countitem(Feather) < 15) && questprogress(603XX) == 2){ //Quête de Culvert en court mais pas encore les items
+		else if ((countitem(Earthworm Peeling) < 20) || (countitem(Insect Peeler) < 10) || (countitem(Feather) < 15) && (questprogress(60350) == 1)){ //Quête de Culvert en cours mais pas encore les items
 			mes "^0000FF[Belior]^000000";
 			mes "Vous n'avez pas encore rapporté tous les items.";
 			mes "Reviens quand ce sera le cas !";
 			close;
+			
+		OnInit:
+			questinfo 60350, QTYPE_QUEST, 0;
+			end;
 		}
-		else{
+		else if { //Quête de Culvert en cours et tout items
 			mes "^0000FF[Belior]^000000";
 			mes "Ah ! Amorl ne s'est pas trompé en te recrutant !";
 			mes "Félicitations tu as réussi ta première mission pour le compte de la guilde.";
 			mes "Tout effort mérite récompte ! Tiens prends ceci";
-			completequest 603XX; //Quête donner par ce même NPC terminée
+			completequest 60350; //Quête de culvert terminée
 			getexp 20000,10000;
-			dispbottom "Vous avez fini une quête";
+			dispbottom "Vous avez complété une quête";
 			next;
 			mes "^0000FF[Belior]^000000";
 			mes "Mais ce n'est que le début, d'ailleurs j'en ai reçu une nouvelle pour toi.";
-			mes "Notre Capitaine get_name a perdu son Péco Péco, tu devrais aller le voir pour plus d'information."
+			mes "Notre Capitaine get_name a perdu son Péco Péco, tu devrais aller le voir pour plus d'informations."
 			mes "Bonne chance et qu'Odin te protège !";
-			setquest 603XX; //Activation de la prochaine quête (PecoPeco)
+			setquest 60356; //Activation de la prochaine quête (PecoPeco)
 			dispbottom "Vous avez reçu une nouvelle quête consulté la avec alt+u";
-			setalrdytalk, 1; //Activaiton variable "déjà parlé"
 			close;
-			OnInit:
-				questinfo 603XXX, QTYPE_QUEST, 0;
+			
+		OnInit:
+			questinfo 60356, QTYPE_QUEST, 0;
 			end;
 		}
-		if ((questprogress(604XX) == 2) && setalrdytalk == 1){ //Quête de Culvert terminée
-			mes "^0000FF[Belior]^000000";
-			mes "Va voir le Capitaine get_name, il se trouve à Culvert à l'Ouest de Prontera."
-			close;
+		else if ((questprogress(60356) == 1)){ //Quête du PecoPeco Perdu - Obtenue & en cours
+			mes "Notre Capitaine get_name a perdu son Péco Péco, tu devrais vraiment aller le voir."
 		}
-		else{
-			mes "^0000FF[Belior]^000000";
-			mes "Oh ! "+strcharinfo(0)+" , comment se passe ton aventure au sein de la guilde ?";
+		else if ((questprogress(60356) == 2)){ //Quête du PecoPeco Perdu - Finie
+			mes "Woah, tu as retrouvé le Péco Péco du capitaine, Super !"
+			mes "Bon, j'ai une autre quête pour toi, j'éspere, que tu pourras me donner un coup de main!"
+			mes "BLABLABLABLA"	
+			setquest 60357; //Activation de la prochaine quête 
+			dispbottom "Vous avez reçu une nouvelle quête consulté la avec alt+u";	
 			close;
+			
+		OnInit:
+			questinfo 60356, QTYPE_QUEST, 0;
+			end;
 		}
-	else{
+	else {
 		mes "^0000FF[Belior]^000000";
-		mes "Que veux tu ? Je ne te suis pas d'une grande utilité pour toi désolé";
+		mes "Alors ? Tu avance dans ta quête";
 		close;
 	}
 
@@ -554,7 +564,6 @@ izlude,X,Y,Z	script	Belior#iz blablabla,{
 ///////////////////THIEF QUEST///////////////////
 
 ///////////////////MERCHANT QUEST///////////////////
-
 
 
 
