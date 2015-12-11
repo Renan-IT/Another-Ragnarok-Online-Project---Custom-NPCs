@@ -471,7 +471,7 @@ izlude_in,115,164,1	script	Belior#iz	4_M_EDEN_GUARDER,{
 			mes "^0000FF[Belior]^000000";
 			mes "Ah tu tombe bien ! C'est Amorl qui t'envoie c'est ça ?";
 			mes "Il m'avait prévenu de ton arrivée imminente,";
-			mes "apparement tu serai un élu prêt à devenir notre mâitre à tous ?!";
+			mes "apparement tu serai un élu prêt à devenir notre maitre à tous ?!";
 			switch(select("Oui, du moins je vais essayé","Euh non je ne me sens pas encore prêt")){
 				case 1:
 					mes "^0000FF[Belior]^000000";
@@ -490,6 +490,8 @@ izlude_in,115,164,1	script	Belior#iz	4_M_EDEN_GUARDER,{
 							getitem Red_Potion,25;
 							mes "Rapporte moi la des 20 Earthworm Peeling, 10 Insect Feeler, 15 Feather pour me prouver ton envie !";
 							setquest 60350; //Activation quête (Culvert)
+							completequest 60344;
+							dispbottom "Vous avez complété une quête";
 							dispbottom "Vous avez reçu une nouvelle quête";
 							close;
 						case 2:
