@@ -8,6 +8,7 @@
 //= V1 NPC Swordman
 //= V1.1 NPC Mage
 //= V1.2 NPC Acolyte, Thief, Archer
+//= V2 Ajout NPC 1er Quête Swordman
 //===== Description: =========================================
 //= 1er NPC quete principale
 //============================================================
