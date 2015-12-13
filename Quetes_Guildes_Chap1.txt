@@ -466,7 +466,7 @@ izlude_in,115,164,1	script	Belior#iz	4_M_EDEN_GUARDER,{
 		close;
 	}
 	
-		else if	(questprogress(60344) == 1){ //Quête de Armol  en cours
+		else if	(questprogress(60344) == 1){ //Quête de Armol en cours
 			mes "^0000FF[Belior]^000000";
 			mes "Ah tu tombe bien ! C'est Amorl qui t'envoie c'est ça ?";
 			mes "Il m'avait prévenu de ton arrivée imminente,";
@@ -474,9 +474,9 @@ izlude_in,115,164,1	script	Belior#iz	4_M_EDEN_GUARDER,{
 			switch(select("Oui, du moins je vais essayé","Euh non je ne me sens pas encore prêt")){
 				case 1:
 					mes "^0000FF[Belior]^000000";
-					mes "Très bien tu as au moins du courage c'est le moins qu'on puisse voir !";
+					mes "Très bien tu as au moins du courage c'est le moins qu'on puisse dire !";
 					mes "Nous allons voir maintenant si tu es prêt à servir ta guilde comme il se doit.";
-					mes "Commence déjà par aller aider tes camarades à Culvert, l'égoût s'est infesté depuis peu et nous avons du mal à contenir la reproduction de ces bêtes";
+					mes "Commence déjà par aller aider tes camarades à Culvert, l'égoût s'est infesté depuis peu et nous avons du mal à contenir la reproduction de ces bêtes.";
 					switch(select("Euh d'accord, où se situe cet endroit?","Les égoûts ? Mais c'est sale et infesté !")){
 						case 1:
 							mes "^0000FF[Belior]^000000";
@@ -487,7 +487,7 @@ izlude_in,115,164,1	script	Belior#iz	4_M_EDEN_GUARDER,{
 							mes "^0000FF[Belior]^000000";
 							mes "Au fait, tiens prend ça, elles te seront sûrement utile là bas !";
 							getitem Red_Potion,25;
-							mes "Rapporte moi la des 20 Earthworm Peeling, 10 Insect Feeler, 15 Feather pour me prouver ton envie !";
+							mes "Rapporte moi 20 Earthworm Peeling, 10 Insect Feeler, 15 Feather pour me prouver ton envie !";
 							setquest 60350; //Activation quête (Culvert)
 							completequest 60344;
 							dispbottom "Vous avez complété une quête";
@@ -505,7 +505,7 @@ izlude_in,115,164,1	script	Belior#iz	4_M_EDEN_GUARDER,{
 					mes "Qui a bien pû me passer un tiroflant pareil ..?";
 					close;
 			}
-	}
+		}
 		else if (questprogress(60350) == 1 && (countitem(1055) < 20 || countitem(928) < 10 || countitem(949) < 15)){ //Quête de Culvert en cours mais pas encore les items
 			mes "^0000FF[Belior]^000000";
 			mes "Vous n'avez pas encore rapporté tous les items.";
@@ -519,26 +519,32 @@ izlude_in,115,164,1	script	Belior#iz	4_M_EDEN_GUARDER,{
 			mes "Tout effort mérite récompte ! Tiens prends ceci";
 			completequest 60350; //Quête de culvert terminée
 			getexp 20000,10000;
+			delitem 1055,20;
+			delitem 928,10;
+			delitem 949,15;
 			dispbottom "Vous avez complété une quête";
 			next;
 			mes "^0000FF[Belior]^000000";
 			mes "Mais ce n'est que le début, d'ailleurs j'en ai reçu une nouvelle pour toi.";
-			mes "Notre Capitaine get_name a perdu son Péco Péco, tu devrais aller le voir pour plus d'informations.";
+			mes "Notre Capitaine Malerme a perdu son Péco Péco, tu devrais aller la voir pour plus d'informations.";
+			mes "Elle se trouve à Prontera, tu devrais facilement la trouvé";
 			mes "Bonne chance et qu'Odin te protège !";
 			setquest 20000; //Activation de la prochaine quête (PecoPeco);
 			dispbottom "Vous avez reçu une nouvelle quête consulté la avec alt+u";
 			close;
 		}
 		else if (questprogress(20000) == 1){ //Quête du PecoPeco Perdu - Obtenue & en cours
-			mes "Notre Capitaine get_name a perdu son Péco Péco, tu devrais vraiment aller le voir.";
+			mes "^0000FF[Belior]^000000";
+			mes "Notre Capitaine Marlerme a perdu son Péco Péco, tu devrais vraiment aller la voir.";
+			mes "Tu ne l'as pas encore trouvé à Prontera ?";
 			close;
 		}
 		else if (questprogress(20000) == 2){ //Quête du PecoPeco Perdu - Finie
 			mes "Woah, tu as retrouvé le Péco Péco du capitaine, Super !";
 			mes "Bon, j'ai une autre quête pour toi, j'éspere, que tu pourras me donner un coup de main!";
-			mes "BLABLABLABLA"	;
+			mes "BLABLABLABLA"	; //Remplacer par phrase avec nom du prochain NPC
 			setquest 60357; //Activation de la prochaine quête 
-			dispbottom "Vous avez reçu une nouvelle quête consulté la avec alt+u";	
+			dispbottom "Vous avez reçu une nouvelle quête consulté la via alt+u";	
 			close;
 		}
 	else {
@@ -550,8 +556,143 @@ izlude_in,115,164,1	script	Belior#iz	4_M_EDEN_GUARDER,{
 		questinfo 60350, QTYPE_QUEST, 0;
 		questinfo 20000, QTYPE_QUEST, 0;
 		questinfo 60357, QTYPE_QUEST, 0;
-		end;	
+	end;	
+}
 
+
+prontera,164,182,3	script	Capitaine Malerme#prt	4_F_JOB_KNIGHT,{
+	if ((questprogress(60350) == 1) && (BaseJob == Job_Swordman)){ //Avoir fini la quete avant (Culvert)
+		mes "^0000FF[Capitaine Malerme]^000000";
+		mes "Tien, que fais tu ici ? On ne m'a pas parlé de ton arrivée ?";
+		mes "Tu devrais aller voir du côté de ton formateur dans ces cas là.";
+		close;
+	}
+		else if	(questprogress(60344) == 1){ //Quête de Belior en cours
+			mes "^0000FF[Capitaine Malerme]^000000";
+			mes "Excusez moi vous n'auriez pas vu mon Péco Péco ?";
+			mes "Il s'est enfuit tout à l'heure après un bruit étrange prêt du Temple Caché de Prontera";
+			mes "On m'avait pourtant dit de faire attention ...";
+			next;
+			mes "^0000FF[Capitaine Malerme]^000000";
+			mes "Mon pauvre Péco Péco... Pourquoi tu es parti ..!";
+			mes "*Se met à pleurer";
+			mes "Nous nous connaissons depuis le moment où je suis passée Knight !";
+			next;
+			switch(select("Mais ne pleurer pas, je vais aller le chercher","Désolé je n'ai pas le temps de vous aider");
+				case 1:
+					mes "^0000FF[Capitaine Malerme]^000000";
+					mes "C'est vrai ? Vous allez vraiment m'aider ?";
+					mes "C'est extrémement généreux de votre part !";
+					setquest 60351; //Activation de la quête à la recherche du Péco
+					dispbottom "Vous avez reçu une nouvelle quête";
+					mes "La dernière fois que je l'ai vu, il partait en direction du Temple Caché de Prontera,";
+					mes "Tu devrais commencer tes recherches par là bas je pense";
+					close;
+				case 2:
+					mes "^0000FF[Capitaine Malerme]^000000";
+					mes "Oh... Je pensais qu'une personne de ma guilde aurait eu la gentillesse de m'aider !";
+					mes "Sache que je suis Capitaine, je remonterai ton refus à tes supérieurs !";
+					close;
+			}
+			else if (questprogress(60351) == 1 && (countitem(7101) < 1 || countitem(7154) < 1)){ //Quête du Péco non finie
+				mes "^0000FF[Capitaine Malerme]^000000";
+				mes "Alors ? Tu l'as retrouvé ?";
+				mes "Il doit se trouver au Nord de Prontera";
+				close;
+			else if (questprogress(60351) == 2 && questprogress(60352) == 1 && countitem(7101) >= 1 && countitem(7154) >= 1{ //Quête du Péco terminée + Péco retrouvé
+				mes "^0000FF[Capitaine Malerme]^000000";
+				mes "Oh ! Tu as retrouvé mon Péco Péco ?!";
+				mes "Qu...Quoi ? Tu l'as retrouvé agonisant ..?!";
+				mes "Ce n'est pas vrai ! C'est pas possible !";
+				mes "*Vous lui tendez les preuves*";
+				mes "Oh mon dieu... ! C'est bien une de ses plumes ..!";
+				mes "Et du poison ? Ce poison ? Tu es sur ?";
+				switch(select("oui"){
+					case 1:
+					mes "Je pourrai reconnaitre se poison entre mille !";
+					mes "C'est un assassinat pur et dur ! C'est la guilde des Thiefs qui a fait ça j'en suis certaine !";
+					mes "De plus, cette lame ressemble fortement à ce que portaient les Thiefs de l'ancien temps !";
+					mes "En tout cas merci quand même de l'avoir retrouvé... Je vais me renseigner un peu plus et acquérir des indices !";
+					mes "Mais si ils m'indiquent ces satanés Thiefs, je jure devant Thor que ma vengeance sera térrible !";
+					mes "Au fait comment tu t'appelle ?";
+					switch(select(""+strcharinfo+""){
+						case 1:
+							mes "^0000FF[Capitaine Malerme]^000000";
+							mes ""+strcharinfo+" ?? Oh mais attend, tu es alors le jeune Swordman très prometteur dont toute la guilde parle !";
+							mes "Continu comme ça et tu deviendras un grand champion au sein de notre guilde !";
+							mes "Au fait tu mérites bien quelques choses après t'être donner tant de mal!";
+							Zeny,Zeny+10000;
+							getitem 2405,1;
+							getexp 10000,10000;
+							completequest 60352; //Désactivation de la quête du Péco
+							dispbottom "Vous avez terminé une quête";						
+							next;
+							mes "^0000FF[Capitaine Malerme]^000000";
+							mes "Tu devrais retourner voir ton formateur, il doit sûrement avoir autre chose à te faire faire.";
+							mes "Mes amitiés cher camarade !";
+							setquest 20000; //Activation de la quête pour retourner voir le formateur
+							dispbottom "Vous avez reçu une nouvelle quête, consulté là via alt+u";
+							close;
+					}
+				}
+				
+			}
+	else{
+		mes "^0000FF[Capitaine Malerme]^000000";
+		mes "...Péco ?! Où es tu ?";
+		mes "Roooohhh pourquoi est-ce qu'il s'est enfuit ...";
+		close;
+	}
+}
+
+prt_maze01,96,182,2	script	Péco Péco#prt_mz	4_PECOPECO,{
+	if (questprogress(60351) == 1){
+		mes "[^0000FFPeco Peco^000000]";
+		mes "...Peco.....Peco";
+		mes "Peco..........Peco.......Peco";
+		mes "......Peco........Peco.....";
+		mes "...Capitaine Malerme... Péco";
+		mes "*Le Peco Peco lâche son dernier souffle";
+		next;
+		mes "[^0000FF"+strcharinfo+"^000000]"
+		mes "Oh mon dieu..."
+		next;
+		mes "Inspecter l'animal ?"
+		switch(select("Oui","Non"){
+			case 1:
+				mes "*Vous regardez l'animal en soulevant ses plumes,";
+				mes "Il semblerai qu'il y est une marque sur le côté.*";
+				mes "*Vous vous pencher pour miuex observer*";
+				mes "Vous pensez à une lame qui aurait été enfoncé et vu l'odeur, et les nécroses, un poison aurait été déposé sur la lame avant*";
+				mes "*Vous repartez voir la Capitaine Malerme en prenant avec vous quelques indices*";
+				getitem 7101,1; //Indices
+				getitem 7154,1; //Indices
+				completequest 60351; //Désactivation de la quête trouver le péco
+				dispbottom "Vous avez terminé une quête";
+				setquest 60352; //Activation de la quête retourner voir Capitaine Malerme
+				dispbottom "Vous avez reçu une nouvelle quête, consulté là via alt+u";
+				close;
+			case 2:
+				mes "*Vous vous éloignez de l'animal et repartez";
+				close;
+		}
+		
+	}
+		else if (questprogress(60351) == 2){
+			mes "[^0000FFPeco Peco^000000]";
+			mes "...Peco.....Peco";
+			mes "Peco..........Peco.......Peco";
+			mes "......Peco........Peco.....";
+			mes "...Capitaine Malerme... Péco";
+			close;
+		}
+	else{
+		mes "[Peco Peco]";
+		mes "...Peco.....Peco";
+		mes "Peco..........Peco.......Peco";
+		mes "......Peco........Peco.....";
+		close;
+	}
 }
 
 ///////////////////ACOLYTE QUEST///////////////////
@@ -563,6 +704,5 @@ izlude_in,115,164,1	script	Belior#iz	4_M_EDEN_GUARDER,{
 ///////////////////THIEF QUEST///////////////////
 
 ///////////////////MERCHANT QUEST///////////////////
-
 
 
