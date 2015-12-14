@@ -589,7 +589,7 @@ prontera,164,182,3	script	Capitaine Malerme#prt	4_F_JOB_KNIGHT,{
 					mes "^0000FF[Capitaine Malerme]^000000";
 					mes "La dernière fois que je l'ai vu, il partait en direction du Temple Caché de Prontera,";
 					mes "Tu devrais commencer tes recherches par là bas je pense";
-					set alrdytalkcapitaine == 0;
+					set alrdytalkcapitaine == 1;
 					close;
 				case 2:
 					mes "^0000FF[Capitaine Malerme]^000000";
@@ -655,7 +655,7 @@ prontera,164,182,3	script	Capitaine Malerme#prt	4_F_JOB_KNIGHT,{
 }
 
 prt_maze01,96,182,2	script	Péco Péco#prt_mz	4_PECOPECO,{
-	if (questprogress(20000) == 1 && alrdytalkcapitaine == 0){
+	if (questprogress(20000) == 1 && alrdytalkcapitaine == 1){
 		mes "[^0000FFPeco Peco^000000]";
 		mes "...Peco.....Peco";
 		mes "Peco..........Peco.......Peco";
@@ -677,7 +677,7 @@ prt_maze01,96,182,2	script	Péco Péco#prt_mz	4_PECOPECO,{
 				mes "*Vous repartez voir la Capitaine Malerme en prenant avec vous quelques indices*";
 				getitem 7101,1; //Indices
 				getitem 7154,1; //Indices
-				set alrdytalkcapitaine == 1;
+				set alrdytalkpeco == 1;
 				close;
 			case 2:
 				mes "[^0000FFPeco Peco^000000]";
@@ -686,6 +686,11 @@ prt_maze01,96,182,2	script	Péco Péco#prt_mz	4_PECOPECO,{
 		}
 		
 	}
+		else if (questprogress(20000) == 1 && alrdytalkpeco == 1){
+			mes "["+strcharinfo+"]";
+			mes "Je devrais retourner voir le capitaine pour lui apporter ces indices";
+			close;
+		}
 		else if (questprogress(20000) == 2){
 			mes "[^0000FFPeco Peco^000000]";
 			mes ".................";
