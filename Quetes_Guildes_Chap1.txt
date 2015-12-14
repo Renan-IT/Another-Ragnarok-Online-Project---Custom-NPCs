@@ -627,7 +627,9 @@ prontera,164,182,3	script	Capitaine Malerme#prt	4_F_JOB_KNIGHT,{
 							mes "Au fait tu mérites bien quelques choses après t'être donner tant de mal!";
 							Zeny,Zeny+10000;
 							getitem 2405,1;
-							getexp 10000,10000;						
+							getexp 10000,10000;
+							delitem 7101,1;
+							delitem 7154,1;					
 							next;
 							mes "^0000FF[Capitaine Malerme]^000000";
 							mes "Tu devrais retourner voir ton formateur, Belior, il doit sûrement avoir autre chose à te faire faire.";
