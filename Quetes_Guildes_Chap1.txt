@@ -425,7 +425,7 @@ payon_in02,60,70,3	script	Feleon#payon_in02	4_M_FARIY_HISIE,{
 	}
 	else if (questprogress(60348) == 1){ 
         mes "^50A92C[Feleon]^000000";
-        mes "Cours, chante, vole jusuq'a ^0000FFFohenn^000000 jeune pousse!";
+        mes "Cours, chante, vole jusqu'a ^0000FFFohenn^000000 jeune pousse!";
         close;
     }
     else{
