@@ -601,7 +601,7 @@ prontera,164,182,3	script	Capitaine Malerme#prt	4_F_JOB_KNIGHT,{
 				mes "Alors ? Tu l'as retrouvé ?";
 				mes "Il doit se trouver au Nord de Prontera";
 				close;
-			else if (questprogress(20000) == 1 && countitem(7101) >= 1 && countitem(7154) >= 1{ //Quête du Péco terminée + Péco retrouvé
+			else if (questprogress(20000) == 1 && countitem(7101) >= 1 && countitem(7154) >= 1){ //Quête du Péco terminée + Péco retrouvé
 				mes "^0000FF[Capitaine Malerme]^000000";
 				mes "Oh ! Tu as retrouvé mon Péco Péco ?!";
 				mes "Qu...Quoi ? Tu l'as retrouvé agonisant ..?!";
