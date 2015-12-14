@@ -840,6 +840,122 @@ prt_church,X,Y,2	script	Soeur Mathilde#prt_church	4_XXXXXXX,{
 
 ///////////////////ARCHER QUEST///////////////////
 
+
+// A CORRIGER //
+izlude_in,115,164,1	script	Fohenn#ipayon	4_M_EDEN_GUARDER,{
+	if ((questprogress(60343) == 1) && (BaseJob == Job_Archer)){ //Avoir fini la quete avant (training ground)
+		//Quete pas encore commence
+		mes "^50A92C[Fohenn]^000000";
+		mes "Tu devrais commencer par allé voir ^0000FFFeleon^000000, petit chêne.";
+		close;
+	}
+	
+		else if	(questprogress(00000) == 1){ //Quête de Feleon
+			mes "^0000FF[Fohenn]^000000";
+			mes "Te voici donc pret à germer petit chêne !";
+			mes "Il est temps pour toi de découvrire la foret.";
+			mes "Et tu prêt pour ta premiere leçon petit chêne ?";
+			switch(select("Oui, j'ai hate de sentir le vent dans mes cheuveux !","Euh non je ne me sens pas encore prêt")){
+				case 1:
+					mes "^0000FF[Fohenn]^000000";
+					mes "Très bien petit chêne, ça c'est de l'engouement !";
+					mes "Eh bien ! Commençons ta premiere leçon, pendant celle-ci tu devras te servire de tout tes sens, et mettre à profit ton enseignement.";
+					mes "Je souhaite que tu te rende dans la foret aux alentours du village et que tu récoltes 10 ^0000FFCrystal Blue^000000, tu pourras les trouver sur les ^0000FFBlack Mushroom^000000 au Sud du village.";
+					mes "Avant de partir assure toi de disposer de l'equipement nécessaire pour mener à bien ta quete.";
+					mes "N'oublie pas petit chêne, la préparation et l'une des régles d'or pour survivre dans la foret."
+					mes "Alors tu es prêt ?"
+					switch(select("Oui plus que jamais !","Pwaa! Des Champignons, Beurk... j'y toucherais pas!")){
+						case 1:
+							mes "^0000FF[Fohenn]^000000";
+							mes "Ah ! Quel entrein ! Ca me fait plaisir petit chêne!";
+							mes "Rend toi au sud du village et cherche des champignons sombre dans les foret,";
+							mes "tu ne peux pas te tromper !";
+							next;
+							mes "^0000FF[Fohenn]^000000";
+							mes "Au fait, tiens prend ça, elles te seront sûrement utile là bas !";
+							getitem Arrow,200;
+							mes "Rapporte moi 10 ^0000FFCrystal Blue^000000!";
+							setquest 00000; //Activation quête (Payon_village)
+							completequest 00000; //Quête de Feleon
+							dispbottom "Vous avez complété une quête";
+							dispbottom "Vous avez reçu une nouvelle quête";
+							close;
+						case 2:
+							mes "^0000FF[Belior]^000000";
+							mes "Petit chêne ou est donc passé ta fougue ?! ";
+							mes "Reviens quand tu auras l'envie de communier avec la nature!";
+							close;
+					}
+				case 2:
+					mes "^0000FF[Belior]^000000";
+					mes "Pas encore prêt ? Qu'est-ce que ça veut dire ?";
+					mes "Tu as raison, la préparation et l'une des régles d'or pour survivre!";
+					close;
+			}
+		}
+		else if (questprogress(00000) == 1 && countitem(991) < 10){ //Quête de Payon en cours mais pas encore les items
+			mes "^0000FF[Fohenn]^000000";
+			mes "Vous n'avez pas encore rapporté tous les items.";
+			mes "Reviens quand ce sera le cas !";
+			close;
+		}
+		else if (questprogress(00000) == 1 && countitem(991) >= 10){ //Quête de Payon en cours et tout items
+			mes "^0000FF[Fohenn]^000000";
+			mes "Ah ! Bravo petit chêne !";
+			mes "Félicitations tu as réussi ta première mission pour le compte de la guilde.";
+			mes "Tout effort mérite une récompence ! Je vais te fabriquer des fléches avec les objets que tu m'as apporté, elles te seront utile pour ta prochaine quête, plus tard tu apprendras à fabriquer tes propres fléches";
+			completequest 00000; //Quête de Payon terminée
+			getitem 1754 1500;
+			getexp 20000,10000;
+			dispbottom "Vous avez complété une quête";
+			next;
+			mes "^0000FF[Fohenn]^000000";
+			mes "Tu vas pouvoir continuer ta formation petit chêne.";
+			mes "Les monstres prennes de plus en plus le dessus sur les animaux de la foret et l'equilibre de la forêt devient fébrile.";
+			mes "Pourrais-tu en chasser quelques-uns?";
+			switch(select("Hum oui, j'ai plus d'une corde à mon arc !","Euh non je ne suis pas encore prêt")){
+				case 1:
+					mes "Ah, tu me surprendra toujours jeune chêne!";
+					mes "Bien, dans ce cas regle leur compte à 20 ^0000FFWillow^000000";
+					mes "Tu les trouveras au sud et au sud-ouest du village";
+					mes "Courage petit chêne!"
+					setquest 00000; //Activation de la prochaine quête (PecoPeco);
+					dispbottom "Vous avez reçu une nouvelle quête consulté la avec alt+u";
+					close;
+				case 2:
+					mes "Bon euh, et bien reviens quand tu seras pret !";
+					close;
+			}
+		}
+		else if (questprogress(00000,HUNTING) == 1){ //Quête de payon2 - Obtenue & en cours
+			mes "^0000FF[Fohenn]^000000";
+			mes "Regle leur compte à 20 ^0000FFWillow^000000.";
+			mes "Et reviens me voir.";
+			mes "Tu les trouveras au sud et au sud-ouest du village";
+			close;
+		}
+		else if (questprogress(00000,HUNTING) == 2){ //Quête de payon2 - Finie
+			mes "^0000FF[Fohenn]^000000";
+			mes "Super petit chêne tu as vaincu les monstres !";
+			mes "Bon, j'ai une autre quête pour toi, j'éspere, que tu pourras me donner un coup de main!";
+			mes "BLABLABLABLA"	; //Remplacer par phrase avec nom du prochain NPC
+			setquest 00000; //Activation de la prochaine quête 
+			dispbottom "Vous avez reçu une nouvelle quête consulté la via alt+u";	
+			close;
+		}
+	else {
+		mes "^0000FF[Fohenn]^000000";
+		mes "Alors ? Tu avance dans ta quête";
+		close;
+	}
+	OnInit:
+		questinfo 00000, QTYPE_QUEST, 0; //Quête payon
+		questinfo 00000, QTYPE_QUEST, 0; //Quête payon2
+		questinfo 00000, QTYPE_QUEST, 0; //
+	end;	
+}
+// A CORRIGER //
+
 ///////////////////THIEF QUEST///////////////////
 
 ///////////////////MERCHANT QUEST///////////////////
