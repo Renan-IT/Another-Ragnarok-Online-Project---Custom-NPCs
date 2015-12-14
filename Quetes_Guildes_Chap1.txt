@@ -425,7 +425,7 @@ payon_in02,60,70,3	script	Feleon#payon_in02	4_M_FARIY_HISIE,{
 	}
 	else if (questprogress(60348) == 1){ 
         mes "^50A92C[Feleon]^000000";
-        mes "Cours, chante, vole jusqu'a ^0000FFFohenn^000000 jeune pousse!";
+        mes "Cours, chante, vole jusuq'a ^0000FFFohenn^000000 jeune pousse!";
         close;
     }
     else{
@@ -516,7 +516,7 @@ izlude_in,115,164,1	script	Belior#iz	4_M_EDEN_GUARDER,{
 			mes "^0000FF[Belior]^000000";
 			mes "Ah ! Amorl ne s'est pas trompé en te recrutant !";
 			mes "Félicitations tu as réussi ta première mission pour le compte de la guilde.";
-			mes "Tout effort mérite récompte ! Tiens prends ceci";
+			mes "Tout effort mérite récompense ! Tiens prends ceci";
 			completequest 60350; //Quête de culvert terminée
 			getexp 20000,10000;
 			delitem 1055,20;
@@ -610,7 +610,7 @@ prontera,164,182,3	script	Capitaine Malerme#prt	4_F_JOB_KNIGHT,{
 				mes "*Vous lui tendez les preuves*";
 				mes "Oh mon dieu... ! C'est bien une de ses plumes ..!";
 				mes "Et du poison ? Ce poison ? Tu es sur ?";
-				switch(select("oui"){
+				switch(select("Oui, j'en suis sur"){
 					case 1:
 					mes "^0000FF[Capitaine Malerme]^000000";
 					mes "Je pourrai reconnaitre se poison entre mille !";
@@ -618,36 +618,94 @@ prontera,164,182,3	script	Capitaine Malerme#prt	4_F_JOB_KNIGHT,{
 					mes "De plus, cette lame ressemble fortement à ce que portaient les Thiefs de l'ancien temps !";
 					mes "En tout cas merci quand même de l'avoir retrouvé... Je vais me renseigner un peu plus et acquérir des indices !";
 					mes "Mais si ils m'indiquent ces satanés Thiefs, je jure devant Thor que ma vengeance sera terrible !";
-					mes "Au fait comment tu t'appelle ?";
-					switch(select(""+strcharinfo+""){
+					mes "Peut être qu'il est encore temps de le sauver ! Tu voudrais bien encore m'aider une dernière fois ?";
+					switch(select("Oui","Non"){
 						case 1:
-							mes "^0000FF[Capitaine Malerme]^000000";
-							mes ""+strcharinfo+" ?? Oh mais attend, tu es alors le jeune Swordman très prometteur dont toute la guilde parle !";
-							mes "Continu comme ça et tu deviendras un grand champion au sein de notre guilde !";
-							mes "Au fait tu mérites bien quelques choses après t'être donner tant de mal!";
-							Zeny,Zeny+10000;
-							getitem 2405,1;
-							getexp 10000,10000;
-							delitem 7101,1;
-							delitem 7154,1;					
-							next;
-							mes "^0000FF[Capitaine Malerme]^000000";
-							mes "Tu devrais retourner voir ton formateur, Belior, il doit sûrement avoir autre chose à te faire faire.";
-							mes "Mes amitiés cher camarade !";
-							completequest 20000;
+							mes "Vraiment ? Merci !";
+							mes "Alors voila ce que tu vas faire, écoute bien !";
+							mes "Rends toi à l'église de Prontera et va parler à Soeur Mathilde, c'est la formatrice des Acolytes,";
+							mes "Dit lui que tu as besoin du remède pour combattre le poison des Thiefs.";
+							mes "Elle te dira quoi faire !";
+							mes "C'est d'accord ?";
+							switch(select("Okay j'ai compris","Euh non vous pouvez répéter?")){
+								case 1:
+									mes "Très bien, fonce maintenant pendant qu'il en est encore temps !";
+									mes "Oublie pas, Soeur Mathilde !";
+									set alrdytalkeglise == 1; 
+									close;
+								case 2:
+									mes "Bon alors, il faut que tu aille voir Soeur Mathilde qui se trouve dans l'église de Prontera.";
+									mes "Elle te donnera les informations pour fabriquer ce remède.";
+									mes "Dépêche toi ! Le temps nous est compté !";
+									set alrdytalkeglise == 1;
+									close;
+							}
+						case 2:
+							mes "Tu le laisserai mourir ? Très bien ! Sache que je retiendrai cette décision mais je n'en parlerai guère à tes supérieurs.";
+							mes "Mais si un jour tu as besoin de moi, je me rappelerai de ce jour !";
+							completequest 20000; //Fin de la quête "Retrouver le Péco" car refuse d'aider
 							dispbottom "Vous avez terminé une quête";
+							Zeny,Zeny+10000;
+							getexp 15000,15000;
+							delitem 7101,1;
+							delitem 7154,1;
 							close;
-					}
+					}				
 				}
 			}
-			else if (questprogress(20000) == 2){
+				else if (questprogress(20000) == 1 && alrdytalksoeurmathilde == 1){ //Quête péco après discussion avec Soeur Mathilde
+					mes "Tu as le remède c'est bon ?";
+					mes "Très bien, maintenant court voir mon ^0000FFPéco Péco^000000 et injecte lui l'antidote !";
+					mes "Je te donne une potion pour que tu aille bien plus vite !";
+					set alrdytalkantidote == 1; //Discussion avec Capitaine Malerme après avoir parlé à Soeur Mathilde activée
+					sc_start 12,140000,5;
+					skilleffect 29,0;
+					close;
+				}
+				else if (questprogress(20000) == 1 && alrdytalkeglise == 1){ //Quête péco avant discussion avec Soeur Mathilde
+					mes "Qu'est-ce que tu attends ? Fonce voir Soeur Mathhhilde pour faire l'antidote !";
+					mes "Sinon il va être trop tard !";
+					close;
+				}
+				else if (questprogress(20000) == 1 && alrdytalkpecoantidote == 1){ //Quête péco après avoir donné l'antidote
+					mes "C'est bon? C'est vrai tu as réussi à le soigner à temps ?";
+					mes "Il va s'en tirer ?"
+					switch(select"Oui mais il ne peut pas encore bouger"){
+						case 1:
+								mes "^0000FF[Capitaine Malerme]^000000";
+								mes "D'accord mais c'est déjà extraordinaire qu'il est réussi à survivre autant de temps.";
+								mes "Je vais le laisser se remettre tranquillement et je pense le libérer, il a assez souffert comme ça.";
+								mes "La liberté doit lui être donné maintenant même si ça me rend triste...";
+								mes "Au fait comment tu t'appelle ?"
+								switch(select(""+strcharinfo+"")){
+									case 1:
+									mes ""+strcharinfo+" ?? Oh mais attend, tu es alors le jeune Swordman très prometteur dont toute la guilde parle !";
+									mes "Continu comme ça et tu deviendras un grand champion au sein de notre guilde !";
+									mes "Au fait tu mérites bien quelques choses après t'être donner tant de mal!";
+									Zeny,Zeny+20000;
+									getitem 2405,1;
+									getexp 25000,25000;
+									delitem 7101,1;
+									delitem 7154,1;					
+									next;
+									mes "^0000FF[Capitaine Malerme]^000000";
+									mes "Tu devrais retourner voir ton formateur, ^0000FFBelior^000000, il doit sûrement avoir autre chose à te faire faire.";
+									mes "Mes amitiés cher camarade !";
+									completequest 20000; //Fin de la quête "Retrouver le Péco Péco"
+									dispbottom "Vous avez terminé une quête";
+									close;
+								}
+								
+					}
+				}
+			else if (questprogress(20000) == 2){ //Quête Péco fini
 				mes "^0000FF[Capitaine Malerme]^000000";
 				mes "Encore merci de m'avoir aidé "+strcharinfo+"";
 				mes "Je suis ravi qu'on arrive à former des jeunes avec un courage comme le tien !";
-				mes "Va voir Bélior maintenat, il doit t'attendre !";
+				mes "Va voir ^0000FFBélior^000000 maintenat, il doit t'attendre !";
 				close;
 			}
-	else{
+	else{ //Discussion avec autres classes
 		mes "^0000FF[Capitaine Malerme]^000000";
 		mes "...Péco ?! Où es tu ?";
 		mes "Roooohhh pourquoi est-ce qu'il s'est enfuit ...";
@@ -656,7 +714,7 @@ prontera,164,182,3	script	Capitaine Malerme#prt	4_F_JOB_KNIGHT,{
 }
 
 prt_maze01,96,182,2	script	Péco Péco#prt_mz	4_PECOPECO,{
-	if (questprogress(20000) == 1 && alrdytalkcapitaine == 1){
+	if (questprogress(20000) == 1 && alrdytalkcapitaine == 1){ //Quête Péco après discussion avec Capitaine
 		mes "[^0000FFPeco Peco^000000]";
 		mes "...Peco.....Peco";
 		mes "Peco..........Peco.......Peco";
@@ -687,23 +745,38 @@ prt_maze01,96,182,2	script	Péco Péco#prt_mz	4_PECOPECO,{
 		}
 		
 	}
-		else if (questprogress(20000) == 1 && alrdytalkpeco == 1){
-			mes "["+strcharinfo+"]";
-			mes "Je devrais retourner voir le capitaine pour lui apporter ces indices";
-			close;
-		}
-		else if (questprogress(20000) == 2){
+			else if (questprogress(20000) == 1 && alrdytalkantidote == 1){ //Quête Péco après avoir récupéré antidote
+				mes "["+strcharinfo+"]";
+				mes "*Vous injectez l'antidote*";
+				mes "*Le Péco Péco rouvre les yeux lentement*";
+				mes "Il a l'air de se stabiliser, je pense qu'il est tiré d'affaire.";
+				set alrdytalkpecoantidote == 1; //Discussion avec Péco après injection antidote ativé
+				delitem 525,1;
+				close;
+			}
+			else if (questprogress(20000) == 1 && alrdytalksoeurmathilde == 1){ //Quête Péco après discussion avec Soeur Mathilde mais pas avec Capitaine Malerme
+				mes "["+strcharinfo+"]";
+				mes "Je devrais peut être allé voir d'abord Capitaine Malerme";
+				close;
+			}
+			else if (questprogress(20000) == 1 && alrdytalkpeco == 1){ //Quête Péco après discussion avec le Péco après indices
+				mes "["+strcharinfo+"]";
+				mes "Je devrais retourner voir le capitaine pour lui apporter ces indices";
+				close;
+			}
+		else if (questprogress(20000) == 2){ //Quête Péco fini
 			mes "[^0000FFPeco Peco^000000]";
 			mes ".................";
-			mes "*Ce Peco Peco est mort depuis quelques temps";
+			mes "Ce Peco Peco va vraiment mieux aujourd'hui !";
+			mes "Grâce à Soeur Mathilde et à la Capitaine Malerme j'ai pu l'aidé !"
 			close;
 		}
-		else if (questprogress(20000) == -1 && BaseJob == Job_Swordman){
+		else if (questprogress(20000) == -1 && BaseJob == Job_Swordman){ //Quête Péco pas commencé et Job Swordman
 			mes "[^0000FFPeco Peco^000000]";
 			mes "Ce peco peco semble appartenir à un Capitaine, nous pouvons voir son insigne dessus";
 			close;
 		}
-	else{
+	else{ //Discussion avec autre classe
 		mes "[Peco Peco]";
 		mes "...Peco.....Peco";
 		mes "Peco..........Peco.......Peco";
@@ -711,6 +784,53 @@ prt_maze01,96,182,2	script	Péco Péco#prt_mz	4_PECOPECO,{
 		close;
 	}
 }
+
+prt_church,X,Y,2	script	Soeur Mathilde#prt_church	4_XXXXXXX,{
+	else if (questprogress(20000) == 1 && alrdytalkeglise == 1){ //Quête Péco après avoir parlé pour là 2eme fois au Capitaine Malerme
+		mes "[^0000FFSoeur Mathilde^000000]";
+		mes "Bonjour mon enfant. Que viens tu faire dans la maison de Dieu ?";
+		switch(select("je viens en urgence de la part du Capitaine Malerme","Je viens pour visiter")){
+			case 1:
+				mes "[^0000FFSoeur Mathilde^000000]";
+				mes "La Capitaine Malerme ? Que ce passe t-il ?";
+				switch(select("Son Péco Péco est mourrant et j'ai besoin d'un antidote")){
+					case 1:
+						mes "[^0000FFSoeur Mathilde^000000]";
+						mes "Contre quoi ? Le poison des Thiefs ? Oh mon dieu... Je poserai les questions plus tard."
+						mes "Il faut faire vite. Le problème c'est que je n'ai pas tous les ingrédients pour fabriquer l'antidote..!";
+						mes "Il faudrait que tu aille me chercher ces items :";
+						mes " ^0000FF5x Green Herb, 1 Empty Potion Bottle et 1 Alcohol^000000";
+						mes "Je t'attends ici, dépêche toi !";
+						close;
+				}
+			case 2:
+				mes "[^0000FFSoeur Mathilde^000000]";
+				mes "Très bien, prend ton temps, tu ne dois pas avoir de mission si tu es ici."
+				close;
+		}
+	}
+	else if (questprogress(20000) == 1 && countitem(511) >= 5 && countitem(1093) >= 1 && countitem(970) < 1){ //Quête Péco après discussion avec Soeur Mathile et avec objets complet
+		mes "[^0000FFSoeur Mathilde^000000]";
+		mes "C'est bon tu as réussi à trouver tous les items !";
+		mes "Parfait, laisse moi le temps de préparer tout ça !"
+		specialeffect 39,AREA,"Soeur Mathilde#prt_church"; //lance le skill pour créer les holy water
+		next;
+		mes "[^0000FFSoeur Mathilde^000000]";
+		mes "Tiens prend ça, ça devrait suffire !"
+		mes "Injecte lui par voie orale, retourne voir ^0000FFCapitaine Malerme^000000 au cas où avant.";
+		getitem 525,1;
+		delitem 511,5;
+		delitem 1093,1;
+		delitem 970,1;
+		set alrdytalksoeurmathilde == 1;
+		close;
+	}
+	else if (questprogress(20000) == 1 && (countitem(511) < 5 && countitem(1093) < 1 && countitem(970) < 1){ //Quête Péco après discussion avec Soeur Mathilde et sans objets complet
+		mes "[^0000FFSoeur Mathilde^000000]";
+		mes "Tu n'as pas tous les objets, il me les faut tous !"
+		mes "Je t'attends ici !";
+		close;
+	}
 
 ///////////////////ACOLYTE QUEST///////////////////
 
