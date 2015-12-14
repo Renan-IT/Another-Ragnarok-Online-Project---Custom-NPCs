@@ -644,6 +644,7 @@ prontera,164,182,3	script	Capitaine Malerme#prt	4_F_JOB_KNIGHT,{
 				mes "^0000FF[Capitaine Malerme]^000000";
 				mes "Encore merci de m'avoir aidé "+strcharinfo+"";
 				mes "Je suis ravi qu'on arrive à former des jeunes avec un courage comme le tien !";
+				mes "Va voir Bélior maintenat, il doit t'attendre !";
 				close;
 			}
 	else{
