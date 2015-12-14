@@ -785,6 +785,9 @@ prt_maze01,96,182,2	script	Péco Péco#prt_mz	4_PECOPECO,{
 	}
 }
 
+
+///////////////////ACOLYTE QUEST///////////////////
+
 prt_church,X,Y,2	script	Soeur Mathilde#prt_church	4_XXXXXXX,{
 	else if (questprogress(20000) == 1 && alrdytalkeglise == 1){ //Quête Péco après avoir parlé pour là 2eme fois au Capitaine Malerme
 		mes "[^0000FFSoeur Mathilde^000000]";
@@ -831,8 +834,7 @@ prt_church,X,Y,2	script	Soeur Mathilde#prt_church	4_XXXXXXX,{
 		mes "Je t'attends ici !";
 		close;
 	}
-
-///////////////////ACOLYTE QUEST///////////////////
+}
 
 ///////////////////MAGE QUEST///////////////////
 
