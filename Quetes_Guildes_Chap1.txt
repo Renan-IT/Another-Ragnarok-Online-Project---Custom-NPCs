@@ -5,10 +5,17 @@
 //===== Current Version: =====================================
 //= 20131225
 //===== Script Version =======================================
-//= V1 NPC Swordman
+//= V1 Ajout 1er NPC Classe
+//= V1.0 NPC Swordman (Amorl)
 //= V1.1 NPC Mage
 //= V1.2 NPC Acolyte, Thief, Archer
-//= V2 Ajout NPC 1er Quête Swordman
+//= V2 Ajout NPC 1er Quête 
+//= V2.0 NPC Swordman (Belior)
+//= V2.1 NPC Archer
+//= V3 Ajout NPC 2eme Quête
+//= V3.0 NPC Swordman (Capitaine Malerme + Peco Peco + Soeur Mathilde)
+//= V4 Ajout NPC 3eme Quête
+//= V4.0 NPC Swordman (Sergent Gourt + Père Vault)
 //===== Description: =========================================
 //= 1er NPC quete principale
 //============================================================
