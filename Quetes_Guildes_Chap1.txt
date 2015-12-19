@@ -539,13 +539,13 @@ izlude_in,115,164,1	script	Belior#iz	4_M_EDEN_GUARDER,{
 			mes "Tu ne l'as pas encore trouvé à Prontera ?";
 			close;
 		}
-		else if (questprogress(20000) == 2){ //Quête du PecoPeco Perdu - Finie
+		else if (questprogress(20000) == 2){ //Quête du PecoPeco Perdu - Finie - Activation Quête Colis
 			mes "^0000FF[Belior]^000000";
 			mes "Woah, tu as retrouvé le Péco Péco du capitaine, Super !";
 			mes "Bon, j'ai une autre quête pour toi, j'éspere, que tu pourras me donner un coup de main!";
-			mes "BLABLABLABLA"	; //Remplacer par phrase avec nom du prochain NPC
+			mes "Le Sergent Gourt aurait besoin de ton aide. Va le voir, il se trouve dans cette ville.";
 			setquest 60357; //Activation de la prochaine quête 
-			dispbottom "Vous avez reçu une nouvelle quête consulté la via alt+u";	
+			dispbottom "Vous avez reçu une nouvelle quête consultez la via alt+u";	
 			close;
 		}
 	else {
@@ -556,7 +556,7 @@ izlude_in,115,164,1	script	Belior#iz	4_M_EDEN_GUARDER,{
 	OnInit:
 		questinfo 60350, QTYPE_QUEST, 0; //Quête Culvert
 		questinfo 20000, QTYPE_QUEST, 0; //Quête PecoPeco
-		questinfo 60357, QTYPE_QUEST, 0;
+		questinfo 60357, QTYPE_QUEST, 0; //Quête Colis
 	end;	
 }
 
@@ -726,7 +726,7 @@ prt_maze01,96,182,2	script	Péco Péco#prt_mz	4_PECOPECO,{
 		mes "Oh mon dieu..."
 		next;
 		mes "Inspecter l'animal ?"
-		switch(select("Oui","Non"){
+		switch(select("Oui","Non")){
 			case 1:
 				mes "[^0000FFPeco Peco^000000]";
 				mes "*Vous regardez l'animal en soulevant ses plumes,";
@@ -785,6 +785,118 @@ prt_maze01,96,182,2	script	Péco Péco#prt_mz	4_PECOPECO,{
 	}
 }
 
+//=Quête Colis=//
+
+izlude,X,Y,Z	script	Sergent Gourt#iz	4_M_XXXXXXXX,{
+	if ((questprogress(60357) == -1) && (BaseJob == Job_Swordman)){ //Avoir fini quête Peco
+		mes "[^0000FFSergent Gourt^000000]";
+		mes "Bonjour "+strcharinfo+"";
+		mes "C'est donc toi la jeune recrue ! On m'a beaucoup parlé de toi !";
+		mes "Continu comme ça et l'avenir te sera radieux !";
+		close;
+	}
+		else if (questprogress(60357) == 1){ //Quête Colis Activée
+			mes "[^0000FFSergent Gourt^000000]";
+			mes "Bonjour "+strcharinfo+"";
+			mes "J'ai une livraison à effectuer mais malheureusement je n'ai pas le temps en ce moment et c'est un colis important";
+			mes "pour la Guilde des Acolytes. Ils en ont besoin pour l'une de leur offrande à Odin !";
+			mes "Pourrais-tu livrer à ma place ?";
+			switch (select("Je suis volontaire !","Je suis occupé désolé Sergent"){
+				case 1:
+					mes "[^0000FFSergent Gourt^000000]";
+					mes "Merci beaucoup, tu me sauve la vie car sinon notre chef m'aurait passé un savon !";
+					mes "Je t'explique donc ta mission, tu dois livré ce colis au Père Vault qui se trouve dans un field près de Prontera.";
+					mes "Il y étudie le comportement de group sur les Yoyos";
+					getitem 1091,1;
+					set alrdytalksergentgourt == 1;
+					mes "Allez fonce lui livrer !";
+					close;
+				case 2:
+					mes "[^0000FFSergent Gourt^000000]";
+					mes "Très bien, bonne continuation alors.";
+					close;
+			}
+		}
+		else if (questprogress(60357) == 1 && alrdytalkperevault == 0){ //Quête Colis sans avori parlé au Père Vault
+			mes "[^0000FFSergent Gourt^000000]";
+			mes "Allez, va parler au Père Vault, il attend sont colis.";
+			mes "Il se trouve à l'Ouest de Prontera, il étudie les Yoyos";
+			close;
+		}
+		else if (questprogress(60357) == 1 && alrdytalkperevault == 1){ //Quête Colis après avoir parlé au Père Vault
+			mes "[^0000FFSergent Gourt^000000]";
+			mes "Tu as réussi à le trouver et à lui livrer le colis ?";
+			mes "Super ! Merci énormément ! Notre chef va être content !";
+			netx;
+			mes "[^0000FFSergent Gourt^000000]";
+			mes "Tien pour te remercier d'avoir fait cette course pour moi :";
+			Zeny,Zeny+10000;
+			getitem 2505,1;
+			dispbottom "Vous avez terminé une quête";
+			next;
+			mes "[^0000FFSergent Gourt^000000]";
+			mes "Retourne voir Bélior pour lui faire savoir que tu m'as aidé.";
+			close;
+		}
+		else if (questprogress(60357) == 2){ //Quête Colis Fini
+			mes "[^0000FFSergent Gourt^000000]";
+			mes "Encore merci pour la livraison, retourne voir Bélior pour lui dire que la mission est achevée.";
+			close;
+		}
+	else{
+		mes "[^0000FFSergent Gourt^000000]";
+		mes "Que voulez-vous, je n'ai pas le temps de m'attarder.";
+		mes "Je suis très occupé.";
+		close;
+	}
+}
+
+prt_fild03,X,Y,Z	script	Père Vault#prt_fild	4_M_XXXXXXXX,{
+	if (questprogress[60357) == 1 && alrdytalksergentgourt == 1 && countitem(1091) == 1){ //Quête Colis activé - Avoir parlé au Sergent - Item Colis
+		mes "[^0000FFPère Vault^000000]";
+		mes "Ah ! Vous êtes le Sergent Gourt ?! Il forme vraiment très jeune les Swordmans de nos jours !";
+		mes "Bientôt les Colonels seront Knights";
+		switch(select("Mon Père je ne suis pas Sergent"){
+			case 1:
+				mes "[^0000FFSergent Gourt^000000]";
+				mes "Vous n'êtes pas le Sergent Gourt ? Alors qui êtes vous ?";
+				switch(select("Je viens de la part du Sergent Gourt"){
+					case 1:
+						mes "[^0000FFSergent Gourt^000000]";
+						mes "Ah oui d'accord, il n'avait sûrement pas le temps, c'est pour ça qu'il vous a demandé de livrer à sa place.";
+						mes "Je comprends tout à fait !";
+						next;
+						mes "[^0000FFSergent Gourt^000000]";
+						mes "Avez vous donc mon colis jeune Swordman ?";
+						switch(select("Oui bien sûr !"){
+							case 1:
+								mes "[^0000FFSergent Gourt^000000]";
+								mes "Fantastique ! Merci beaucoup de vous être déplacé.";
+								mes "Je vous remets le reçu pour votre Sergent.";
+								getitem 1080,1;
+								delitem 2505,1;
+								set alrdytalkperevault == 1;
+								close;
+						}
+				}
+		}
+	}
+		else if ((questprogress(60357) == 1 && alrdytalksergentgourt == 0) || (questprogress(60357) == 1 && countitem(1091) == 1)){ //Quête Colis activée et ne pas avoir parlé au Sergent OU Quête Colis activée et avoir l'item colis
+			mes "[^0000FFSergent Gourt^000000]";
+			mes "Que fais-tu ici ? J'attends mon colis de la part du Sergent Gourt ! J'espère qu'il ne va pas tarder !";
+			close;
+		}
+		else if (questprogress(60357) == 2){ //Quête Colis Finie
+			mes "[^0000FFSergent Gourt^000000]";
+			mes "Merci encore pour le colis, grâce à toi je peux continuer à étudier les Yoyos";
+			cose;
+		}
+	else{
+		mes "[^0000FFSergent Gourt^000000]";
+		mes "Ces Yoyos sont fantastiques, ils font tout pour que le groupe survivent ! Si seulement tout le monde pouvait faire pareil...";
+		close;
+	}
+}
 
 ///////////////////ACOLYTE QUEST///////////////////
 
@@ -836,7 +948,7 @@ prt_church,X,Y,2	script	Soeur Mathilde#prt_church	4_XXXXXXX,{
 	}
 }
 
-///////////////////MAGE QUEST///////////////////
+///////////////////MAGE QUEST//////////////////////
 
 ///////////////////ARCHER QUEST///////////////////
 
@@ -846,29 +958,29 @@ izlude_in,115,164,1	script	Fohenn#ipayon	4_M_EDEN_GUARDER,{
 	if ((questprogress(60343) == 1) && (BaseJob == Job_Archer)){ //Avoir fini la quete avant (training ground)
 		//Quete pas encore commence
 		mes "^50A92C[Fohenn]^000000";
-		mes "Tu devrais commencer par allé voir ^0000FFFeleon^000000, petit chêne.";
+		mes "Tu devrais commencer par aller voir ^0000FFFeleon^000000, petit chêne.";
 		close;
 	}
 	
 		else if	(questprogress(00000) == 1){ //Quête de Feleon
 			mes "^0000FF[Fohenn]^000000";
 			mes "Te voici donc pret à germer petit chêne !";
-			mes "Il est temps pour toi de découvrire la foret.";
+			mes "Il est temps pour toi de découvrire la forêt.";
 			mes "Et tu prêt pour ta premiere leçon petit chêne ?";
-			switch(select("Oui, j'ai hate de sentir le vent dans mes cheuveux !","Euh non je ne me sens pas encore prêt")){
+			switch(select("Oui, j'ai hâte de sentir le vent dans mes cheveux !","Euh non je ne me sens pas encore prêt")){
 				case 1:
 					mes "^0000FF[Fohenn]^000000";
 					mes "Très bien petit chêne, ça c'est de l'engouement !";
 					mes "Eh bien ! Commençons ta premiere leçon, pendant celle-ci tu devras te servire de tout tes sens, et mettre à profit ton enseignement.";
-					mes "Je souhaite que tu te rende dans la foret aux alentours du village et que tu récoltes 10 ^0000FFCrystal Blue^000000, tu pourras les trouver sur les ^0000FFBlack Mushroom^000000 au Sud du village.";
-					mes "Avant de partir assure toi de disposer de l'equipement nécessaire pour mener à bien ta quete.";
-					mes "N'oublie pas petit chêne, la préparation et l'une des régles d'or pour survivre dans la foret."
+					mes "Je souhaite que tu te rende dans la forêt aux alentours du village et que tu récoltes 10 ^0000FFCrystal Blue^000000, tu pourras les trouver sur les ^0000FFBlack Mushroom^000000 au Sud du village.";
+					mes "Avant de partir assure toi de disposer de l'équipement nécessaire pour mener à bien ta quête.";
+					mes "N'oublie pas petit chêne, la préparation est l'une des régles d'or pour survivre dans la forêt."
 					mes "Alors tu es prêt ?"
-					switch(select("Oui plus que jamais !","Pwaa! Des Champignons, Beurk... j'y toucherais pas!")){
+					switch(select("Oui plus que jamais !","Pwaa! Des Champignons, Beurk... J'y toucherais pas!")){
 						case 1:
 							mes "^0000FF[Fohenn]^000000";
 							mes "Ah ! Quel entrein ! Ca me fait plaisir petit chêne!";
-							mes "Rend toi au sud du village et cherche des champignons sombre dans les foret,";
+							mes "Rends toi au sud du village et cherche des champignons sombre dans les forêt,";
 							mes "tu ne peux pas te tromper !";
 							next;
 							mes "^0000FF[Fohenn]^000000";
@@ -881,30 +993,31 @@ izlude_in,115,164,1	script	Fohenn#ipayon	4_M_EDEN_GUARDER,{
 							dispbottom "Vous avez reçu une nouvelle quête";
 							close;
 						case 2:
-							mes "^0000FF[Belior]^000000";
-							mes "Petit chêne ou est donc passé ta fougue ?! ";
+							mes "^0000FF[Fohenn]^000000";
+							mes "Petit chêne où est donc passée ta fougue ?! ";
 							mes "Reviens quand tu auras l'envie de communier avec la nature!";
 							close;
 					}
 				case 2:
-					mes "^0000FF[Belior]^000000";
+					mes "^0000FF[Fohenn]^000000";
 					mes "Pas encore prêt ? Qu'est-ce que ça veut dire ?";
-					mes "Tu as raison, la préparation et l'une des régles d'or pour survivre!";
+					mes "Tu as raison, la préparation est l'une des régles d'or pour survivre!";
 					close;
 			}
 		}
 		else if (questprogress(00000) == 1 && countitem(991) < 10){ //Quête de Payon en cours mais pas encore les items
 			mes "^0000FF[Fohenn]^000000";
 			mes "Vous n'avez pas encore rapporté tous les items.";
-			mes "Reviens quand ce sera le cas !";
+			mes "Revienez quand ce sera le cas !";
 			close;
 		}
-		else if (questprogress(00000) == 1 && countitem(991) >= 10){ //Quête de Payon en cours et tout items
+		else if (questprogress(00000) == 1 && countitem(991) >= 10){ //Quête de Payon en cours et tous les items
 			mes "^0000FF[Fohenn]^000000";
 			mes "Ah ! Bravo petit chêne !";
 			mes "Félicitations tu as réussi ta première mission pour le compte de la guilde.";
-			mes "Tout effort mérite une récompence ! Je vais te fabriquer des fléches avec les objets que tu m'as apporté, elles te seront utile pour ta prochaine quête, plus tard tu apprendras à fabriquer tes propres fléches";
+			mes "Tout effort mérite une récompence ! Je vais te fabriquer des fléches avec les objets que tu m'as apporté, elles te seront utile pour ta prochaine quête, plus tard tu apprendras à fabriquer tes propres fléches.";
 			completequest 00000; //Quête de Payon terminée
+			delitem 991,10;
 			getitem 1754 1500;
 			getexp 20000,10000;
 			dispbottom "Vous avez complété une quête";
@@ -915,8 +1028,8 @@ izlude_in,115,164,1	script	Fohenn#ipayon	4_M_EDEN_GUARDER,{
 			mes "Pourrais-tu en chasser quelques-uns?";
 			switch(select("Hum oui, j'ai plus d'une corde à mon arc !","Euh non je ne suis pas encore prêt")){
 				case 1:
-					mes "Ah, tu me surprendra toujours jeune chêne!";
-					mes "Bien, dans ce cas regle leur compte à 20 ^0000FFWillow^000000";
+					mes "Ah, tu me surprendras toujours jeune chêne!";
+					mes "Bien, dans ce cas régle leur compte à 20 ^0000FFWillow^000000";
 					mes "Tu les trouveras au sud et au sud-ouest du village";
 					mes "Courage petit chêne!"
 					setquest 00000; //Activation de la prochaine quête (PecoPeco);
@@ -929,7 +1042,7 @@ izlude_in,115,164,1	script	Fohenn#ipayon	4_M_EDEN_GUARDER,{
 		}
 		else if (questprogress(00000,HUNTING) == 1){ //Quête de payon2 - Obtenue & en cours
 			mes "^0000FF[Fohenn]^000000";
-			mes "Regle leur compte à 20 ^0000FFWillow^000000.";
+			mes "Régle leur compte à 20 ^0000FFWillow^000000.";
 			mes "Et reviens me voir.";
 			mes "Tu les trouveras au sud et au sud-ouest du village";
 			close;
@@ -945,12 +1058,12 @@ izlude_in,115,164,1	script	Fohenn#ipayon	4_M_EDEN_GUARDER,{
 		}
 	else {
 		mes "^0000FF[Fohenn]^000000";
-		mes "Alors ? Tu avance dans ta quête";
+		mes "Alors ? Tu avances dans ta quête";
 		close;
 	}
 	OnInit:
-		questinfo 00000, QTYPE_QUEST, 0; //Quête payon
-		questinfo 00000, QTYPE_QUEST, 0; //Quête payon2
+		questinfo 00000, QTYPE_QUEST, 0; //Quête payon Crystal Blue
+		questinfo 00000, QTYPE_QUEST, 0; //Quête payon2 Willow
 		questinfo 00000, QTYPE_QUEST, 0; //
 	end;	
 }
@@ -959,5 +1072,4 @@ izlude_in,115,164,1	script	Fohenn#ipayon	4_M_EDEN_GUARDER,{
 ///////////////////THIEF QUEST///////////////////
 
 ///////////////////MERCHANT QUEST///////////////////
-
 
