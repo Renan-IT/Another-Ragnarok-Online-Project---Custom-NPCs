@@ -33,73 +33,73 @@
 //////////////////////////////////////
 
 izlude_in,72,172,4	script	Amorl#iz	4_M_1STPRIN1,{
-	if ((questprogress(60343) == 2) && (BaseJob == Job_Swordman)){ //Quete pas encore commence
+	if ((questprogress(60343) == 2) && (BaseJob == Job_Swordman)){ //Quête pas encore commence
 		mes "^50A92C[Amorl]^000000";
-		mes "Bonjour "+strcharinfo(0)+", comment vas tu ?";
-		mes "Suis ton propre déstin !";
+		mes "Bonjour "+strcharinfo(0)+", comment vas-tu ?";
+		mes "Suis ton propre destin !";
 		close;
 	}
-	else if ((questprogress(60343) == 1) && (BaseJob == Job_Swordman)){ //Precedente quete fini (training ground)
+	else if ((questprogress(60343) == 1) && (BaseJob == Job_Swordman)){ //Precedente quête fini (training ground)
 		//Quete active
 		mes "^50A92C[Amorl]^000000";
 		mes "Bonjour "+strcharinfo(0)+", nous sommes la guilde des ^D41B1BSwordmans^000000,";
-		mes "Nous sommes les plus anciens combattant de Midgard, nous sommes les descendants";
-		mes "direct de Odin !";
+		mes "Nous sommes les plus anciens combattants de Midgard, nous sommes les descendants";
+		mes "direct d'Odin !";
 		next;
 		mes "^50A92C[Amorl]^000000";
-		mes "Nos ancetres ont même combattu à ses côtés pendant la tragique guerre de Midgard...";
-		mes "Seul notre ^D41B1BMaitre Barruk^000000 peut encore nous la raconter, car c'est le dernier survivants,";
-		mes "alors il faut bien l'écouter et garder en mémoire nos qui ont combattu pour nous !";
+		mes "Nos ancêtres ont même combattu à ses côtés pendant la tragique guerre de Midgard...";
+		mes "Seul notre ^D41B1BMaitre Barruk^000000 peut encore nous la raconter, car c'est le dernier survivant,";
+		mes "alors il faut bien l'écouter et garder en mémoire nos ancêtres qui ont combattu pour nous !";
 		next;
 		mes "^50A92C[Amorl]^000000";
 		mes "Avant lui, un grand homme, un héros même était à la tête de notre faction !";
-		mes "il s'appellait ^D41B1BAurus^000000, il avait sû maîtriser l'art du combat à la perfection et son ésprit";
+		mes "il s'appellait ^D41B1BAurus^000000, il avait su maitriser l'art du combat à la perfection et son esprit";
 		mes "lui, était encore plus solide que n'importe quel bouclier fait avec le plus solide des métaux..!";
 		next;
 		mes "^50A92C[Amorl]^000000";
 		mes "Et sache que nous ne sommes pas que des combattants qui ne réfléchissent pas,";
-		mes "il faudra tout aussi bien que tu utilise ta tête pour vaincre tes énnemis ! Comme les ^D41B1BThiefs^000000 !";
+		mes "il faudra tout aussi bien que tu utilise ta tête pour vaincre tes ennemis ! Comme les ^D41B1BThiefs^000000 !";
 		mes "Pourquoi eux ? Car ils nous ont trahit il y a bien longtemps de ça, pendant que tout";
 		next;
 		mes "^50A92C[Amorl]^000000";
-		mes "Midgard était en guerre contre le mal ! A la derniére grande bataille de l'ancien temps,";
+		mes "Midgard était en guerre contre le mal! À la dernière grande bataille de l'ancien temps,";
 		mes "nous avons combattu TOUS ensemble contre cet ennemi ! ";
-		mes "Nous étions arrive à le repousser le plus loin possible mais au moment de le renvoyer pour de bon six pieds sous terre,";
+		mes "Nous étions arrivé à le repousser le plus loin possible mais, au moment de le renvoyer pour de bon six pieds sous terre,";
 		next;
 		mes "^50A92C[Amorl]^000000";
 		mes "^D41B1BSanafar^000000, chef de la guilde des ^0000FFThiefs^000000 n'a pas voulu vous aider et le mal à pu subsister ";
-		mes "à travers un ésprit à ce qu'on raconte... Depuis ce jour, nous haïssons les ^0000FFThiefs^000000,";
+		mes "à travers un esprit à ce qu'on raconte... Depuis ce jour, nous haïssons les ^0000FFThiefs^000000,";
 		mes " ce ne sont que des voleurs qui assassinent leurs ennemies ! Alors ne t'avise pas à traiter avec ces";
 		next;
 		mes "^50A92C[Amorl]^000000";
-		mes "voleurs de sous categories ! Heureusement, les Acolytes ont toujours cru en nous et ont";
+		mes "voleurs de sous catégories ! Heureusement, les Acolytes ont toujours cru en nous et ont";
 		mes "voulu nous aider à vaincre ce mal. Malheureusement nous n'avons pas réussi...";
-		mes "Mais nous sommes resté en contact avec eux et nous sommes devenus de grand amis ! ";
+		mes "Mais nous sommes resté en contact avec eux et nous sommes devenus de grands amis ! ";
 		next;
 		mes "^50A92C[Amorl]^000000";
-		mes "Ils prient Dieu sans cesse et ne se battent pas beaucoup c'est pour cela que nous avons decide de les";
+		mes "Ils prient Dieu sans cesse et ne se battent pas beaucoup c'est pour cela que nous avons décide de les";
 		mes "aider en combattant pour eux et en échange, ils nous soignent et nous permettent de rejoindre ";
 		mes "le ^0000FFValhalla^000000 au moment venu.";
 		next;
 		mes "^50A92C[Amorl]^000000";
-		mes "J'éspere seulement que cet ésprit est bien mort car ces derniers temps, ";
+		mes "J'espère seulement que cet esprit est bien mort, car ces derniers temps, ";
 		mes "on nous rapporte qu'un mal gronde un peu plus loin dans les montagnes de Prontera..! Mais tu en sais bien assez,";
-		mes "j'en ai même trop dit ! Tu n'es qu'une simple recrue, et a encore tout à apprendre !";
+		mes "j'en ai même trop dit ! Tu n'es qu'une simple recrue, et as encore tout à apprendre !";
 		next;
 		mes "^50A92C[Amorl]^000000";
-		mes "Mais vous ne devez vous soucier de ses problemes, il faut d'abord que tu continu ta formation";
-		mes "au travers de cette guilde et de ses compagnons, et avec un peu de chance tu vivras longtemps et sans encombres !";
-		mes "Mais d'après nos seigneurs, tu serai un élu envoyé par la ^0000FFValkyrie^000000 elle même,";
+		mes "Mais vous ne devez vous soucier de ses problèmes, il faut d'abord que tu continu ta formation";
+		mes "au travers de cette guilde et de ses compagnons, et avec un peu de chance tu vivras longtemps et sans encombre!";
+		mes "Mais d'après nos seigneurs, tu serais un élu envoyé par la ^0000FFValkyrie^000000 elle-même,";
 		next;
 		mes "^50A92C[Amorl]^000000";
-		mes "puisse t-elle avoir raison ! Si c'est le cas nous le saurons bien assez tôt..!";
+		mes "puisse-t'elle avoir raison ! Si c'est le cas, nous le saurons bien assez tôt..!";
 		mes "Allé va maintenant..., adresse toi à ^0000FFBelior^000000 pour poursuivre ta formation, il t'attend dans la pièce à droite. Puisse Odin te guider";
-		setquest 60344; //Active la quete pour aller voir Swordman pour passer sa classe dans alt+u
+		setquest 60344; //Active la quête pour aller voir Swordman pour passer sa classe dans alt+u
 		completequest 60343;//Quête Destinée terminée, aller voir l'intendant
-		dispbottom "Vous avez complete une quete";
+		dispbottom "Vous avez complété une quête";
 		getexp 20000,0; //Donne de l'xp a la fin de la quete 
-		dispbottom "Vous avez gagne 20,000 Xp Base";
-		dispbottom "Vous avez recus une nouvelle quete";
+		dispbottom "Vous avez gagné 20,000 Xp Base";
+		dispbottom "Vous avez recçus une nouvelle quête";
 		close;
 		OnInit:
 			questinfo 60344, QTYPE_QUEST, 0;
@@ -112,7 +112,7 @@ izlude_in,72,172,4	script	Amorl#iz	4_M_1STPRIN1,{
 	}
 	else{
 		mes "^50A92C[Amorl]^000000";
-		mes "Mais tu ne fais pas encore partis de la guilde des Swordmans ! Passe donc le test pour devenir ^0000FFSwordman^000000.";
+		mes "Mais tu ne fais pas encore partie de la guilde des Swordmans ! Passe donc le test pour devenir ^0000FFSwordman^000000.";
 		close;
 	}
 }
@@ -133,72 +133,72 @@ izlude_in,72,172,4	script	Amorl#iz	4_M_1STPRIN1,{
 prt_church,103,84,3	script	Pere_Shawn#prt_in	4_M_OLDFRIAR,{
 	if ((questprogress(60343) == 2) && (BaseJob == Job_Acolyte)){ //Avoir fini la quete avant (training ground){
 		//Quete pas encore commence
-		mes "^50A92C[Pere Shawn]^000000";
-		mes "Bonjour "+strcharinfo(0)+", comment vas tu ?";
+		mes "^50A92C[Père Shawn]^000000";
+		mes "Bonjour "+strcharinfo(0)+", comment vas-tu ?";
 		mes "Bonne chance à toi ! Et puisse Dieu guider tes pas ";
 		close;
 	}
 	else if ((questprogress(60343) == 1) && (BaseJob == Job_Acolyte)){ //Precedente quete fini (training ground)
 		//Quete active
-		mes "^50A92C[Pere Shawn]^000000";
-		mes "Bienvenu a toi "+strcharinfo(0)+",  si tu es ici c’est que tu as choisi de devenir un enfant de notre seigneur.";
-		mes "Celui-ci m’avait prevenu de ton arrivée, il faut selon lui te proteger contre le monde exterieur au maximum, car tu es l’élu !";
+		mes "^50A92C[Père Shawn]^000000";
+		mes "Bienvenu à toi "+strcharinfo(0)+",  si tu es ici c’est que tu as choisi de devenir un enfant de notre seigneur.";
+		mes "Celui-ci m’avait prévenu de ton arrivée, il faut selon lui te protéger contre le monde extérieur au maximum, car tu es l’élu !";
 		next;
-		mes "^50A92C[Pere Shawn]^000000";
+		mes "^50A92C[Père Shawn]^000000";
 		mes "Sache que si c’est vrai, cela fait plusieurs siècles que nous attendions.";
-		mes "Je me presente, je m’appelle Pere Shawn et je suis Père dans cette église et dans ce monde qu’est Midgard en representant la guilde des ^D41B1BAcolytes^000000.";
+		mes "Je me présente, je m’appelle Père Shawn et je suis Père dans cette église et dans ce monde qu’est Midgard en représentant la guilde des ^D41B1BAcolytes^000000.";
 		mes "Nous nous sommes efforcés depuis toujours à respecter notre prochain et à aider Midgard au maximum.";
 		next;
-		mes "^50A92C[Pere Shawn]^000000";
+		mes "^50A92C[Père Shawn]^000000";
 		mes "Effectivement nous ne sommes pas très fort, mais avec notre volonté et notre croyance en Dieu, nous pouvons aider n’importer qui.";
 		mes "Surtout que depuis quelque temps, nos émissaires des quatre coins de Midgard nous ont rapporté que certains phénomènes étranges se passent.";
-		mes "Certains ont meme cru voir un mal qui était si terrible qu’ils en sont devenus aveugles …";
+		mes "Certains ont même cru voir un mal qui était si terrible qu’ils en sont devenus aveugles …";
 		next;
-		mes "^50A92C[Pere Shawn]^000000";
+		mes "^50A92C[Père Shawn]^000000";
 		mes "Ce monde devient de plus en plus étrange au fil des jours.";
 		mes "Il me semblait pourtant qu’il n’y avait plus aucun mal en ce bas monde depuis la fin de la Grande Guerre.";
-		mes "^D41B1BSeigneur Ryoul^000000 peut te la conter si tu le souhaites, ce sera le seul de notre guilde à pouvoir le faire, car il etait vivant encore à cette époque.";
+		mes "^D41B1BSeigneur Ryoul^000000 peut te la conter si tu le souhaites, ce sera le seul de notre guilde à pouvoir le faire, car il était vivant encore à cette époque.";
 		next;
-		mes "^50A92C[Pere Shawn]^000000";
+		mes "^50A92C[Père Shawn]^000000";
 		mes "Tout ce que je peux te dire c'est que ce fut une bataille épique, toutes les guildes de tous les horizons s’étaient réunies sous la même couleur pour vaincre ce mal !";
-		mes "D’apres les derniers survivants, ce mal serait vaincu et n’existerait plus.";
-		mes "Mais dernierement, notre chef apres un conseil avec ^D41B1BBarruk^000000, le chef de la guilde des Swordmans avec laquelle nous entretenons d’excellentes relations depuis maintenant des siècles";
-		mes" grâce notamment à notre religion qui est la même, ce mal aurait survecu et il gagnerait en force pour réattaquer ce monde.";
+		mes "D’après les derniers survivants, ce mal serait vaincu et n’existerait plus.";
+		mes "Mais dernièrement, notre chef après un conseil avec ^D41B1BBarruk^000000, le chef de la guilde des Swordmans avec laquelle nous entretenons d’excellentes relations depuis maintenant des siècles";
+		mes" grâce notamment à notre religion qui est la même, ce mal aurait survécu et il gagnerait en force pour réattaquer ce monde.";
 		next;
-		mes "^50A92C[Pere Shawn]^000000";
-		mes "M’enfin je t’en ai deja trop dit...";
+		mes "^50A92C[Père Shawn]^000000";
+		mes "M’enfin je t’en ai déjà trop dit...";
 		mes "Tu ne devrais pas encore avoir à te soucier de tout ça, tu n’es pour le moment encore qu’un simple aspirant.";
-		mes "Ne te préoccupe guére de ce que je viens de te dire, car ce ne sont que speculations, aucun fait rapporté n’a encore été prouvé.";
+		mes "Ne te préoccupe guère de ce que je viens de te dire, car ce ne sont que spéculations, aucun fait rapporté n’a encore été prouvé.";
 		next;
-		mes "^50A92C[Pere Shawn]^000000";
-		mes "Ce sont sûrement ces maudits ^0000FFMages^000000 qui font encore de la magie noire pour faire peur à tout le monde !";
+		mes "^50A92C[Père Shawn]^000000";
+		mes "Ce sont surement ces maudits ^0000FFMages^000000 qui font encore de la magie noire pour faire peur à tout le monde !";
 		mes "Ils doivent cacher quelque chose dans leur guilde et ils veulent que personne ne le découvre !";
-		mes "Nous les détestons, ce ne sont que des êtres malveillants qui pratique la magie interdite à des fins personnelles et malveillantes !";
+		mes "Nous les détestons, ce ne sont que des êtres malveillants qui pratiquent la magie interdite à des fins personnelles et malveillantes !";
 		mes "Une magie érudite que notre Dieu n’aurait jamais accordée à nous simples humains !";
 		next;
-		mes "^50A92C[Pere Shawn]^000000";
-		mes "Enfin bon, après t’avoir raconté tout ca, tu n’as sûrement qu’une envie c’est de commencer ta quête.";
+		mes "^50A92C[Père Shawn]^000000";
+		mes "Enfin bon, après t’avoir raconté tout ça, tu n’as surement qu’une envie c’est de commencer ta quête.";
 		mes "Tu peux y aller maintenant, je ne te retiens pas plus longtemps !";
 		mes "Soeur Mathild t'attend pour ton baptême, elle doit être en train de prier dans la nef.";
 		setquest 60345; //Active la quete pour aller voir Father X pour passer sa classe dans alt+u
 		completequest 60343; //Quête Destinée terminée, aller voir l'intendant
-		dispbottom "Vous avez complete une quete";
+		dispbottom "Vous avez complété une quête";
 		getexp 20000,0; //Donne de l'xp a la fin de la quete 
-		dispbottom "Vous avez gagne 20,000 Xp Base";
-		dispbottom "Vous avez recus une nouvelle quete";
+		dispbottom "Vous avez gagné 20,000 Xp Base";
+		dispbottom "Vous avez reçus une nouvelle quete";
 		close;
 		OnInit: //Initialisation de la prochaine quete
 			questinfo 60345, QTYPE_QUEST, 0;
 		end;	
 	}
 	else if (questprogress(60345) == 1){ //Quete 60344 lancee
-        mes "^50A92C[Pere Shawn]^000000";
-        mes "Tu hésite mon enfant ? Va voir Soeur Mathild dans la nef.";
+        mes "^50A92C[Père Shawn]^000000";
+        mes "Tu hésites mon enfant ? Va voir Soeur Mathild dans la nef.";
         close;
     }
     else{
-        mes "^50A92C[Pere Shawn]^000000";
-        mes "Que fais tu ici ? Tu dois d'abord passer ta quête d'^0000FFAcolyte^000000.";
+        mes "^50A92C[Père Shawn]^000000";
+        mes "Que fais-tu ici ? Tu dois d'abord passer ta quête d'^0000FFAcolyte^000000.";
         close;
     }
 }
@@ -215,11 +215,12 @@ prt_church,103,84,3	script	Pere_Shawn#prt_in	4_M_OLDFRIAR,{
 //Olafe = 1er Instructeur
 //////////////////////////////////////
 
-geffen_in,174,110,6	script	Aguara#geffen_in	1_F_SIGNZISK,{
+
+}geffen_in,174,110,6	script	Aguara#geffen_in	1_F_SIGNZISK,{
 	if ((questprogress(60343) == 2) && (BaseJob == Job_Mage)){ //Avoir fini la quete avant (training ground){
 		//Quete pas encore commence
 		mes "^50A92C[Aguara]^000000";
-		mes "Bonjour "+strcharinfo(0)+", comment vas tu ?";
+		mes "Bonjour "+strcharinfo(0)+", comment vas-tu ?";
 		mes "Bonne chance à toi ! Et puisse Dieu guider tes pas ";
 		close;
 	}
@@ -227,32 +228,32 @@ geffen_in,174,110,6	script	Aguara#geffen_in	1_F_SIGNZISK,{
 		//Quete active
 		mes "^50A92C[Aguara]^000000";
 		mes "Bonjour "+strcharinfo(0)+", laisse-moi deviner, tu es ici pour devenir ^D41B1BMage^000000 n’est-ce pas ? ";
-		mes "Je dois d’abord t’avertir que devenir ^D41B1BMage^000000 te donnera accés à une magie que seuls les plus témeraires arriveront à maîtriser !";
+		mes "Je dois d’abord t’avertir que devenir ^D41B1BMage^000000 te donnera accès à une magie que seuls les plus téméraires arriveront à maitriser !";
 		mes "Et je peux te dire que ce n’est pas de tout repos !";
 		next;
 		mes "^50A92C[Aguara]^000000";
 		mes "Trêve de bavardage, je me présente, on m’appelle Aguara, je fais partie de la guilde des ^D41B1BMages^000000. Je ne suis pas le plus haut place, mais je me débrouille bien.";
-		mes "Si tu veux devenir le maître, il faudra avant tout que tu surpasses celui actuel qui est ^0000FFEukra^000000.";
+		mes "Si tu veux devenir le maitre, il faudra avant tout que tu surpasses celui actuel qui est ^0000FFEukra^000000.";
 		mes "C’est lui le meilleur d’entre nous, il est très intelligent et manie les sorts comme personne en ce monde !";
 		next;
 		mes "^50A92C[Aguara]^000000";
-		mes "Effectivement nous ne sommes pas très fort, mais avec notre volonte et notre croyance en Dieu, nous pouvons aider n’importer qui.";
+		mes "Effectivement nous ne sommes pas très fort, mais avec notre volonté et notre croyance en Dieu, nous pouvons aider n’importer qui.";
 		mes "Certaines personnes dans Midgard nous prennent pour des sorciers maléfiques qui utilisent leurs pouvoirs pour répandre la peur et la tristesse !";
-		mes "Comme les ^0000FFAcolytes^000000 par exemple, pour eux nous ne sommes pas des descendants d’Odin car nous pratiquons une magie bien differente de la leur !";
+		mes "Comme les ^0000FFAcolytes^000000 par exemple, pour eux nous ne sommes pas des descendants d’Odin car nous pratiquons une magie bien différente de la leur !";
 		next;
 		mes "^50A92C[Aguara]^000000";
-		mes "Mais ils ont tort, nous nous éfforçons d’utiliser notre magie pour aider le monde de Midgard !!";
+		mes "Mais ils ont tort, nous nous efforçons d’utiliser notre magie pour aider le monde de Midgard !!";
 		mes "Si seulement ils sortaient un peu de leur église !";
 		next;
 		mes "^50A92C[Aguara]^000000";
 		mes "Dans un ancien temps, nous avions combattu ensemble main dans la main pour détruire une force maléfique très puissante.";
-		mes "Mais depuis plusieurs décennies, notre relation s’est degradée jusqu’à ne plus exister du tout…";
+		mes "Mais depuis plusieurs décennies, notre relation s’est dégradée jusqu’à ne plus exister du tout…";
 		mes "Celui qui pourra t’en parler le mieux est notre chef. Mais ce n’est pas grave, nous vivons très bien sans eux, nous n’avons pas besoin d’eux !";
 		next;
 		mes "^50A92C[Aguara]^000000";
 		mes "Heureusement nous avons encore un allié qui nous est très cher !";
 		mes "Ce sont les ^0000FFMerchants^000000, ils ne nous ont jamais laissé tomber.";
-		mes "Car comme tu peux t’en douter, en tant que Mage, nous avons sans cesse besoin d’objets pour créer des potions, car certains sorts nécessitent énormement d’énergie et nous devons donc nous regenerer grâce à elles.";
+		mes "Car comme tu peux t’en douter, en tant que Mage, nous avons sans cesse besoin d’objets pour créer des potions, car certains sorts nécessitent énormement d’énergie et nous devons donc nous régénérer grâce à elles.";
 		next;
 		mes "^50A92C[Aguara]^000000";
 		mes "De plus, nous avons besoin d’un certain type d’objets pour lancer certains sorts, des sorts très puissants.";
@@ -260,16 +261,16 @@ geffen_in,174,110,6	script	Aguara#geffen_in	1_F_SIGNZISK,{
 		mes "Nous avons donc bâti un partenariat depuis très longtemps maintenant.";
 		next;
 		mes "^50A92C[Aguara]^000000";
-		mes "Ce dernier nous sera peut-être bientôt encore plus utile, car d’après ce que mes superieurs ont entendu, un mal se fait de plus en plus présent…";
-		mes "Nous devons nous preparer a toutes les eventualites.";
-		mes "Tout ceci n’est que supputations et il ne faut sûrement pas en tenir compte, tu es jeune et faible encore, ces hypothèses ne doivent pas t’atteindre !";
+		mes "Ce dernier nous sera peut-être bientôt encore plus utile, car d’après ce que mes supérieurs ont entendu, un mal se fait de plus en plus présent…";
+		mes "Nous devons nous préparer à toutes les éventualités.";
+		mes "Tout ceci n’est que supputations et il ne faut surement pas en tenir compte, tu es jeune et faible encore, ces hypothèses ne doivent pas t’atteindre !";
 		mes "Commence déjà par apprendre la magie ! ^D41B1BOlafe^000000 t’attend, tu devrais aller le voir !";
 		setquest 60346; //Active la quete pour aller voir Father X pour passer sa classe dans alt+u
 		completequest 60343; //Quête Destinée terminée, aller voir l'intendant
-		dispbottom "Vous avez complete une quete";
+		dispbottom "Vous avez complété une quête";
 		getexp 20000,0; //Donne de l'xp a la fin de la quete 
-		dispbottom "Vous avez gagne 20,000 Xp Base";
-		dispbottom "Vous avez recus une nouvelle quete";
+		dispbottom "Vous avez gagné 20,000 Xp Base";
+		dispbottom "Vous avez reçus une nouvelle quête";
 		close;
 		OnInit: //Initialisation de la prochaine quete
 			questinfo 60346, QTYPE_QUEST, 0;
@@ -282,10 +283,9 @@ geffen_in,174,110,6	script	Aguara#geffen_in	1_F_SIGNZISK,{
     }
     else{
         mes "^50A92C[Aguara]^000000";
-        mes "Que fais tu ici ? Tu dois d'abord devenir ^0000FFMage^0000FF.";
+        mes "Que fais-tu ici ? Tu dois d'abord devenir ^0000FFMage^0000FF.";
         close;
     }
-}
 
 /////////////////////////////////////////////////////
 ///////////////////THIEF QUEST///////////////////////
@@ -320,7 +320,7 @@ moc_prydb1,46,135,4	script	Pydar#pyr	4_M_THIEF_RUMIN,{
 		mes "Ne te méprends pas jeune apprenti, la voix de ^D41B1BThief^000000 est dur. ";
 		next;
 		mes "^50A92C[Pydar]^000000";
-		mes "Tes entraînements seront longs et fastidieux. Seule une poignée d’initiées peuvent prétendre devenir maîtres un jour.";
+		mes "Tes entrainements seront longs et fastidieux. Seule une poignée d’initiées peuvent prétendre devenir maitres un jour.";
 		mes "Il va falloir que tu deviennes une ombre pour surprendre et vaincre tes ennemis.";
 		mes "L'effet de surprise sera ta principale arme et tes lames ton salut ! ";
 		next;
@@ -332,17 +332,17 @@ moc_prydb1,46,135,4	script	Pydar#pyr	4_M_THIEF_RUMIN,{
 		mes "^50A92C[Pydar]^000000";
 		mes "Ils ne cherchent qu’à augmenter leur force et leur contrôle sur Midgard, terre de liberté et terre de tous.";
 		mes "Pourtant, l’on raconte que jadis, toutes les guildes s’étaient unies pour combattre un grand Mal.";
-		mes "Les Thiefs prêtaient main-forte aux combats pour arracher et soustraire, et parfois même, au péril de leurs vies, des informations à l’ennemi. ";
+		mes "Les Thiefs prêtaient mainforte aux combats pour arracher et soustraire, et parfois même, au péril de leurs vies, des informations à l’ennemi. ";
 		next;
 		mes "^50A92C[Pydar]^000000";
-		mes "C’est d’ailleurs durant cette grande guerre que naquit notre maître à tous « ^D41B1BSanafar^000000 ».";
+		mes "C’est d’ailleurs durant cette grande guerre que naquit notre maitre à tous « ^D41B1BSanafar^000000 ».";
 		mes "Il est le seul à avoir su manier à la perfection l’art, de la discrétion, du maniement des poisons et bien d’autres encore.";
-		mes "Suis ces pas et peut-être un jour toi aussi tu mériteras de porter l’habit des maîtres.";
+		mes "Suis ces pas et peut-être un jour toi aussi tu mériteras de porter l’habit des maitres.";
 		mes "C'est aussi grâce aux ^0000FFArchers^000000 que nous avons acquis toutes ces connaissances au niveau du poison, ils nous ont toujours soutenus.";
-		mes "Et nous les en remercions car les alliés se comptent sur les doigts d'une main d'un mutilé aujourd'hui !";
+		mes "Et nous les en remercions, car les alliés se comptent sur les doigts d'une main d'un mutilé aujourd'hui !";
 		next;
 		mes "^50A92C[Pydar]^000000";
-		mes "En éspérant que tu puisse y parvenir assez vite car d'après nos informateurs, un grand mal est revenu ces derniers temps..!";
+		mes "En espérant que tu puisses y parvenir assez vite, car d'après nos informateurs, un grand mal est revenu ces derniers temps..!";
 		mes "J'ai peur que notre mort soit déjà écrite ! Espérons que Midgard survive à ce nouvel épisode !";
 		mes "Mais je m’égare, tu n’es encore qu’un apprenti. Il te reste beaucoup à apprendre.";
 		next;
@@ -351,10 +351,10 @@ moc_prydb1,46,135,4	script	Pydar#pyr	4_M_THIEF_RUMIN,{
 		mes "Que Loki et Hel te garde et te montre le chemin à prendre.";
 		setquest 60347; //Active la quete pour aller voir X pour passer sa classe dans alt+u
 		completequest 60343; //Quête Destinée terminée, aller voir l'intendant
-		dispbottom "Vous avez complete une quete";
+		dispbottom "Vous avez complété une quête";
 		getexp 20000,0; //Donne de l'xp a la fin de la quete 
-		dispbottom "Vous avez gagne 20,000 Xp Base";
-		dispbottom "Vous avez recus une nouvelle quete";
+		dispbottom "Vous avez gagné 20,000 Xp Base";
+		dispbottom "Vous avez reçus une nouvelle quête";
 		close;
 		OnInit: //Initialisation de la prochaine quete
 			questinfo 60347, QTYPE_QUEST, 0;
@@ -367,7 +367,7 @@ moc_prydb1,46,135,4	script	Pydar#pyr	4_M_THIEF_RUMIN,{
     }
     else{
         mes "^50A92C[Pydar]^000000";
-        mes "Que fais tu ici ? Aprend les bases de nos précepte en passant ^0000FFThief^000000";
+        mes "Que fais-tu ici ? Apprends les bases de nos préceptes en passant ^0000FFThief^000000";
         close;
     }
 }
@@ -386,8 +386,8 @@ moc_prydb1,46,135,4	script	Pydar#pyr	4_M_THIEF_RUMIN,{
 payon_in02,60,70,3	script	Feleon#payon_in02	4_M_FARIY_HISIE,{
 	if ((questprogress(60343) == 2) && (BaseJob == Job_Archer)){
 		mes "^50A92C[Feleon]^000000";
-		mes "Bonjour "+strcharinfo(0)+", comment vas tu ?";
-		mes "Bonne chance a toi jeune pousse ! Et puisse la Déesse te proteger.";
+		mes "Bonjour "+strcharinfo(0)+", comment vas-tu ?";
+		mes "Bonne chance à toi jeune pousse ! Et puisse la Déesse te protéger.";
 		close;
 	}
 	else if ((questprogress(60343) == 1) && (BaseJob == Job_Archer)){ 
@@ -414,7 +414,7 @@ payon_in02,60,70,3	script	Feleon#payon_in02	4_M_FARIY_HISIE,{
 		mes "Mais il t’en parlera certainement mieux que moi. Je crains fort de ne pas être à la hauteur d’une si grande tâche.";
 		next;
 		mes "^50A92C[Feleon]^000000";
-		mes "Quoi qu’il en soit, jeune pousse, tu vas devoir grandir et éclore avant de pouvoir un jour, dépasser nôtre Maître à tous « Eoliate », qui d’après la légende, était capable de contrôler les oiseaux et était devenu maître dans le maniement de l’arc et des flèches. Mais là encore, je ne suis pas suffisamment digne pour te parler de ce héros avec toute l’éloquence requise.";
+		mes "Quoi qu’il en soit, jeune pousse, tu vas devoir grandir et éclore avant de pouvoir un jour, dépasser nôtre Maitre à tous « Eoliate », qui d’après la légende, était capable de contrôler les oiseaux et était devenu maitre dans le maniement de l’arc et des flèches. Mais là encore, je ne suis pas suffisamment digne pour te parler de ce héros avec toute l’éloquence requise.";
 		next;
 		mes "^50A92C[Feleon]^000000";
 		mes"Enfin … Il est grand temps pour toi d’ouvrir tes ailes et t’envoler voir ^0000FFFohenn^000000 pour commencer ta communion avec la nature."; 
@@ -422,9 +422,10 @@ payon_in02,60,70,3	script	Feleon#payon_in02	4_M_FARIY_HISIE,{
 		mes "Que Nerthus t’inonde de sa bienveillance et de sa bonté.« Arc Lointain !!! »";
 		setquest 60348; 
 		completequest 60343;		
-		getexp 20000,0; 
-		dispbottom "Vous avez gagne 20,000 Xp Base";
-		dispbottom "Vous avez reçus une nouvelle quête";
+		getexp 20000,0;
+		dispbottom "Vous avez complété une quête"; 
+		dispbottom "Vous avez gagné 20,000 Xp Base";
+		dispbottom "Vous avez reçu une nouvelle quête";
 		close;
 		OnInit: 
 			questinfo 60348, QTYPE_QUEST, 0;
@@ -432,12 +433,12 @@ payon_in02,60,70,3	script	Feleon#payon_in02	4_M_FARIY_HISIE,{
 	}
 	else if (questprogress(60348) == 1){ 
         mes "^50A92C[Feleon]^000000";
-        mes "Cours, chante, vole jusuq'a ^0000FFFohenn^000000 jeune pousse!";
+        mes "Cours, chante, vole jusqu'à ^0000FFFohenn^000000 jeune pousse!";
         close;
     }
     else{
         mes "^50A92C[Feleon]^000000";
-        mes "De quelle branche est tu tombée jeune pousse? Rejoins nous en devenant ^0000FFArcher^000000";
+        mes "De quelle branche es-tu tombé jeune pousse? Rejoins nous en devenant ^0000FFArcher^000000";
         close;
     }
 }
@@ -469,32 +470,32 @@ izlude_in,115,164,1	script	Belior#iz	4_M_EDEN_GUARDER,{
 		//Quete pas encore commence
 		mes "^50A92C[Belior]^000000";
 		mes "Tu devrais commencer par allé voir ^0000FFAmorl^000000.";
-		mes "Suis ton propre déstin !";
+		mes "Suis ton propre destin !";
 		close;
 	}
 	
 		else if	(questprogress(60344) == 1){ //Quête de Armol en cours
 			mes "^0000FF[Belior]^000000";
-			mes "Ah tu tombe bien ! C'est Amorl qui t'envoie c'est ça ?";
+			mes "Ah tu tombes bien ! C'est Amorl qui t'envoie c'est ça ?";
 			mes "Il m'avait prévenu de ton arrivée imminente,";
-			mes "apparement tu serai un élu prêt à devenir notre maitre à tous ?!";
+			mes "apparemment tu serais un élu prêt à devenir notre maitre à tous ?!";
 			switch(select("Oui, du moins je vais essayé","Euh non je ne me sens pas encore prêt")){
 				case 1:
 					mes "^0000FF[Belior]^000000";
 					mes "Très bien tu as au moins du courage c'est le moins qu'on puisse dire !";
 					mes "Nous allons voir maintenant si tu es prêt à servir ta guilde comme il se doit.";
-					mes "Commence déjà par aller aider tes camarades à Culvert, l'égoût s'est infesté depuis peu et nous avons du mal à contenir la reproduction de ces bêtes.";
-					switch(select("Euh d'accord, où se situe cet endroit?","Les égoûts ? Mais c'est sale et infesté !")){
+					mes "Commence déjà par aller aider tes camarades à Culvert, l'égout s'est infesté depuis peu et nous avons du mal à contenir la reproduction de ces bêtes.";
+					switch(select("Euh d'accord, où se situe cet endroit?","Les égouts ? Mais c'est sale et infesté !")){
 						case 1:
 							mes "^0000FF[Belior]^000000";
-							mes "Ah ! Tu es bien brave ! Ca me fait plaisir ! ";
-							mes "Culvert se trouve sur la partie Ouest de Prontera, C'est une petite entrée, surveillé par un Garde.";
+							mes "Ah ! Tu es bien brave ! Ça me fait plaisir ! ";
+							mes "Culvert se trouve sur la partie ouest de Prontera, c'est une petite entrée, surveillée par un Garde.";
 							mes "Tu ne peux pas te tromper !";
 							next;
 							mes "^0000FF[Belior]^000000";
-							mes "Au fait, tiens prend ça, elles te seront sûrement utile là bas !";
+							mes "Au fait, tiens prend ça, elles te seront surement utiles là bas !";
 							getitem Red_Potion,25;
-							mes "Rapporte moi 20 Earthworm Peeling, 10 Insect Feeler, 15 Feather pour me prouver ton envie !";
+							mes "Rapporte-moi 20 Earthworm Peeling, 10 Insect Feeler, 15 Feather pour me prouver ton envie !";
 							setquest 60350; //Activation quête (Culvert)
 							completequest 60344;
 							dispbottom "Vous avez complété une quête";
@@ -503,13 +504,13 @@ izlude_in,115,164,1	script	Belior#iz	4_M_EDEN_GUARDER,{
 						case 2:
 							mes "^0000FF[Belior]^000000";
 							mes "Haha ! Et dire qu'ils t'ont laissé devenir Swordman ! Je n'y crois pas ! ";
-							mes "Reviens quand ton courage sera digne de l'uniforme que tu porte !";
+							mes "Reviens quand ton courage sera digne de l'uniforme que tu portes !";
 							close;
 					}
 				case 2:
 					mes "^0000FF[Belior]^000000";
 					mes "Pas encore prêt ? Qu'est-ce que ça veut dire ?";
-					mes "Qui a bien pû me passer un tiroflant pareil ..?";
+					mes "Qui a bien pu me passer un tiroflant pareil ..?";
 					close;
 			}
 		}
@@ -534,10 +535,10 @@ izlude_in,115,164,1	script	Belior#iz	4_M_EDEN_GUARDER,{
 			mes "^0000FF[Belior]^000000";
 			mes "Mais ce n'est que le début, d'ailleurs j'en ai reçu une nouvelle pour toi.";
 			mes "Notre Capitaine Malerme a perdu son Péco Péco, tu devrais aller la voir pour plus d'informations.";
-			mes "Elle se trouve à Prontera, tu devrais facilement la trouvé";
+			mes "Elle se trouve à Prontera, tu devrais facilement la trouver";
 			mes "Bonne chance et qu'Odin te protège !";
 			setquest 20000; //Activation de la prochaine quête (PecoPeco);
-			dispbottom "Vous avez reçu une nouvelle quête consulté la avec alt+u";
+			dispbottom "Vous avez reçu une nouvelle quête consultée la avec alt+u";
 			close;
 		}
 		else if (questprogress(20000) == 1){ //Quête du PecoPeco Perdu - Obtenue & en cours
@@ -549,7 +550,7 @@ izlude_in,115,164,1	script	Belior#iz	4_M_EDEN_GUARDER,{
 		else if (questprogress(20000) == 2){ //Quête du PecoPeco Perdu - Finie - Activation Quête Colis
 			mes "^0000FF[Belior]^000000";
 			mes "Woah, tu as retrouvé le Péco Péco du capitaine, Super !";
-			mes "Bon, j'ai une autre quête pour toi, j'éspere, que tu pourras me donner un coup de main!";
+			mes "Bon, j'ai une autre quête pour toi, j'espère, que tu pourras me donner un coup de main!";
 			mes "Le Sergent Gourt aurait besoin de ton aide. Va le voir, il se trouve dans cette ville.";
 			setquest 60357; //Activation de la prochaine quête 
 			dispbottom "Vous avez reçu une nouvelle quête consultez la via alt+u";	
@@ -557,7 +558,7 @@ izlude_in,115,164,1	script	Belior#iz	4_M_EDEN_GUARDER,{
 		}
 	else {
 		mes "^0000FF[Belior]^000000";
-		mes "Alors ? Tu avance dans ta quête";
+		mes "Alors ? Tu avances dans ta quête";
 		close;
 	}
 	OnInit:
@@ -573,13 +574,13 @@ prontera,164,182,3	script	Capitaine Malerme#prt	4_F_JOB_KNIGHT,{
 	if ((questprogress(20000) == -1) && (BaseJob == Job_Swordman)){ //Avoir fini la quete avant (Culvert)
 		mes "^0000FF[Capitaine Malerme]^000000";
 		mes "Tien, que fais tu ici ? On ne m'a pas parlé de ton arrivée ?";
-		mes "Tu devrais aller voir du côté de ton formateur dans ces cas là.";
+		mes "Tu devrais aller voir du côté de ton formateur dans ces cas-là.";
 		close;
 	}
 		else if	(questprogress(20000) == 1){ //Quête de Belior en cours
 			mes "^0000FF[Capitaine Malerme]^000000";
 			mes "Excusez moi vous n'auriez pas vu mon Péco Péco ?";
-			mes "Il s'est enfuit tout à l'heure après un bruit étrange prêt du Temple Caché de Prontera";
+			mes "Il s'est enfui tout à l'heure après un bruit étrange près du Temple Caché de Prontera";
 			mes "On m'avait pourtant dit de faire attention ...";
 			next;
 			mes "^0000FF[Capitaine Malerme]^000000";
@@ -591,11 +592,11 @@ prontera,164,182,3	script	Capitaine Malerme#prt	4_F_JOB_KNIGHT,{
 				case 1:
 					mes "^0000FF[Capitaine Malerme]^000000";
 					mes "C'est vrai ? Vous allez vraiment m'aider ?";
-					mes "C'est extrémement généreux de votre part !";
+					mes "C'est extrêmement généreux de votre part !";
 					next;
 					mes "^0000FF[Capitaine Malerme]^000000";
 					mes "La dernière fois que je l'ai vu, il partait en direction du Temple Caché de Prontera,";
-					mes "Tu devrais commencer tes recherches par là bas je pense";
+					mes "Tu devrais commencer tes recherches par là-bas je pense";
 					set alrdytalkcapitaine == 1;
 					close;
 				case 2:
@@ -620,18 +621,18 @@ prontera,164,182,3	script	Capitaine Malerme#prt	4_F_JOB_KNIGHT,{
 				switch(select("Oui, j'en suis sur"){
 					case 1:
 					mes "^0000FF[Capitaine Malerme]^000000";
-					mes "Je pourrai reconnaitre se poison entre mille !";
+					mes "Je pourrai reconnaitre ce poison entre mille !";
 					mes "C'est un assassinat pur et dur ! C'est la guilde des Thiefs qui a fait ça j'en suis certaine !";
 					mes "De plus, cette lame ressemble fortement à ce que portaient les Thiefs de l'ancien temps !";
 					mes "En tout cas merci quand même de l'avoir retrouvé... Je vais me renseigner un peu plus et acquérir des indices !";
 					mes "Mais si ils m'indiquent ces satanés Thiefs, je jure devant Thor que ma vengeance sera terrible !";
-					mes "Peut être qu'il est encore temps de le sauver ! Tu voudrais bien encore m'aider une dernière fois ?";
+					mes "Peut-être qu'il est encore temps de le sauver ! Tu voudrais bien encore m'aider une dernière fois ?";
 					switch(select("Oui","Non"){
 						case 1:
 							mes "Vraiment ? Merci !";
-							mes "Alors voila ce que tu vas faire, écoute bien !";
-							mes "Rends toi à l'église de Prontera et va parler à Soeur Mathilde, c'est la formatrice des Acolytes,";
-							mes "Dit lui que tu as besoin du remède pour combattre le poison des Thiefs.";
+							mes "Alors voilà ce que tu vas faire, écoute bien !";
+							mes "Rends-toi à l'église de Prontera et va parler à Soeur Mathilde, c'est la formatrice des Acolytes,";
+							mes "Dis-lui que tu as besoin du remède pour combattre le poison des Thiefs.";
 							mes "Elle te dira quoi faire !";
 							mes "C'est d'accord ?";
 							switch(select("Okay j'ai compris","Euh non vous pouvez répéter?")){
@@ -641,15 +642,15 @@ prontera,164,182,3	script	Capitaine Malerme#prt	4_F_JOB_KNIGHT,{
 									set alrdytalkeglise == 1; 
 									close;
 								case 2:
-									mes "Bon alors, il faut que tu aille voir Soeur Mathilde qui se trouve dans l'église de Prontera.";
+									mes "Bon alors, il faut que tu ailles voir Soeur Mathilde qui se trouve dans l'église de Prontera.";
 									mes "Elle te donnera les informations pour fabriquer ce remède.";
-									mes "Dépêche toi ! Le temps nous est compté !";
+									mes "Dépêche-toi ! Le temps nous est compté !";
 									set alrdytalkeglise == 1;
 									close;
 							}
 						case 2:
-							mes "Tu le laisserai mourir ? Très bien ! Sache que je retiendrai cette décision mais je n'en parlerai guère à tes supérieurs.";
-							mes "Mais si un jour tu as besoin de moi, je me rappelerai de ce jour !";
+							mes "Tu le laisserais mourir ? Très bien ! Sache que je retiendrai cette décision, mais je n'en parlerai guère à tes supérieurs.";
+							mes "Mais si un jour tu as besoin de moi, je me rappellerai de ce jour !";
 							completequest 20000; //Fin de la quête "Retrouver le Péco" car refuse d'aider
 							dispbottom "Vous avez terminé une quête";
 							Zeny,Zeny+10000;
@@ -662,15 +663,15 @@ prontera,164,182,3	script	Capitaine Malerme#prt	4_F_JOB_KNIGHT,{
 			}
 				else if (questprogress(20000) == 1 && alrdytalksoeurmathilde == 1){ //Quête péco après discussion avec Soeur Mathilde
 					mes "Tu as le remède c'est bon ?";
-					mes "Très bien, maintenant court voir mon ^0000FFPéco Péco^000000 et injecte lui l'antidote !";
-					mes "Je te donne une potion pour que tu aille bien plus vite !";
+					mes "Très bien, maintenant cours voir mon ^0000FFPéco Péco^000000 et injecte-lui l'antidote !";
+					mes "Je te donne une potion pour que tu ailles bien plus vite !";
 					set alrdytalkantidote == 1; //Discussion avec Capitaine Malerme après avoir parlé à Soeur Mathilde activée
 					sc_start 12,140000,5;
 					skilleffect 29,0;
 					close;
 				}
 				else if (questprogress(20000) == 1 && alrdytalkeglise == 1){ //Quête péco avant discussion avec Soeur Mathilde
-					mes "Qu'est-ce que tu attends ? Fonce voir Soeur Mathhhilde pour faire l'antidote !";
+					mes "Qu'est-ce que tu attends ? Fonce voir Soeur Mathilde pour faire l'antidote !";
 					mes "Sinon il va être trop tard !";
 					close;
 				}
@@ -680,15 +681,15 @@ prontera,164,182,3	script	Capitaine Malerme#prt	4_F_JOB_KNIGHT,{
 					switch(select"Oui mais il ne peut pas encore bouger"){
 						case 1:
 								mes "^0000FF[Capitaine Malerme]^000000";
-								mes "D'accord mais c'est déjà extraordinaire qu'il est réussi à survivre autant de temps.";
-								mes "Je vais le laisser se remettre tranquillement et je pense le libérer, il a assez souffert comme ça.";
-								mes "La liberté doit lui être donné maintenant même si ça me rend triste...";
-								mes "Au fait comment tu t'appelle ?"
+								mes "D'accord, mais c'est déjà extraordinaire qu'il ait réussi à survivre autant de temps.";
+								mes "Je vais le laisser se remettre tranquillement et, je pense, le libérer, il a assez souffert comme ça.";
+								mes "La liberté doit lui être donnée maintenant même si ça me rend triste...";
+								mes "Au fait comment tu t'appelles?"
 								switch(select(""+strcharinfo+"")){
 									case 1:
 									mes ""+strcharinfo+" ?? Oh mais attend, tu es alors le jeune Swordman très prometteur dont toute la guilde parle !";
 									mes "Continu comme ça et tu deviendras un grand champion au sein de notre guilde !";
-									mes "Au fait tu mérites bien quelques choses après t'être donner tant de mal!";
+									mes "Au fait tu mérites bien quelques choses après t'être donné tant de mal!";
 									Zeny,Zeny+20000;
 									getitem 2405,1;
 									getexp 25000,25000;
@@ -696,10 +697,10 @@ prontera,164,182,3	script	Capitaine Malerme#prt	4_F_JOB_KNIGHT,{
 									delitem 7154,1;					
 									next;
 									mes "^0000FF[Capitaine Malerme]^000000";
-									mes "Tu devrais retourner voir ton formateur, ^0000FFBelior^000000, il doit sûrement avoir autre chose à te faire faire.";
-									mes "Mes amitiés cher camarade !";
+									mes "Tu devrais retourner voir ton formateur, ^0000FFBelior^000000, il doit surement avoir autre chose à te faire faire.";
+									mes "Mes amitiés, chère camarade!";
 									completequest 20000; //Fin de la quête "Retrouver le Péco Péco"
-									dispbottom "Vous avez terminé une quête";
+									dispbottom "Vous avez complété une quête";
 									close;
 								}
 								
@@ -709,13 +710,13 @@ prontera,164,182,3	script	Capitaine Malerme#prt	4_F_JOB_KNIGHT,{
 				mes "^0000FF[Capitaine Malerme]^000000";
 				mes "Encore merci de m'avoir aidé "+strcharinfo+"";
 				mes "Je suis ravi qu'on arrive à former des jeunes avec un courage comme le tien !";
-				mes "Va voir ^0000FFBélior^000000 maintenat, il doit t'attendre !";
+				mes "Va voir ^0000FFBélior^000000 maintenant, il doit t'attendre !";
 				close;
 			}
 	else{ //Discussion avec autres classes
 		mes "^0000FF[Capitaine Malerme]^000000";
 		mes "...Péco ?! Où es tu ?";
-		mes "Roooohhh pourquoi est-ce qu'il s'est enfuit ...";
+		mes "Roooohhh pourquoi est-ce qu'il s'est enfui...";
 		close;
 	}
 }
@@ -737,9 +738,9 @@ prt_maze01,96,182,2	script	Péco Péco#prt_mz	4_PECOPECO,{
 			case 1:
 				mes "[^0000FFPeco Peco^000000]";
 				mes "*Vous regardez l'animal en soulevant ses plumes,";
-				mes "Il semblerai qu'il y est une marque sur le côté.*";
+				mes "Il semblerait qu'il y est une marque sur le côté.*";
 				mes "*Vous vous pencher pour miuex observer*";
-				mes "Vous pensez à une lame qui aurait été enfoncé et vu l'odeur, et les nécroses, un poison aurait été déposé sur la lame avant*";
+				mes "Vous pensez à une lame qui aurait été enfoncée et vu l'odeur, et les nécroses, un poison aurait été déposé sur la lame avant*";
 				mes "*Vous repartez voir la Capitaine Malerme en prenant avec vous quelques indices*";
 				getitem 7101,1; //Indices
 				getitem 7154,1; //Indices
@@ -763,7 +764,7 @@ prt_maze01,96,182,2	script	Péco Péco#prt_mz	4_PECOPECO,{
 			}
 			else if (questprogress(20000) == 1 && alrdytalksoeurmathilde == 1){ //Quête Péco après discussion avec Soeur Mathilde mais pas avec Capitaine Malerme
 				mes "["+strcharinfo+"]";
-				mes "Je devrais peut être allé voir d'abord Capitaine Malerme";
+				mes "Je devrais peut-être allé voir d'abord Capitaine Malerme";
 				close;
 			}
 			else if (questprogress(20000) == 1 && alrdytalkpeco == 1){ //Quête Péco après discussion avec le Péco après indices
@@ -775,7 +776,7 @@ prt_maze01,96,182,2	script	Péco Péco#prt_mz	4_PECOPECO,{
 			mes "[^0000FFPeco Peco^000000]";
 			mes ".................";
 			mes "Ce Peco Peco va vraiment mieux aujourd'hui !";
-			mes "Grâce à Soeur Mathilde et à la Capitaine Malerme j'ai pu l'aidé !"
+			mes "Grâce à Soeur Mathilde et à la Capitaine Malerme, j'ai pu l'aidé !"
 			close;
 		}
 		else if (questprogress(20000) == -1 && BaseJob == Job_Swordman){ //Quête Péco pas commencé et Job Swordman
@@ -805,14 +806,14 @@ izlude,X,Y,Z	script	Sergent Gourt#iz	4_M_XXXXXXXX,{
 		else if (questprogress(60357) == 1){ //Quête Colis Activée
 			mes "[^0000FFSergent Gourt^000000]";
 			mes "Bonjour "+strcharinfo+"";
-			mes "J'ai une livraison à effectuer mais malheureusement je n'ai pas le temps en ce moment et c'est un colis important";
-			mes "pour la Guilde des Acolytes. Ils en ont besoin pour l'une de leur offrande à Odin !";
+			mes "J'ai une livraison à effectuer, mais malheureusement je n'ai pas le temps en ce moment et c'est un colis important";
+			mes "pour la Guilde des Acolytes. Ils en ont besoin pour l'une de leurs offrandes à Odin !";
 			mes "Pourrais-tu livrer à ma place ?";
 			switch (select("Je suis volontaire !","Je suis occupé désolé Sergent"){
 				case 1:
 					mes "[^0000FFSergent Gourt^000000]";
-					mes "Merci beaucoup, tu me sauve la vie car sinon notre chef m'aurait passé un savon !";
-					mes "Je t'explique donc ta mission, tu dois livré ce colis au Père Vault qui se trouve dans un field près de Prontera.";
+					mes "Merci beaucoup, tu me sauves la vie, car sinon notre chef m'aurait passé un savon !";
+					mes "Je t'explique donc ta mission, tu dois livrer ce colis au Père Vault qui se trouve dans un field près de Prontera.";
 					mes "Il y étudie le comportement de group sur les Yoyos";
 					getitem 1091,1;
 					set alrdytalksergentgourt == 1;
@@ -824,9 +825,9 @@ izlude,X,Y,Z	script	Sergent Gourt#iz	4_M_XXXXXXXX,{
 					close;
 			}
 		}
-		else if (questprogress(60357) == 1 && alrdytalkperevault == 0){ //Quête Colis sans avori parlé au Père Vault
+		else if (questprogress(60357) == 1 && alrdytalkperevault == 0){ //Quête Colis sans avoir parlé au Père Vault
 			mes "[^0000FFSergent Gourt^000000]";
-			mes "Allez, va parler au Père Vault, il attend sont colis.";
+			mes "Allez, va parler au Père Vault, il attend son colis.";
 			mes "Il se trouve à l'Ouest de Prontera, il étudie les Yoyos";
 			close;
 		}
@@ -866,15 +867,15 @@ prt_fild03,X,Y,Z	script	Père Vault#prt_fild	4_M_XXXXXXXX,{
 		switch(select("Mon Père je ne suis pas Sergent"){
 			case 1:
 				mes "[^0000FFSergent Gourt^000000]";
-				mes "Vous n'êtes pas le Sergent Gourt ? Alors qui êtes vous ?";
+				mes "Vous n'êtes pas le Sergent Gourt ? Alors qui êtes-vous ?";
 				switch(select("Je viens de la part du Sergent Gourt"){
 					case 1:
 						mes "[^0000FFSergent Gourt^000000]";
-						mes "Ah oui d'accord, il n'avait sûrement pas le temps, c'est pour ça qu'il vous a demandé de livrer à sa place.";
+						mes "Ah oui d'accord, il n'avait surement pas le temps, c'est pour ça qu'il vous a demandé de livrer à sa place.";
 						mes "Je comprends tout à fait !";
 						next;
 						mes "[^0000FFSergent Gourt^000000]";
-						mes "Avez vous donc mon colis jeune Swordman ?";
+						mes "Avez-vous donc mon colis jeune Swordman ?";
 						switch(select("Oui bien sûr !"){
 							case 1:
 								mes "[^0000FFSergent Gourt^000000]";
@@ -900,7 +901,7 @@ prt_fild03,X,Y,Z	script	Père Vault#prt_fild	4_M_XXXXXXXX,{
 		}
 	else{
 		mes "[^0000FFSergent Gourt^000000]";
-		mes "Ces Yoyos sont fantastiques, ils font tout pour que le groupe survivent ! Si seulement tout le monde pouvait faire pareil...";
+		mes "Ces Yoyos sont fantastiques, ils font tout pour que le groupe survive! Si seulement tout le monde pouvait faire pareil...";
 		close;
 	}
 }
@@ -908,21 +909,21 @@ prt_fild03,X,Y,Z	script	Père Vault#prt_fild	4_M_XXXXXXXX,{
 ///////////////////ACOLYTE QUEST///////////////////
 
 prt_church,X,Y,2	script	Soeur Mathilde#prt_church	4_XXXXXXX,{
-	else if (questprogress(20000) == 1 && alrdytalkeglise == 1){ //Quête Péco après avoir parlé pour là 2eme fois au Capitaine Malerme
+	else if (questprogress(20000) == 1 && alrdytalkeglise == 1){ //Quête Péco après avoir parlé pour la 2eme fois au Capitaine Malerme
 		mes "[^0000FFSoeur Mathilde^000000]";
-		mes "Bonjour mon enfant. Que viens tu faire dans la maison de Dieu ?";
+		mes "Bonjour mon enfant. Que viens-tu faire dans la maison de Dieu ?";
 		switch(select("je viens en urgence de la part du Capitaine Malerme","Je viens pour visiter")){
 			case 1:
 				mes "[^0000FFSoeur Mathilde^000000]";
-				mes "La Capitaine Malerme ? Que ce passe t-il ?";
-				switch(select("Son Péco Péco est mourrant et j'ai besoin d'un antidote")){
+				mes "La Capitaine Malerme ? Que ce passe-t'il ?";
+				switch(select("Son Péco Péco est mourant et j'ai besoin d'un antidote")){
 					case 1:
 						mes "[^0000FFSoeur Mathilde^000000]";
 						mes "Contre quoi ? Le poison des Thiefs ? Oh mon dieu... Je poserai les questions plus tard."
 						mes "Il faut faire vite. Le problème c'est que je n'ai pas tous les ingrédients pour fabriquer l'antidote..!";
-						mes "Il faudrait que tu aille me chercher ces items :";
+						mes "Il faudrait que tu ailles me chercher ces items :";
 						mes " ^0000FF5x Green Herb, 1 Empty Potion Bottle et 1 Alcohol^000000";
-						mes "Je t'attends ici, dépêche toi !";
+						mes "Je t'attends ici, dépêche-toi !";
 						close;
 				}
 			case 2:
@@ -934,7 +935,7 @@ prt_church,X,Y,2	script	Soeur Mathilde#prt_church	4_XXXXXXX,{
 	else if (questprogress(20000) == 1 && countitem(511) >= 5 && countitem(1093) >= 1 && countitem(970) < 1){ //Quête Péco après discussion avec Soeur Mathile et avec objets complet
 		mes "[^0000FFSoeur Mathilde^000000]";
 		mes "C'est bon tu as réussi à trouver tous les items !";
-		mes "Parfait, laisse moi le temps de préparer tout ça !"
+		mes "Parfait, laisse-moi le temps de préparer tout ça !"
 		specialeffect 39,AREA,"Soeur Mathilde#prt_church"; //lance le skill pour créer les holy water
 		next;
 		mes "[^0000FFSoeur Mathilde^000000]";
@@ -971,29 +972,29 @@ izlude_in,115,164,1	script	Fohenn#ipayon	4_M_EDEN_GUARDER,{
 	
 		else if	(questprogress(00000) == 1){ //Quête de Feleon
 			mes "^0000FF[Fohenn]^000000";
-			mes "Te voici donc pret à germer petit chêne !";
-			mes "Il est temps pour toi de découvrire la forêt.";
-			mes "Et tu prêt pour ta premiere leçon petit chêne ?";
+			mes "Te voici donc prêt à germer petit chêne !";
+			mes "Il est temps pour toi de découvrir la forêt.";
+			mes "Et tu prêt pour ta première leçon petit chêne ?";
 			switch(select("Oui, j'ai hâte de sentir le vent dans mes cheveux !","Euh non je ne me sens pas encore prêt")){
 				case 1:
 					mes "^0000FF[Fohenn]^000000";
 					mes "Très bien petit chêne, ça c'est de l'engouement !";
-					mes "Eh bien ! Commençons ta premiere leçon, pendant celle-ci tu devras te servire de tout tes sens, et mettre à profit ton enseignement.";
-					mes "Je souhaite que tu te rende dans la forêt aux alentours du village et que tu récoltes 10 ^0000FFCrystal Blue^000000, tu pourras les trouver sur les ^0000FFBlack Mushroom^000000 au Sud du village.";
-					mes "Avant de partir assure toi de disposer de l'équipement nécessaire pour mener à bien ta quête.";
-					mes "N'oublie pas petit chêne, la préparation est l'une des régles d'or pour survivre dans la forêt."
+					mes "Eh bien ! Commençons ta première leçon, pendant celle-ci tu devras te servir de tous tes sens, et mettre à profit ton enseignement.";
+					mes "Je souhaite que tu te rendes dans la forêt aux alentours du village et que tu récoltes 10 ^0000FFCrystal Blue^000000, tu pourras les trouver sur les ^0000FFBlack Mushroom^000000 au Sud du village.";
+					mes "Avant de partir, assure-toi de disposer de l'équipement nécessaire pour mener à bien ta quête.";
+					mes "N'oublie pas petit chêne, la préparation est l'une des règles d'or pour survivre dans la forêt."
 					mes "Alors tu es prêt ?"
 					switch(select("Oui plus que jamais !","Pwaa! Des Champignons, Beurk... J'y toucherais pas!")){
 						case 1:
 							mes "^0000FF[Fohenn]^000000";
-							mes "Ah ! Quel entrein ! Ca me fait plaisir petit chêne!";
-							mes "Rends toi au sud du village et cherche des champignons sombre dans les forêt,";
+							mes "Ah ! Quel entrain ! Ca me fait plaisir petit chêne!";
+							mes "Rends-toi au sud du village et cherche des champignons sombres dans la forêt,";
 							mes "tu ne peux pas te tromper !";
 							next;
 							mes "^0000FF[Fohenn]^000000";
-							mes "Au fait, tiens prend ça, elles te seront sûrement utile là bas !";
+							mes "Au fait, tiens prend ça, elles te seront surement utiles là bas !";
 							getitem Arrow,200;
-							mes "Rapporte moi 10 ^0000FFCrystal Blue^000000!";
+							mes "Rapporte-moi 10 ^0000FFCrystal Blue^000000!";
 							setquest 00000; //Activation quête (Payon_village)
 							completequest 00000; //Quête de Feleon
 							dispbottom "Vous avez complété une quête";
@@ -1008,7 +1009,7 @@ izlude_in,115,164,1	script	Fohenn#ipayon	4_M_EDEN_GUARDER,{
 				case 2:
 					mes "^0000FF[Fohenn]^000000";
 					mes "Pas encore prêt ? Qu'est-ce que ça veut dire ?";
-					mes "Tu as raison, la préparation est l'une des régles d'or pour survivre!";
+					mes "Tu as raison, la préparation est l'une des règles d'or pour survivre!";
 					close;
 			}
 		}
@@ -1022,7 +1023,7 @@ izlude_in,115,164,1	script	Fohenn#ipayon	4_M_EDEN_GUARDER,{
 			mes "^0000FF[Fohenn]^000000";
 			mes "Ah ! Bravo petit chêne !";
 			mes "Félicitations tu as réussi ta première mission pour le compte de la guilde.";
-			mes "Tout effort mérite une récompence ! Je vais te fabriquer des fléches avec les objets que tu m'as apporté, elles te seront utile pour ta prochaine quête, plus tard tu apprendras à fabriquer tes propres fléches.";
+			mes "Tout effort mérite une récompense ! Je vais te fabriquer des flèches avec les objets que tu m'as apportés, elles te seront utiles pour ta prochaine quête, plus tard tu apprendras à fabriquer tes propres flèches.";
 			completequest 00000; //Quête de Payon terminée
 			delitem 991,10;
 			getitem 1754 1500;
@@ -1031,16 +1032,16 @@ izlude_in,115,164,1	script	Fohenn#ipayon	4_M_EDEN_GUARDER,{
 			next;
 			mes "^0000FF[Fohenn]^000000";
 			mes "Tu vas pouvoir continuer ta formation petit chêne.";
-			mes "Les monstres prennes de plus en plus le dessus sur les animaux de la foret et l'equilibre de la forêt devient fébrile.";
+			mes "Les monstres prennent de plus en plus le dessus sur les animaux et l'équilibre de la forêt devient fébrile.";
 			mes "Pourrais-tu en chasser quelques-uns?";
 			switch(select("Hum oui, j'ai plus d'une corde à mon arc !","Euh non je ne suis pas encore prêt")){
 				case 1:
 					mes "Ah, tu me surprendras toujours jeune chêne!";
-					mes "Bien, dans ce cas régle leur compte à 20 ^0000FFWillow^000000";
+					mes "Bien, dans ce cas règle leur compte à 20 ^0000FFWillow^000000";
 					mes "Tu les trouveras au sud et au sud-ouest du village";
 					mes "Courage petit chêne!"
 					setquest 00000; //Activation de la prochaine quête (PecoPeco);
-					dispbottom "Vous avez reçu une nouvelle quête consulté la avec alt+u";
+					dispbottom "Vous avez reçu une nouvelle quête consultée la avec alt+u";
 					close;
 				case 2:
 					mes "Bon euh, et bien reviens quand tu seras pret !";
@@ -1057,10 +1058,10 @@ izlude_in,115,164,1	script	Fohenn#ipayon	4_M_EDEN_GUARDER,{
 		else if (questprogress(00000,HUNTING) == 2){ //Quête de payon2 - Finie
 			mes "^0000FF[Fohenn]^000000";
 			mes "Super petit chêne tu as vaincu les monstres !";
-			mes "Bon, j'ai une autre quête pour toi, j'éspere, que tu pourras me donner un coup de main!";
+			mes "Bon, j'ai une autre quête pour toi, j'espère, que tu pourras me donner un coup de main!";
 			mes "BLABLABLABLA"	; //Remplacer par phrase avec nom du prochain NPC
 			setquest 00000; //Activation de la prochaine quête 
-			dispbottom "Vous avez reçu une nouvelle quête consulté la via alt+u";	
+			dispbottom "Vous avez reçu une nouvelle quête consultée la via alt+u";	
 			close;
 		}
 	else {
