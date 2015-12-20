@@ -5,10 +5,12 @@
 //===== Current Version: =====================================
 //= 20131225
 //===== Script Version =======================================
-//= V1 Ajout NPC
+//= V1 Ajout NPC Healer
 //===== Description: =========================================
 //= NPC Healer
 //============================================================
+
+//=NPC Healer=//
 
 prontera,X,Y,2	script	Healer#prt	XXXXXXX,{
 	mes "[Healer]";
@@ -51,7 +53,7 @@ prontera,X,Y,2	script	Healer#prt	XXXXXXX,{
 		}
 		else if (BaseLevel > 70 && questprogress(?????) == 2 && @pdelay2 > gettimetick(2)){ //Quête Healer - Finie - Délai Non Fini
 			mes "[Healer]";
-			mes "Vous avez demandé me services il n'y a pas si longtemps, je vous demande d'attendre "+ (@pdelay2 - gettimetick(2)) +" avant de revenir.";
+			mes "Vous avez demandé mes services il n'y a pas si longtemps, je vous demande d'attendre "+ (@pdelay2 - gettimetick(2)) +" avant de revenir.";
 			close;
 		}
 		else if (BaseLevel > 70 && questprogress(?????) == 1 ){ //Quête Healer - Non Finie
@@ -72,7 +74,138 @@ prontera,X,Y,2	script	Healer#prt	XXXXXXX,{
 		// Configuration
 		.hp = 100;		// Pourcentage d'HP à heal
 		.sp = 100;		// Pourcentage d'SP à heal
-		.delay2 = 60;	// Nombre en secondes de delay
-		.delay = 120;	// Nombre en secondes de delay
+		.delay2 = 60;	// Nombre en secondes de delay pour BaseLevel < 70
+		.delay = 120;	// Nombre en secondes de delay pour BaseLevel > 70
 	end;
+}
+
+//=Quête Healer=//
+
+ra_temple,X,Y,Z	script	Pape Armold#ra	XXXXXXX,{
+	if (questprogress(?????) == -1){
+		mes "[Pape Armol]";
+		mes "Bonjour mon enfant, je vois que tu as l'air fatigué de combattre sans relâche à travers Midgard.";
+		mes "Ce monde est impitoyable je le sais, je l'ai parcouru tellement de fois dans ma longue vie...";
+		mes "Je sais aussi que c'est dur de se soigner en ce bas monde, à cause des guerres qui ont sévit, les guildes ne s'entendent plus comme avant...";
+		next;
+		mes "[Pape Armol]";
+		mes "C'est pourquoi j'ai décidé de lancer une organisation qui se trouvera dans chaque ville afin d'aider les habitants de Midgard à se relever et combatttre !";
+		mes "Malheureusement, très peu de personnes croient en un projet oomme celui-là et je ne peux les contredires, beaucoup de gens ont déjà essayé par le passé sans réussite.";
+		mes "Mais je ne perds pas éspoir, un jour, cette organisation sera reconnu dans Midgard et tout le monde sera heureux et ils me remercieront d'avoir persévéré.";
+		next;
+		mes "[Pape Armol]";
+		mes "Tiens j'y pense, tu ne voudrais pas m'aider dans ma quête ? Je te promets que ce projet va marcher !";
+		switch(select("De quoi avez vous besoin ?","Non, je n'y crois pas une seconde"){
+			case 1:
+				mes "[Pape Armol]";
+				mes "Merci de croire en moi mon enfant !";
+				mes "Pour le moment je dois lancer mon projet et même si je suis un Homme d'Eglise, comme tout le monde, j'ai besoin d'économie pour le commencer.";
+				mes "Je vois que tu as du combattre pour effectuer des missions. Serais-tu assez généreux pour me fournir un début ?";
+				switch(select("Oui, combien?","Euh j'ai beaucoup travaillé pour ça"){
+					case 1:
+						mes "[Pape Armol]";
+						mes "J'aurai besoin de 100 000 zénys, je sais que ça fait beacoup mais il me faut au moins ça pour commencer.";
+						switch(select("Tenez, prenez","Oula ça fait beaucoup tout compte fait"){
+							case 1:
+								mes "[Pape Armol]";
+								Zeny,Zeny-100000;
+								mes "Oh merci mon enfant ! Dieu te regarde de là haut et te remercie de ta générosité !";
+								mes "J'aurai besoin d'un autre service, je vais devoir maintenant convaincre toutes les villes de Midgard à faire de même et à créer cette organisation.";
+								mes "J'ai un plan, je vais convaincre d'abord les grande villes puis les petites suivront le pas j'en suis sûr !";
+								mes "Malheureusement je suis vieux et j'aurai besoin d'une personne pour m'épauler, serais-tu la bonne personne ?";
+								switch(select("Je le suis","Je ne crois pas non"){
+									case 1:
+										mes "[Pape Armol]";
+										mes "Oh merci ! Tu es vraiment quelqu'un de bon !";
+										mes "Va convaincre la ville d'Izlude en parlant au Maire Ilyac qu'installer un service comme celui-ci sera bénéfique pour la ville.";
+										set alrdytalkpapearmol == 1;
+										setquest ?????;
+										dispbottom "Vous avez reçu une nouvelle quête consulter là via alt+u";
+										close;
+										On Init:
+											questinfo ?????,QTYPE_QUEST, 0;
+										end;
+									case 2:
+										mes "[Pape Armol]";
+										mes "*Argh*, J'aurai pensé que tu étais une bonne personne prête à aider ton prochaine...";
+										close;
+								}
+							case 2:
+								mes "[Pape Armol]";
+								mes "Je suis sur que tu as tes raisons pour ne pas me donner cet argent mais ça m'aurait été bien utile quand même";
+								close;
+						}
+					case 2:
+						mes "[Pape Armol]";
+						mes "Je comprends même si cette organisation aurait pu permettre de rendre la vie des combattants meilleurs...";
+						close;
+				}
+			case 2:
+				mes "[Pape Armol]";
+				mes "Dommage que tu ne crois pas à ce projet, il aurait pu ensuite t'aider dans la quête mais tant pis.";
+				close;
+		}
+	}
+		else if (questprogress(?????) == 1 && alrdytalkmaireizlude == 1){
+			mes "[Pape Armol]";
+			mes "Tu as réussi à convaincre le maire ?";
+			mes "Fantastique ! Je savais que je pouvais compter sur toi !";
+			mes "Pour ma part je suis allé à Morocc et même si cette ville est un peu spécial depuis les derniers événements qui s'y sont passés, la ville a accepté l'idée !";
+			next;
+			mes "Il faudrait maintenant convaincre la plus grande ville de Midgard : Prontera !";
+			mes "Tu en serai capable ?";
+			switch(select("Oui bien sûr!","Je ne pense pas"){
+				case 1:
+					mes "[Pape Armol]";
+					mes "Haha tu es vraiment une personne géniale ! Il faut que tu ailles parler au Maire Palaruc qui se trouve au Château de Prontera.";
+					mes "De mon côté je vais commencer à recruter des personnes pour les villes déjà d'accord.";
+					mes "Allez bonne chance !";
+					set alrdytalkpape == 1;
+					close;
+				case 2:
+					mes "[Pape Armol]";
+					mes "Je pensais que quelqu'un comme toi en serait capable, je me suis trompé apparemment.";
+					close;
+			}
+		}
+		else if (questprogress(?????) == 1 && alrdytalkmaireizlude == 0){
+			mes "[Pape Armol]";
+			mes "Va voir le Maire d'Izlude et essaye de le convaincre à accepter cette organisation.";
+			close;
+		}
+		else if (questprogress(?????) == 1 && alrdytalkmaireizlude == 1 && alrdytalkmaireprontera == 1){
+			mes "[Pape Armol]";
+			mes "Tu étais voir le Maire de Prontera ? Et il a accepté ? Vraiment ?";
+			mes "Si nous avons Prontera de notre côté, toutes les villes vont commencer à rélféchir et ne vont sûrement pas tarder à nous rejoindre dans notre projet !";
+			mes "Grâce à toi, le projet s'est lancé et on gagne du terrain de jour en jour !";
+			next;
+			mes "[Pape Armol]";
+			mes "Toutes les villes vont nous rejoindre et tous les combattants pourront se soigner rapidemment !";
+			mes "Meric encore "+strcharinfo+", le peuple de Midgard te remercie aussi!";
+			mes "Que les Grands Dieux de se monde te suivent et te protège durant ton périple !";
+			close;
+		}
+		else if (questprogress(?????) == 1 && alrdytalkmaireizlude == 1 && alrdytalkmaireprontera == 0){
+			mes "[Pape Armol]";
+			mes "Va convaince le Maire de Prontera, c'est grâce à lui que les dernières villes nous rejoindrons !";
+			close;
+		}
+		else if (questprogress(?????) == 2){
+			mes "[Pape Armol]";
+			mes "Merci encore de m'avoir aidé pour installer et faire connaître cette organisation pour aider le peuple de Midgard.";
+			mes "Tu iras directement au Valhalla j'en suis sûr !";
+			close;
+		}
+}
+
+izlude_in,X,Y,Z	script	Maire Ilyac#izlude_in	XXXXXXX,{
+	if (questprogress(?????) == 1 && alrdytalkpapearmol){
+		
+	}
+}
+
+prt_in,X,Y,Z	script	Maire Palaruc#prt_in	XXXXXXX,{
+	if (questprogress(?????) == 1 && alrdytalkpape == 1){
+		
+	}
 }
