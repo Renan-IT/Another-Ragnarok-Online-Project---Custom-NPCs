@@ -1,0 +1,78 @@
+//===== Hercules Script ======================================
+//= Sample: Quête Healer
+//===== By: ==================================================
+//= Baps & Syph
+//===== Current Version: =====================================
+//= 20131225
+//===== Script Version =======================================
+//= V1 Ajout NPC
+//===== Description: =========================================
+//= NPC Healer
+//============================================================
+
+prontera,X,Y,2	script	Healer#prt	XXXXXXX,{
+	mes "[Healer]";
+	mes "Bonjour, je peux vous soigner si vous le souhaiter.";
+	switch(select("Oui soignez moi s'il vous plait","Non merci je n'en ai pas besoin"){
+		if (BaseLevel <= 70 && @pdelay < gettimetick(2)){ //Heal Personnage >= Lvl 70
+			mes "[Healer]";
+			mes "Je vois que tu es encore un jeune aventurier, je vais donc te soigner gratuitement.";
+			specialeffect2 EF_HEAL; percentheal .hp, .sp;
+			next;
+			mes "[Healer]";
+			mes "Voila qui est fait.";
+			mes "Bonne journée !";
+			close;
+		}
+		else if (BaseLevel <= 70 && @pdelay < gettimetick(2)){
+			mes "[Healer]";
+			mes "Vous avez demandé me services il n'y a pas si longtemps, je vous demande d'attendre "+ (@pdelay - gettimetick(2)) +" avant de revenir."
+		}
+		else if (BaseLevel <= 15){ //Heal Personnage <= Lvl 15 
+			mes "[Healer]";
+			mes "Tu es un très jeune aveturier, je vais utilisé mes pouvoirs pour te soigner et bien plus.";
+			specialeffect2 EF_HEAL; percentheal .hp, .sp;
+			specialeffect2 EF_BLESSING; sc_start SC_BLESSING, 360000, 10;
+			specialeffect2 EF_INCAGILITY; sc_start SC_INC_AGI, 360000, 10;
+			next;
+			mes "[Healer]";
+			mes "Voila qui est fait, profite de mes pouvoirs, ils sont précieux.";
+			mes "Bonne journée !";
+			close;
+		}
+		else if (BaseLevel > 70 && questprogress(?????) == 2 && @pdelay2 < gettimetick(2)){ //Quête Healer - Finie - Délai Fini
+			mes "[Healer]";
+			mes "Tu es mal en point, comme je vois que tu as fait un don au prêt de l'Eglise, je te promulgue des soins.";
+			specialeffect2 EF_HEAL; percentheal .hp, .sp;
+			next;
+			mes "[Healer]";
+			mes "Voila qui est fait, merci encore pour ce don.";
+			close;
+		}
+		else if (BaseLevel > 70 && questprogress(?????) == 2 && @pdelay2 > gettimetick(2)){ //Quête Healer - Finie - Délai Non Fini
+			mes "[Healer]";
+			mes "Vous avez demandé me services il n'y a pas si longtemps, je vous demande d'attendre "+ (@pdelay2 - gettimetick(2)) +" avant de revenir.";
+			close;
+		}
+		else if (BaseLevel > 70 && questprogress(?????) == 1 ){ //Quête Healer - Non Finie
+			mes "[Healer]";
+			mes "Vous devez finir la quête de l'Eglie d'abord pour me demander mes services.";
+			close;
+		}
+	}
+	
+	if (.delay2) {
+		@pdelay2 = gettimetick(2)+.delay2;
+	}
+	if (.delay) {
+		@pdelay = gettimetick(2)+.delay;
+	}
+	
+	OnInit:
+		// Configuration
+		.hp = 100;		// Pourcentage d'HP à heal
+		.sp = 100;		// Pourcentage d'SP à heal
+		.delay2 = 60;	// Nombre en secondes de delay
+		.delay = 120;	// Nombre en secondes de delay
+	end;
+}
