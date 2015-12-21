@@ -108,27 +108,35 @@ ra_temple,X,Y,Z	script	Pape Armold#ra	XXXXXXX,{
 						switch(select("Tenez, prenez","Oula ça fait beaucoup tout compte fait"){
 							case 1:
 								mes "[Pape Armol]";
-								Zeny,Zeny-100000;
-								mes "Oh merci mon enfant ! Dieu te regarde de là haut et te remercie de ta générosité !";
-								mes "J'aurai besoin d'un autre service, je vais devoir maintenant convaincre toutes les villes de Midgard à faire de même et à créer cette organisation.";
-								mes "J'ai un plan, je vais convaincre d'abord les grande villes puis les petites suivront le pas j'en suis sûr !";
-								mes "Malheureusement je suis vieux et j'aurai besoin d'une personne pour m'épauler, serais-tu la bonne personne ?";
-								switch(select("Je le suis","Je ne crois pas non"){
-									case 1:
+								if (zeny >= 100000){
+									Zeny,Zeny-100000;
+									mes "Oh merci mon enfant ! Dieu te regarde de là haut et te remercie de ta générosité !";
+									mes "J'aurai besoin d'un autre service, je vais devoir maintenant convaincre toutes les villes de Midgard à faire de même et à créer cette organisation.";
+									mes "J'ai un plan, je vais convaincre d'abord les grande villes puis les petites suivront le pas j'en suis sûr !";
+									mes "Malheureusement je suis vieux et j'aurai besoin d'une personne pour m'épauler, serais-tu la bonne personne ?";
+									switch(select("Je le suis","Je ne crois pas non"){
+										case 1:
+											mes "[Pape Armol]";
+											mes "Oh merci ! Tu es vraiment quelqu'un de bon !";
+											mes "Va convaincre la ville d'Izlude en parlant au Maire Ilyac qu'installer un service comme celui-ci sera bénéfique pour la ville.";
+											set alrdytalkpapearmol == 1;
+											setquest ?????;
+											dispbottom "Vous avez reçu une nouvelle quête consulter là via alt+u";
+											close;
+											On Init:
+												questinfo ?????,QTYPE_QUEST, 0;
+											end;
+										case 2:
+											mes "[Pape Armol]";
+											mes "*Argh*, J'aurai pensé que tu étais une bonne personne prête à aider ton prochaine...";
+											close;
+									}
+									else{
 										mes "[Pape Armol]";
-										mes "Oh merci ! Tu es vraiment quelqu'un de bon !";
-										mes "Va convaincre la ville d'Izlude en parlant au Maire Ilyac qu'installer un service comme celui-ci sera bénéfique pour la ville.";
-										set alrdytalkpapearmol == 1;
-										setquest ?????;
-										dispbottom "Vous avez reçu une nouvelle quête consulter là via alt+u";
+										mes "Tu es très généreux mais malheureusement tu n'as pas cet argent sur toi ..";
+										mes "Merci quand même.";
 										close;
-										On Init:
-											questinfo ?????,QTYPE_QUEST, 0;
-										end;
-									case 2:
-										mes "[Pape Armol]";
-										mes "*Argh*, J'aurai pensé que tu étais une bonne personne prête à aider ton prochaine...";
-										close;
+									}
 								}
 							case 2:
 								mes "[Pape Armol]";
@@ -199,13 +207,125 @@ ra_temple,X,Y,Z	script	Pape Armold#ra	XXXXXXX,{
 }
 
 izlude_in,X,Y,Z	script	Maire Ilyac#izlude_in	XXXXXXX,{
-	if (questprogress(?????) == 1 && alrdytalkpapearmol){
-		
+	if (questprogress(?????) == 1 && alrdytalkpapearmol = 1){
+		mes "[Pape Armol]";
+		mes "Bonjour, que venez vous faire ici ?";
+		switch(select("Je viens vous proposer un projet","Oh rien de bien spécial"){
+			case 1:
+				mes "[Pape Armol]";
+				mes "Un projet ? Lequel ?";
+				next;
+				switch(select("Un Healer pour combattants"){
+					case 1:
+						mes "[Pape Armol]";
+						mes "Ah oui ? J'avais déjà entendu parler de ce genre de projet, à l'époque il m'avait plu mais aujourd'hui je ne sais pas.";
+						mes "Le monde est calme en ce moment, en tant que Maire de la Capitale de Midagrd, je me permets d'être réticent à cette idée.";
+						mes "Mais d'un autre côté, ces combattants ont tellement souffert durant les précédentes guerres que je me dis que ça pourrait être utile.";
+						mes "De plus, les autres Maires m'ont rapporté récemment qu'un mal gronde depuis peu...";
+						next;
+						mes "[Pape Armol]";
+						mes "J'espère que ce n'est pas trop important.";
+						mes "Je voudrai bien intégrer cette organisation mais je ne veux pas débloquer des fonds pour le moment.";
+						mes "Trouve moi un moyen d'en avoir et je me ferai un plaisir de l'implanter.";
+						next;
+						switch(select("Je vous propose mon argent","Je vais réfléchir"){
+							case 1:
+								mes "[Pape Armol]";
+								mes "Ton argent ? Je veux bien mais j'aurai besoin de 50 000 zénys pour lancer le projet dans ma ville.";
+								mes "Tu voudrais vraiment me les donner ?";
+								next;
+								switch(select("Oui, c'est important","50k ? Non mais ça va pas?"){
+									case 1:
+										mes "[Pape Armol]";
+										mes "*Vous lui donnez 50 000 Zénys*";
+										if (zeny >= 50000){
+											Zeny,Zzeny-50000;
+											mes "Merci camarade ! Tu es vraiment généreux ! On en fait rarement des personnes comme toi maintenant.";
+											mes "Je te promets d'intégrer ce projet dans cette ville avec l'argent que tu m'as donné.";
+											next;
+											mes "[Pape Armol]";
+											mes "Le peuple d'Izlude te remercie !";
+											set alrdytalkmaireizlude == 1;
+											close;
+										}
+										else{
+											mes "[Maire Ilyac]";
+											mes "Désolé mais tu n'as pas autant de Zénys...";
+											mes "Merci quand même de vouloir aider !";
+											close;
+										}
+									case 2:
+										mes "[Pape Armol]";
+										mes "Très bien alors pas de Healer dans ma ville.";
+										mes "Je n'ai pas l'argent en ce moment pour l'intégrer cette personne.";
+										close;
+								}
+							case 2:
+								mes "[Pape Armol]";
+								mes "D'accord, je ne bouge pas d'ici pour ma part.";
+								mes "J'ai beaucoup de travail, à bientôt";
+								close;
+						}
+				}
+			case 2:
+				mes "[Pape Armol]";
+				mes "Rien de bien spécial ? J'ai du travail moi, revenez quand vous saurez ce que vous voudrez.";
+				close;
+		}
 	}
 }
 
 prt_in,X,Y,Z	script	Maire Palaruc#prt_in	XXXXXXX,{
 	if (questprogress(?????) == 1 && alrdytalkpape == 1){
-		
+		mes "[Maire Palaruc]";
+		mes "Bonjour je suis le Maire de Prontera, l'ancienne capitale de Midgard. Pourquoi ancienne ? Car elle commençait à vieillir malheureusement mais nous essayons de changer ça.";
+		mes "Izlude a trs bien sur le faire et est devenu la plaque tournante de Midgard et est donc devenue la Capitaile de ce monde.";
+		mes "Que veux tu cher citoyen ?";
+		next;
+		switch(select("Je viens pour intégrer un Healer"){
+			mes "[Maire Palaruc]";
+			mes "Un Healer ? Dans ma ville ? Pour quoi faire ?";
+			mes "Les combattants ? Hm...";
+			mes "Je veux bien, ça pourrait redonner le plaisir de venir ici mais le problème c'est que toutes nos économies sont parties dans la rénovation de la ville...";
+			mes "Je manque cruellement de Zénys en ce moment ...";
+			next;
+			mes "Si tu as une idée pour m'aider je suis preneur ! Sinon je devrais refuser ...";
+			next;
+			switch(select("Je veux bien vous aider !","De l'argent ? J'en ai pas"){
+				case 1:
+					mes "[Maire Palaruc]";
+					mes "J'aurai besoin de 50 000 Zénys pour pouvoir intégrer ce Healer à pleins temps. Tu les aurais ?";
+					next;
+					switch(select("Oui, et je veux vous les donner","Euh peut être"){
+						case 1:
+							mes "[Maire Palaruc]";
+							mes "Me les donner ? C'est vraiment généreux de ta part !";
+							if (zeny > 50000){
+								zeny,zeny-50000;
+								mes "[Maire Palaruc]";
+								mes "Merci beaucoup, ton argent sera bien dépensé, en éspérant que du monde revienne dans cette magnifique ville qu'est Prontera !";
+								next;
+								mes "[Maire Palaruc]";
+								mes "Le peuple de Prontera te remercie !";
+								set alrdytalkmaireprontera == 1;
+								close;
+							}
+							else{
+								mes "[Maire Palaruc]";
+								mes "Oh! Mais je vois que toi non plus tu n'as pas d'argent ...";
+								mes "Si vraiment tu le souhaites, reviens me voir avec les 50 000 Zénys.";
+								close;
+							}
+						case 2:
+							mes "[Maire Palaruc]";
+							mes "Reviens me voir quand tu seras certains.";
+							close;
+					}
+				case 2:
+					mes "[Maire Palaruc]";
+					mes "Je ne pourrai donc pas installer un Healer dans la ville de Prontera, je n'ai pas l'argent pour ça, la rénovation m'a tout prit.";
+					close;
+			}
+		}
 	}
 }
