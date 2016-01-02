@@ -1,0 +1,75 @@
+prontera,146,304,5    script    Reseter    407,{
+mes .npcname$;
+mes "So are you satisfied with your";
+mes "current stat allocation?";
+mes "Of course not, if you want to make";
+mes "a change then listen on.";
+next;
+mes .npcname$;
+mes "I use the power of the";
+mes "^009900"+getitemname(.stoneid)+"^000000 to help adventurers";
+mes "reset their stat choices.";
+mes "Of course the more powerful the";
+mes "adventurer, the more ^009900"+getitemname(.stoneid)+"s^000000";
+mes "I need the perform the reset.";
+next;
+for(set .@i,0; .@i<getarraysize(.minrange); set .@i,.@i+1) {
+if(BaseLevel >= .minrange[.@i] && BaseLevel <= .maxrange[.@i]) {
+set .@stonesreq,.stones[.@i];
+}
+}
+mes .npcname$;
+mes "For instance you ["+strcharinfo(0)+"] would require.";
+mes "["+.@stonesreq+"] "+getitemname(.stoneid)+" to reset all your stats to 1 and get all your status points back.";
+next;
+switch(select("Tell me More!","Lets reset NOW","First Time Free Reset","Later")) {
+case 1:
+mes .npcname$;
+for(set .@i,0; .@i<getarraysize(.minrange); set .@i,.@i+1) {
+mes "Base Lvl ^000099"+.minrange[.@i]+" - "+.maxrange[.@i]+"^000000 ^009900["+.stones[.@i]+" "+getitemname(.stoneid)+"]^000000";
+}
+close;
+case 2:
+mes .npcname$;
+mes "Ok let's start checking.";
+next;
+if(Weight > 0) {
+mes .npcname$;
+mes "Lower your weight to 0";
+close;
+}
+if(checkcart()) { setcart 0; }
+if(checkfalcon()) { setfalcon 0;}
+if(checkriding()) { setriding 0;}
+if(countitem(.stoneid) >= .@stonesreq) {
+delitem .stoneid,.@stonesreq;
+resetstatus;
+close;
+}
+else {
+mes .npcname$;
+mes "You do not have enough ^009900"+getitemname(.stoneid)+"s^000000";
+close;
+}
+case 3:
+if( !FreeReset ){
+set FreeReset,1;
+mes "Welcome...this is your first character free reset...";
+resetstatus;
+}else{
+mes "You have reset for free already.";
+}
+close;
+
+case 4:
+close;
+}
+
+OnInit:
+set .stoneid,6320; //reset stone id = 6320 ?
+set .npcname$,"["+strnpcinfo(0)+"]";
+setarray .minrange[0],1 , 41, 71, 91, 111, 126, 141;  // Min Level Required
+setarray .maxrange[0],40, 70, 90, 110,125, 140, 150;  // Max Level Required
+setarray .stones[0], 1, 2, 3, 4, 5, 6, 7;  // Number of Stones
+end;
+}
