@@ -1,0 +1,41 @@
+//============================================================//
+//           This script is made by Plug and Play	      //
+// Contact us on Facebook http://facebook.com/plugandplayPH   //
+//                Website : http://plugandplay.cf             //
+//============================================================//
+
+-	script	Emergency Call	-1,{
+OnInit:
+	set .Ecall_Cool_Down,60*5; //Change 1 into your desire minutes ( 1 = 1 minute) do not change the 60
+set .Ecall_Delay,10; //Do not change this
+	bindatcmd "ecall",strnpcinfo(3)+"::OnEmergencyCall";
+	end;
+
+OnEmergencyCall:
+//Check if you are the Guild Master
+if( (!getcharid(2)) || ( getguildmasterid( getcharid(2) ) != getcharid(0) ) ){
+message strcharinfo(0),"You cannot use this command";
+end;
+}
+
+//Check Cool Down
+if( ( getguildmasterid( getcharid(2) ) == getcharid(0) ) &&
+ ( @Ecall_Delay > gettimetick(2) ) ){
+message strcharinfo(0),"Skill Failed, Emergency Call still in Cool Down";
+end;
+}
+if (getgdskilllv(getcharid(2),10013)  < 1) {
+message strcharinfo(0),"You need to master Emergency Call Guild Skill";
+end;
+}
+//Cast Emergency Call, Must be a Guild Master, WoE Activated and Woe Castle Maps
+if (getgdskilllv(getcharid(2),10013)  > 0) {
+if( ( getguildmasterid( getcharid(2) ) == getcharid(0) ) && ( agitcheck() || agitcheck2() ) && ( getmapflag(strcharinfo(3),mf_gvg )) ){
+set @Ecall_Delay, gettimetick(2)+ .Ecall_Delay +.Ecall_Cool_Down;
+unitskilluseid getcharid(3),"GD_EMERGENCYCALL",1;
+sleep2 5000;
+dispbottom "[ Note ] : You can used the next @ecall after 5 Minutes";
+end;
+}
+}
+}
