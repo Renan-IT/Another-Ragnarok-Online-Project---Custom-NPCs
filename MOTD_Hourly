@@ -1,0 +1,108 @@
+/*    Advanced MOTD Hourly Script
+    Created by: Aeromesi
+
+    Idea from: Alexandria
+
+    Built for Hercules
+
+    Version 1.0
+
+    Special Feature: Randomized messages so that you'll never see the same message!
+    Edit .@ServName$ variable to your servers name
+
+    Comments: To add more messages, change .@msgrand = (1,10) to your desired # of messages.
+    Also add the new messages in the if checks.
+
+    Example:
+
+    if (.@msgrand == 10)
+{
+    announce "Keep up the fun here at  "+ .@ServName$+"!",bc_self;
+    initnpctimer;
+    end;
+} // Add under here
+
+    if (.@msgrand == 11)
+{
+    announce "This is message 11! You added another message!",bc_self;
+    initnpctimer;
+    end;
+}
+*/
+prontera,1,2,1    script    MOTD_HOURLY    139,{
+OnPCLoginEvent:
+    initnpctimer("MOTD_HOURLY"),OnTimer3600000;
+end;
+
+OnTimer3600000:
+        @cid = getcharid(0);
+        @aid = getcharid(3);
+if( attachrid( @aid ) )
+    if( getcharid(0) == @cid ) 
+{
+    .@msgrand = rand(1,10);
+     .@ServName$ = "YourRO";
+if (.@msgrand == 1)
+{
+    announce "Hope you're having fun on "+ .@ServName$+"!",bc_self;
+    initnpctimer;
+    end;
+}
+if (.@msgrand == 2)
+{
+    announce "Please remember to review our  "+ .@ServName$+", check the website for more information!",bc_self;
+    initnpctimer;
+    end;
+}
+if (.@msgrand == 3)
+{
+    announce "Remember, prolong periods of gameplay can cause serious health problems, take a breather!  "+ .@ServName$+" can wait!",bc_self;
+    initnpctimer;
+    end;
+}
+if (.@msgrand == 4)
+{
+    announce "Type @commands to view a list of helpful tools to aid you in your adventure.",bc_self;
+    initnpctimer;
+    end;
+}
+if (.@msgrand == 5)
+{
+    announce "Don't forget to check the forums for the latest updates on  "+ .@ServName$+"!",bc_self;
+    initnpctimer;
+    end;
+}
+if (.@msgrand == 6)
+{
+    announce "Remember, a GM will never ask for your username and password, always be safe.",bc_self;
+    initnpctimer;
+    end;
+}
+if (.@msgrand == 7)
+{
+    announce "Reminder, hackers, botters, exploiters will recieve a harsh punishment if caught. That is NOT tolerated here at  "+ .@ServName$+".",bc_self;
+    initnpctimer;
+    end;
+}
+if (.@msgrand == 8)
+{
+    announce " "+ .@ServName$+" is very happy to have such a wonderful community!",bc_self;
+    initnpctimer;
+    end;
+}
+if (.@msgrand == 9)
+{
+    announce "Don't forget to Vote to gain Points!",bc_self;
+    initnpctimer;
+    end;
+}
+if (.@msgrand == 10)
+{
+    announce "Keep up the fun here at  "+ .@ServName$+"!",bc_self;
+    initnpctimer;
+    end;
+}
+} else
+dispbottom "not attached";
+end;
+}
