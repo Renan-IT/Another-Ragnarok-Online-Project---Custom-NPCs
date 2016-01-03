@@ -1,0 +1,158 @@
+//===== Hercules Script ======================================
+//= Sample: Board Xp
+//===== By: ==================================================
+//= Baps
+//===== Current Version: =====================================
+//= 20131225
+//===== Script Version =======================================
+//= V1 
+//===== Description: =========================================
+//= NPC Board ajoutant +X% Xp seln Race/Type/Taille
+//============================================================
+
+izlude,100,100,0	script	Board#iz	board_sign,{
+	OnClock0600:
+		.@RandRace = rand(1,10);
+		switch (.@RandRace){
+			case 1:
+			.@RandPer = rand(1,5);
+				switch (.@RandPer){
+					case 1:
+						bonus bExpAddRace,RC_Formless,1;
+					case 2:
+						bonus bExpAddRace,RC_Formless,2;
+					case 3:
+						bonus bExpAddRace,RC_Formless,3;
+					case 4:
+						bonus bExpAddRace,RC_Formless,4;
+					case 5:
+						bonus bExpAddRace,RC_Formless,5;
+				}
+			case 2:
+			.@RandPer = rand(1,5);
+				switch (.@RandPer){
+					case 1:
+						bonus bExpAddRace,RC_Undead,1;
+					case 2:
+						bonus bExpAddRace,RC_Undead,2;
+					case 3:
+						bonus bExpAddRace,RC_Undead,3;
+					case 4:
+						bonus bExpAddRace,RC_Undead,4;
+					case 5:
+						bonus bExpAddRace,RC_Undead,5;
+				}
+			case 3:
+			.@RandPer = rand(1,5);
+				switch (.@RandPer){
+					case 1:
+						bonus bExpAddRace,RC_Brute,1;
+					case 2:
+						bonus bExpAddRace,RC_Brute,2;
+					case 3:
+						bonus bExpAddRace,RC_Brute,3;
+					case 4:
+						bonus bExpAddRace,RC_Brute,4;
+					case 5:
+						bonus bExpAddRace,RC_Brute,5;
+				}
+			case 4:
+			.@RandPer = rand(1,5);
+				switch (.@RandPer){
+					case 1:
+						bonus bExpAddRace,RC_Plant,1;
+					case 2:
+						bonus bExpAddRace,RC_Plant,2;
+					case 3:
+						bonus bExpAddRace,RC_Plant,3;
+					case 4:
+						bonus bExpAddRace,RC_Plant,4;
+					case 5:
+						bonus bExpAddRace,RC_Plant,5;
+				}
+			case 5:
+			.@RandPer = rand(1,5);
+				switch (.@RandPer){
+					case 1:
+						bonus bExpAddRace,RC_Insect,1;
+					case 2:
+						bonus bExpAddRace,RC_Insect,2;
+					case 3:
+						bonus bExpAddRace,RC_Insect,3;
+					case 4:
+						bonus bExpAddRace,RC_Insect,4;
+					case 5:
+						bonus bExpAddRace,RC_Insect,5;
+				}
+			case 6:
+			.@RandPer = rand(1,5);
+				switch (.@RandPer){
+					case 1:
+						bonus bExpAddRace,RC_Fish,1;
+					case 2:
+						bonus bExpAddRace,RC_Fish,2;
+					case 3:
+						bonus bExpAddRace,RC_Fish,3;
+					case 4:
+						bonus bExpAddRace,RC_Fish,4;
+					case 5:
+						bonus bExpAddRace,RC_Fish,5;
+				}
+			case 7:
+			.@RandPer = rand(1,5);
+				switch (.@RandPer){
+					case 1:
+						bonus bExpAddRace,RC_Demon,1;
+					case 2:
+						bonus bExpAddRace,RC_Demon,2;
+					case 3:
+						bonus bExpAddRace,RC_Demon,3;
+					case 4:
+						bonus bExpAddRace,RC_Demon,4;
+					case 5:
+						bonus bExpAddRace,RC_Demon,5;
+				}
+			case 8:
+			.@RandPer = rand(1,5);
+				switch (.@RandPer){
+					case 1:
+						bonus bExpAddRace,RC_DemiHuman,1;
+					case 2:
+						bonus bExpAddRace,RC_DemiHuman,2;
+					case 3:
+						bonus bExpAddRace,RC_DemiHuman,3;
+					case 4:
+						bonus bExpAddRace,RC_DemiHuman,4;
+					case 5:
+						bonus bExpAddRace,RC_DemiHuman,5;
+				}
+			case 9:
+			.@RandPer = rand(1,5);
+				switch (.@RandPer){
+					case 1:
+						bonus bExpAddRace,RC_Angel,1;
+					case 2:
+						bonus bExpAddRace,RC_Angel,2;
+					case 3:
+						bonus bExpAddRace,RC_Angel,3;
+					case 4:
+						bonus bExpAddRace,RC_Angel,4;
+					case 5:
+						bonus bExpAddRace,RC_Angel,5;
+				}
+			case 10:
+			.@RandPer = rand(1,5);
+				switch (.@RandPer){
+					case 1:
+						bonus bExpAddRace,RC_Dragon,1;
+					case 2:
+						bonus bExpAddRace,RC_Dragon,2;
+					case 3:
+						bonus bExpAddRace,RC_Dragon,3;
+					case 4:
+						bonus bExpAddRace,RC_Dragon,4;
+					case 5:
+						bonus bExpAddRace,RC_Dragon,5;
+				}
+		}
+}
