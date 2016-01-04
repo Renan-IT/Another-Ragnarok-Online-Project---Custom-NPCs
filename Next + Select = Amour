@@ -7,3 +7,14 @@ Just put "next;" before you use select()/prompt()/menu;
 (up to a reasonable limit so scrolling isn't necessary, or at least kept to a minimum) 
 makes the "conversation" flow, like the player and NPC are having an actual conversation. 
 But, that's just my personal preference at least.
+
+
+Exemple :
+
+mes "Que nivel de jugador tienes?";
+next;
+if(select("Usuario Experto:Principiante")==1) {
+ cutin "jpn_anni02",2;
+ mes "^9933ff[Rates]^000000";
+ mes "^A0A0A0~Usa el comando @rates^000000";
+ mes "^9933ff[Cartas MVPs]^000000";
