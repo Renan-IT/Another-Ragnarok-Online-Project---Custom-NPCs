@@ -1,0 +1,9 @@
+Problem :
+
+http://i605.photobucket.com/albums/tt132/javierlog08/luXyO4q.png
+
+Just put "next;" before you use select()/prompt()/menu; 
+
+(up to a reasonable limit so scrolling isn't necessary, or at least kept to a minimum) 
+makes the "conversation" flow, like the player and NPC are having an actual conversation. 
+But, that's just my personal preference at least.
