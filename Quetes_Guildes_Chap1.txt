@@ -216,7 +216,7 @@ prt_church,103,84,3	script	Pere_Shawn#prt_in	4_M_OLDFRIAR,{
 //////////////////////////////////////
 
 
-}geffen_in,174,110,6	script	Aguara#geffen_in	1_F_SIGNZISK,{
+geffen_in,174,110,6	script	Aguara#geffen_in	1_F_SIGNZISK,{
 	if ((questprogress(60343) == 2) && (BaseJob == Job_Mage)){ //Avoir fini la quete avant (training ground){
 		//Quete pas encore commence
 		mes "^50A92C[Aguara]^000000";
@@ -520,13 +520,14 @@ izlude_in,115,164,1	script	Belior#iz	4_M_EDEN_GUARDER,{
 			mes "Reviens quand ce sera le cas !";
 			close;
 		}
-		else if (questprogress(60350) == 1 && (countitem(1055) >= 20 && countitem(928) >= 10 && countitem(949) >= 15)){ //Quête de Culvert en cours et tout items
+		else if (questprogress(60350) == 1 && (countitem(1055) >= 20 && countitem(928) >= 10 && countitem(949) >= 15)){ //Quête de Culvert en cours et tous les items
 			mes "^0000FF[Belior]^000000";
 			mes "Ah ! Amorl ne s'est pas trompé en te recrutant !";
 			mes "Félicitations tu as réussi ta première mission pour le compte de la guilde.";
 			mes "Tout effort mérite récompense ! Tiens prends ceci";
 			completequest 60350; //Quête de culvert terminée
-			getexp 20000,10000;
+			getexp 10000,10000;
+			dispbottom "Vous avez gagné 10,000 XpBase et 10,000 XpJob";
 			delitem 1055,20;
 			delitem 928,10;
 			delitem 949,15;
@@ -552,8 +553,33 @@ izlude_in,115,164,1	script	Belior#iz	4_M_EDEN_GUARDER,{
 			mes "Woah, tu as retrouvé le Péco Péco du capitaine, Super !";
 			mes "Bon, j'ai une autre quête pour toi, j'espère, que tu pourras me donner un coup de main!";
 			mes "Le Sergent Gourt aurait besoin de ton aide. Va le voir, il se trouve dans cette ville.";
-			setquest 60357; //Activation de la prochaine quête 
+			setquest 60357; //Activation de la prochaine quête (colis)
 			dispbottom "Vous avez reçu une nouvelle quête consultez la via alt+u";	
+			close;
+		}
+		else if (questprogress(60357) == 2)){ //Quête Colis - Finie - Activation Quête Cave Payon
+			mes "^0000FF[Belior]^000000";
+			mes "Tu as réussi à donner le colis à ce que je peux voir.";
+			mes "J'ai une dernière quête pour toi !";
+			mes "Les Acolytes ont besoin d'aides, les monstres Undead deviennent de plus en plus nombreux du côté de Payon.";
+			next;
+			mes "^0000FF[Belior]^000000";
+			mes "Et malgré les efforts des Acolytes, ils n'arrivent pas à faire baisser leur population.";
+			mes "Je te demande donc d'aller voir Sayron du côté de Payon Cave, il t'en parlera mieux que moi.";
+			setquest 20001; //Activation de la prochaine quête (Cave Payon)
+			dispbottom "Vous avez reçu une nouvelle quête consultez la via alt+u";
+			close;
+		}
+		else if (questprogress(20001) == 1){ //Quête Payon Cave - Obtenue & en cours
+			mes "^0000FF[Belior]^000000";
+			mes "Sayron t'attend prêt de Payon Cave au Nord de Payon. Il te dira quoi faire !";
+			close;
+		}
+		else if (questprogress(20001) == 2){ //Quête Payon Cave - Finie
+			mes "^0000FF[Belior]^000000";
+			mes "Alors tu as réussi ta mission à ce qu'on m'a rapporté ! Félicitations "+strcharinfo+" tu as réussi ta formation avec moi avec brio !";
+			mes "Je ne peux plus rien t'apprendre, il faut maintenant que tu aille voir XXXXXXXX pour ta Quête de Bravoure !";
+			mes "A bientôt j'espère !";
 			close;
 		}
 	else {
@@ -565,6 +591,8 @@ izlude_in,115,164,1	script	Belior#iz	4_M_EDEN_GUARDER,{
 		questinfo 60350, QTYPE_QUEST, 0; //Quête Culvert
 		questinfo 20000, QTYPE_QUEST, 0; //Quête PecoPeco
 		questinfo 60357, QTYPE_QUEST, 0; //Quête Colis
+		questinfo 20001, QTYPE_QUEST, 0; //Quête Payon Cave
+		questinfo 20002, QTYPE_QUEST, 0; //Quête Hunting Payon Cave
 	end;	
 }
 
@@ -655,6 +683,7 @@ prontera,164,182,3	script	Capitaine Malerme#prt	4_F_JOB_KNIGHT,{
 							dispbottom "Vous avez terminé une quête";
 							Zeny,Zeny+10000;
 							getexp 15000,15000;
+							dispbottom "Vous avez gagné 15,000 XpBase et 15,000 XpJob";
 							delitem 7101,1;
 							delitem 7154,1;
 							close;
@@ -692,9 +721,10 @@ prontera,164,182,3	script	Capitaine Malerme#prt	4_F_JOB_KNIGHT,{
 									mes "Au fait tu mérites bien quelques choses après t'être donné tant de mal!";
 									Zeny,Zeny+20000;
 									getitem 2405,1;
-									getexp 25000,25000;
+									getexp 20000,20000;
 									delitem 7101,1;
-									delitem 7154,1;					
+									delitem 7154,1;
+									dispbottom "Vous avez gagné 20,000 XpBase et 20,000 XpJob";
 									next;
 									mes "^0000FF[Capitaine Malerme]^000000";
 									mes "Tu devrais retourner voir ton formateur, ^0000FFBelior^000000, il doit surement avoir autre chose à te faire faire.";
@@ -840,6 +870,8 @@ izlude,X,Y,Z	script	Sergent Gourt#iz	4_M_XXXXXXXX,{
 			mes "Tien pour te remercier d'avoir fait cette course pour moi :";
 			Zeny,Zeny+10000;
 			getitem 2505,1;
+			getexp 15000,15000;
+			dispbottom "Vous avez gagné 15,000 XpBase et 15,000 XpJob";
 			dispbottom "Vous avez terminé une quête";
 			next;
 			mes "[^0000FFSergent Gourt^000000]";
@@ -860,7 +892,7 @@ izlude,X,Y,Z	script	Sergent Gourt#iz	4_M_XXXXXXXX,{
 }
 
 prt_fild03,X,Y,Z	script	Père Vault#prt_fild	4_M_XXXXXXXX,{
-	if (questprogress[60357) == 1 && alrdytalksergentgourt == 1 && countitem(1091) == 1){ //Quête Colis activé - Avoir parlé au Sergent - Item Colis
+	if (questprogress(60357) == 1 && alrdytalksergentgourt == 1 && countitem(1091) == 1){ //Quête Colis activé - Avoir parlé au Sergent - Item Colis
 		mes "[^0000FFPère Vault^000000]";
 		mes "Ah ! Vous êtes le Sergent Gourt ?! Il forme vraiment très jeune les Swordmans de nos jours !";
 		mes "Bientôt les Colonels seront Knights";
@@ -902,6 +934,70 @@ prt_fild03,X,Y,Z	script	Père Vault#prt_fild	4_M_XXXXXXXX,{
 	else{
 		mes "[^0000FFSergent Gourt^000000]";
 		mes "Ces Yoyos sont fantastiques, ils font tout pour que le groupe survive! Si seulement tout le monde pouvait faire pareil...";
+		close;
+	}
+}
+
+//=Quête Payon Cave=//
+
+payon_village,X,Y,2	script	Sayron	XXXXXXXX,{
+	if (questprogress(20001) == 1 && BaseJob == Job_Swordman){ //Quête Colis non fini
+		mes "^0000FF[Sayron]^000000";
+		mes "J'aurai vraiment besoin d'aide pas ici ! Que fais Belior pour m'envoyer de nouvelles recrues !";
+		close;
+	}
+		else if (questprogress(20001) == 1){ //Quête Payon Cave Activée
+			mes "^0000FF[Sayron]^000000";
+			mes "Ah ! Enfin une nouvelle recrue ! J'en attendais depuis longtemps !";
+			mes "J'ai une mission pour toi, Belior a déjà dû t'en parler un peu mais je vais quand même résumé.";
+			mes "Les Acolytes ont besoin de nous pour réguler la population de certains monstres Undead.";
+			next;
+			mes "Ces pauvres personnes sont submergées et comme ce sont nos alliés, nous allons les aider !";
+			mes "Ta mission sera de tuer 20x Soldier Skeleton et 15x Archer Skeleton ! Tu les trouveras au second niveau de ce donjon.";
+			mes "As-tu bien compris ta mission ?";
+			switch(select("Oui monsieur"){
+				case 1:
+					mes "^0000FF[Sayron]^000000";
+					mes "Ah ! En voila un qui comprend vite ! J'aime ça ! Allez va me détruire ces monstres répugnants !";
+					setquest 20002;
+					close;
+			}
+		}
+	if (questprogress(20002) == 1){	
+		if (questprogress(20002,HUNTING) !=2){ //Quête Hunting - Obtenue & en cours)
+			mes "^0000FF[Sayron]^000000";
+			mes "Tu as déjà fini ta quête ?";
+			switch(select("Oui","Non"){
+				case 1:
+					mes "^0000FF[Sayron]^000000";
+					mes "Hmmm je ne crois pas que tu es fini. Il te manque des montres !";
+					close;
+				case 2:
+					mes "^0000FF[Sayron]^000000";
+					mes "Très bien reviens me voir quand ce sera le cas !";
+					close;
+			}
+		}
+		else{
+			mes "^0000FF[Sayron]^000000";
+			mes "Super ! Félicitations camarade ! Je te remercie de ton aide et les Acolytes se joins bien entend à moi !";
+			mes "Tien pour te récompenser";
+			getexp 25000,25000;
+			dispbottom "Vous avez gagné 25,000 XpBase et 25,000 XpJob";
+			completequest 20002;
+			next;
+			mes "^0000FF[Sayron]^000000";
+			mes "Retourne vois Belior pour lui dire que le travail est terminé ici.";
+			mes "Bonne continuation jeune aventurier !";
+			completequest 20001;
+			dispbottom "Vous avez terminé une quête";
+			close;
+		}
+	}
+	else if (questprogress(20002) == 2 || questprogress(20001) == 2){
+		mes "^0000FF[Sayron]^000000";
+		mes "Merci encore de m'avoir aider jeune aventurier !";
+		mes "Au plaisir de vous revoir !";
 		close;
 	}
 }
@@ -1040,7 +1136,7 @@ izlude_in,115,164,1	script	Fohenn#ipayon	4_M_EDEN_GUARDER,{
 					mes "Bien, dans ce cas règle leur compte à 20 ^0000FFWillow^000000";
 					mes "Tu les trouveras au sud et au sud-ouest du village";
 					mes "Courage petit chêne!"
-					setquest 00000; //Activation de la prochaine quête (PecoPeco);
+					setquest 00000; //Activation de la prochaine quête (?);
 					dispbottom "Vous avez reçu une nouvelle quête consultée la avec alt+u";
 					close;
 				case 2:
@@ -1080,4 +1176,3 @@ izlude_in,115,164,1	script	Fohenn#ipayon	4_M_EDEN_GUARDER,{
 ///////////////////THIEF QUEST///////////////////
 
 ///////////////////MERCHANT QUEST///////////////////
-
