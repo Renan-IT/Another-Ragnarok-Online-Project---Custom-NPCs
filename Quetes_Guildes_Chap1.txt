@@ -16,6 +16,8 @@
 //= V3.0 NPC Swordman (Capitaine Malerme + Peco Peco + Soeur Mathilde)
 //= V4 Ajout NPC 3eme Quête
 //= V4.0 NPC Swordman (Sergent Gourt + Père Vault)
+//= V4.1 Quelques corrections
+//= 5.0 NPC Acolyte (Soeur Mathilde + Ajout partie de quête sur Belior)
 //===== Description: =========================================
 //= 1er NPC quete principale
 //============================================================
@@ -30,6 +32,10 @@
 //Amorl = 1er NPC 1er Quête Déstinée
 //Barruk = Maître Guilde Thief		
 //Belior = 1er Instructeur
+//Capitaine Malerme = Quête Peco Peco Perdu
+//Sergent Gourt = Quête Colis
+//Père Vault = Quête Colis
+//Sayron = Quête Payon Cave
 //////////////////////////////////////
 
 izlude_in,72,172,4	script	Amorl#iz	4_M_1STPRIN1,{
@@ -479,12 +485,14 @@ izlude_in,115,164,1	script	Belior#iz	4_M_EDEN_GUARDER,{
 			mes "Ah tu tombes bien ! C'est Amorl qui t'envoie c'est ça ?";
 			mes "Il m'avait prévenu de ton arrivée imminente,";
 			mes "apparemment tu serais un élu prêt à devenir notre maitre à tous ?!";
+			next;
 			switch(select("Oui, du moins je vais essayé","Euh non je ne me sens pas encore prêt")){
 				case 1:
 					mes "^0000FF[Belior]^000000";
 					mes "Très bien tu as au moins du courage c'est le moins qu'on puisse dire !";
 					mes "Nous allons voir maintenant si tu es prêt à servir ta guilde comme il se doit.";
 					mes "Commence déjà par aller aider tes camarades à Culvert, l'égout s'est infesté depuis peu et nous avons du mal à contenir la reproduction de ces bêtes.";
+					next;
 					switch(select("Euh d'accord, où se situe cet endroit?","Les égouts ? Mais c'est sale et infesté !")){
 						case 1:
 							mes "^0000FF[Belior]^000000";
@@ -582,6 +590,24 @@ izlude_in,115,164,1	script	Belior#iz	4_M_EDEN_GUARDER,{
 			mes "A bientôt j'espère !";
 			close;
 		}
+	//Partie Quête Colis Acolyte
+		else if (questprogress(20003) == 1){
+			mes "^0000FF[Belior]^000000";
+			mes "Ah tu dois être l'Acolyte que j'attendais pour ma livraison de matériel !";
+			mes "Tu as fait vite ! Merci beaucoup pour la livraison.";
+			mes "Je te remets ce Voucher pour Soeur Mathilde.";
+			mes "Merci encore !";
+			set alrdytalkbelior == 1;
+			getitem 1080,1;
+			delitem 1091,1;
+			close;
+		}
+		else if (questprogress(20003) == 2){
+			mes "^0000FF[Belior]^000000";
+			mes "Merci encore pour cette livraison !";
+			mes "Au plaisir de te revoir !";
+			close;
+		}
 	else {
 		mes "^0000FF[Belior]^000000";
 		mes "Alors ? Tu avances dans ta quête";
@@ -646,6 +672,7 @@ prontera,164,182,3	script	Capitaine Malerme#prt	4_F_JOB_KNIGHT,{
 				mes "*Vous lui tendez les preuves*";
 				mes "Oh mon dieu... ! C'est bien une de ses plumes ..!";
 				mes "Et du poison ? Ce poison ? Tu es sur ?";
+				next;
 				switch(select("Oui, j'en suis sur"){
 					case 1:
 					mes "^0000FF[Capitaine Malerme]^000000";
@@ -655,21 +682,25 @@ prontera,164,182,3	script	Capitaine Malerme#prt	4_F_JOB_KNIGHT,{
 					mes "En tout cas merci quand même de l'avoir retrouvé... Je vais me renseigner un peu plus et acquérir des indices !";
 					mes "Mais si ils m'indiquent ces satanés Thiefs, je jure devant Thor que ma vengeance sera terrible !";
 					mes "Peut-être qu'il est encore temps de le sauver ! Tu voudrais bien encore m'aider une dernière fois ?";
+					next;
 					switch(select("Oui","Non"){
 						case 1:
+							mes "^0000FF[Capitaine Malerme]^000000";
 							mes "Vraiment ? Merci !";
 							mes "Alors voilà ce que tu vas faire, écoute bien !";
 							mes "Rends-toi à l'église de Prontera et va parler à Soeur Mathilde, c'est la formatrice des Acolytes,";
 							mes "Dis-lui que tu as besoin du remède pour combattre le poison des Thiefs.";
 							mes "Elle te dira quoi faire !";
-							mes "C'est d'accord ?";
+							mes "C'est d'accord ?";next;
 							switch(select("Okay j'ai compris","Euh non vous pouvez répéter?")){
 								case 1:
+									mes "^0000FF[Capitaine Malerme]^000000";
 									mes "Très bien, fonce maintenant pendant qu'il en est encore temps !";
 									mes "Oublie pas, Soeur Mathilde !";
 									set alrdytalkeglise == 1; 
 									close;
 								case 2:
+									mes "^0000FF[Capitaine Malerme]^000000";
 									mes "Bon alors, il faut que tu ailles voir Soeur Mathilde qui se trouve dans l'église de Prontera.";
 									mes "Elle te donnera les informations pour fabriquer ce remède.";
 									mes "Dépêche-toi ! Le temps nous est compté !";
@@ -677,6 +708,7 @@ prontera,164,182,3	script	Capitaine Malerme#prt	4_F_JOB_KNIGHT,{
 									close;
 							}
 						case 2:
+							mes "^0000FF[Capitaine Malerme]^000000";
 							mes "Tu le laisserais mourir ? Très bien ! Sache que je retiendrai cette décision, mais je n'en parlerai guère à tes supérieurs.";
 							mes "Mais si un jour tu as besoin de moi, je me rappellerai de ce jour !";
 							completequest 20000; //Fin de la quête "Retrouver le Péco" car refuse d'aider
@@ -691,6 +723,7 @@ prontera,164,182,3	script	Capitaine Malerme#prt	4_F_JOB_KNIGHT,{
 				}
 			}
 				else if (questprogress(20000) == 1 && alrdytalksoeurmathilde == 1){ //Quête péco après discussion avec Soeur Mathilde
+					mes "^0000FF[Capitaine Malerme]^000000";
 					mes "Tu as le remède c'est bon ?";
 					mes "Très bien, maintenant cours voir mon ^0000FFPéco Péco^000000 et injecte-lui l'antidote !";
 					mes "Je te donne une potion pour que tu ailles bien plus vite !";
@@ -700,22 +733,27 @@ prontera,164,182,3	script	Capitaine Malerme#prt	4_F_JOB_KNIGHT,{
 					close;
 				}
 				else if (questprogress(20000) == 1 && alrdytalkeglise == 1){ //Quête péco avant discussion avec Soeur Mathilde
+					mes "^0000FF[Capitaine Malerme]^000000";
 					mes "Qu'est-ce que tu attends ? Fonce voir Soeur Mathilde pour faire l'antidote !";
 					mes "Sinon il va être trop tard !";
 					close;
 				}
 				else if (questprogress(20000) == 1 && alrdytalkpecoantidote == 1){ //Quête péco après avoir donné l'antidote
+					mes "^0000FF[Capitaine Malerme]^000000";
 					mes "C'est bon? C'est vrai tu as réussi à le soigner à temps ?";
-					mes "Il va s'en tirer ?"
+					mes "Il va s'en tirer ?";
+					next;
 					switch(select"Oui mais il ne peut pas encore bouger"){
 						case 1:
 								mes "^0000FF[Capitaine Malerme]^000000";
 								mes "D'accord, mais c'est déjà extraordinaire qu'il ait réussi à survivre autant de temps.";
 								mes "Je vais le laisser se remettre tranquillement et, je pense, le libérer, il a assez souffert comme ça.";
 								mes "La liberté doit lui être donnée maintenant même si ça me rend triste...";
-								mes "Au fait comment tu t'appelles?"
+								mes "Au fait comment tu t'appelles?";
+								next;
 								switch(select(""+strcharinfo+"")){
 									case 1:
+									mes "^0000FF[Capitaine Malerme]^000000";
 									mes ""+strcharinfo+" ?? Oh mais attend, tu es alors le jeune Swordman très prometteur dont toute la guilde parle !";
 									mes "Continu comme ça et tu deviendras un grand champion au sein de notre guilde !";
 									mes "Au fait tu mérites bien quelques choses après t'être donné tant de mal!";
@@ -839,6 +877,7 @@ izlude,X,Y,Z	script	Sergent Gourt#iz	4_M_XXXXXXXX,{
 			mes "J'ai une livraison à effectuer, mais malheureusement je n'ai pas le temps en ce moment et c'est un colis important";
 			mes "pour la Guilde des Acolytes. Ils en ont besoin pour l'une de leurs offrandes à Odin !";
 			mes "Pourrais-tu livrer à ma place ?";
+			next;
 			switch (select("Je suis volontaire !","Je suis occupé désolé Sergent"){
 				case 1:
 					mes "[^0000FFSergent Gourt^000000]";
@@ -896,10 +935,12 @@ prt_fild03,X,Y,Z	script	Père Vault#prt_fild	4_M_XXXXXXXX,{
 		mes "[^0000FFPère Vault^000000]";
 		mes "Ah ! Vous êtes le Sergent Gourt ?! Il forme vraiment très jeune les Swordmans de nos jours !";
 		mes "Bientôt les Colonels seront Knights";
+		next;
 		switch(select("Mon Père je ne suis pas Sergent"){
 			case 1:
 				mes "[^0000FFSergent Gourt^000000]";
 				mes "Vous n'êtes pas le Sergent Gourt ? Alors qui êtes-vous ?";
+				next;
 				switch(select("Je viens de la part du Sergent Gourt"){
 					case 1:
 						mes "[^0000FFSergent Gourt^000000]";
@@ -908,13 +949,14 @@ prt_fild03,X,Y,Z	script	Père Vault#prt_fild	4_M_XXXXXXXX,{
 						next;
 						mes "[^0000FFSergent Gourt^000000]";
 						mes "Avez-vous donc mon colis jeune Swordman ?";
+						next;
 						switch(select("Oui bien sûr !"){
 							case 1:
 								mes "[^0000FFSergent Gourt^000000]";
 								mes "Fantastique ! Merci beaucoup de vous être déplacé.";
 								mes "Je vous remets le reçu pour votre Sergent.";
 								getitem 1080,1;
-								delitem 2505,1;
+								delitem 1091,1;
 								set alrdytalkperevault == 1;
 								close;
 						}
@@ -941,7 +983,7 @@ prt_fild03,X,Y,Z	script	Père Vault#prt_fild	4_M_XXXXXXXX,{
 //=Quête Payon Cave=//
 
 payon_village,X,Y,2	script	Sayron	XXXXXXXX,{
-	if (questprogress(20001) == 1 && BaseJob == Job_Swordman){ //Quête Colis non fini
+	if (questprogress(20001) == -1 && BaseJob == Job_Swordman){ //Quête Colis non fini
 		mes "^0000FF[Sayron]^000000";
 		mes "J'aurai vraiment besoin d'aide pas ici ! Que fais Belior pour m'envoyer de nouvelles recrues !";
 		close;
@@ -960,6 +1002,7 @@ payon_village,X,Y,2	script	Sayron	XXXXXXXX,{
 					mes "^0000FF[Sayron]^000000";
 					mes "Ah ! En voila un qui comprend vite ! J'aime ça ! Allez va me détruire ces monstres répugnants !";
 					setquest 20002;
+					dispbottom "Vous avez reçu une nouvelle quête consultez la via alt+u";
 					close;
 			}
 		}
@@ -1005,51 +1048,143 @@ payon_village,X,Y,2	script	Sayron	XXXXXXXX,{
 ///////////////////ACOLYTE QUEST///////////////////
 
 prt_church,X,Y,2	script	Soeur Mathilde#prt_church	4_XXXXXXX,{
-	else if (questprogress(20000) == 1 && alrdytalkeglise == 1){ //Quête Péco après avoir parlé pour la 2eme fois au Capitaine Malerme
+	if (questprogress(60347) == -1 && BaseJob == Job_Acolyte){ //Quête Training Groudn Non Active
 		mes "[^0000FFSoeur Mathilde^000000]";
-		mes "Bonjour mon enfant. Que viens-tu faire dans la maison de Dieu ?";
-		switch(select("je viens en urgence de la part du Capitaine Malerme","Je viens pour visiter")){
-			case 1:
-				mes "[^0000FFSoeur Mathilde^000000]";
-				mes "La Capitaine Malerme ? Que ce passe-t'il ?";
-				switch(select("Son Péco Péco est mourant et j'ai besoin d'un antidote")){
-					case 1:
-						mes "[^0000FFSoeur Mathilde^000000]";
-						mes "Contre quoi ? Le poison des Thiefs ? Oh mon dieu... Je poserai les questions plus tard."
-						mes "Il faut faire vite. Le problème c'est que je n'ai pas tous les ingrédients pour fabriquer l'antidote..!";
-						mes "Il faudrait que tu ailles me chercher ces items :";
-						mes " ^0000FF5x Green Herb, 1 Empty Potion Bottle et 1 Alcohol^000000";
-						mes "Je t'attends ici, dépêche-toi !";
-						close;
-				}
-			case 2:
-				mes "[^0000FFSoeur Mathilde^000000]";
-				mes "Très bien, prend ton temps, tu ne dois pas avoir de mission si tu es ici."
-				close;
+		mes "Bonjour mon enfant, bienvenue dans la maison de Dieu,";
+		mes "Tu devrais aller voir Père Shawn qui se trouve dans cette église et reviens me voir après.";
+		mes "Peu importe ce que vous chercher, j'espère que vous le trouverez ici."
+		close;
+	}
+		else if (questprogress(60347) == 1){ //Quête Training Groudn Active
+			mes "[^0000FFSoeur Mathilde^000000]";
+			mes "Bonjour "+strcharinfo+", Dieu m'a parlé de ta venu en notre église. Je vais t'aider à continuer ta formation au sein du clergé.";
+			mes "Pour ce faire tu devras effectuer quelques missions au sein de notre église pour prouver ta valeur.";
+			mes "Ce parcours n'est pas de tout repos, tu devras te fier entièrement à Dieu et à aider ton prochain.";
+			next;
+			mes "[^0000FFSoeur Mathilde^000000]";
+			mes "En es-tu capable ?";
+			switch(select("Oui ma soeur","Je vais encore y réfléchir"){
+				case 1:
+					mes "[^0000FFSoeur Mathilde^000000]";
+					mes "J'en suis ravi ! Je vais donc continuer ta formation et te donner les armes pour réussir tes quêtes dans ce monde.";
+					mes "J'ai d'ailleurs une première missions pour toi qui est assez simple pour ton niveau.";
+					mes "Tu vas devoir livrer un colis à la Guilde des Swordmans, ils ont besoin de ce colis rapidemment, donc il faudra te dépêcher !";
+					next;
+					mes "[^0000FFSoeur Mathilde^000000]";
+					mes "Le colis est à livrer à Belior, c'est le formateur des Swordmans, il a besoin de ce matériel pour former les jeunes recrues.";
+					mes "As-tu comprit ?";
+					switch(select("Oui j'ai bien compris"){
+						case 1:
+							mes "[^0000FFSoeur Mathilde^000000]";
+							mes "Parfait ! Tu comprends les attentes très rapidemment !";
+							mes "N'oublie pas, le colis doit être livrer à Belior, le formateur des Swordmans, il se trouveà Izlude.";
+							mes "Bonne chance "+strcharinfo+", que Dieu guide tes pas.";
+							setquest 20003; //Activation Quête Colis
+							completequest 60347; //Désactivation Quête Training Ground
+							getitem 1091,1; //Donnation du colis
+							dispbottom "Vous avez complété une quête";
+							dispbottom "Vous avez reçu une nouvelle quête consultez la via alt+u";
+							close;
+					}
+				case 2:
+					mes "[^0000FFSoeur Mathilde^000000]";
+					mes "Très bien, n'hésites pas à venir me revoir.";
+					close;
+			}
 		}
-	}
-	else if (questprogress(20000) == 1 && countitem(511) >= 5 && countitem(1093) >= 1 && countitem(970) < 1){ //Quête Péco après discussion avec Soeur Mathile et avec objets complet
-		mes "[^0000FFSoeur Mathilde^000000]";
-		mes "C'est bon tu as réussi à trouver tous les items !";
-		mes "Parfait, laisse-moi le temps de préparer tout ça !"
-		specialeffect 39,AREA,"Soeur Mathilde#prt_church"; //lance le skill pour créer les holy water
-		next;
-		mes "[^0000FFSoeur Mathilde^000000]";
-		mes "Tiens prend ça, ça devrait suffire !"
-		mes "Injecte lui par voie orale, retourne voir ^0000FFCapitaine Malerme^000000 au cas où avant.";
-		getitem 525,1;
-		delitem 511,5;
-		delitem 1093,1;
-		delitem 970,1;
-		set alrdytalksoeurmathilde == 1;
-		close;
-	}
-	else if (questprogress(20000) == 1 && (countitem(511) < 5 && countitem(1093) < 1 && countitem(970) < 1){ //Quête Péco après discussion avec Soeur Mathilde et sans objets complet
-		mes "[^0000FFSoeur Mathilde^000000]";
-		mes "Tu n'as pas tous les objets, il me les faut tous !"
-		mes "Je t'attends ici !";
-		close;
-	}
+		else if (questprogress(20003) == 1 && alrdytalkbelior == 0){ //Quête Colis - Non Finie - Pas Parlé A Belior
+			mes "[^0000FFSoeur Mathilde^000000]";
+			mes "Tu dois aller livrer le colis à Belior qui se trouve à Izlude. C'est le formateur des Swordmans tu ne peux pas te tromper.";
+			mes "Aller dépêche toi !";
+			close;
+		}
+		else if (questprogress(20003) == 1 && alrdytalkbelior == 1){ //Quête Colis - Non Finie - Parlé A Belior
+			mes "[^0000FFSoeur Mathilde^000000]";
+			mes "Ah tu reviens déjà ? Et en plus tu as déjà livré le colis !";
+			mes "Merci beaucoup "+strcharinfo+" !";
+			mes "Tu viens de finir ta première quête félicitations !";
+			mes "Tout travail mérite récompense !";
+			delitem 1080,1; //Retiration du Voucher
+			getexp 15000,15000;
+			get Zeny,Zeny+15000;
+			dispbottom "Vous avez gagné 15,000 XpBase, 15,000 XpJob et 15,000 Zénys";
+			completequest 20003; //Quête Colis - Finie
+			dispbottom "Vous avez complété une quête";
+			next;
+			mes "[^0000FFSoeur Mathilde^000000]";
+			mes "J'espère que tu as bien pu visité le monde qui t'entoure car tu vas devoir repartir en mission tout de suite.";
+			mes "Cette mission est très importante, elle doit te permettre de prouver que tu es dévoué à Dieu.";
+			mes "Tu vas devoir effectuer un pélerinage autour du monde de Midgard, ce ne sera pas que de la marche,";
+			next;
+			mes "[^0000FFSoeur Mathilde^000000]";
+			mes "Tu vas devoir récolter des informations au près de différents missionaires.";
+			mes "Une fois ces informations récupérées, tu devras me prouver que tu auras bien apprit, alors prend bien le temps de lire ce qu'il explique.";
+			mes "Le premier à aller voir est Lapo qui se trouve à XXXX, et ce sera lui qui te dira où se trouvera le prochain. Tu en auras 3 à voir en tout.";
+			mes "Surtout ne perd pas foi pendant cette marche, tu n'en sortiras que plus fort !";
+			setquest 20004; //Activation Quête Pélerinage
+			dispbottom "Vous avez reçu une nouvelle quête consultez la via alt+u";
+			close;
+		}
+		else if (questprogress(20004) == 1){
+			mes "[^0000FFSoeur Mathilde^000000]";
+			mes "Commence ton pélerinage, tu dois aller voir le missionaire Lato qui se trouve à ";
+			close;
+		}
+	//Partie Quête Peco Swordman
+		else if (questprogress(20000) == 1 && alrdytalkeglise == 1){ //Quête Péco après avoir parlé pour la 2eme fois au Capitaine Malerme
+			mes "[^0000FFSoeur Mathilde^000000]";
+			mes "Bonjour mon enfant. Que viens-tu faire dans la maison de Dieu ?";
+			switch(select("je viens en urgence de la part du Capitaine Malerme","Je viens pour visiter")){
+				case 1:
+					mes "[^0000FFSoeur Mathilde^000000]";
+					mes "La Capitaine Malerme ? Que ce passe-t'il ?";
+					next;
+					switch(select("Son Péco Péco est mourant et j'ai besoin d'un antidote")){
+						case 1:
+							mes "[^0000FFSoeur Mathilde^000000]";
+							mes "Contre quoi ? Le poison des Thiefs ? Oh mon dieu... Je poserai les questions plus tard."
+							mes "Il faut faire vite. Le problème c'est que je n'ai pas tous les ingrédients pour fabriquer l'antidote..!";
+							mes "Il faudrait que tu ailles me chercher ces items :";
+							mes " ^0000FF5x Green Herb, 1 Empty Potion Bottle et 1 Alcohol^000000";
+							mes "Je t'attends ici, dépêche-toi !";
+							close;
+					}
+				case 2:
+					mes "[^0000FFSoeur Mathilde^000000]";
+					mes "Très bien, prend ton temps, tu ne dois pas avoir de mission si tu es ici."
+					close;
+			}
+		}
+		else if (questprogress(20000) == 1 && countitem(511) >= 5 && countitem(1093) >= 1 && countitem(970) < 1){ //Quête Péco après discussion avec Soeur Mathile et avec objets complet
+			mes "[^0000FFSoeur Mathilde^000000]";
+			mes "C'est bon tu as réussi à trouver tous les items !";
+			mes "Parfait, laisse-moi le temps de préparer tout ça !"
+			specialeffect 39,AREA,"Soeur Mathilde#prt_church"; //lance le skill pour créer les holy water
+			next;
+			mes "[^0000FFSoeur Mathilde^000000]";
+			mes "Tiens prend ça, ça devrait suffire !"
+			mes "Injecte lui par voie orale, retourne voir ^0000FFCapitaine Malerme^000000 au cas où avant.";
+			getitem 525,1;
+			delitem 511,5;
+			delitem 1093,1;
+			delitem 970,1;
+			set alrdytalksoeurmathilde == 1;
+			close;
+		}
+		else if (questprogress(20000) == 1 && (countitem(511) < 5 && countitem(1093) < 1 && countitem(970) < 1){ //Quête Péco après discussion avec Soeur Mathilde et sans objets complet
+			mes "[^0000FFSoeur Mathilde^000000]";
+			mes "Tu n'as pas tous les objets, il me les faut tous !"
+			mes "Je t'attends ici !";
+			close;
+		}
+	//Fin Partie Quête Swordman
+	OnInit:
+		questinfo 20003, QTYPE_QUEST, 0; //Quête Colis
+		questinfo 00000, QTYPE_QUEST, 0; //Quête Pélerinage
+		questinfo 00000, QTYPE_QUEST, 0; //Quête Payon Cave Zombie
+		questinfo 00000, QTYPE_QUEST, 0; //Quête Hunting Payon Cave Zombie ===> A voir si besoin de 2 quêtes
+		questinfo 00000, QTYPE_QUEST, 0; //Quête Repentir Assassin
+	end;
 }
 
 ///////////////////MAGE QUEST//////////////////////
@@ -1071,6 +1206,7 @@ izlude_in,115,164,1	script	Fohenn#ipayon	4_M_EDEN_GUARDER,{
 			mes "Te voici donc prêt à germer petit chêne !";
 			mes "Il est temps pour toi de découvrir la forêt.";
 			mes "Et tu prêt pour ta première leçon petit chêne ?";
+			next;
 			switch(select("Oui, j'ai hâte de sentir le vent dans mes cheveux !","Euh non je ne me sens pas encore prêt")){
 				case 1:
 					mes "^0000FF[Fohenn]^000000";
@@ -1078,8 +1214,9 @@ izlude_in,115,164,1	script	Fohenn#ipayon	4_M_EDEN_GUARDER,{
 					mes "Eh bien ! Commençons ta première leçon, pendant celle-ci tu devras te servir de tous tes sens, et mettre à profit ton enseignement.";
 					mes "Je souhaite que tu te rendes dans la forêt aux alentours du village et que tu récoltes 10 ^0000FFCrystal Blue^000000, tu pourras les trouver sur les ^0000FFBlack Mushroom^000000 au Sud du village.";
 					mes "Avant de partir, assure-toi de disposer de l'équipement nécessaire pour mener à bien ta quête.";
-					mes "N'oublie pas petit chêne, la préparation est l'une des règles d'or pour survivre dans la forêt."
-					mes "Alors tu es prêt ?"
+					mes "N'oublie pas petit chêne, la préparation est l'une des règles d'or pour survivre dans la forêt.";
+					mes "Alors tu es prêt ?";
+					next;
 					switch(select("Oui plus que jamais !","Pwaa! Des Champignons, Beurk... J'y toucherais pas!")){
 						case 1:
 							mes "^0000FF[Fohenn]^000000";
@@ -1130,6 +1267,7 @@ izlude_in,115,164,1	script	Fohenn#ipayon	4_M_EDEN_GUARDER,{
 			mes "Tu vas pouvoir continuer ta formation petit chêne.";
 			mes "Les monstres prennent de plus en plus le dessus sur les animaux et l'équilibre de la forêt devient fébrile.";
 			mes "Pourrais-tu en chasser quelques-uns?";
+			next;
 			switch(select("Hum oui, j'ai plus d'une corde à mon arc !","Euh non je ne suis pas encore prêt")){
 				case 1:
 					mes "Ah, tu me surprendras toujours jeune chêne!";
