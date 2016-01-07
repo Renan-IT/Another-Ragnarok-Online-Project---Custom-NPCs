@@ -136,7 +136,7 @@ izlude_in,72,172,4	script	Amorl#iz	4_M_1STPRIN1,{
 //Soeur Mathild = 1er Instructeur
 //////////////////////////////////////
 
-prt_church,103,84,3	script	Pere_Shawn#prt_in	4_M_OLDFRIAR,{
+prt_church,103,84,3	script	Pere Shawn#prt_in	4_M_OLDFRIAR,{
 	if ((questprogress(60343) == 2) && (BaseJob == Job_Acolyte)){ //Avoir fini la quete avant (training ground){
 		//Quete pas encore commence
 		mes "^50A92C[Père Shawn]^000000";
@@ -863,7 +863,7 @@ prt_maze01,96,182,2	script	Péco Péco#prt_mz	4_PECOPECO,{
 
 //=Quête Colis=//
 
-izlude,X,Y,Z	script	Sergent Gourt#iz	4_M_XXXXXXXX,{
+izlude,157,137,2	script	Sergent Gourt#iz	4_M_KNIGHT_SILVER,{
 	if ((questprogress(60357) == -1) && (BaseJob == Job_Swordman)){ //Avoir fini quête Peco
 		mes "[^0000FFSergent Gourt^000000]";
 		mes "Bonjour "+strcharinfo+"";
@@ -930,7 +930,7 @@ izlude,X,Y,Z	script	Sergent Gourt#iz	4_M_XXXXXXXX,{
 	}
 }
 
-prt_fild03,X,Y,Z	script	Père Vault#prt_fild	4_M_XXXXXXXX,{
+prt_fild03,305,51,7	script	Père Vault#prt_fild	4_M_RACHOLD1,{
 	if (questprogress(60357) == 1 && alrdytalksergentgourt == 1 && countitem(1091) == 1){ //Quête Colis activé - Avoir parlé au Sergent - Item Colis
 		mes "[^0000FFPère Vault^000000]";
 		mes "Ah ! Vous êtes le Sergent Gourt ?! Il forme vraiment très jeune les Swordmans de nos jours !";
@@ -982,7 +982,7 @@ prt_fild03,X,Y,Z	script	Père Vault#prt_fild	4_M_XXXXXXXX,{
 
 //=Quête Payon Cave=//
 
-payon_village,X,Y,2	script	Sayron	XXXXXXXX,{
+pay_arche,37,136,4	script	Sayron	4_M_BARMUND,{
 	if (questprogress(20001) == -1 && BaseJob == Job_Swordman){ //Quête Colis non fini
 		mes "^0000FF[Sayron]^000000";
 		mes "J'aurai vraiment besoin d'aide pas ici ! Que fais Belior pour m'envoyer de nouvelles recrues !";
@@ -1047,7 +1047,7 @@ payon_village,X,Y,2	script	Sayron	XXXXXXXX,{
 
 ///////////////////ACOLYTE QUEST///////////////////
 
-prt_church,X,Y,2	script	Soeur Mathilde#prt_church	4_XXXXXXX,{
+prt_church,183,15,1	script	Soeur Mathilde#prt_church	4_F_MADAME,{
 	if (questprogress(60347) == -1 && BaseJob == Job_Acolyte){ //Quête Training Groudn Non Active
 		mes "[^0000FFSoeur Mathilde^000000]";
 		mes "Bonjour mon enfant, bienvenue dans la maison de Dieu,";
@@ -1193,7 +1193,7 @@ prt_church,X,Y,2	script	Soeur Mathilde#prt_church	4_XXXXXXX,{
 
 
 // A CORRIGER //
-izlude_in,115,164,1	script	Fohenn#ipayon	4_M_EDEN_GUARDER,{
+pay_arche,144,156,1	script	Fohenn#ipayon	4_M_EDEN_GUARDER,{
 	if ((questprogress(60343) == 1) && (BaseJob == Job_Archer)){ //Avoir fini la quete avant (training ground)
 		//Quete pas encore commence
 		mes "^50A92C[Fohenn]^000000";
