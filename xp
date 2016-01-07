@@ -11,6 +11,14 @@
 //============================================================
 
 izlude,124,148,0	script	Board#iz	4_BOARD3,{
+while(1){
+	mes "^FF0000ROTD^000000 veut dire ^0000FFRace of the Day^000000";
+	mes "Autrement dit, ça veut dire que la ^FF0000Race du Mostre^000000 que dès que vous tuez la race du jour, vous allez gagner un ^FF0000Bonus EXP^000000.";
+	next;
+	mes "[ ^FF0000ROTD d'aujourd'hui^000000 ] = Race ^0000FF"+.ROTD$[.Race]+"^000000";
+	mes "^FF0000_____________________________^000000";
+}	
+	
 	OnInit:
 	OnClock0600:
 	setarray .ROTD$[0],
@@ -29,7 +37,7 @@ izlude,124,148,0	script	Board#iz	4_BOARD3,{
 	set .Race,rand( 10 );
 	set .BonusEXP,rand( 1,5 );
 	delwaitingroom;
-	waitingroom "[ROTD]:+"+.BonuxEXP+"% sur "+.ROTD$[.Race]+"",0;
+	waitingroom "[ROTD]:+"+.BonusEXP+" % sur "+.ROTD$[.Race]+"",0;
 	announce "[ ROTD ] : Nouvelle Race : "+.ROTD$[.Race]+" avec un bonus de "+.BonusEXP+" % ",bc_blue;
 	end;
 }
