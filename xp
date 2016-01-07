@@ -10,7 +10,7 @@
 //= NPC Board ajoutant +X% Xp seln Race (ROTD)
 //============================================================
 
-izlude,X,Y,0	script	Board#iz	4_BOARD3,{
+izlude,124,148,0	script	Board#iz	4_BOARD3,{
 	OnInit:
 	OnClock0600:
 	setarray .ROTD$[0],
