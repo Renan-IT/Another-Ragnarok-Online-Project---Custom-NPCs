@@ -40,5 +40,8 @@ while(1){
 	delwaitingroom;
 	waitingroom "[ROTD]:+"+.BonusEXP+" % sur "+.ROTD$[.Race]+"",0;
 	announce "[ ROTD ] : Nouvelle Race : "+.ROTD$[.Race]+" avec un bonus de "+.BonusEXP+" % ",bc_blue;
+	if( getmonsterinfo( killedrid,19 ) != .Race  )end;
+		set .@Location$,strcharinfo(3);
+		set .BaseLvl,BaseLevel;
 	end;
 }
