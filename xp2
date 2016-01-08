@@ -10,16 +10,15 @@
 //= NPC Board ajoutant +X% Xp seln Race (ROTD)
 //============================================================
 
-izlude,131,148,0	script	ROTD	4_BOARD3,{
-
-	mes "[ROTD]";
+izlude,131,148,4	script	ROTD	4_BOARD3,{
+	mes "^D41B1B[ROTD]^000000";
 	mes "ROTD signifie Race Of The Day,";
 	mes "c'est à dire que tous les jours, une race gagnera entre 1% et 5% d'xp en plus.";
 	next;
 	mes "[ROTD]";
-	mes "=========================================";
-	mes "^0000FFRace du Jour :^000000 ^0000FF"+.rotd$[.today_rotd]+"^000000 avec ~ ^777777"+.rotd_exp_bonus+"% bonus";
-	mes "=========================================";
+	mes "^777777====================================^000000";
+	mes "^FF0000Race du Jour :^000000 ^0000FF"+.rotd$[.today_rotd]+"^000000 avec ~ ^777777^0000FF"+.rotd_exp_bonus+"%^000000 bonus";
+	mes "^777777====================================^000000";
 	close;
 
 OnInit:
@@ -35,7 +34,7 @@ OnInit:
 		"Demon",
 		"Demi Human",
 		"Angel",
-		"Dragon",
+		"Dragon";
 
 	set .rotd_size,getarraysize( .rotd$ );
 	for( set .@i,0; .@i < .rotd_size; set .@i,.@i + 1 )
@@ -46,11 +45,11 @@ OnInit:
 	set .party_level_range,10;
 
 // daily reset
-OnClock0000:
+OnClock0600:
 	set .today_rotd,rand( .rotd_size );
 	set .rotd_exp_bonus,rand( 1,5 );
 	delwaitingroom;
-	waitingroom "[ROTD]:"+.rotd$[.today_rotd]+"",0;
+	waitingroom "[ROTD]:"+.rotd$[.today_rotd]+" +"+.rotd_exp_bonus+"%",0;
 	end;
 	
 OnNPCKillEvent:
