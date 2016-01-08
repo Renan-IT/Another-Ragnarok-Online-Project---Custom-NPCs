@@ -210,7 +210,7 @@ ra_temple,120,92,4	script	Pape Armold#ra	4_F_ARUNA_POP,{
 		}
 }
 
-izlude_in,X,Y,Z	script	Maire Ilyac#izlude_in	4_M_MAYOR,{
+izlude,107,261,4	script	Maire Ilyac#izlude_in	4_M_MAYOR,{
 	if (questprogress(?????) == 1 && alrdytalkpapearmol = 1){
 		mes "[Maire Ilyac]";
 		mes "Bonjour, que venez vous faire ici ?";
