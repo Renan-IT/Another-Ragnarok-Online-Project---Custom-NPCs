@@ -6,13 +6,14 @@
 //= 20131225
 //===== Script Version =======================================
 //= V1 Ajout NPC Healer
+//= V1.1 Modification quelques bugs
 //===== Description: =========================================
 //= NPC Healer
 //============================================================
 
 //=NPC Healer=//
 
-prontera,X,Y,2	script	Healer#prt	XXXXXXX,{
+izlude,124,148,4	script	Healer#prt	4_F_NURSE,{
 	mes "[Healer]";
 	mes "Bonjour, je peux vous soigner si vous le souhaiter.";
 	switch(select("Oui soignez moi s'il vous plait","Non merci je n'en ai pas besoin"){
@@ -28,9 +29,9 @@ prontera,X,Y,2	script	Healer#prt	XXXXXXX,{
 		}
 		else if (BaseLevel <= 70 && @pdelay < gettimetick(2)){
 			mes "[Healer]";
-			mes "Vous avez demandé me services il n'y a pas si longtemps, je vous demande d'attendre "+ (@pdelay - gettimetick(2)) +" avant de revenir."
+			mes "Vous avez demandé me services il n'y a pas si longtemps, je vous demande d'attendre "+ (@pdelay - gettimetick(2)) +" avant de revenir.";
 		}
-		else if (BaseLevel <= 15){ //Heal Personnage <= Lvl 15 
+		else if (BaseLevel <= 15){ //Heal Personnage + Blessing/Agi <= Lvl 15 
 			mes "[Healer]";
 			mes "Tu es un très jeune aveturier, je vais utilisé mes pouvoirs pour te soigner et bien plus.";
 			specialeffect2 EF_HEAL; percentheal .hp, .sp;
@@ -74,14 +75,14 @@ prontera,X,Y,2	script	Healer#prt	XXXXXXX,{
 		// Configuration
 		.hp = 100;		// Pourcentage d'HP à heal
 		.sp = 100;		// Pourcentage d'SP à heal
-		.delay2 = 60;	// Nombre en secondes de delay pour BaseLevel < 70
-		.delay = 120;	// Nombre en secondes de delay pour BaseLevel > 70
+		.delay2 = 60;	// Nombre en secondes de delay pour BaseLevel > 70
+		.delay = 120;	// Nombre en secondes de delay pour BaseLevel < 70
 	end;
 }
 
 //=Quête Healer=//
 
-ra_temple,X,Y,Z	script	Pape Armold#ra	XXXXXXX,{
+ra_temple,120,92,4	script	Pape Armold#ra	4_F_ARUNA_POP,{
 	if (questprogress(?????) == -1){
 		mes "[Pape Armol]";
 		mes "Bonjour mon enfant, je vois que tu as l'air fatigué de combattre sans relâche à travers Midgard.";
@@ -101,25 +102,28 @@ ra_temple,X,Y,Z	script	Pape Armold#ra	XXXXXXX,{
 				mes "Merci de croire en moi mon enfant !";
 				mes "Pour le moment je dois lancer mon projet et même si je suis un Homme d'Eglise, comme tout le monde, j'ai besoin d'économie pour le commencer.";
 				mes "Je vois que tu as du combattre pour effectuer des missions. Serais-tu assez généreux pour me fournir un début ?";
+				next;
 				switch(select("Oui, combien?","Euh j'ai beaucoup travaillé pour ça"){
 					case 1:
 						mes "[Pape Armol]";
 						mes "J'aurai besoin de 100 000 zénys, je sais que ça fait beacoup mais il me faut au moins ça pour commencer.";
+						next;
 						switch(select("Tenez, prenez","Oula ça fait beaucoup tout compte fait"){
 							case 1:
 								mes "[Pape Armol]";
 								if (zeny >= 100000){
-									Zeny,Zeny-100000;
+									 set Zeny,Zeny-100000;
 									mes "Oh merci mon enfant ! Dieu te regarde de là haut et te remercie de ta générosité !";
 									mes "J'aurai besoin d'un autre service, je vais devoir maintenant convaincre toutes les villes de Midgard à faire de même et à créer cette organisation.";
 									mes "J'ai un plan, je vais convaincre d'abord les grande villes puis les petites suivront le pas j'en suis sûr !";
 									mes "Malheureusement je suis vieux et j'aurai besoin d'une personne pour m'épauler, serais-tu la bonne personne ?";
+									next;
 									switch(select("Je le suis","Je ne crois pas non"){
 										case 1:
 											mes "[Pape Armol]";
 											mes "Oh merci ! Tu es vraiment quelqu'un de bon !";
 											mes "Va convaincre la ville d'Izlude en parlant au Maire Ilyac qu'installer un service comme celui-ci sera bénéfique pour la ville.";
-											set alrdytalkpapearmol == 1;
+											set alrdytalkpapearmol, 1;
 											setquest ?????;
 											dispbottom "Vous avez reçu une nouvelle quête consulter là via alt+u";
 											close;
@@ -168,7 +172,7 @@ ra_temple,X,Y,Z	script	Pape Armold#ra	XXXXXXX,{
 					mes "Haha tu es vraiment une personne géniale ! Il faut que tu ailles parler au Maire Palaruc qui se trouve au Château de Prontera.";
 					mes "De mon côté je vais commencer à recruter des personnes pour les villes déjà d'accord.";
 					mes "Allez bonne chance !";
-					set alrdytalkpape == 1;
+					set alrdytalkpape, 1;
 					close;
 				case 2:
 					mes "[Pape Armol]";
@@ -206,46 +210,46 @@ ra_temple,X,Y,Z	script	Pape Armold#ra	XXXXXXX,{
 		}
 }
 
-izlude_in,X,Y,Z	script	Maire Ilyac#izlude_in	XXXXXXX,{
+izlude_in,X,Y,Z	script	Maire Ilyac#izlude_in	4_M_MAYOR,{
 	if (questprogress(?????) == 1 && alrdytalkpapearmol = 1){
-		mes "[Pape Armol]";
+		mes "[Maire Ilyac]";
 		mes "Bonjour, que venez vous faire ici ?";
 		switch(select("Je viens vous proposer un projet","Oh rien de bien spécial"){
 			case 1:
-				mes "[Pape Armol]";
+				mes "[Maire Ilyac]";
 				mes "Un projet ? Lequel ?";
 				next;
 				switch(select("Un Healer pour combattants"){
 					case 1:
-						mes "[Pape Armol]";
+						mes "[Maire Ilyac]";
 						mes "Ah oui ? J'avais déjà entendu parler de ce genre de projet, à l'époque il m'avait plu mais aujourd'hui je ne sais pas.";
 						mes "Le monde est calme en ce moment, en tant que Maire de la Capitale de Midagrd, je me permets d'être réticent à cette idée.";
 						mes "Mais d'un autre côté, ces combattants ont tellement souffert durant les précédentes guerres que je me dis que ça pourrait être utile.";
 						mes "De plus, les autres Maires m'ont rapporté récemment qu'un mal gronde depuis peu...";
 						next;
-						mes "[Pape Armol]";
+						mes "[Maire Ilyac]";
 						mes "J'espère que ce n'est pas trop important.";
 						mes "Je voudrai bien intégrer cette organisation mais je ne veux pas débloquer des fonds pour le moment.";
 						mes "Trouve moi un moyen d'en avoir et je me ferai un plaisir de l'implanter.";
 						next;
 						switch(select("Je vous propose mon argent","Je vais réfléchir"){
 							case 1:
-								mes "[Pape Armol]";
+								mes "[Maire Ilyac]";
 								mes "Ton argent ? Je veux bien mais j'aurai besoin de 50 000 zénys pour lancer le projet dans ma ville.";
 								mes "Tu voudrais vraiment me les donner ?";
 								next;
 								switch(select("Oui, c'est important","50k ? Non mais ça va pas?"){
 									case 1:
-										mes "[Pape Armol]";
+										mes "[Maire Ilyac]";
 										mes "*Vous lui donnez 50 000 Zénys*";
 										if (zeny >= 50000){
-											Zeny,Zzeny-50000;
+											set Zeny,Zzeny-50000;
 											mes "Merci camarade ! Tu es vraiment généreux ! On en fait rarement des personnes comme toi maintenant.";
 											mes "Je te promets d'intégrer ce projet dans cette ville avec l'argent que tu m'as donné.";
 											next;
-											mes "[Pape Armol]";
+											mes "[Maire Ilyac]";
 											mes "Le peuple d'Izlude te remercie !";
-											set alrdytalkmaireizlude == 1;
+											set alrdytalkmaireizlude, 1;
 											close;
 										}
 										else{
@@ -255,27 +259,27 @@ izlude_in,X,Y,Z	script	Maire Ilyac#izlude_in	XXXXXXX,{
 											close;
 										}
 									case 2:
-										mes "[Pape Armol]";
+										mes "[Maire Ilyac]";
 										mes "Très bien alors pas de Healer dans ma ville.";
 										mes "Je n'ai pas l'argent en ce moment pour l'intégrer cette personne.";
 										close;
 								}
 							case 2:
-								mes "[Pape Armol]";
+								mes "[Maire Ilyac]";
 								mes "D'accord, je ne bouge pas d'ici pour ma part.";
 								mes "J'ai beaucoup de travail, à bientôt";
 								close;
 						}
 				}
 			case 2:
-				mes "[Pape Armol]";
+				mes "[Maire Ilyac]";
 				mes "Rien de bien spécial ? J'ai du travail moi, revenez quand vous saurez ce que vous voudrez.";
 				close;
 		}
 	}
 }
 
-prt_in,X,Y,Z	script	Maire Palaruc#prt_in	XXXXXXX,{
+prt_in,284,165,3	script	Maire Palaruc#prt_in	4_M_MAYOR,{
 	if (questprogress(?????) == 1 && alrdytalkpape == 1){
 		mes "[Maire Palaruc]";
 		mes "Bonjour je suis le Maire de Prontera, l'ancienne capitale de Midgard. Pourquoi ancienne ? Car elle commençait à vieillir malheureusement mais nous essayons de changer ça.";
@@ -301,13 +305,13 @@ prt_in,X,Y,Z	script	Maire Palaruc#prt_in	XXXXXXX,{
 							mes "[Maire Palaruc]";
 							mes "Me les donner ? C'est vraiment généreux de ta part !";
 							if (zeny > 50000){
-								zeny,zeny-50000;
+								set zeny,zeny-50000;
 								mes "[Maire Palaruc]";
 								mes "Merci beaucoup, ton argent sera bien dépensé, en éspérant que du monde revienne dans cette magnifique ville qu'est Prontera !";
 								next;
 								mes "[Maire Palaruc]";
 								mes "Le peuple de Prontera te remercie !";
-								set alrdytalkmaireprontera == 1;
+								set alrdytalkmaireprontera, 1;
 								close;
 							}
 							else{
