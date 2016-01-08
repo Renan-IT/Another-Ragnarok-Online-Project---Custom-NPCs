@@ -13,7 +13,7 @@
 izlude,131,148,0	script	ROTD	4_BOARD3,{
 
 	mes "[ROTD]";
-	mes "ROTD signifie "Race Of The Day",";
+	mes "ROTD signifie Race Of The Day,";
 	mes "c'est à dire que tous les jours, une race gagnera entre 1% et 5% d'xp en plus.";
 	next;
 	mes "[ROTD]";
