@@ -1,9 +1,7 @@
 izlude,131,148,0	script	ROTD	436,{
-set .@gmlevel,getgmlevel();
 
 do{
-	set .@menu,select("^4EEE94ROTD Information^000000");
-				
+	set .@menu,select("^4EEE94ROTD Information^000000","Close" );
 				
 	switch( .@menu ) {
 		case 1:
@@ -20,15 +18,15 @@ do{
 				if ( .rotd_zeny ) mes " ~ ^777777"+.rotd_zeny+" Zeny^000000";
 				mes " ";
 				mes "Amount are random...";
-				close;
 			}
+			break;	
+		default: close;
 	}
-}
-
+	next;
+}while( .@menu != 5 );
+close;
 
 OnInit:
-	// min gm level
-	set .gm_level,80;
 
 	// monster race list
 	setarray .rotd$[0],
@@ -87,6 +85,7 @@ if ( getmonsterinfo( killedrid,MOB_RACE ) == .today_rotd ) {
 		set JobExp,( JobExp + .@mob_job_exp );
 		dispbottom "[ROTD SOLO] : "+.@mob_base_exp+" EXP";
 	}
+
 }
 end;
 }
