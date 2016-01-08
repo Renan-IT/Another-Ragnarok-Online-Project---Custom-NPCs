@@ -46,7 +46,7 @@ OnClock0000:
 	set .today_rotd,rand( .rotd_size );
 	set .rotd_exp_bonus,rand( 1,5 );
 	delwaitingroom;
-	waitingroom "[ROTD]:"+.rotd$[.today_rotd]+" +"+.rotd_exp_bonus+"% ",0;
+	waitingroom "[ROTD]:"+.rotd$[.today_rotd]+"",0;
 	end;
 	
 OnNPCKillEvent:
