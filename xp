@@ -40,8 +40,11 @@ while(1){
 	delwaitingroom;
 	waitingroom "[ROTD]:+"+.BonusEXP+" % sur "+.ROTD$[.Race]+"",0;
 	announce "[ ROTD ] : Nouvelle Race : "+.ROTD$[.Race]+" avec un bonus de "+.BonusEXP+" % ",bc_blue;
-	if( getmonsterinfo( killedrid,19 ) != .Race  )end;
-		set .@Location$,strcharinfo(3);
-		set .BaseLvl,BaseLevel;
+	end;
+	
+	OnNPCKillEvent:
+	if( getmonsterinfo( killedrid,19 ) == .ROTD$[.Race]  ){
+		getexp getmonsterinfo(killedrid,3)*.bonus_exp_rate/100,getmonsterinfo(killedrid,4)*.bonus_exp_rate/100;
+	}
 	end;
 }
