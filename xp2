@@ -1,7 +1,7 @@
 izlude,131,148,0	script	ROTD	4_BOARD3,{
 
 do{
-	set .@menu,select("^0000FFROTD Information^000000");
+	set .@menu,select("ROTD Information","Close");
 				
 	switch( .@menu ) {
 		case 1:
@@ -12,9 +12,10 @@ do{
 			mes "^0000FF"+.rotd$[.today_rotd]+"^000000 Race";
 			if ( .rotd_exp_bonus ) mes " ~ ^777777"+.rotd_exp_bonus+"% more exp^000000";
 			close;
+		default: close;
 	}
 	next;
-}while( .@menu != 5 );
+}while( .@menu != 2 );
 close;
 
 OnInit:
@@ -31,8 +32,7 @@ OnInit:
 		"Demi Human",
 		"Angel",
 		"Dragon",
-		"Boss",
-		"Non-Boss";
+
 	set .rotd_size,getarraysize( .rotd$ );
 	for( set .@i,0; .@i < .rotd_size; set .@i,.@i + 1 )
 		set .rotd_menu$,.rotd_menu$ + .rotd$[.@i] +":";
