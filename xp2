@@ -1,5 +1,4 @@
 izlude,131,148,0	script	ROTD	436,{
-set .@gmlevel,getgmlevel();
 
 do{
 	set .@menu,select("^4EEE94ROTD Information^000000",
@@ -22,45 +21,6 @@ do{
 				mes "Amount are random...";
 			}
 			break;
-		case 2:
-			mes "Select new race.";
-			set .today_rotd,select( .rotd_menu$ ) - 1;
-			if ( .today_rotd >= .rotd_size ) set .today_rotd,rand( .rotd_size );
-			mes "New Race : ^777777"+.rotd$[.today_rotd]+"^000000";
-			delwaitingroom;
-			waitingroom "[ROTD]:"+.rotd$[.today_rotd]+" ",0;
-			break;
-		case 3:
-			mes "Set new exp bonus. (%)";
-			input .rotd_exp_bonus,0,100;
-			if ( .rotd_exp_bonus ) mes "ROTD EXP : "+.rotd_exp_bonus+" %";
-			break;
-		case 4:
-			mes "Set Rotd bonus";
-			mes "Inset Zeny Bonus";
-			input .@zeny;
-			mes "Insert Item ID";
-			do{
-				input .@item,0,32767; 
-				if ( !.@item ) close;
-			}while( getitemname( .@item ) == "null" );
-			mes "Enter amount.";
-			input .@amount,0,30000;
-			mes "Enter Rate to gain.";
-			input .@rate,0,100;
-			if ( .@amount && .@rate ) {
-				next;
-				mes "Updated item bonus : ( "+.@rate+"% )";
-				mes "^777777"+.@amount+" x "+getitemname( .@item )+"^000000";
-				mes "^777777"+.@zeny+" Zeny^000000";
-				if ( select( "Confirm","Cancel" ) == 1 ) {
-					set .rotd_item_id,.@item;	
-					set .rotd_item_amount,.@amount;
-					set .rotd_item_rate,.@rate;
-					set .rotd_zeny,.@zeny;
-					mes "Updated.";
-				}
-			}
 		default: close;
 	}
 	next;
@@ -96,7 +56,7 @@ OnInit:
 // daily reset
 OnClock0000:
 	set .today_rotd,rand( .rotd_size );
-	set .rotd_exp_bonus,rand( 1,100 );
+	set .rotd_exp_bonus,rand( 1,5 );
 	delwaitingroom;
 	waitingroom "[ROTD]:"+.rotd$[.today_rotd]+" ",0;
 	end;
