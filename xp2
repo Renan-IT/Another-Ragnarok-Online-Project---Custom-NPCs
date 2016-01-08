@@ -1,8 +1,7 @@
-izlude,131,148,0	script	ROTD	436,{
+izlude,131,148,0	script	ROTD	4_BOARD3,{
 
 do{
-	set .@menu,select("^4EEE94ROTD Information^000000",
-				"Close" );
+	set .@menu,select("^4EEE94ROTD Information^000000");
 				
 	switch( .@menu ) {
 		case 1:
@@ -12,8 +11,6 @@ do{
 			mes "[ ^FF0000Today's ROTD^000000 ]";
 			mes "^0000FF"+.rotd$[.today_rotd]+"^000000 Race";
 			if ( .rotd_exp_bonus ) mes " ~ ^777777"+.rotd_exp_bonus+"% more exp^000000";
-			break;
-		case 2: 
 			break;
 	}
 	next;
