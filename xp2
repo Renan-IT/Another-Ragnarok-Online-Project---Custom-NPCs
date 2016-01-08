@@ -1,22 +1,26 @@
+//===== Hercules Script ======================================
+//= Sample: Board Xp
+//===== By: ==================================================
+//= Baps
+//===== Current Version: =====================================
+//= 20131225
+//===== Script Version =======================================
+//= V1 
+//===== Description: =========================================
+//= NPC Board ajoutant +X% Xp seln Race (ROTD)
+//============================================================
+
 izlude,131,148,0	script	ROTD	4_BOARD3,{
 
-do{
-	set .@menu,select("ROTD Information","Close");
-				
-	switch( .@menu ) {
-		case 1:
-			mes "^FF0000ROTD^000000 refer to ^0000FFRace of the Day^000000";
-			mes "In another word, it mean that the ^FF0000Monster's Race^000000 that you killed by day will grant you ^FF0000Extra Bonus EXP^000000.";
-			next;
-			mes "[ ^FF0000Today's ROTD^000000 ]";
-			mes "^0000FF"+.rotd$[.today_rotd]+"^000000 Race";
-			if ( .rotd_exp_bonus ) mes " ~ ^777777"+.rotd_exp_bonus+"% more exp^000000";
-			close;
-		default: close;
-	}
+	mes "[ROTD]";
+	mes "ROTD signifie "Race Of The Day",";
+	mes "c'est à dire que tous les jours, une race gagnera entre 1% et 5% d'xp en plus.";
 	next;
-}while( .@menu != 2 );
-close;
+	mes "[ROTD]";
+	mes "=========================================";
+	mes "^0000FFRace du Jour :^000000 ^0000FF"+.rotd$[.today_rotd]+"^000000 avec ~ ^777777"+.rotd_exp_bonus+"% bonus";
+	mes "=========================================";
+	close;
 
 OnInit:
 
@@ -38,7 +42,7 @@ OnInit:
 		set .rotd_menu$,.rotd_menu$ + .rotd$[.@i] +":";
 	set .rotd_menu$,.rotd_menu$ + "^0055FFRandom Race^000000";
 
-	// min party member lv to gain exp
+	// min party member lvl to gain exp
 	set .party_level_range,10;
 
 // daily reset
