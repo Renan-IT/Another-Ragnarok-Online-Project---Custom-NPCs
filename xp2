@@ -7,29 +7,20 @@ do{
 	switch( .@menu ) {
 		case 1:
 			mes "^FF0000ROTD^000000 refer to ^0000FFRace of the Day^000000";
-			mes "In another word, it mean that the ^FF0000Monster's Race^000000 that you killed by day will grant you ^FF0000Extra Bonus EXP / Item / Zeny ^000000.";
+			mes "In another word, it mean that the ^FF0000Monster's Race^000000 that you killed by day will grant you ^FF0000Extra Bonus EXP^000000.";
 			next;
 			mes "[ ^FF0000Today's ROTD^000000 ]";
 			mes "^0000FF"+.rotd$[.today_rotd]+"^000000 Race";
 			if ( .rotd_exp_bonus ) mes " ~ ^777777"+.rotd_exp_bonus+"% more exp^000000";
-			if ( ( .rotd_item_amount && .rotd_item_rate ) || .rotd_zeny || .rotd_exp_bonus ) {
-				mes " ";
-				mes "Reward : "+( ( .rotd_item_rate )? .rotd_item_rate+"%":"" )+" : ";
-				if ( .rotd_item_amount && .rotd_item_rate ) mes " ~ ^777777"+.rotd_item_amount+" x "+getitemname( .rotd_item_id )+"^000000";
-				if ( .rotd_zeny ) mes " ~ ^777777"+.rotd_zeny+" Zeny^000000";
-				mes " ";
-				mes "Amount are random...";
-			}
 			break;
-		default: close;
+		case 2: 
+			break;
 	}
 	next;
 }while( .@menu != 5 );
 close;
 
 OnInit:
-	// min gm level
-	set .gm_level,80;
 
 	// monster race list
 	setarray .rotd$[0],
