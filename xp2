@@ -12,13 +12,17 @@
 
 izlude,131,148,4	script	ROTD	4_BOARD3,{
 	mes "^D41B1B[ROTD]^000000";
+	mes "^777777===================================^000000";
 	mes " ";
 	mes "ROTD signifie ^FF0000Race Of The Day^000000,";
 	mes "c'est à dire que tous les jours, une race gagnera entre ^D41B1B1%^000000 et ^D41B1B5%^000000 d'xp en plus.";
+	mes " ";
+	mes "^777777===================================^000000";
 	next;
 	mes "^D41B1B[ROTD]^000000";
 	mes "^777777===================================^000000";
 	mes "^FF0000Race du Jour :^000000 ^0000FF"+.rotd$[.today_rotd]+"^000000 avec ~ ^777777^0000FF"+.rotd_exp_bonus+"%^000000 bonus";
+	mes " ";
 	mes "^777777===================================^000000";
 	close;
 
