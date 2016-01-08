@@ -1,20 +1,16 @@
 izlude,131,148,0	script	EXP	4_BOARD3,{
 
-	
-	announce "[MOTD] : Race of the Day is [ "+.MOTD$[.race]+" ]. Bonus EXP : "+.bonus_exp_rate+"% !!",bc_self,0xFF0000;
-
 OnInit:
-		setarray .MOTD$[0],"Formless","Undead","Plant","Insect","Fish","Demon","Demi Human","Angel","Dragon";
 OnClock0600:
 	setarray .MOTD$[0],"Formless","Undead","Plant","Insect","Fish","Demon","Demi Human","Angel","Dragon";
 	set .race, rand ( 10 );
 	set .bonus_exp_rate, rand ( 1,5 );
-	announce "[MOTD Update] : New Race of the Day is [ "+.MOTD$[.race]+" ]. Bonus EXP : 10% !!",0;
+	announce "[MOTD Update] : New Race of the Day is [ "+.MOTD$[.race]+" ]. Bonus EXP : "+.bonus_exp_rate+"% !!",bc_self,0xFF0000;
 	end;
 
 OnNPCKillEvent:
 
-	if ( getmonsterinfo(killedrid,19) == .MOTD[.race] ) {
+	if ( getmonsterinfo(killedrid,19) == .MOTD$[.race] ) {
 		getexp getmonsterinfo(killedrid,3)*.bonus_exp_rate/100,getmonsterinfo(killedrid,4)*.bonus_exp_rate/100; 
 		dispbottom "[ MOTD ] : "+ .bonus_exp_rate +"% Extra EXP for [ "+.MOTD$[.race]+" Race ] monster.";
 		dispbottom "[ Original = "+getmonsterinfo(killedrid,3)+" ] [ Extra "+.bonus_exp_rate+"% = "+getmonsterinfo(killedrid,3)/10+" ] [ Total EXP = "+(getmonsterinfo(killedrid,3)+(getmonsterinfo(killedrid,3)*.bonus_exp_rate/100))+"] ";
