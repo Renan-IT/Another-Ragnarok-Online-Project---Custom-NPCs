@@ -1,0 +1,350 @@
+//===== Hercules Script ======================================
+//= Sample: Board Xp
+//===== By: ==================================================
+//= Baps avec l'aide Mclzeszen
+//===== Current Version: =====================================
+//= 20131225
+//===== Script Version =======================================
+//= V1 
+//===== Description: =========================================
+//= NPC Lottery
+//============================================================
+
+izlude,X,Y,Z	script	Lottery	XXXXXXX,{
+	
+set @npc$, "^0006D3...:::LOTTERY:::...^000000"; //Nom du npc
+set @price, 10000; //Prix du ticket
+set @maxticket, 1; //Nombre de ticket par joueur
+set @serveur$, "MyRO"; //Nom du serveur
+if(!$acumulado){  //if accumulated the value will not be only 10kk, otherwise it will be 10kk.
+	set $premio,10000000;
+} 
+	query_sql "SELECT `ticket`,`id_b` FROM `loterrie_b` WHERE `char_id` = '"+getcharid(0)+"'",.@blot,.@id;  //count the bets
+	query_sql "SELECT `sorteio` FROM `loterrie_s`",.@slot; //numbers from the last lottery draw
+	query_sql "SELECT COUNT(*) FROM `loterrie_b`",.@total_bet;
+	
+	if ($close){
+		mes @npc$;
+		mes "Désolé mais la lotterie est fermé pour le moment.";
+		mes "Voulez-vous consulter quelque chose ?";
+		switch (select("- Voir mon numéro de ticket","- Voir le résultat","- Partir")){
+			case 1:
+				goto L_NUMERO;
+				break;
+			case 2:
+				goto L_RS;
+				break;
+			case 3:
+				goto L_PARTIR;
+				break;
+		}
+		close;
+	}
+	
+	if (getarraysize(.@blot) >= @maxticket){ //Si le joueur a déjà un ticket
+		goto L_INI;
+		callfunc ("ticket", .@ticket); //Check si le nombre du ticket est déjà dans la liste
+		query_sql "SELECT `ticket` FROM `loterrie_b` WHERE `char_id` = '"+getcharid(0)+"' and `ticket` = '"+.@bilhete+"'",.@valide;
+		if (.@valide){ //Si ticket valide
+			mes @npc$;
+			mes "Désolé...";
+			mes "Essayé dans quelques secondes...";
+			close;
+		}
+	}
+	
+	//Partie explication npc
+	mes @npc$;
+	mes "Bonjour, je m'occupe de la billeterie pour la lottery pour le serveur "+@serveur$+".";
+	mes "Vous pouvez devenir riche en un rien de temps qu'il n'en faut de tuer un poring !";
+	mes "C'est comme ça, vous m'achetez un ticket et je vous donne un numéro aléatoire.";
+	mes "Si personne ne gagne, le prix est accumulé pour la prochaine fois !";
+	mes "Le prix total actuellement s'élève à z$^ff0000"+$premio+"^000000 !!";
+	next;
+	//Fin partie explication npc
+	
+	//Valeurs
+	mes @npc$;
+	mes "Voulez-vous tenter votre chance en m'achetant un ticket ?";
+	mes "Un ticket coûte actuellement z$"+@price+".";
+	mes "Attention, vous ne pouvez prendre que "+@maxticket+" par personne !";
+	mes "Le nombre de ticket écouler jusqu'à maintenant est de : "+.@total_ticket+"";
+	next;
+	//Fin valeurs
+	switch (select("- Je veux parier !","- Nombre à la dernière lotterie","- Je parierai la prochaine fois","- Mon ticket", "- Dernier résultat")){ //Menu principal
+		case 1:
+			if (getarraysize(.@blot) >= @maxticket) goto L_CHEGA;
+			if (zeny < @price) goto L_NZ; //Check du nombre de zeny
+			mes @npc$;
+			mes "Très bien "+strcharinfo+"!";
+			mes "Je vous enregistre dans ma base de donnée !";
+			next;
+			set zeny, zeny-@price;
+			mes @npc$;
+			mes "Un petit instant, votre ticket est en train d'être généré...";
+			next;
+			mes @npc$;
+			mes "Voila qui est fait. Désolé pour l'attente !";
+			mes "Ceci est votre numéro : ^C4258B"+.@ticket+"^000000";
+			mes "Si vous gagnez... Une annonce sera faite et vous aurez jusqu'à la prochaine lotterie pour recupérer votre prix.";
+			mes "Vous pouvez aussi consulter votre ticket ici à n'importe quel moment.";
+			mes "Au revoir, à bientôt.";
+			query_sql "INSERT INTO `loterrie_b` (`char_id`,`ticket`,`maxticket`) VALUES ('"+getcharid(0)+"','"+.@ticket+"','"+@price+"')";
+			break;
+			
+			//Consulter le numéro gagnant précédent
+		case 2:
+			if (.@slot == 0){
+				mes @npc$;
+				mes ""+strcharinfo+" !";
+				mes "Il n'y avait pas de lotterie hier !";
+				mes "Désolé !";
+				close;
+			}
+			else{
+				mes @npc$;
+				mes ""+strcharinfo+" !";
+				mes "La dernière lotterie a eu pour numéro gagnant : ^C47030"+.@slot+"^000000";
+				break;
+			}
+			//Fin de la consultation
+			
+			//Parier une autre fois
+		case 3:
+			mes @npc$;
+			mes "Ok ! "+strcharinfo+" !";
+			mes "Revenez quand vous voulez...";
+			mes "Pensez-y, vous pouvez devenir riche !";
+			break;
+			//Fin parier une autre fois
+			
+		case 4:
+			goto L_NUMERO;
+			close2;
+			
+		case 5:
+			goto L_LAST;
+			close2;
+	}
+	
+L_NUMERO:
+	//Requête pour confirmer le prix du joueur
+	query_sql "SELECT `ticket` FROM `loterrie_b` WHERE `ticket` = '"+.@slot+"' and `char_id` = '"+getcharid(0)+"'",.@winner;
+	//Requête pour trouver le nom du gagnant
+	if ($nameW$ == ""){
+		query_sql "SELECT `name` FROM `char` WHERE `char_id` IN (SELECT `char_id` FROM `loterrie_b` WHERE `ticket` = '"+.@slot+"')",$nameW$;
+	}
+	if (.@winner){
+		set .@LotWon, getarraysize($nameW$);
+		set .@Recompense, $recompense*getarraysize($nameW$);
+		
+		//Importer le prix directement de la bank
+		set #bancoZ,#bancoZ+$recompense;
+		
+		//Données du gagnant de la lotterie
+		mes @npc$;
+		if (.@LotWon > 1){
+			set .@a1$, "Vous êtes l'un des gagnants !";
+		}
+		else{
+			set .@a1$, "Vous êtes le seul gagant ! Felicications !";
+		}
+		mes .@a1$;
+		mes "Votre prix s'élève à ^ff0000"+$recompense+"^000000";
+		mes "Ce montant total à été déposer dans votre compte en banque.";
+		mes "Vous pouvez vérifier dès maintenant votre compte.";
+		mes "Votre ticket ticket à aussi été détruit et ne sera donc plus valide.";
+		next;
+		mes @npc$;
+		mes "^2EA686WINNERS LIST^000000";
+		mes "^8A4D29|||^000000 = Nom du/des gagnant(s)";
+		mes "^FF0000|||^000000 = Valeur du prix";
+		mes "____________________________";
+		for (set @i,0; @i < .@LotWon; set @i, @i+1){
+			mes "-^8A4D29"+ $nameW$[@i] +"^000000 :^ff0000 "+$recompense+"^000000";
+		}
+		
+		//Afficher le gagnant
+		next;
+		mes @npc$;
+		mes "Nombre de gagnant : "+.@LotWon+"";
+		mes "Numéro du ticket gagnat : ".@slot+"";
+		mes "Prix pour chaque gagnant : z$:^ff0000"+ $recompense+"^000000";
+		set $accumuler, 0;
+		query_sql "DELETE FROM `loterrie_b` WHERE `char_id` = '"+getcharid(0)+"'"; //Supprime le ticket de ceux qui ont déjà reçu le prix
+		close;
+		//Fin de l'affichage des données de la lotterie
+	}
+	
+	//Si le joueur n'a pas gagné, le joueur check son parie
+	mes @npc$;
+	mes "^C4258B|||^000000 = Numéro du Ticket.";
+	mes "^FF0000|||^000000 = Code du Ticket.";
+	mes "__________________________";
+	mes "Voila votre ticket.";
+	for(set .@n,0;.@n < getarraysize(.@blot); set .@n,.@n+1 ){
+		set @cod, .@n+1;
+		show "Ticket ^ff0000[ "+@cod+" ]^000000 : ^C4258B[ "+.@blot[.@n]+" ]^000000";
+	}
+	close;
+	
+L_NZ:
+	//Pas assez de zeny
+	mes @npc$;
+	mes "Vous n'avez pas assez de zenys pour acheter un ticket.";
+	mes "Revenez quand vous en aurez assez.";
+	close;
+	
+L_RS:
+	query_sql "SELECT `ticket` FROM `loterrie_b` WHERE `ticket` = '"+.@slot+"' and `char_id` = '"+getcharid(0)+"'",.@winner;
+	if (.@winner){
+		goto L_NUMERO;
+	}
+	if($nameW$){
+		query_sql "SELECT `name` FROM `char` WHERE `char_id` in (SELECT `char_id` FROM `loterrie_b` WHERE `ticket` = '"+.@slot+"')",$nameW$;
+	}
+	query_sql "SELECT `char_id` FROM `loterrie_b` WHERE `ticket`",.@sorteado;
+	if ($nameW$){
+		mes @npc$;
+		mes "^2EA686IL N'Y A PAS EU DE GAGNANT^000000";
+		mes "Le numéro gagnant était : ^ff0000"+.@slot+"^000000";
+		mes "Le prix ajouté sera de : z$^ff0000"+$recompense+"^000000";
+		close;
+	}
+	else{
+		mes @npc$;
+		mes "^2EA686LIST DES GAGNANTS^000000";
+		mes "Le numéro gagnant était : ^ff0000"+.@slot+"^000000";
+		mes "^8A4D29|||^000000 = Nom du/des gagnant(s)";
+		mes "^FF0000|||^000000 = Valeur de la récompense";
+		mes "____________________________";
+		//Afficher $nameW$
+		for (set @i, 0; @i < getarraysize($nameW$); set @i, @i+1)
+			show "-^8A4D29 "+$nameW$[@i]+"^000000 :^ff0000 "+$recu+"^000000";
+		close;
+	}
+	
+L_CHEGA:
+	mes @npc$;
+	mes "Vous avez déjà prit votre ticket !";
+	mes "C'est uniquement un ticket par personne.";
+	close;
+	
+L_FIM:
+	mes @npc$:
+	mes "Revenez quand vous voulez !";
+	close;
+
+L_LAST:
+	if ($nameW$ == ""){
+		mes @npc$;
+		mes "^2EA686IL N'Y A PAS EU DE GAGNANT^000000";
+		mes "Le numéro gagant était : ^ff0000"+.@sorteado+"^000000";
+		mes "Le prix ajouté sera de : z$^ff0000"+$recompense+"^000000";
+		close;
+	}
+	else{
+		mes @npc$;
+		mes "^2EA686LIST DES GAGNANTS^000000";
+		mes "^8A4D29|||^000000 = Nom du/des gagnant(s)";
+		mes "^FF0000|||^000000 = Valeur de la récompense";
+		mes "____________________________";
+		//Afficher $nameW$
+		for (set @i, 0; @i < getarraysize($nameW$); set @i, @i+1)
+			show "-^8A4D29 "+$nameW$[@i]+"^000000 :^ff0000 "+$recu+"^000000";
+		close;
+	}
+}
+
+//Script pour lancer la lotterie
+-	script	sorteio	-1,{
+	OnWeekFri:
+	OnClock2000:
+		set recu, 0;
+		set $nameW$, "";
+		set $close, 0; //Lotterie ouverte
+		query_sql "DELETE FROM `loterrie_s`"; //Supprime le dernier tirage
+		callfunc("ticket",.@resultat); //Appelle la fonction pour générer un nouveau numéro
+		query_sql "INSERT INTO `loterrie_s` (`sorteio`) VALUES ('"+.@resultat+"')"; //Insert le numéro de lotterie dans MySQL
+		announce "Lotterie: ATTENTION! Lotterie ouverte, venez prendre vos tickets !"; 
+	end;
+		
+		//##################################################################################################################
+	OnWeekSat:
+	OnClock2000:
+		query_sql "SELECT `ticket` FROM `loterrie_b` WHERE `ticket` IN (SELECT `sorteio` FROM `loterrie_s`)",.res; //Prend le ticket du gagnant
+		
+		if (.res <= 0){ //Si pas de gagnant
+			set $recompense, $recompense*2+10000; //Ajout de récompense précédente en fonction du prix
+			announce "Lotterie: Il n'y a pas eu de gagnant pour cette fois!!! Le prix est maintenant de "+$recompense+"!", 8; //Global	message
+			set $acumulado, 1;
+			end;
+		}
+		if (getarraysize(.res) == 1){ //Si il y a un gagnant
+			set $recu, $recompense;
+			announce "Lotterie: Félicitations. Nous avons [ 1 ] gagnant qui remporte la somme de z$: "+$recompense+" !", 8;
+			end;
+		}
+		else if (getarraysize(.res) >= 1){ //Si plusieurs gagnants
+			set $recompense, $recompense/getarraysize(.res); //Partage des gains avec gagnants
+			announce "Lotterie: ATTENTION! Resultat de la lotterie: "+.@resultat+"!",8; //Global message
+			announce "Lotterie: Félicitations. Nous avons [ "+getarraysize(.res)+" ] gagnant qui remporte la somme de z$: "+$recompense+" !", 8;
+			set $recu, $recompense;
+		}
+		
+		//##################################################################################################################
+	OnWeekFri:
+	OnClock1959: //Le vendredi à 19h59, le prix est supprimé si par récupéré
+		set $close, 1;
+		query_sql "DELETE FROM `loterrie_b`"; //Restart les paris
+	end;
+	
+		//##################################################################################################################
+	//Restricted Use for Administrators to give reload on the npc // Come back the prize to 10kk and open the bets if closed.
+	//Just use this if you know what you are doing.
+	OnWhisperGlobal: 
+		if(@whispervar0$ == "Restart"){
+			if(getgmlevel() <= 98){
+			//if(getgroupid() <= 98){ //For the new emulators version
+			end;
+			}
+			else{
+				set $close,0;
+				set $acumulado,0;
+				query_sql "DELETE FROM `loterrie_b`";
+				dispbottom "Lottery: Variables Reseted!!!";
+			}
+		}
+	
+		if(@whispervar0$ == "Fermer"){
+			if(getgmlevel() <= 98){
+			//if(getgroupid() <= 98){  //For the new emulators version
+			set $close,1;
+			dispbottom "Lottery: Lottery Closed!!!";
+			}
+		}
+}
+
+//##################################### FUNCTION POUR GENERER LE TICKET  ############################################
+	///Ps.: The generated numbers here can not contain zero and can not have the same digit repeated. Makes it easier for gamblers
+function	script	ticket	{
+
+	set .@lt1,rand(1,9);
+	L_1:
+		set .@lt2,rand(1,9);
+		if(.@lt2 == .@lt1) goto L_1;
+	L_2:
+		set .@lt3,rand(1,9);
+		if((.@lt3 == .@lt1) || (.@lt3 == .@lt2)) goto L_2;
+	L_3:
+		set .@lt4,rand(1,9);
+		if((.@lt4 == .@lt1) || (.@lt4 == .@lt2) || (.@lt4 == .@lt3)) goto L_3;
+
+///################################################################################
+///If you will activate numbers of 4 digits, you have to desactivate the number of 3 digits... (Ps.: 4 digits is very hard to win, (Good for big servers)
+set getarg(0),.@lt1+""+.@lt2+""+.@lt3;  //Generates Numbers of 3 digits for the tickets.   
+//set getarg(0),.@lt1+""+.@lt2+""+.@lt3+""+.@lt4;   //Generates Numbers of 4 digits for the tickets.   
+
+return;
+
+}
