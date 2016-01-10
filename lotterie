@@ -17,15 +17,15 @@ set @price, 10000; //Prix du ticket
 set @maxticket, 1; //Nombre de ticket par joueur
 set @serveur$, "MyRO"; //Nom du serveur
 if(!$acumulado){  //if accumulated the value will not be only 10kk, otherwise it will be 10kk.
-	set $premio,10000000;
+	set $recompense,1000000;
 } 
-	query_sql "SELECT `ticket`,`id_b` FROM `loterrie_b` WHERE `char_id` = '"+getcharid(0)+"'",.@blot,.@id;  //count the bets
-	query_sql "SELECT `sorteio` FROM `loterrie_s`",.@slot; //numbers from the last lottery draw
-	query_sql "SELECT COUNT(*) FROM `loterrie_b`",.@total_bet;
+	query_sql "SELECT `ticket`,`id_b` FROM `loterie_b` WHERE `char_id` = '"+getcharid(0)+"'",.@blot,.@id;  //count the bets
+	query_sql "SELECT `sorteio` FROM `loterie_s`",.@slot; //numbers from the last lottery draw
+	query_sql "SELECT COUNT(*) FROM `loterie_b`",.@total_bet;
 	
 	if ($close){
 		mes @npc$;
-		mes "Désolé mais la lotterie est fermé pour le moment.";
+		mes "Désolé mais la loterie est fermé pour le moment.";
 		mes "Voulez-vous consulter quelque chose ?";
 		switch (select("- Voir mon numéro de ticket","- Voir le résultat","- Partir")){
 			case 1:
@@ -44,7 +44,7 @@ if(!$acumulado){  //if accumulated the value will not be only 10kk, otherwise it
 	if (getarraysize(.@blot) >= @maxticket){ //Si le joueur a déjà un ticket
 		goto L_INI;
 		callfunc ("ticket", .@ticket); //Check si le nombre du ticket est déjà dans la liste
-		query_sql "SELECT `ticket` FROM `loterrie_b` WHERE `char_id` = '"+getcharid(0)+"' and `ticket` = '"+.@bilhete+"'",.@valide;
+		query_sql "SELECT `ticket` FROM `loterie_b` WHERE `char_id` = '"+getcharid(0)+"' and `ticket` = '"+.@bilhete+"'",.@valide;
 		if (.@valide){ //Si ticket valide
 			mes @npc$;
 			mes "Désolé...";
@@ -55,7 +55,7 @@ if(!$acumulado){  //if accumulated the value will not be only 10kk, otherwise it
 	
 	//Partie explication npc
 	mes @npc$;
-	mes "Bonjour, je m'occupe de la billeterie pour la lottery pour le serveur "+@serveur$+".";
+	mes "Bonjour, je m'occupe de la billeterie pour la loterie pour le serveur "+@serveur$+".";
 	mes "Vous pouvez devenir riche en un rien de temps qu'il n'en faut de tuer un poring !";
 	mes "C'est comme ça, vous m'achetez un ticket et je vous donne un numéro aléatoire.";
 	mes "Si personne ne gagne, le prix est accumulé pour la prochaine fois !";
@@ -71,7 +71,7 @@ if(!$acumulado){  //if accumulated the value will not be only 10kk, otherwise it
 	mes "Le nombre de ticket écouler jusqu'à maintenant est de : "+.@total_ticket+"";
 	next;
 	//Fin valeurs
-	switch (select("- Je veux parier !","- Nombre à la dernière lotterie","- Je parierai la prochaine fois","- Mon ticket", "- Dernier résultat")){ //Menu principal
+	switch (select("- Je veux parier !","- Nombre à la dernière loterie","- Je parierai la prochaine fois","- Mon ticket", "- Dernier résultat")){ //Menu principal
 		case 1:
 			if (getarraysize(.@blot) >= @maxticket) goto L_CHEGA;
 			if (zeny < @price) goto L_NZ; //Check du nombre de zeny
@@ -86,10 +86,10 @@ if(!$acumulado){  //if accumulated the value will not be only 10kk, otherwise it
 			mes @npc$;
 			mes "Voila qui est fait. Désolé pour l'attente !";
 			mes "Ceci est votre numéro : ^C4258B"+.@ticket+"^000000";
-			mes "Si vous gagnez... Une annonce sera faite et vous aurez jusqu'à la prochaine lotterie pour recupérer votre prix.";
+			mes "Si vous gagnez... Une annonce sera faite et vous aurez jusqu'à la prochaine loterie pour recupérer votre prix.";
 			mes "Vous pouvez aussi consulter votre ticket ici à n'importe quel moment.";
 			mes "Au revoir, à bientôt.";
-			query_sql "INSERT INTO `loterrie_b` (`char_id`,`ticket`,`maxticket`) VALUES ('"+getcharid(0)+"','"+.@ticket+"','"+@price+"')";
+			query_sql "INSERT INTO `loterie_b` (`char_id`,`ticket`,`maxticket`) VALUES ('"+getcharid(0)+"','"+.@ticket+"','"+@price+"')";
 			break;
 			
 			//Consulter le numéro gagnant précédent
@@ -97,14 +97,14 @@ if(!$acumulado){  //if accumulated the value will not be only 10kk, otherwise it
 			if (.@slot == 0){
 				mes @npc$;
 				mes ""+strcharinfo+" !";
-				mes "Il n'y avait pas de lotterie hier !";
+				mes "Il n'y avait pas de loterie hier !";
 				mes "Désolé !";
 				close;
 			}
 			else{
 				mes @npc$;
 				mes ""+strcharinfo+" !";
-				mes "La dernière lotterie a eu pour numéro gagnant : ^C47030"+.@slot+"^000000";
+				mes "La dernière loterie a eu pour numéro gagnant : ^C47030"+.@slot+"^000000";
 				break;
 			}
 			//Fin de la consultation
@@ -129,10 +129,10 @@ if(!$acumulado){  //if accumulated the value will not be only 10kk, otherwise it
 	
 L_NUMERO:
 	//Requête pour confirmer le prix du joueur
-	query_sql "SELECT `ticket` FROM `loterrie_b` WHERE `ticket` = '"+.@slot+"' and `char_id` = '"+getcharid(0)+"'",.@winner;
+	query_sql "SELECT `ticket` FROM `loterie_b` WHERE `ticket` = '"+.@slot+"' and `char_id` = '"+getcharid(0)+"'",.@winner;
 	//Requête pour trouver le nom du gagnant
 	if ($nameW$ == ""){
-		query_sql "SELECT `name` FROM `char` WHERE `char_id` IN (SELECT `char_id` FROM `loterrie_b` WHERE `ticket` = '"+.@slot+"')",$nameW$;
+		query_sql "SELECT `name` FROM `char` WHERE `char_id` IN (SELECT `char_id` FROM `loterie_b` WHERE `ticket` = '"+.@slot+"')",$nameW$;
 	}
 	if (.@winner){
 		set .@LotWon, getarraysize($nameW$);
@@ -141,7 +141,7 @@ L_NUMERO:
 		//Importer le prix directement de la bank
 		set #bancoZ,#bancoZ+$recompense;
 		
-		//Données du gagnant de la lotterie
+		//Données du gagnant de la loterie
 		mes @npc$;
 		if (.@LotWon > 1){
 			set .@a1$, "Vous êtes l'un des gagnants !";
@@ -171,9 +171,9 @@ L_NUMERO:
 		mes "Numéro du ticket gagnat : ".@slot+"";
 		mes "Prix pour chaque gagnant : z$:^ff0000"+ $recompense+"^000000";
 		set $accumuler, 0;
-		query_sql "DELETE FROM `loterrie_b` WHERE `char_id` = '"+getcharid(0)+"'"; //Supprime le ticket de ceux qui ont déjà reçu le prix
+		query_sql "DELETE FROM `loterie_b` WHERE `char_id` = '"+getcharid(0)+"'"; //Supprime le ticket de ceux qui ont déjà reçu le prix
 		close;
-		//Fin de l'affichage des données de la lotterie
+		//Fin de l'affichage des données de la loterie
 	}
 	
 	//Si le joueur n'a pas gagné, le joueur check son parie
@@ -196,14 +196,14 @@ L_NZ:
 	close;
 	
 L_RS:
-	query_sql "SELECT `ticket` FROM `loterrie_b` WHERE `ticket` = '"+.@slot+"' and `char_id` = '"+getcharid(0)+"'",.@winner;
+	query_sql "SELECT `ticket` FROM `loterie_b` WHERE `ticket` = '"+.@slot+"' and `char_id` = '"+getcharid(0)+"'",.@winner;
 	if (.@winner){
 		goto L_NUMERO;
 	}
 	if($nameW$){
-		query_sql "SELECT `name` FROM `char` WHERE `char_id` in (SELECT `char_id` FROM `loterrie_b` WHERE `ticket` = '"+.@slot+"')",$nameW$;
+		query_sql "SELECT `name` FROM `char` WHERE `char_id` in (SELECT `char_id` FROM `loterie_b` WHERE `ticket` = '"+.@slot+"')",$nameW$;
 	}
-	query_sql "SELECT `char_id` FROM `loterrie_b` WHERE `ticket`",.@sorteado;
+	query_sql "SELECT `char_id` FROM `loterie_b` WHERE `ticket`",.@sorteado;
 	if ($nameW$){
 		mes @npc$;
 		mes "^2EA686IL N'Y A PAS EU DE GAGNANT^000000";
@@ -256,39 +256,42 @@ L_LAST:
 	}
 }
 
-//Script pour lancer la lotterie
+//Script pour lancer la loterie
 -	script	sorteio	-1,{
-	OnWeekFri:
-	OnClock2000:
+	
+	OnInit:
+		startnpctimer;
+	end;
+		
+	OnWeekFri2000:
 		set recu, 0;
 		set $nameW$, "";
-		set $close, 0; //Lotterie ouverte
-		query_sql "DELETE FROM `loterrie_s`"; //Supprime le dernier tirage
+		set $close, 0; //loterie ouverte
+		query_sql "DELETE FROM `loterie_s`"; //Supprime le dernier tirage
 		callfunc("ticket",.@resultat); //Appelle la fonction pour générer un nouveau numéro
-		query_sql "INSERT INTO `loterrie_s` (`sorteio`) VALUES ('"+.@resultat+"')"; //Insert le numéro de lotterie dans MySQL
-		announce "Lotterie: ATTENTION! Lotterie ouverte, venez prendre vos tickets !"; 
+		query_sql "INSERT INTO `loterie_s` (`sorteio`) VALUES ('"+.@resultat+"')"; //Insert le numéro de loterie dans MySQL
+		announce "loterie: ATTENTION! loterie ouverte, venez prendre vos tickets !"; 
 	end;
 		
 		//##################################################################################################################
-	OnWeekSat:
-	OnClock2000:
-		query_sql "SELECT `ticket` FROM `loterrie_b` WHERE `ticket` IN (SELECT `sorteio` FROM `loterrie_s`)",.res; //Prend le ticket du gagnant
+	OnWeekSat2000:
+		query_sql "SELECT `ticket` FROM `loterie_b` WHERE `ticket` IN (SELECT `sorteio` FROM `loterie_s`)",.res; //Prend le ticket du gagnant
 		
 		if (.res <= 0){ //Si pas de gagnant
 			set $recompense, $recompense*2+10000; //Ajout de récompense précédente en fonction du prix
-			announce "Lotterie: Il n'y a pas eu de gagnant pour cette fois!!! Le prix est maintenant de "+$recompense+"!", 8; //Global	message
+			announce "loterie: Il n'y a pas eu de gagnant pour cette fois!!! Le prix est maintenant de "+$recompense+"!", 8; //Global	message
 			set $acumulado, 1;
 			end;
 		}
 		if (getarraysize(.res) == 1){ //Si il y a un gagnant
 			set $recu, $recompense;
-			announce "Lotterie: Félicitations. Nous avons [ 1 ] gagnant qui remporte la somme de z$: "+$recompense+" !", 8;
+			announce "loterie: Félicitations. Nous avons [ 1 ] gagnant qui remporte la somme de z$: "+$recompense+" !", 8;
 			end;
 		}
 		else if (getarraysize(.res) >= 1){ //Si plusieurs gagnants
 			set $recompense, $recompense/getarraysize(.res); //Partage des gains avec gagnants
-			announce "Lotterie: ATTENTION! Resultat de la lotterie: "+.@resultat+"!",8; //Global message
-			announce "Lotterie: Félicitations. Nous avons [ "+getarraysize(.res)+" ] gagnant qui remporte la somme de z$: "+$recompense+" !", 8;
+			announce "loterie: ATTENTION! Resultat de la loterie: "+.@resultat+"!",8; //Global message
+			announce "loterie: Félicitations. Nous avons [ "+getarraysize(.res)+" ] gagnant qui remporte la somme de z$: "+$recompense+" !", 8;
 			set $recu, $recompense;
 		}
 		
@@ -296,7 +299,7 @@ L_LAST:
 	OnWeekFri:
 	OnClock1959: //Le vendredi à 19h59, le prix est supprimé si par récupéré
 		set $close, 1;
-		query_sql "DELETE FROM `loterrie_b`"; //Restart les paris
+		query_sql "DELETE FROM `loterie_b`"; //Restart les paris
 	end;
 	
 		//##################################################################################################################
@@ -311,7 +314,7 @@ L_LAST:
 			else{
 				set $close,0;
 				set $acumulado,0;
-				query_sql "DELETE FROM `loterrie_b`";
+				query_sql "DELETE FROM `loterie_b`";
 				dispbottom "Lottery: Variables Reseted!!!";
 			}
 		}
