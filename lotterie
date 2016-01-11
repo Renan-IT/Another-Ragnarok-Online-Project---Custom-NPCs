@@ -65,7 +65,7 @@ if(!$acumulado){  //if accumulated the value will not be only 10kk, otherwise it
 	if (getarraysize(.@blot) >= @maxticket){ //Si le joueur a déjà un ticket
 		goto L_INI;
 		callfunc ("ticket", .@ticket); //Check si le nombre du ticket est déjà dans la liste
-		query_sql "SELECT `ticket` FROM `loterie_b` WHERE `char_id` = '"+getcharid(0)+"' and `ticket` = '"+.@bilhete+"'",.@valide;
+		query_sql "SELECT `ticket` FROM `loterie_b` WHERE `char_id` = '"+getcharid(0)+"' and `ticket` = '"+.@ticket+"'",.@valide;
 		if (.@valide){ //Si ticket valide
 			mes @npc$;
 			mes "Désolé...";
@@ -80,7 +80,7 @@ if(!$acumulado){  //if accumulated the value will not be only 10kk, otherwise it
 	mes "Vous pouvez devenir riche en un rien de temps qu'il n'en faut de tuer un poring !";
 	mes "C'est comme ça, vous m'achetez un ticket et je vous donne un numéro aléatoire.";
 	mes "Si personne ne gagne, le prix est accumulé pour la prochaine fois !";
-	mes "Le prix total actuellement s'élève à z$^ff0000"+$premio+"^000000 !!";
+	mes "Le prix total actuellement s'élève à z$^ff0000"+$recompense+"^000000 !!";
 	next;
 	//Fin partie explication npc
 	
