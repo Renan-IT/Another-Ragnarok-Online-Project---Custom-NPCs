@@ -10,21 +10,21 @@
 //= NPC Lottery
 //============================================================
 //-- 
-//-- Structure for table `loteria_b`
+//-- Structure for table `loterie_b`
 //-- 
-// DROP TABLE IF EXISTS `loteria_b`;
-// CREATE TABLE IF NOT EXISTS `loteria_b` (
+// DROP TABLE IF EXISTS `loterie_b`;
+// CREATE TABLE IF NOT EXISTS `loterie_b` (
 //  `id_b` int(11) NOT NULL DEFAULT '1',
 //  `char_id` int(11) NOT NULL,
-//  `bilhete` int(11) NOT NULL,
-//  `aposta` int(11) NOT NULL
+//  `ticket` int(11) NOT NULL,
+//  `maxticket` int(11) NOT NULL
 // ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 //
 //-- 
-//-- Structure for table `loteria_s`
+//-- Structure for table `loterie_s`
 //-- 
-// DROP TABLE IF EXISTS `loteria_s`;
-// CREATE TABLE IF NOT EXISTS `loteria_s` (
+// DROP TABLE IF EXISTS `loterie_s`;
+// CREATE TABLE IF NOT EXISTS `loterie_s` (
 //  `sort_id` int(11) NOT NULL,
 //  `sorteio` int(11) NOT NULL
 // ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
