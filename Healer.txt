@@ -62,6 +62,12 @@ izlude,124,148,4	script	Healer#prt	4_F_NURSE,{
 			mes "Vous devez finir la quête de l'Eglie d'abord pour me demander mes services.";
 			close;
 		}
+		else if (agitstart){
+			mes "[Healer]";
+			mes "Je suis gratuit pendant les War of Emperium, profitez-en !";
+			specialeffect2 EF_HEAL; percentheal .hp, .sp;
+			close;
+		}
 	}
 	
 	if (.delay2) {
@@ -112,7 +118,7 @@ ra_temple,120,92,4	script	Pape Armold#ra	4_F_ARUNA_POP,{
 							case 1:
 								mes "[Pape Armol]";
 								if (zeny >= 100000){
-									 set Zeny,Zeny-100000;
+									set Zeny,Zeny-100000;
 									mes "Oh merci mon enfant ! Dieu te regarde de là haut et te remercie de ta générosité !";
 									mes "J'aurai besoin d'un autre service, je vais devoir maintenant convaincre toutes les villes de Midgard à faire de même et à créer cette organisation.";
 									mes "J'ai un plan, je vais convaincre d'abord les grande villes puis les petites suivront le pas j'en suis sûr !";
