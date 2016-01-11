@@ -57,7 +57,7 @@ izlude,124,148,4	script	Healer#prt	4_F_NURSE,{
 			mes "Vous avez demandé mes services il n'y a pas si longtemps, je vous demande d'attendre "+ (@pdelay2 - gettimetick(2)) +" avant de revenir.";
 			close;
 		}
-		else if (BaseLevel > 70 && questprogress(00000) == 1 ){ //Quête Healer - Non Finie
+		else if (BaseLevel > 70 && (questprogress(00000) == 1 || questprogress(00000) == -1)){ //Quête Healer - Non Finie
 			mes "[Healer]";
 			mes "Vous devez finir la quête de l'Eglie d'abord pour me demander mes services.";
 			close;
