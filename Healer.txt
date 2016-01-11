@@ -62,7 +62,7 @@ izlude,124,148,4	script	Healer#prt	4_F_NURSE,{
 			mes "Vous devez finir la quête de l'Eglie d'abord pour me demander mes services.";
 			close;
 		}
-		else if (agitstart){
+		else if (agitstart == 1 && questprogress(?????) == 2){
 			mes "[Healer]";
 			mes "Je suis gratuit pendant les War of Emperium, profitez-en !";
 			specialeffect2 EF_HEAL; percentheal .hp, .sp;
