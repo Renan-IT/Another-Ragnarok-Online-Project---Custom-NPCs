@@ -33,7 +33,7 @@ izlude,124,148,4	script	Healer#prt	4_F_NURSE,{
 		}
 		else if (BaseLevel <= 15){ //Heal Personnage + Blessing/Agi <= Lvl 15 
 			mes "[Healer]";
-			mes "Tu es un très jeune aveturier, je vais utilisé mes pouvoirs pour te soigner et bien plus.";
+			mes "Tu es un très jeune aveturier, je vais utiliser mes pouvoirs pour te soigner et bien plus.";
 			specialeffect2 EF_HEAL; percentheal .hp, .sp;
 			specialeffect2 EF_BLESSING; sc_start SC_BLESSING, 360000, 10;
 			specialeffect2 EF_INCAGILITY; sc_start SC_INC_AGI, 360000, 10;
