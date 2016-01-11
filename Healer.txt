@@ -89,7 +89,7 @@ izlude,124,148,4	script	Healer#prt	4_F_NURSE,{
 //=Quête Healer=//
 
 ra_temple,120,92,4	script	Pape Armold#ra	4_F_ARUNA_POP,{
-	if (questprogress(?????) == -1){
+	if (questprogress(00000) == -1){
 		mes "[Pape Armol]";
 		mes "Bonjour mon enfant, je vois que tu as l'air fatigué de combattre sans relâche à travers Midgard.";
 		mes "Ce monde est impitoyable je le sais, je l'ai parcouru tellement de fois dans ma longue vie...";
@@ -102,19 +102,19 @@ ra_temple,120,92,4	script	Pape Armold#ra	4_F_ARUNA_POP,{
 		next;
 		mes "[Pape Armol]";
 		mes "Tiens j'y pense, tu ne voudrais pas m'aider dans ma quête ? Je te promets que ce projet va marcher !";
-		switch(select("De quoi avez vous besoin ?","Non, je n'y crois pas une seconde"){
+		switch(select("De quoi avez vous besoin ?","Non, je n'y crois pas une seconde")){
 			case 1:
 				mes "[Pape Armol]";
 				mes "Merci de croire en moi mon enfant !";
 				mes "Pour le moment je dois lancer mon projet et même si je suis un Homme d'Eglise, comme tout le monde, j'ai besoin d'économie pour le commencer.";
 				mes "Je vois que tu as du combattre pour effectuer des missions. Serais-tu assez généreux pour me fournir un début ?";
 				next;
-				switch(select("Oui, combien?","Euh j'ai beaucoup travaillé pour ça"){
+				switch(select("Oui, combien?","Euh j'ai beaucoup travaillé pour ça")){
 					case 1:
 						mes "[Pape Armol]";
 						mes "J'aurai besoin de 100 000 zénys, je sais que ça fait beacoup mais il me faut au moins ça pour commencer.";
 						next;
-						switch(select("Tenez, prenez","Oula ça fait beaucoup tout compte fait"){
+						switch(select("Tenez, prenez","Oula ça fait beaucoup tout compte fait")){
 							case 1:
 								mes "[Pape Armol]";
 								if (zeny >= 100000){
@@ -124,17 +124,17 @@ ra_temple,120,92,4	script	Pape Armold#ra	4_F_ARUNA_POP,{
 									mes "J'ai un plan, je vais convaincre d'abord les grande villes puis les petites suivront le pas j'en suis sûr !";
 									mes "Malheureusement je suis vieux et j'aurai besoin d'une personne pour m'épauler, serais-tu la bonne personne ?";
 									next;
-									switch(select("Je le suis","Je ne crois pas non"){
+									switch(select("Je le suis","Je ne crois pas non")){
 										case 1:
 											mes "[Pape Armol]";
 											mes "Oh merci ! Tu es vraiment quelqu'un de bon !";
 											mes "Va convaincre la ville d'Izlude en parlant au Maire Ilyac qu'installer un service comme celui-ci sera bénéfique pour la ville.";
 											set alrdytalkpapearmol, 1;
-											setquest ?????;
+											setquest 00000;
 											dispbottom "Vous avez reçu une nouvelle quête consulter là via alt+u";
 											close;
 											On Init:
-												questinfo ?????,QTYPE_QUEST, 0;
+												questinfo 00000,QTYPE_QUEST, 0;
 											end;
 										case 2:
 											mes "[Pape Armol]";
@@ -164,7 +164,7 @@ ra_temple,120,92,4	script	Pape Armold#ra	4_F_ARUNA_POP,{
 				close;
 		}
 	}
-		else if (questprogress(?????) == 1 && alrdytalkmaireizlude == 1){
+		else if (questprogress(00000) == 1 && alrdytalkmaireizlude == 1){
 			mes "[Pape Armol]";
 			mes "Tu as réussi à convaincre le maire ?";
 			mes "Fantastique ! Je savais que je pouvais compter sur toi !";
@@ -172,7 +172,7 @@ ra_temple,120,92,4	script	Pape Armold#ra	4_F_ARUNA_POP,{
 			next;
 			mes "Il faudrait maintenant convaincre la plus grande ville de Midgard : Prontera !";
 			mes "Tu en serai capable ?";
-			switch(select("Oui bien sûr!","Je ne pense pas"){
+			switch(select("Oui bien sûr!","Je ne pense pas")){
 				case 1:
 					mes "[Pape Armol]";
 					mes "Haha tu es vraiment une personne géniale ! Il faut que tu ailles parler au Maire Palaruc qui se trouve au Château de Prontera.";
@@ -186,12 +186,12 @@ ra_temple,120,92,4	script	Pape Armold#ra	4_F_ARUNA_POP,{
 					close;
 			}
 		}
-		else if (questprogress(?????) == 1 && alrdytalkmaireizlude == 0){
+		else if (questprogress(00000) == 1 && alrdytalkmaireizlude == 0){
 			mes "[Pape Armol]";
 			mes "Va voir le Maire d'Izlude et essaye de le convaincre à accepter cette organisation.";
 			close;
 		}
-		else if (questprogress(?????) == 1 && alrdytalkmaireizlude == 1 && alrdytalkmaireprontera == 1){
+		else if (questprogress(00000) == 1 && alrdytalkmaireizlude == 1 && alrdytalkmaireprontera == 1){
 			mes "[Pape Armol]";
 			mes "Tu étais voir le Maire de Prontera ? Et il a accepté ? Vraiment ?";
 			mes "Si nous avons Prontera de notre côté, toutes les villes vont commencer à rélféchir et ne vont sûrement pas tarder à nous rejoindre dans notre projet !";
@@ -203,12 +203,12 @@ ra_temple,120,92,4	script	Pape Armold#ra	4_F_ARUNA_POP,{
 			mes "Que les Grands Dieux de se monde te suivent et te protège durant ton périple !";
 			close;
 		}
-		else if (questprogress(?????) == 1 && alrdytalkmaireizlude == 1 && alrdytalkmaireprontera == 0){
+		else if (questprogress(00000) == 1 && alrdytalkmaireizlude == 1 && alrdytalkmaireprontera == 0){
 			mes "[Pape Armol]";
 			mes "Va convaince le Maire de Prontera, c'est grâce à lui que les dernières villes nous rejoindrons !";
 			close;
 		}
-		else if (questprogress(?????) == 2){
+		else if (questprogress(00000) == 2){
 			mes "[Pape Armol]";
 			mes "Merci encore de m'avoir aidé pour installer et faire connaître cette organisation pour aider le peuple de Midgard.";
 			mes "Tu iras directement au Valhalla j'en suis sûr !";
@@ -217,15 +217,15 @@ ra_temple,120,92,4	script	Pape Armold#ra	4_F_ARUNA_POP,{
 }
 
 izlude,107,261,4	script	Maire Ilyac#izlude_in	4_M_MAYOR,{
-	if (questprogress(?????) == 1 && alrdytalkpapearmol = 1){
+	if (questprogress(00000) == 1 && alrdytalkpapearmol = 1){
 		mes "[Maire Ilyac]";
 		mes "Bonjour, que venez vous faire ici ?";
-		switch(select("Je viens vous proposer un projet","Oh rien de bien spécial"){
+		switch(select("Je viens vous proposer un projet","Oh rien de bien spécial")){
 			case 1:
 				mes "[Maire Ilyac]";
 				mes "Un projet ? Lequel ?";
 				next;
-				switch(select("Un Healer pour combattants"){
+				switch(select("Un Healer pour combattants")){
 					case 1:
 						mes "[Maire Ilyac]";
 						mes "Ah oui ? J'avais déjà entendu parler de ce genre de projet, à l'époque il m'avait plu mais aujourd'hui je ne sais pas.";
@@ -238,13 +238,13 @@ izlude,107,261,4	script	Maire Ilyac#izlude_in	4_M_MAYOR,{
 						mes "Je voudrai bien intégrer cette organisation mais je ne veux pas débloquer des fonds pour le moment.";
 						mes "Trouve moi un moyen d'en avoir et je me ferai un plaisir de l'implanter.";
 						next;
-						switch(select("Je vous propose mon argent","Je vais réfléchir"){
+						switch(select("Je vous propose mon argent","Je vais réfléchir")){
 							case 1:
 								mes "[Maire Ilyac]";
 								mes "Ton argent ? Je veux bien mais j'aurai besoin de 50 000 zénys pour lancer le projet dans ma ville.";
 								mes "Tu voudrais vraiment me les donner ?";
 								next;
-								switch(select("Oui, c'est important","50k ? Non mais ça va pas?"){
+								switch(select("Oui, c'est important","50k ? Non mais ça va pas?")){
 									case 1:
 										mes "[Maire Ilyac]";
 										mes "*Vous lui donnez 50 000 Zénys*";
@@ -286,13 +286,13 @@ izlude,107,261,4	script	Maire Ilyac#izlude_in	4_M_MAYOR,{
 }
 
 prt_in,284,165,3	script	Maire Palaruc#prt_in	4_M_MAYOR,{
-	if (questprogress(?????) == 1 && alrdytalkpape == 1){
+	if (questprogress(00000) == 1 && alrdytalkpape == 1){
 		mes "[Maire Palaruc]";
 		mes "Bonjour je suis le Maire de Prontera, l'ancienne capitale de Midgard. Pourquoi ancienne ? Car elle commençait à vieillir malheureusement mais nous essayons de changer ça.";
 		mes "Izlude a trs bien sur le faire et est devenu la plaque tournante de Midgard et est donc devenue la Capitaile de ce monde.";
 		mes "Que veux tu cher citoyen ?";
 		next;
-		switch(select("Je viens pour intégrer un Healer"){
+		switch(select("Je viens pour intégrer un Healer")){
 			mes "[Maire Palaruc]";
 			mes "Un Healer ? Dans ma ville ? Pour quoi faire ?";
 			mes "Les combattants ? Hm...";
@@ -301,12 +301,12 @@ prt_in,284,165,3	script	Maire Palaruc#prt_in	4_M_MAYOR,{
 			next;
 			mes "Si tu as une idée pour m'aider je suis preneur ! Sinon je devrais refuser ...";
 			next;
-			switch(select("Je veux bien vous aider !","De l'argent ? J'en ai pas"){
+			switch(select("Je veux bien vous aider !","De l'argent ? J'en ai pas")){
 				case 1:
 					mes "[Maire Palaruc]";
 					mes "J'aurai besoin de 50 000 Zénys pour pouvoir intégrer ce Healer à pleins temps. Tu les aurais ?";
 					next;
-					switch(select("Oui, et je veux vous les donner","Euh peut être"){
+					switch(select("Oui, et je veux vous les donner","Euh peut être")){
 						case 1:
 							mes "[Maire Palaruc]";
 							mes "Me les donner ? C'est vraiment généreux de ta part !";
