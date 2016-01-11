@@ -15,7 +15,7 @@ izlude,100,100,0	script	WoE Warper	4_M_KAGE_OLD,{
 set @npc$, "^0006D3Woe Warper^000000"; //Nom NPC
 set @serveur, "MyRO"; //Nom du serveur
 set @chamer, "Kriemlhid"; //Chateau du mercredi
-set @chasam, "Fargrid"; //Chateau du samedi
+set @chasam, "Fadhgridh"; //Chateau du samedi
  
 
 	mes @npc$;
@@ -36,11 +36,11 @@ set @chasam, "Fargrid"; //Chateau du samedi
 			mes "A bientôt !";
 			repairall;
 			if (gettime(3)){ //Si jour = mercredi
-				warp //Kriemlhid
+				warp "prt_gld",138,64; //Kriemlhid
 				close;
 			}
 			else if (gettime(6)){ //Si jour = samedi
-				warp //Fargrid
+				warp "prt_gld",153,136; //Fadhgridh
 				close;
 			}
 			close;
