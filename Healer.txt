@@ -62,12 +62,6 @@ izlude,124,148,4	script	Healer#prt	4_F_NURSE,{
 			mes "Vous devez finir la quête de l'Eglie d'abord pour me demander mes services.";
 			close;
 		}
-		else if (agitstart == 1 && questprogress(00000) == 2){
-			mes "[Healer]";
-			mes "Je suis gratuit pendant les War of Emperium, profitez-en !";
-			specialeffect2 EF_HEAL; percentheal .hp, .sp;
-			close;
-		}
 	}
 	
 	if (.delay2) {
@@ -84,6 +78,14 @@ izlude,124,148,4	script	Healer#prt	4_F_NURSE,{
 		.delay2 = 60;	// Nombre en secondes de delay pour BaseLevel > 70
 		.delay = 120;	// Nombre en secondes de delay pour BaseLevel < 70
 	end;
+	
+	OnAgitStart:
+		if (BaseLevel > 70 && questprogress(00000) == 2){
+			mes "[Healer]";
+			mes "Je suis gratuit pendant les War of Emperium, profitez-en !";
+			specialeffect2 EF_HEAL; percentheal .hp, .sp;
+			close;
+		}
 }
 
 //=Quête Healer=//
