@@ -29,7 +29,7 @@ izlude,124,148,4	script	Healer#prt	4_F_NURSE,{
 		}
 		else if (BaseLevel <= 70 && @pdelay < gettimetick(2)){
 			mes "[Healer]";
-			mes "Vous avez demandé me services il n'y a pas si longtemps, je vous demande d'attendre "+ (@pdelay - gettimetick(2)) +" avant de revenir.";
+			mes "Vous avez demandé mes services il n'y a pas si longtemps, je vous demande d'attendre "+ (@pdelay - gettimetick(2)) +" avant de revenir.";
 		}
 		else if (BaseLevel <= 15){ //Heal Personnage + Blessing/Agi <= Lvl 15 
 			mes "[Healer]";
