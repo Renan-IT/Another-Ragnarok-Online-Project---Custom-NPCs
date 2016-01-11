@@ -1083,7 +1083,7 @@ if (strcharinfo(3)=="pvp_y_7-5") set .@mname$,"PvP : Room Morocc";
 if (strcharinfo(3)=="pvp_y_8-5") set .@mname$,"PvP : Room Morocc";
 if (strcharinfo(3)=="pvp_2vs2") set .@mname$,"PvP : Event Coliseum";
 
-		announce "You are now in [" + .@mname$ + "]", bc_self,0x3BB9FF;
+		announce "Vous êtes acutellement à [" + .@mname$ + "]", bc_self,0x3BB9FF;
 	end;
 }
 
