@@ -40,65 +40,89 @@ OnTimer3600000:
 if( attachrid( @aid ) )
     if( getcharid(0) == @cid ) 
 {
-    .@msgrand = rand(1,10);
+    .@msgrand = rand(1,14);
      .@ServName$ = "YourRO";
 if (.@msgrand == 1)
 {
-    announce "Hope you're having fun on "+ .@ServName$+"!",bc_self;
+    announce "J'J'espère que vous vous amusez bien sur le serveur "+ .@ServName$+"!",bc_self;
     initnpctimer;
     end;
 }
 if (.@msgrand == 2)
 {
-    announce "Please remember to review our  "+ .@ServName$+", check the website for more information!",bc_self;
+    announce "N'oubliez pas de regarder les dernières news du serveur "+ .@ServName$+", vous pouvez les voir sur le site ou le forum pour plus d'information!",bc_self;
     initnpctimer;
     end;
 }
 if (.@msgrand == 3)
 {
-    announce "Remember, prolong periods of gameplay can cause serious health problems, take a breather!  "+ .@ServName$+" can wait!",bc_self;
+    announce "N'oubliez pas, jouer de trop longue période peut causer de sérieux problèmes de santé, prenez une pause ! "+ .@ServName$+" peut attendre!",bc_self;
     initnpctimer;
     end;
 }
 if (.@msgrand == 4)
 {
-    announce "Type @commands to view a list of helpful tools to aid you in your adventure.",bc_self;
+    announce "Tapez @commands pour voir la liste des commandes qui vous seront utile pendant votre aventure !",bc_self;
     initnpctimer;
     end;
 }
 if (.@msgrand == 5)
 {
-    announce "Don't forget to check the forums for the latest updates on  "+ .@ServName$+"!",bc_self;
+    announce "N'oubliez pas de regarder le forum et/ou le site pour voir les dernières mise à jour de "+ .@ServName$+"!",bc_self;
     initnpctimer;
     end;
 }
 if (.@msgrand == 6)
 {
-    announce "Remember, a GM will never ask for your username and password, always be safe.",bc_self;
+    announce "N'oubliez pas, un GM ne vous demandera jamais votre login et votre mot de passe, soyez prudent.",bc_self;
     initnpctimer;
     end;
 }
 if (.@msgrand == 7)
 {
-    announce "Reminder, hackers, botters, exploiters will recieve a harsh punishment if caught. That is NOT tolerated here at  "+ .@ServName$+".",bc_self;
+    announce "Rappel : Hackeur, Botteur, Exploiteur de bugs sera puni ! Ce n'est PAS toléré sur "+ .@ServName$+".",bc_self;
     initnpctimer;
     end;
 }
 if (.@msgrand == 8)
 {
-    announce " "+ .@ServName$+" is very happy to have such a wonderful community!",bc_self;
+    announce " "+ .@ServName$+" est vraiment heureux d'avoir une si bonne communauté !",bc_self;
     initnpctimer;
     end;
 }
 if (.@msgrand == 9)
 {
-    announce "Don't forget to Vote to gain Points!",bc_self;
+    announce "N'oubliez pas de voter pour que la communauté s'aggrandisse et gagner des points !",bc_self;
     initnpctimer;
     end;
 }
 if (.@msgrand == 10)
 {
-    announce "Keep up the fun here at  "+ .@ServName$+"!",bc_self;
+    announce "Amusez-vous bien sur "+ .@ServName$+"!",bc_self;
+    initnpctimer;
+    end;
+}
+if (.@msgrand == 11)
+{
+    announce "Vous pouvez consulter vos quêtes avec la commande alt+u!",bc_self;
+    initnpctimer;
+    end;
+}
+if (.@msgrand == 12)
+{
+    announce "N'oubliez pas, le chat #party est là pour vous aider à organiser des teams!",bc_self;
+    initnpctimer;
+    end;
+}
+if (.@msgrand == 13)
+{
+    announce "Les chats disponible : #Allié, #Party",bc_self;
+    initnpctimer;
+    end;
+}
+if (.@msgrand == 14)
+{
+    announce "Si vous avez des suggestions pour améliorer le serveur, proposez les sur le forum à l'adresse https://www.yourserveur.fr/forum!",bc_self;
     initnpctimer;
     end;
 }
