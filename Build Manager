@@ -8,49 +8,49 @@
 //= Stores stat builds into a single character variable.
 //============================================================
 
-prontera,152,192,6	script	Build Manager	930,{
+izlude,126,148,6	script	Build Manager	4_F_NURSE,{
 function Get_Menu; function Save_Build; function Load_Build;
 
 	set .@BuildCount,4;	// Number of builds to use
-	set .@Save,5000;	// Zeny required to save a build
-	set .@Load,10000;	// Zeny required to load a build
-	set .@Rename,1000;	// Zeny required to rename a build
+	set .@Save,2000;	// Zeny required to save a build
+	set .@Load,2000;	// Zeny required to load a build
+	set .@Rename,500;	// Zeny required to rename a build
 	set .@MaxLevel,99;	// Maximum base level (to prevent stat overflow)
 
-	if (BaseLevel < .@MaxLevel) { message strcharinfo(0),"You must be level "+.@MaxLevel+" to use this."; end; }
-	switch(select("Save Build...:Load Build...:Rename Build...:Close")) {
+	if (BaseLevel > .@MaxLevel) { mes "You must be level "+.@MaxLevel+" to use this."; end; }
+	switch(select("Sauvegarder Build:Charger Build:Renommer Build:Fermer")) {
 		case 1:
-			if (.@Save) message strcharinfo(0),"It costs "+.@Save+" Zeny to save a build.";
+			if (.@Save) mes "Sauvegarder un Build coûte "+.@Save+" Zeny.";
 			set .@Build, Get_Menu(.@BuildCount);
-			if (Zeny<.@Save) { message strcharinfo(0),"Not enough Zeny."; close; }
+			if (Zeny<.@Save) { mes "Pas assez de Zeny."; close; }
 			if (getd("Build_"+.@Build+"$")!="") {
-				message strcharinfo(0),"Overwrite previous build #"+.@Build+"?";
-				if(select("Save new build:Cancel")==2) close; }
+				mes "Voulez vous écraser le précédent Build #"+.@Build+"?";
+				if(select("Sauvegarder le nouveau Build:Fermer")==2) close; }
 			Save_Build(.@Build);
-			message strcharinfo(0),"Type a name for your build.";
+			mes "Entrez un nom pour le Build.";
 			input getd("Build_"+.@Build+"n$");
-			message strcharinfo(0),"Build #"+.@Build+" ("+getd("Build_"+.@Build+"n$")+") saved.";
+			mes "Le Build #"+.@Build+" ("+getd("Build_"+.@Build+"n$")+") a été sauvegardé.";
 			set Zeny, Zeny-.@Save;
 			close;
-		case 2:
-			if (.@Load) message strcharinfo(0),"It costs "+.@Load+" Zeny to load a build.";
+		case 2: 
+			if (.@Load) mes "Charger un Build coûte "+.@Load+" Zeny.";
 			set .@Build, Get_Menu(.@BuildCount);
 			if (getd("Build_"+.@Build+"$")=="") {
-				message strcharinfo(0),"No build info found."; close; }
-			if (Zeny<.@Load) { message strcharinfo(0),"Not enough Zeny."; close; }
+				mes "Aucun Build trouvé."; close; }
+			if (Zeny<.@Load) { mes "Pas assez de Zeny."; close; }
 			Load_Build(getd("Build_"+.@Build+"$"));
-			message strcharinfo(0),"Build #"+.@Build+" loaded.";
+			mes "Le Build #"+.@Build+" a été chargé.";
 			set Zeny, Zeny-.@Load;
 			close;
 		case 3:
-			if (.@Rename) message strcharinfo(0),"It costs "+.@Rename+" Zeny to rename a build.";
+			if (.@Rename) mes "Renommer un Build coûte "+.@Rename+" Zeny.";
 			set .@Build, Get_Menu(.@BuildCount);
 			if (getd("Build_"+.@Build+"$")=="") {
-				message strcharinfo(0),"No build info found."; close; }
-			if (Zeny<.@Rename) { message strcharinfo(0),"Not enough Zeny."; close; }
-			message strcharinfo(0),"Type a new name for Build #"+.@Build+" ("+getd("Build_"+.@Build+"n$")+").";
+				mes "Aucun Build trouvé."; close; }
+			if (Zeny<.@Rename) { mes "Pas assez de Zeny."; close; }
+			mes "Entrez un nouveau nom pour le Build #"+.@Build+" ("+getd("Build_"+.@Build+"n$")+").";
 			input getd("Build_"+.@Build+"n$");
-			message strcharinfo(0),"Build #"+.@Build+" renamed.";
+			mes "Le Build #"+.@Build+" a été renommé.";
 			set Zeny, Zeny-.@Rename;
 			close;
 		case 4:
@@ -58,7 +58,7 @@ function Get_Menu; function Save_Build; function Load_Build;
 	function Get_Menu {
 		set .@menu$,"";
 		for(set .@i,1; .@i<=getarg(0); set .@i,.@i+1)
-			set .@menu$, .@menu$+"Slot "+.@i+" ("+((getd("Build_"+.@i+"n$")=="")?"^777777empty":"^0055FF"+getd("Build_"+.@i+"n$"))+"^000000):";
+			set .@menu$, .@menu$+"Slot "+.@i+" ("+((getd("Build_"+.@i+"n$")=="")?"^777777libre":"^0055FF"+getd("Build_"+.@i+"n$"))+"^000000):";
 		return select(.@menu$); }
 	function Save_Build {
 		set .@s$,"";
@@ -67,7 +67,7 @@ function Get_Menu; function Save_Build; function Load_Build;
 		setd "Build_"+getarg(0)+"$", .@s$+StatusPoint;
 		return; }
 	function Load_Build {
-		ResetStatus;
+		resetstatus;
 		explode(.@s$,getarg(0),"|");
 		for(set .@i,0; .@i<6; set .@i,.@i+1)
 			statusup2 (.@i+13), atoi(.@s$[.@i])-1;
