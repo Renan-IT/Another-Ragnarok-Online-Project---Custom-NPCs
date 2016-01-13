@@ -1,8 +1,8 @@
-izlude,84,99,6	script	Broadcaster	811,{
+izlude,132,143,6	script	Broadcaster	4_F_NURSE,{
 	callfunc "Func_Main";
 }
 
-// Function Func_Main //
+// Function Func_Main // 
 
 function	script	Func_Main	{
 Func_Main:
@@ -22,7 +22,7 @@ Func_Main:
 		}
 		$ShutDown = 0;
 		$Override = 0;
-		mes "Activé. Bienvenu "+strcharinfo+", c'est bon de vous revoir.";
+		mes "Activé. Bienvenu "+strcharinfo (0)+", c'est bon de vous revoir.";
 		close;
 	}
 	else if($ShutDown == 1 && getgmlevel() < 1) end;
