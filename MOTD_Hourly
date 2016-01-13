@@ -1,132 +1,93 @@
-/*    Advanced MOTD Hourly Script
-    Created by: Aeromesi
+//===== Hercules Script ======================================
+//= Sample: Board Xp
+//===== By: ==================================================
+//= Baps
+//===== Current Version: =====================================
+//= 20131225
+//===== Script Version =======================================
+//= V1 
+//===== Description: =========================================
+//= NPC Board ajoutant +X% Xp seln Race (ROTD)
+//============================================================
 
-    Idea from: Alexandria
+izlude,131,148,4	script	ROTD	4_BOARD3,{
+	mes "^D41B1B[ROTD]^000000";
+	mes "^777777===================================^000000";
+	mes "ROTD signifie ^FF0000Race Of The Day^000000,";
+	mes "donc que tous les jours, une race gagnera un bonus d'xp entre ^D41B1B1%^000000 et ^D41B1B5%^000000.";
+	mes " ";
+	mes "^777777===================================^000000";
+	next;
+	mes "^D41B1B[ROTD]^000000";
+	mes "^777777===================================^000000";
+	mes "^FF0000Race du Jour :^000000 ^0000FF"+.rotd$[.today_rotd]+"^000000 avec ~ ^777777^0000FF"+.rotd_exp_bonus+"%^000000 bonus";
+	mes " ";
+	mes "^777777===================================^000000";
+	close;
 
-    Built for Hercules
+OnInit:
 
-    Version 1.0
+	// monster race list
+	setarray .rotd$[0],
+		"Formless",
+		"Undead",
+		"Brute",
+		"Plant",
+		"Insect",
+		"Fish",
+		"Demon",
+		"Demi Human",
+		"Angel",
+		"Dragon";
 
-    Special Feature: Randomized messages so that you'll never see the same message!
-    Edit .@ServName$ variable to your servers name
+	set .rotd_size,getarraysize( .rotd$ );
+	for( set .@i,0; .@i < .rotd_size; set .@i,.@i + 1 )
+		set .rotd_menu$,.rotd_menu$ + .rotd$[.@i] +":";
+	set .rotd_menu$,.rotd_menu$ + "^0055FFRandom Race^000000";
 
-    Comments: To add more messages, change .@msgrand = (1,10) to your desired # of messages.
-    Also add the new messages in the if checks.
+	// min party member lvl to gain exp
+	set .party_level_range,10;
 
-    Example:
-
-    if (.@msgrand == 10)
-{
-    announce "Keep up the fun here at  "+ .@ServName$+"!",bc_self;
-    initnpctimer;
-    end;
-} // Add under here
-
-    if (.@msgrand == 11)
-{
-    announce "This is message 11! You added another message!",bc_self;
-    initnpctimer;
-    end;
+// daily reset
+OnClock0600:
+	set .today_rotd,rand( .rotd_size );
+	set .rotd_exp_bonus,rand( 1,5 );
+	delwaitingroom;
+	waitingroom "[ROTD]:"+.rotd$[.today_rotd]+" +"+.rotd_exp_bonus+"%",0;
+	end;
+	
+OnNPCKillEvent:
+if ( getmonsterinfo( killedrid,MOB_RACE ) == .today_rotd ) {
+	set .@partyid,getcharid(1);
+	set .@mob_base_exp,(( getmonsterinfo( killedrid,MOB_BASEEXP ) / 100 ) * .rotd_exp_bonus );
+	set .@mob_job_exp,(( getmonsterinfo( killedrid,MOB_JOBEXP ) / 100 ) * .rotd_exp_bonus );
+	if ( .@partyid ) {
+		set .@aid,getcharid(3);
+		set .@baselevel,BaseLevel;
+		set .@map$,strcharinfo(3);
+		getpartymember .@partyid,1;
+		getpartymember .@partyid,2;
+		while( .@i < $@partymembercount ) {
+			if ( isloggedin( $@partymemberaid[.@i],$@partymembercid[.@i] ) )
+				if ( attachrid( $@partymemberaid[.@i] ) )
+					if ( strcharinfo(3) == .@map$ && ( BaseLevel - .@baselevel ) <= .party_level_range && ( BaseLevel - .@baselevel ) >= ~.party_level_range && Hp >= 1 ) {	
+						set BaseExp,( BaseExp + .@mob_base_exp );
+						set JobExp,( JobExp + .@mob_job_exp );
+						dispbottom "[ROTD Party] : "+.@mob_base_exp+" EXP";
+					}
+			set .@i,.@i + 1;
+		}
+		attachrid( .@aid );
+	}
+	else {
+		set BaseExp,( BaseExp + .@mob_base_exp );
+		set JobExp,( JobExp + .@mob_job_exp );
+		dispbottom "[ROTD SOLO] : "+.@mob_base_exp+" EXP";
+	}
+	if ( rand( 100 ) < .rotd_item_rate && .rotd_zeny ) 
+		set Zeny,Zeny + rand( .rotd_zeny );
+	if ( rand( 100 ) < .rotd_item_rate && .rotd_item_amount ) 
+		getitem .rotd_item_id,rand( .rotd_item_amount ),.@aid;
 }
-*/
-prontera,1,2,1    script    MOTD_HOURLY    139,{
-OnPCLoginEvent:
-    initnpctimer("MOTD_HOURLY"),OnTimer3600000;
-end;
-
-OnTimer3600000:
-        @cid = getcharid(0);
-        @aid = getcharid(3);
-if( attachrid( @aid ) )
-    if( getcharid(0) == @cid ) 
-{
-    .@msgrand = rand(1,14);
-     .@ServName$ = "YourRO";
-if (.@msgrand == 1)
-{
-    announce "J'J'espère que vous vous amusez bien sur le serveur "+ .@ServName$+"!",bc_self;
-    initnpctimer;
-    end;
-}
-if (.@msgrand == 2)
-{
-    announce "N'oubliez pas de regarder les dernières news du serveur "+ .@ServName$+", vous pouvez les voir sur le site ou le forum pour plus d'information!",bc_self;
-    initnpctimer;
-    end;
-}
-if (.@msgrand == 3)
-{
-    announce "N'oubliez pas, jouer de trop longue période peut causer de sérieux problèmes de santé, prenez une pause ! "+ .@ServName$+" peut attendre!",bc_self;
-    initnpctimer;
-    end;
-}
-if (.@msgrand == 4)
-{
-    announce "Tapez @commands pour voir la liste des commandes qui vous seront utile pendant votre aventure !",bc_self;
-    initnpctimer;
-    end;
-}
-if (.@msgrand == 5)
-{
-    announce "N'oubliez pas de regarder le forum et/ou le site pour voir les dernières mise à jour de "+ .@ServName$+"!",bc_self;
-    initnpctimer;
-    end;
-}
-if (.@msgrand == 6)
-{
-    announce "N'oubliez pas, un GM ne vous demandera jamais votre login et votre mot de passe, soyez prudent.",bc_self;
-    initnpctimer;
-    end;
-}
-if (.@msgrand == 7)
-{
-    announce "Rappel : Hackeur, Botteur, Exploiteur de bugs sera puni ! Ce n'est PAS toléré sur "+ .@ServName$+".",bc_self;
-    initnpctimer;
-    end;
-}
-if (.@msgrand == 8)
-{
-    announce " "+ .@ServName$+" est vraiment heureux d'avoir une si bonne communauté !",bc_self;
-    initnpctimer;
-    end;
-}
-if (.@msgrand == 9)
-{
-    announce "N'oubliez pas de voter pour que la communauté s'aggrandisse et gagner des points !",bc_self;
-    initnpctimer;
-    end;
-}
-if (.@msgrand == 10)
-{
-    announce "Amusez-vous bien sur "+ .@ServName$+"!",bc_self;
-    initnpctimer;
-    end;
-}
-if (.@msgrand == 11)
-{
-    announce "Vous pouvez consulter vos quêtes avec la commande alt+u!",bc_self;
-    initnpctimer;
-    end;
-}
-if (.@msgrand == 12)
-{
-    announce "N'oubliez pas, le chat #party est là pour vous aider à organiser des teams!",bc_self;
-    initnpctimer;
-    end;
-}
-if (.@msgrand == 13)
-{
-    announce "Les chats disponible : #Allié, #Party",bc_self;
-    initnpctimer;
-    end;
-}
-if (.@msgrand == 14)
-{
-    announce "Si vous avez des suggestions pour améliorer le serveur, proposez les sur le forum à l'adresse https://www.yourserveur.fr/forum!",bc_self;
-    initnpctimer;
-    end;
-}
-} else
-dispbottom "not attached";
 end;
 }
