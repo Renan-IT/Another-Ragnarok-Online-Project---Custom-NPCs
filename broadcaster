@@ -1,8 +1,8 @@
-izlude,132,143,6	script	Broadcaster	4_F_NURSE,{
+izlude,84,99,6	script	Broadcaster	811,{
 	callfunc "Func_Main";
 }
 
-// Function Func_Main // 
+// Function Func_Main //
 
 function	script	Func_Main	{
 Func_Main:
@@ -22,7 +22,7 @@ Func_Main:
 		}
 		$ShutDown = 0;
 		$Override = 0;
-		mes "Activé. Bienvenu "+strcharinfo (0)+", c'est bon de vous revoir.";
+		mes "Activé. Bienvenu "+strcharinfo+", c'est bon de vous revoir.";
 		close;
 	}
 	else if($ShutDown == 1 && getgmlevel() < 1) end;
@@ -56,7 +56,7 @@ L_Menu:
 		case 1: callfunc "L_ServerCast"; break;
 		//case 2: callfunc "L_AnonCast"; break;
 
-		case 3: 
+		case 2: 
 				mes "[Valkyrie]";
 				mes "Un broadcast est un message qui apparaît à chaque personne sur tout le serveur.";
 				mes "C'est vraiment utile si vous voulez faire passer un message à tout le monde.";
@@ -66,7 +66,7 @@ L_Menu:
 				next;
 				break;
 
-		case 4: callfunc "L_MultiCast"; break;
+		case 3: callfunc "L_MultiCast"; break;
 	}
 	callsub L_Main;
 
