@@ -1,0 +1,77 @@
+//===== Hercules Script ======================================
+//= Sample: Warper
+//===== By: ==================================================
+//= Baps
+//===== Current Version: =====================================
+//= 20131225
+//===== Script Version =======================================
+//= V1 
+//===== Description: =========================================
+//= NPC Warper
+//============================================================
+
+izlude,100,100,4	script	Warper	453,{
+set @npc$, "Warper"; //Nom NPC
+
+	mes @npc$;
+	mes "Bonjour "+strcharinfo(0)+",";
+	mes "Je peux vous transporter à dos de Peco Peco dans les villes alentours si vous le souhaitez.";
+	mes "Les villes accéssibles ici sont : Prontera, Morocc, Geffen et Payon";
+	next;
+	mes @npc$;
+	mes "Dans quelles villes souhaitez-vous aller ?";
+	switch(select("Geffen","Morocc","Payon","Prontera","Aucune")){
+		case 1:
+			mes @npc$;
+			mes "très bien je demande tout suite à un ecuyer de vous préparer votre Peco Peco !";
+			mes "Il sera prêt dans 20s environ,";
+			mes "pendant ce temps là, prenez le temps de préparer votre équipement !";
+			addtimer 20000, strnpcinfo(3)+"::OnWarp";
+			set geffen, 1;
+			//warp après 20s
+			close;
+		case 2:
+			mes @npc$;
+			mes "très bien je demande tout suite à un ecuyer de vous préparer votre Peco Peco !";
+			mes "Il sera prêt dans 20s environ,";
+			mes "pendant ce temps là, prenez le temps de préparer votre équipement !";
+			set morocc, 1;
+			//warp après 20s
+			close;
+		case 3:
+			mes @npc$;
+			mes "très bien je demande tout suite à un ecuyer de vous préparer votre Peco Peco !";
+			mes "Il sera prêt dans 20s environ,";
+			mes "pendant ce temps là, prenez le temps de préparer votre équipement !";
+			set payon, 1;
+			//warp après 20s
+			close;
+		case 4:
+			mes @npc$;
+			mes "très bien je demande tout suite à un ecuyer de vous préparer votre Peco Peco !";
+			mes "Il sera prêt dans 20s environ,";
+			mes "pendant ce temps là, prenez le temps de préparer votre équipement !";
+			set prontera, 1;
+			//warp après 20s
+			close;
+		case 5:
+			mes @npc$;
+			mes "A bientôt j'espère !";
+			close;
+	}
+	
+	OnWarp:
+		dispbottom "Vous allez être warp";
+		if (geffen == 1){
+			warp "geffen",0,0;
+		}
+		else if (morocc == 1){
+			warp "morocc",0,0;
+		}
+		else if (payon == 1){
+			warp "payon",0,0;
+		}
+		else if (prontera == 1){
+			warp "prontera",0,0;
+		}
+}
