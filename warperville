@@ -68,6 +68,7 @@ set @npc$, "[Warper]"; //Nom NPC
 				set alreadytalk, 1;
 				close;
 			case 2:
+				next;
 				mes @npc$;
 				mes "très bien je demande tout suite à un ecuyer de vous préparer votre Peco Peco !";
 				mes "Il sera prêt dans 20s environ,";
@@ -79,6 +80,7 @@ set @npc$, "[Warper]"; //Nom NPC
 				set alreadytalk, 1;
 				close;
 			case 3:
+				next;
 				mes @npc$;
 				mes "très bien je demande tout suite à un ecuyer de vous 	préparer votre Peco Peco !";
 				mes "Il sera prêt dans 20s environ,";
@@ -90,6 +92,7 @@ set @npc$, "[Warper]"; //Nom NPC
 				set alreadytalk, 1;
 				close;
 			case 4:
+				next;
 				mes @npc$;
 				mes "très bien je demande tout suite à un ecuyer de vous préparer votre Peco Peco !";
 				mes "Il sera prêt dans 20s environ,";
