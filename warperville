@@ -10,6 +10,34 @@
 //= NPC Warper
 //============================================================
 
+//NPC Warper Alerbta : Payon, Izlude, Jawaii, Nifheim via Port
+//NPC Warper Alde Baran : Yuno, Prontera, Einbech, Einbroch
+//NPC Warper Amatsu : Gonryun, Nifheim, Jawaii
+//NPC Warper Ayothaya : Gonryun, Lutie, Louyang via Port, Hugel via Port
+//NPC Warper Comodo : Morocc, (Alberta, Rachel, Veins, Izlude via port), Umbala
+//NPC Warper Einbech : Einbroch via Train, Rachel, Alde Baran
+//NPC Warper Einbroch : Einbech via Train, Rachel, Yuno via Airship
+//NPC Warper Geffen : Prontera, Izlude, 
+//NPC Warper Gonryun : Amatsu, Ayothaya, Louyang, Lutie, Izlude via Port
+//NPC Warper Hugel : Ayothaya via Port, Yuno, Alde Baran 
+//NPC Warper Izlude : Geffen, Morocc, Payon, Prontera, (Yuno, Rachel Hugel via Airhsip)
+//NPC Warper Jawaii : Alberta, Amatsu, Nifheim
+//NPC Warper Lighthalzen : Rachel, Veins, Einbech, Einbroch, Yuno
+//NPC Warper Louyang : Ayothaya via Port, Lutie, Gonryun via Port, Amatsu via Port
+//NPC Warper Lutie : Ayothaya, Gonryun, Louyang
+//NPC Warper Morocc : Izlude, Prontera, Comodo, Umbala
+//NPC Warper Nifheim : Amatsu, Jawaii, Alberta via Port
+//NPC Warper Prontera : Alde Baran, Geffen, Izlude, Morocc, Payon
+//NPC Warper Payon : Izlude, Prontera, Alberta
+//NPC Warper Rachel : Veins, Lighthalzen, Einbroch, Einbech, (Yuno, Izlude, Hugel via Airship)
+//NPC Warper Umbala : Morocc, Comodo
+//NPC Warper Veins : Rachel, Einbech, Einbroch, Lighthalzen
+//NPC Warper Yuno : Einbech, Einbroch, (Hugel, Izlude, Rachel via Airship)
+
+
+
+
+
 izlude,100,100,4	script	Warper	453,{
 set @npc$, "Warper"; //Nom NPC
 
