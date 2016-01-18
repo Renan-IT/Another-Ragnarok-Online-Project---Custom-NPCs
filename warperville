@@ -39,74 +39,89 @@
 
 
 izlude,100,100,4	script	Warper	453,{
-set @npc$, "Warper"; //Nom NPC
+set @npc$, "[Warper]"; //Nom NPC
 
+	if (alreadytalk ==1){
 	mes @npc$;
-	mes "Bonjour "+strcharinfo(0)+",";
-	mes "Je peux vous transporter à dos de Peco Peco dans les villes alentours si vous le souhaitez.";
-	mes "Les villes accéssibles ici sont : Prontera, Morocc, Geffen et Payon";
-	next;
-	mes @npc$;
-	mes "Dans quelles villes souhaitez-vous aller ?";
-	switch(select("Geffen","Morocc","Payon","Prontera","Aucune")){
-		case 1:
-			mes @npc$;
-			mes "très bien je demande tout suite à un ecuyer de vous préparer votre Peco Peco !";
-			mes "Il sera prêt dans 20s environ,";
-			mes "pendant ce temps là, prenez le temps de préparer votre équipement !";
-			addtimer 20000, strnpcinfo(3)+"::OnWarp";
-			addtimer 15000, strnpcinfo(3)+"::OnSec";
-			set geffen, 1;
-			//warp après 20s
-			close;
-		case 2:
-			mes @npc$;
-			mes "très bien je demande tout suite à un ecuyer de vous préparer votre Peco Peco !";
-			mes "Il sera prêt dans 20s environ,";
-			mes "pendant ce temps là, prenez le temps de préparer votre équipement !";
-			addtimer 20000, strnpcinfo(3)+"::OnWarp";
-			addtimer 15000, strnpcinfo(3)+"::OnSec";
-			set morocc, 1;
-			//warp après 20s
-			close;
-		case 3:
-			mes @npc$;
-			mes "très bien je demande tout suite à un ecuyer de vous préparer votre Peco Peco !";
-			mes "Il sera prêt dans 20s environ,";
-			mes "pendant ce temps là, prenez le temps de préparer votre équipement !";
-			addtimer 20000, strnpcinfo(3)+"::OnWarp";
-			addtimer 15000, strnpcinfo(3)+"::OnSec";
-			set payon, 1;
-			//warp après 20s
-			close;
-		case 4:
-			mes @npc$;
-			mes "très bien je demande tout suite à un ecuyer de vous préparer votre Peco Peco !";
-			mes "Il sera prêt dans 20s environ,";
-			mes "pendant ce temps là, prenez le temps de préparer votre équipement !";
-			addtimer 20000, strnpcinfo(3)+"::OnWarp";
-			addtimer 15000, strnpcinfo(3)+"::OnSec";
-			set prontera, 1;
-			//warp après 20s
-			close;
-		case 5:
-			mes @npc$;
-			mes "A bientôt j'espère !";
-			close;
+	mes "Nous préparons votre monture !";
+	close;
 	}
-	
+	else{
+		mes @npc$;
+		mes "Bonjour "+strcharinfo(0)+",";
+		mes "Je peux vous transporter à dos de Peco Peco dans les villes alentours si vous le souhaitez.";
+		mes "Les villes accéssibles ici sont : Prontera, Morocc, Geffen et Payon";
+		next;
+		mes @npc$;
+		mes "Dans quelles villes souhaitez-vous aller ?";
+		switch(select("Geffen","Morocc","Payon","Prontera","Aucune")){
+			case 1:
+				next;
+				mes @npc$;
+				mes "très bien je demande tout suite à un ecuyer de vous préparer votre Peco Peco !";
+				mes "Il sera prêt dans 20s environ,";
+				mes "pendant ce temps là, prenez le temps de préparer 	votre équipement !";
+				addtimer 20000, strnpcinfo(3)+"::OnWarp";
+				addtimer 15000, strnpcinfo(3)+"::OnSec";
+				set geffen, 1;
+				//warp après 20s
+				set alreadytalk, 1;
+				close;
+			case 2:
+				mes @npc$;
+				mes "très bien je demande tout suite à un ecuyer de vous préparer votre Peco Peco !";
+				mes "Il sera prêt dans 20s environ,";
+				mes "pendant ce temps là, prenez le temps de préparer votre équipement !";
+				addtimer 20000, strnpcinfo(3)+"::OnWarp";
+				addtimer 15000, strnpcinfo(3)+"::OnSec";
+				set morocc, 1;
+				//warp après 20s
+				set alreadytalk, 1;
+				close;
+			case 3:
+				mes @npc$;
+				mes "très bien je demande tout suite à un ecuyer de vous 	préparer votre Peco Peco !";
+				mes "Il sera prêt dans 20s environ,";
+				mes "pendant ce temps là, prenez le temps de préparer 	votre équipement !";
+				addtimer 20000, strnpcinfo(3)+"::OnWarp";
+				addtimer 15000, strnpcinfo(3)+"::OnSec";
+				set payon, 1;
+				//warp après 20s
+				set alreadytalk, 1;
+				close;
+			case 4:
+				mes @npc$;
+				mes "très bien je demande tout suite à un ecuyer de vous préparer votre Peco Peco !";
+				mes "Il sera prêt dans 20s environ,";
+				mes "pendant ce temps là, prenez le temps de préparer votre équipement !";
+				addtimer 20000, strnpcinfo(3)+"::OnWarp";
+				addtimer 15000, strnpcinfo(3)+"::OnSec";
+				set prontera, 1;
+				//warp après 20s
+				set alreadytalk, 1;
+				close;
+			case 5:
+				mes @npc$;
+				mes "A bientôt j'espère !";
+				close;
+		}
+	}
 	OnWarp:
 		dispbottom "Vous allez être warp";
 		if (geffen == 1){
+			set alreadytalk, 0;
 			warp "geffen",0,0;
 		}
 		else if (morocc == 1){
+			set alreadytalk, 0;
 			warp "morocc",0,0;
 		}
 		else if (payon == 1){
+			set alreadytalk, 0;
 			warp "payon",0,0;
 		}
 		else if (prontera == 1){
+			set alreadytalk, 0;
 			warp "prontera",0,0;
 		}
 	end;
