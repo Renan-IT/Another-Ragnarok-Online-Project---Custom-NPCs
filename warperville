@@ -35,6 +35,8 @@ set @npc$, "Warper"; //Nom NPC
 			mes "très bien je demande tout suite à un ecuyer de vous préparer votre Peco Peco !";
 			mes "Il sera prêt dans 20s environ,";
 			mes "pendant ce temps là, prenez le temps de préparer votre équipement !";
+			addtimer 20000, strnpcinfo(3)+"::OnWarp";
+			addtimer 15000, strnpcinfo(3)+"::OnSec";
 			set morocc, 1;
 			//warp après 20s
 			close;
@@ -43,6 +45,8 @@ set @npc$, "Warper"; //Nom NPC
 			mes "très bien je demande tout suite à un ecuyer de vous préparer votre Peco Peco !";
 			mes "Il sera prêt dans 20s environ,";
 			mes "pendant ce temps là, prenez le temps de préparer votre équipement !";
+			addtimer 20000, strnpcinfo(3)+"::OnWarp";
+			addtimer 15000, strnpcinfo(3)+"::OnSec";
 			set payon, 1;
 			//warp après 20s
 			close;
@@ -51,6 +55,8 @@ set @npc$, "Warper"; //Nom NPC
 			mes "très bien je demande tout suite à un ecuyer de vous préparer votre Peco Peco !";
 			mes "Il sera prêt dans 20s environ,";
 			mes "pendant ce temps là, prenez le temps de préparer votre équipement !";
+			addtimer 20000, strnpcinfo(3)+"::OnWarp";
+			addtimer 15000, strnpcinfo(3)+"::OnSec";
 			set prontera, 1;
 			//warp après 20s
 			close;
@@ -74,4 +80,10 @@ set @npc$, "Warper"; //Nom NPC
 		else if (prontera == 1){
 			warp "prontera",0,0;
 		}
+	end;
+
+	OnSec:
+		dispbottom "Êncore 5 secondes avant d'être téléporté, préparez-vous !";
+	end;
+	
 }
