@@ -55,6 +55,7 @@ set @npc$, "Warper"; //Nom NPC
 			mes "Il sera prêt dans 20s environ,";
 			mes "pendant ce temps là, prenez le temps de préparer votre équipement !";
 			addtimer 20000, strnpcinfo(3)+"::OnWarp";
+			addtimer 15000, strnpcinfo(3)+"::OnSec";
 			set geffen, 1;
 			//warp après 20s
 			close;
@@ -111,7 +112,7 @@ set @npc$, "Warper"; //Nom NPC
 	end;
 
 	OnSec:
-		dispbottom "Êncore 5 secondes avant d'être téléporté, préparez-vous !";
+		dispbottom "Encore 5 secondes avant d'être téléporté, préparez-vous !";
 	end;
 	
 }
