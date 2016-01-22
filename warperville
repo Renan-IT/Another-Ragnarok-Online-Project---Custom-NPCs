@@ -5,9 +5,10 @@
 //===== Current Version: =====================================
 //= 20131225
 //===== Script Version =======================================
-//= V1 
+//= V1 : Ajout NPC Warper Ville
+//= V2 : Ajout NPC Warper Donjon
 //===== Description: =========================================
-//= NPC Warper
+//= NPC Warper avec temps d'attente (rôle play) 
 //============================================================
 
 //NPC Warper Alerbta : Payon, Izlude, Jawaii, (Nifheim via Port)
@@ -34,9 +35,9 @@
 //NPC Warper Veins : Rachel, Einbech, Einbroch, Lighthalzen
 //NPC Warper Yuno : Einbech, Einbroch, (Hugel, Izlude, Rachel, Lighthalzen via Airship)
 
-//////////////////////////////////////////////////////////////////////////////////////////////////////
-/////////////////////////////////////////////=NPC WARPER=/////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////=NPC WARPER VILLE=/////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 //=NPC WARPER ALBERTA=//
 
@@ -1871,7 +1872,7 @@ set @npc$, "[Warper]"; //Nom NPC
 		dispbottom "Vous allez être warp";
 		if (einbech == 1){
 			set alreadytalk, 0;
-			warp "einbech",0;
+			warp "einbech",0,0;
 		}
 		else if (einbroch == 1){
 			set alreadytalk, 0;
@@ -1883,4 +1884,149 @@ set @npc$, "[Warper]"; //Nom NPC
 		dispbottom "Encore 5 secondes avant d'être téléporté, préparez-vous !";
 	end;
 	
+}
+
+
+//NPC Warper Alberta : Turtle Island, Sunken Ship
+//NPC Warper Amatsu : Amatsu Donjon
+//NPC Warper Ayothaya : Ayothaya Donjon 
+//NPC Warper Geffen : Coal Mine, Geffenia, Glast Heim, Orc Donjon
+//NPC Warper Hugel : Abyss Lake,
+//NPC Warper Lighthalzen : Bio Lab
+//NPC Warper Morocc : Ant Hell, Sphinx, 
+//NPC Warper Prontera : Culvert, Hidden Temple
+//NPC Warper Payon : Payon Cave
+//NPC Warper Rachel : Ice Cave, Rachel Sanctuary
+//NPC Warper Veins : Namelass Island/Cursed Abbey, Thor Volcano
+//NPC Warper Yuno : Magma Donjon
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////=NPC WARPER DONJON=/////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+alberta,100,100,4	script	Explorateur	453,{
+set @npc$, "[Explorateur]";
+
+	if (questprogress(00000) == -1){
+		mes @npc$;
+		mes "Bonjour jeune aventurier, je peux t'emmener dans certains endroits reculé de cette ville,";
+		mes "certains endroits où les plus gros monstres des environs rodes !";
+		next;
+		mes @npc$;
+		mes "Que voulez-vous ?";
+		switch(select("Parlez moi de votre société","Je souhaites me déplacer")){
+			case 1:
+				mes @npc$;
+				mes "Grâce aux explorateurs de notre monde, nous avons créé Explorateur Corporate.";
+				mes "Nous pouvons vous emmenez dans différents donjons aux alentours de certaines villes.";
+				mes "Il y a peu nous avions un chef mais celui-ci est tombé sous les assaults des Orcs ...";
+				next;
+				mes @npc$;
+				mes "Notre chef, Elriche était un très bon explorateur, il allait souvent avec sa femme découvrir les donjons de ce monde,";
+				mes "mais un beau jour, après une exploration à l'Ouest de Geffen, accompagné de sa femme et d'un autre explorateur,";
+				mes "il succomba...";
+				next;
+				mes @npc$;
+				mes "Un seul survivra, il aurai réussi à s'échapper à temps pour éviter une mort certaine !";
+				mes "Malheureusement il n'a pu sauvé Elriche et sa femme ...";
+				mes "Depuis ce jour, le survivant qui se nomme Ariol est maintenant devenu notre chef !";
+				next;
+				mes @npc$;
+				mes "Je vais m'arrêter là car on dit que le fait d'en parler continu de faire souffrir Ariol !";
+				mes "Si tu veux vraiment en savoir plus, va donc le trouver, il se trouve à la taverne de la Cité Portuaire de Midgard.";
+				setquest 00000;
+				dispbottom "Vous avez reçu une nouvelle quête, vous pouvez la consulter via la commande alt+u";
+				close;
+			case 2:
+				mes @npc$;
+				mes "Voici les donjons accessible :";
+				switch(select("Trutle Island","Sunken Ship")){
+					case 1:
+						mes @npc$;
+						mes "Laisse moi le temps de me préparer pour l'expédition.";
+						set zeny,zeny-5000;
+						addtimer 10000, strnpcinfo(3)+"::OnWarp";
+						set turtle, 1;
+						set alreadytalk, 1;
+						close;
+					case 2:
+						mes @npc$;
+						mes "Laisse moi le temps de me préparer pour l'expédition.";
+						set zeny,zeny-5000;
+						addtimer 10000, strnpcinfo(3)+"::OnWarp";
+						set sunken, 1;
+						set alreadytalk, 1;
+						close;
+				}
+		}
+	}
+	else if (questprogress(00000) == 1){
+		mes @npc$;
+		mes "Que voulez-vous ?";
+		switch(select("Je souhaites me déplacer","Où se trouve Ariol ?")){
+			case 1:
+				mes @npc$;
+				mes "Voici les donjons accessible :";
+				switch(select("Trutle Island","Sunken Ship")){
+					case 1:
+						mes @npc$;
+						mes "Laisse moi le temps de me préparer pour l'expédition.";
+						set zeny,zeny-5000;
+						addtimer 10000, strnpcinfo(3)+"::OnWarp";
+						set turtle, 1;
+						set alreadytalk, 1;
+						close;
+					case 2:
+						mes @npc$;
+						mes "Laisse moi le temps de me préparer pour l'expédition.";
+						set zeny,zeny-5000;
+						addtimer 10000, strnpcinfo(3)+"::OnWarp";
+						set sunken, 1;
+						set alreadytalk, 1;
+						close;
+				}
+			case 2:
+				mes @npc$;
+				mes "Va donc trouver Ariol !";
+				mes "Il se trouve à la taverne de la Cité Portuaire de Midgard.";
+				close;
+	}
+	else if (questprogress(00000) == 2){
+		mes @npc$;
+		mes "Oh je vois que tu as fini par rejoindre l'entreprise Explorateur Corporate finalement !";
+		mes "Peu de gens y arrive ! Félicitations !";
+		mes "Je te donne donc une réduction sur les tarifs !";
+		next;
+		mes @npc$;
+		mes "Voici les donjons accessible :";
+		switch(select("Trutle Island","Sunken Ship")){
+			case 1:
+				mes @npc$;
+				mes "Laisse moi le temps de me préparer pour l'expédition.";
+				set zeny,zeny-2500;
+				addtimer 10000, strnpcinfo(3)+"::OnWarp";
+				set turtle, 1;
+				set alreadytalk, 1;
+				close;
+			case 2:
+				mes @npc$;
+				mes "Laisse moi le temps de me préparer pour l'expédition.";
+				set zeny,zeny-2500;
+				addtimer 10000, strnpcinfo(3)+"::OnWarp";
+				set sunken, 1;
+				set alreadytalk, 1;
+				close;
+		}
+	}
+	
+	OnWarp:
+		dispbottom "Vous allez être warp";
+		if (turtle == 1){
+			set alreadytalk, 0;
+			warp "turtle",0,0;
+		}
+		else if (sunken == 1){
+			set alreadytalk, 0;
+			warp "sunken",0,0;
+		}
 }
