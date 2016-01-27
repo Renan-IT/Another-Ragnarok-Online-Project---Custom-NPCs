@@ -1904,6 +1904,9 @@ set @npc$, "[Warper]"; //Nom NPC
 /////////////////////////////////////////////=NPC WARPER DONJON=/////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+
+//=NPC WARPER DONJON ALBERTA=//
+
 alberta,100,100,4	script	Explorateur	453,{
 set @npc$, "[Explorateur]";
 
@@ -1990,6 +1993,7 @@ set @npc$, "[Explorateur]";
 				mes "Va donc trouver Ariol !";
 				mes "Il se trouve à la taverne de la Cité Portuaire de Midgard.";
 				close;
+		}
 	}
 	else if (questprogress(00000) == 2){
 		mes @npc$;
@@ -2028,5 +2032,1331 @@ set @npc$, "[Explorateur]";
 		else if (sunken == 1){
 			set alreadytalk, 0;
 			warp "sunken",0,0;
+		}
+}
+
+
+//=NPC WARPER DONJON AMATSU=//
+
+amatsu,100,100,4	script	Explorateur	453,{
+set @npc$, "[Explorateur]";
+
+	if (questprogress(00000) == -1){
+		mes @npc$;
+		mes "Bonjour jeune aventurier, je peux t'emmener dans certains endroits reculé de cette ville,";
+		mes "certains endroits où les plus gros monstres des environs rodes !";
+		next;
+		mes @npc$;
+		mes "Que voulez-vous ?";
+		switch(select("Parlez moi de votre société","Je souhaites me déplacer")){
+			case 1:
+				mes @npc$;
+				mes "Grâce aux explorateurs de notre monde, nous avons créé Explorateur Corporate.";
+				mes "Nous pouvons vous emmenez dans différents donjons aux alentours de certaines villes.";
+				mes "Il y a peu nous avions un chef mais celui-ci est tombé sous les assaults des Orcs ...";
+				next;
+				mes @npc$;
+				mes "Notre chef, Elriche était un très bon explorateur, il allait souvent avec sa femme découvrir les donjons de ce monde,";
+				mes "mais un beau jour, après une exploration à l'Ouest de Geffen, accompagné de sa femme et d'un autre explorateur,";
+				mes "il succomba...";
+				next;
+				mes @npc$;
+				mes "Un seul survivra, il aurai réussi à s'échapper à temps pour éviter une mort certaine !";
+				mes "Malheureusement il n'a pu sauvé Elriche et sa femme ...";
+				mes "Depuis ce jour, le survivant qui se nomme Ariol est maintenant devenu notre chef !";
+				next;
+				mes @npc$;
+				mes "Je vais m'arrêter là car on dit que le fait d'en parler continu de faire souffrir Ariol !";
+				mes "Si tu veux vraiment en savoir plus, va donc le trouver, il se trouve à la taverne de la Cité Portuaire de Midgard.";
+				setquest 00000;
+				dispbottom "Vous avez reçu une nouvelle quête, vous pouvez la consulter via la commande alt+u";
+				close;
+			case 2:
+				mes @npc$;
+				mes "Voici les donjons accessible :";
+				switch(select("Amatsu Donjon")){
+					case 1:
+						mes @npc$;
+						mes "Laisse moi le temps de me préparer pour l'expédition.";
+						set zeny,zeny-5000;
+						addtimer 10000, strnpcinfo(3)+"::OnWarp";
+						set amatsu, 1;
+						set alreadytalk, 1;
+						close;
+				}
+		}
+	}
+	else if (questprogress(00000) == 1){
+		mes @npc$;
+		mes "Que voulez-vous ?";
+		switch(select("Je souhaites me déplacer","Où se trouve Ariol ?")){
+			case 1:
+				mes @npc$;
+				mes "Voici les donjons accessible :";
+				switch(select("Amatsu")){
+					case 1:
+						mes @npc$;
+						mes "Laisse moi le temps de me préparer pour l'expédition.";
+						set zeny,zeny-5000;
+						addtimer 10000, strnpcinfo(3)+"::OnWarp";
+						set amatsu, 1;
+						set alreadytalk, 1;
+						close;
+				}
+			case 2:
+				mes @npc$;
+				mes "Va donc trouver Ariol !";
+				mes "Il se trouve à la taverne de la Cité Portuaire de Midgard.";
+				close;
+		}
+	}
+	else if (questprogress(00000) == 2){
+		mes @npc$;
+		mes "Oh je vois que tu as fini par rejoindre l'entreprise Explorateur Corporate finalement !";
+		mes "Peu de gens y arrive ! Félicitations !";
+		mes "Je te donne donc une réduction sur les tarifs !";
+		next;
+		mes @npc$;
+		mes "Voici les donjons accessible :";
+		switch(select("Amatsu")){
+			case 1:
+				mes @npc$;
+				mes "Laisse moi le temps de me préparer pour l'expédition.";
+				set zeny,zeny-2500;
+				addtimer 10000, strnpcinfo(3)+"::OnWarp";
+				set amatsu, 1;
+				set alreadytalk, 1;
+				close;
+		}
+	}
+	
+	OnWarp:
+		dispbottom "Vous allez être warp";
+		if (amatsu == 1){
+			set alreadytalk, 0;
+			warp "amatsu",0,0;
+		}
+}
+
+
+//=NPC WARPER DONJON AYOTHAYA=//
+
+ayothaya,100,100,4	script	Explorateur	453,{
+set @npc$, "[Explorateur]";
+
+	if (questprogress(00000) == -1){
+		mes @npc$;
+		mes "Bonjour jeune aventurier, je peux t'emmener dans certains endroits reculé de cette ville,";
+		mes "certains endroits où les plus gros monstres des environs rodes !";
+		next;
+		mes @npc$;
+		mes "Que voulez-vous ?";
+		switch(select("Parlez moi de votre société","Je souhaites me déplacer")){
+			case 1:
+				mes @npc$;
+				mes "Grâce aux explorateurs de notre monde, nous avons créé Explorateur Corporate.";
+				mes "Nous pouvons vous emmenez dans différents donjons aux alentours de certaines villes.";
+				mes "Il y a peu nous avions un chef mais celui-ci est tombé sous les assaults des Orcs ...";
+				next;
+				mes @npc$;
+				mes "Notre chef, Elriche était un très bon explorateur, il allait souvent avec sa femme découvrir les donjons de ce monde,";
+				mes "mais un beau jour, après une exploration à l'Ouest de Geffen, accompagné de sa femme et d'un autre explorateur,";
+				mes "il succomba...";
+				next;
+				mes @npc$;
+				mes "Un seul survivra, il aurai réussi à s'échapper à temps pour éviter une mort certaine !";
+				mes "Malheureusement il n'a pu sauvé Elriche et sa femme ...";
+				mes "Depuis ce jour, le survivant qui se nomme Ariol est maintenant devenu notre chef !";
+				next;
+				mes @npc$;
+				mes "Je vais m'arrêter là car on dit que le fait d'en parler continu de faire souffrir Ariol !";
+				mes "Si tu veux vraiment en savoir plus, va donc le trouver, il se trouve à la taverne de la Cité Portuaire de Midgard.";
+				setquest 00000;
+				dispbottom "Vous avez reçu une nouvelle quête, vous pouvez la consulter via la commande alt+u";
+				close;
+			case 2:
+				mes @npc$;
+				mes "Voici les donjons accessible :";
+				switch(select("Ayothaya Donjon")){
+					case 1:
+						mes @npc$;
+						mes "Laisse moi le temps de me préparer pour l'expédition.";
+						set zeny,zeny-5000;
+						addtimer 10000, strnpcinfo(3)+"::OnWarp";
+						set ayothaya, 1;
+						set alreadytalk, 1;
+						close;
+				}
+		}
+	}
+	else if (questprogress(00000) == 1){
+		mes @npc$;
+		mes "Que voulez-vous ?";
+		switch(select("Je souhaites me déplacer","Où se trouve Ariol ?")){
+			case 1:
+				mes @npc$;
+				mes "Voici les donjons accessible :";
+				switch(select("Ayothaya Donjon")){
+					case 1:
+						mes @npc$;
+						mes "Laisse moi le temps de me préparer pour l'expédition.";
+						set zeny,zeny-5000;
+						addtimer 10000, strnpcinfo(3)+"::OnWarp";
+						set ayothaya, 1;
+						set alreadytalk, 1;
+						close;
+				}
+			case 2:
+				mes @npc$;
+				mes "Va donc trouver Ariol !";
+				mes "Il se trouve à la taverne de la Cité Portuaire de Midgard.";
+				close;
+		}
+	}
+	else if (questprogress(00000) == 2){
+		mes @npc$;
+		mes "Oh je vois que tu as fini par rejoindre l'entreprise Explorateur Corporate finalement !";
+		mes "Peu de gens y arrive ! Félicitations !";
+		mes "Je te donne donc une réduction sur les tarifs !";
+		next;
+		mes @npc$;
+		mes "Voici les donjons accessible :";
+		switch(select("Ayothaya Donjon")){
+			case 1:
+				mes @npc$;
+				mes "Laisse moi le temps de me préparer pour l'expédition.";
+				set zeny,zeny-2500;
+				addtimer 10000, strnpcinfo(3)+"::OnWarp";
+				set ayothaya, 1;
+				set alreadytalk, 1;
+				close;
+		}
+	}
+	
+	OnWarp:
+		dispbottom "Vous allez être warp";
+		if (ayothaya == 1){
+			set alreadytalk, 0;
+			warp "ayothaya",0,0;
+		}
+}
+
+//=NPC WARPER DONJON GEFFEN=//
+
+geffen,100,100,4	script	Explorateur	453,{
+set @npc$, "[Explorateur]";
+
+	if (questprogress(00000) == -1){
+		mes @npc$;
+		mes "Bonjour jeune aventurier, je peux t'emmener dans certains endroits reculé de cette ville,";
+		mes "certains endroits où les plus gros monstres des environs rodes !";
+		next;
+		mes @npc$;
+		mes "Que voulez-vous ?";
+		switch(select("Parlez moi de votre société","Je souhaites me déplacer")){
+			case 1:
+				mes @npc$;
+				mes "Grâce aux explorateurs de notre monde, nous avons créé Explorateur Corporate.";
+				mes "Nous pouvons vous emmenez dans différents donjons aux alentours de certaines villes.";
+				mes "Il y a peu nous avions un chef mais celui-ci est tombé sous les assaults des Orcs ...";
+				next;
+				mes @npc$;
+				mes "Notre chef, Elriche était un très bon explorateur, il allait souvent avec sa femme découvrir les donjons de ce monde,";
+				mes "mais un beau jour, après une exploration à l'Ouest de Geffen, accompagné de sa femme et d'un autre explorateur,";
+				mes "il succomba...";
+				next;
+				mes @npc$;
+				mes "Un seul survivra, il aurai réussi à s'échapper à temps pour éviter une mort certaine !";
+				mes "Malheureusement il n'a pu sauvé Elriche et sa femme ...";
+				mes "Depuis ce jour, le survivant qui se nomme Ariol est maintenant devenu notre chef !";
+				next;
+				mes @npc$;
+				mes "Je vais m'arrêter là car on dit que le fait d'en parler continu de faire souffrir Ariol !";
+				mes "Si tu veux vraiment en savoir plus, va donc le trouver, il se trouve à la taverne de la Cité Portuaire de Midgard.";
+				setquest 00000;
+				dispbottom "Vous avez reçu une nouvelle quête, vous pouvez la consulter via la commande alt+u";
+				close;
+			case 2:
+				mes @npc$;
+				mes "Voici les donjons accessible :";
+				switch(select("Coal Mine","Geffenia","Glast Heim","Orc Donjon")){
+					case 1:
+						mes @npc$;
+						mes "Laisse moi le temps de me préparer pour l'expédition.";
+						set zeny,zeny-5000;
+						addtimer 10000, strnpcinfo(3)+"::OnWarp";
+						set coalmine, 1;
+						set alreadytalk, 1;
+						close;
+					case 2:
+						mes @npc$;
+						mes "Laisse moi le temps de me préparer pour l'expédition.";
+						set zeny,zeny-5000;
+						addtimer 10000, strnpcinfo(3)+"::OnWarp";
+						set geffenia, 1;
+						set alreadytalk, 1;
+						close;
+					case 3:
+						mes @npc$;
+						mes "Laisse moi le temps de me préparer pour l'expédition.";
+						set zeny,zeny-5000;
+						addtimer 10000, strnpcinfo(3)+"::OnWarp";
+						set glastheim, 1;
+						set alreadytalk, 1;
+						close;
+					case 4:
+						mes @npc$;
+						mes "Laisse moi le temps de me préparer pour l'expédition.";
+						set zeny,zeny-5000;
+						addtimer 10000, strnpcinfo(3)+"::OnWarp";
+						set orcdonjon, 1;
+						set alreadytalk, 1;
+						close;
+				}
+		}
+	}
+	else if (questprogress(00000) == 1){
+		mes @npc$;
+		mes "Que voulez-vous ?";
+		switch(select("Je souhaites me déplacer","Où se trouve Ariol ?")){
+			case 1:
+				mes @npc$;
+				mes "Voici les donjons accessible :";
+				switch(select("Coal Mine","Geffenia","Glast Heim","Orc Donjon")){
+					case 1:
+						mes @npc$;
+						mes "Laisse moi le temps de me préparer pour l'expédition.";
+						set zeny,zeny-5000;
+						addtimer 10000, strnpcinfo(3)+"::OnWarp";
+						set coalmine, 1;
+						set alreadytalk, 1;
+						close;
+					case 2:
+						mes @npc$;
+						mes "Laisse moi le temps de me préparer pour l'expédition.";
+						set zeny,zeny-5000;
+						addtimer 10000, strnpcinfo(3)+"::OnWarp";
+						set geffenia, 1;
+						set alreadytalk, 1;
+						close;
+					case 3:
+						mes @npc$;
+						mes "Laisse moi le temps de me préparer pour l'expédition.";
+						set zeny,zeny-5000;
+						addtimer 10000, strnpcinfo(3)+"::OnWarp";
+						set glastheim, 1;
+						set alreadytalk, 1;
+						close;
+					case 4:
+						mes @npc$;
+						mes "Laisse moi le temps de me préparer pour l'expédition.";
+						set zeny,zeny-5000;
+						addtimer 10000, strnpcinfo(3)+"::OnWarp";
+						set orcdonjon, 1;
+						set alreadytalk, 1;
+						close;
+				}
+			case 2:
+				mes @npc$;
+				mes "Va donc trouver Ariol !";
+				mes "Il se trouve à la taverne de la Cité Portuaire de Midgard.";
+				close;
+		}
+	}
+	else if (questprogress(00000) == 2){
+		mes @npc$;
+		mes "Oh je vois que tu as fini par rejoindre l'entreprise Explorateur Corporate finalement !";
+		mes "Peu de gens y arrive ! Félicitations !";
+		mes "Je te donne donc une réduction sur les tarifs !";
+		next;
+		mes @npc$;
+		mes "Voici les donjons accessible :";
+		switch(select("Coal Mine","Geffenia","Glast Heim","Orc Donjon")){
+			case 1:
+				mes @npc$;
+				mes "Laisse moi le temps de me préparer pour l'expédition.";
+				set zeny,zeny-5000;
+				addtimer 10000, strnpcinfo(3)+"::OnWarp";
+				set coalmine, 1;
+				set alreadytalk, 1;
+				close;
+			case 2:
+				mes @npc$;
+				mes "Laisse moi le temps de me préparer pour l'expédition.";
+				set zeny,zeny-5000;
+				addtimer 10000, strnpcinfo(3)+"::OnWarp";
+				set geffenia, 1;
+				set alreadytalk, 1;
+				close;
+			case 3:
+				mes @npc$;
+				mes "Laisse moi le temps de me préparer pour l'expédition.";
+				set zeny,zeny-5000;
+				addtimer 10000, strnpcinfo(3)+"::OnWarp";
+				set glastheim, 1;
+				set alreadytalk, 1;
+				close;
+			case 4:
+				mes @npc$;
+				mes "Laisse moi le temps de me préparer pour l'expédition.";
+				set zeny,zeny-5000;
+				addtimer 10000, strnpcinfo(3)+"::OnWarp";
+				set orcdonjon, 1;
+				set alreadytalk, 1;
+				close;
+		}
+	}
+	
+	OnWarp:
+		dispbottom "Vous allez être warp";
+		if (coalmine == 1){
+			set alreadytalk, 0;
+			warp "coalmine",0,0;
+		}
+		else if (geffenia == 1){
+			set alreadytalk, 0;
+			warp "geffenia",0,0;
+		}
+		else if (glastheim == 1){
+			set alreadytalk, 0;
+			warp "glastheim",0,0;
+		}
+		else if (orcdonjon == 1){
+			set alreadytalk, 0;
+			warp "orcdonjon",0,0;
+		}
+}
+
+
+//=NPC WARPER DONJON HUGEL=//
+
+hugel,100,100,4	script	Explorateur	453,{
+set @npc$, "[Explorateur]";
+
+	if (questprogress(00000) == -1){
+		mes @npc$;
+		mes "Bonjour jeune aventurier, je peux t'emmener dans certains endroits reculé de cette ville,";
+		mes "certains endroits où les plus gros monstres des environs rodes !";
+		next;
+		mes @npc$;
+		mes "Que voulez-vous ?";
+		switch(select("Parlez moi de votre société","Je souhaites me déplacer")){
+			case 1:
+				mes @npc$;
+				mes "Grâce aux explorateurs de notre monde, nous avons créé Explorateur Corporate.";
+				mes "Nous pouvons vous emmenez dans différents donjons aux alentours de certaines villes.";
+				mes "Il y a peu nous avions un chef mais celui-ci est tombé sous les assaults des Orcs ...";
+				next;
+				mes @npc$;
+				mes "Notre chef, Elriche était un très bon explorateur, il allait souvent avec sa femme découvrir les donjons de ce monde,";
+				mes "mais un beau jour, après une exploration à l'Ouest de Geffen, accompagné de sa femme et d'un autre explorateur,";
+				mes "il succomba...";
+				next;
+				mes @npc$;
+				mes "Un seul survivra, il aurai réussi à s'échapper à temps pour éviter une mort certaine !";
+				mes "Malheureusement il n'a pu sauvé Elriche et sa femme ...";
+				mes "Depuis ce jour, le survivant qui se nomme Ariol est maintenant devenu notre chef !";
+				next;
+				mes @npc$;
+				mes "Je vais m'arrêter là car on dit que le fait d'en parler continu de faire souffrir Ariol !";
+				mes "Si tu veux vraiment en savoir plus, va donc le trouver, il se trouve à la taverne de la Cité Portuaire de Midgard.";
+				setquest 00000;
+				dispbottom "Vous avez reçu une nouvelle quête, vous pouvez la consulter via la commande alt+u";
+				close;
+			case 2:
+				mes @npc$;
+				mes "Voici les donjons accessible :";
+				switch(select("Abyss Lake")){
+					case 1:
+						mes @npc$;
+						mes "Laisse moi le temps de me préparer pour l'expédition.";
+						set zeny,zeny-5000;
+						addtimer 10000, strnpcinfo(3)+"::OnWarp";
+						set abyss, 1;
+						set alreadytalk, 1;
+						close;
+				}
+		}
+	}
+	else if (questprogress(00000) == 1){
+		mes @npc$;
+		mes "Que voulez-vous ?";
+		switch(select("Je souhaites me déplacer","Où se trouve Ariol ?")){
+			case 1:
+				mes @npc$;
+				mes "Voici les donjons accessible :";
+				switch(select("Abyss Lake")){
+					case 1:
+						mes @npc$;
+						mes "Laisse moi le temps de me préparer pour l'expédition.";
+						set zeny,zeny-5000;
+						addtimer 10000, strnpcinfo(3)+"::OnWarp";
+						set abyss, 1;
+						set alreadytalk, 1;
+						close;
+				}
+			case 2:
+				mes @npc$;
+				mes "Va donc trouver Ariol !";
+				mes "Il se trouve à la taverne de la Cité Portuaire de Midgard.";
+				close;
+		}
+	}
+	else if (questprogress(00000) == 2){
+		mes @npc$;
+		mes "Oh je vois que tu as fini par rejoindre l'entreprise Explorateur Corporate finalement !";
+		mes "Peu de gens y arrive ! Félicitations !";
+		mes "Je te donne donc une réduction sur les tarifs !";
+		next;
+		mes @npc$;
+		mes "Voici les donjons accessible :";
+		switch(select("Abyss Lake")){
+			case 1:
+				mes @npc$;
+				mes "Laisse moi le temps de me préparer pour l'expédition.";
+				set zeny,zeny-2500;
+				addtimer 10000, strnpcinfo(3)+"::OnWarp";
+				set abyss, 1;
+				set alreadytalk, 1;
+				close;
+		}
+	}
+	
+	OnWarp:
+		dispbottom "Vous allez être warp";
+		if (abyss == 1){
+			set alreadytalk, 0;
+			warp "abyss",0,0;
+		}
+}
+
+
+//=NPC WARPER DONJON LIGHTHALZEN=//
+
+lighthalzen,100,100,4	script	Explorateur	453,{
+set @npc$, "[Explorateur]";
+
+	if (questprogress(00000) == -1){
+		mes @npc$;
+		mes "Bonjour jeune aventurier, je peux t'emmener dans certains endroits reculé de cette ville,";
+		mes "certains endroits où les plus gros monstres des environs rodes !";
+		next;
+		mes @npc$;
+		mes "Que voulez-vous ?";
+		switch(select("Parlez moi de votre société","Je souhaites me déplacer")){
+			case 1:
+				mes @npc$;
+				mes "Grâce aux explorateurs de notre monde, nous avons créé Explorateur Corporate.";
+				mes "Nous pouvons vous emmenez dans différents donjons aux alentours de certaines villes.";
+				mes "Il y a peu nous avions un chef mais celui-ci est tombé sous les assaults des Orcs ...";
+				next;
+				mes @npc$;
+				mes "Notre chef, Elriche était un très bon explorateur, il allait souvent avec sa femme découvrir les donjons de ce monde,";
+				mes "mais un beau jour, après une exploration à l'Ouest de Geffen, accompagné de sa femme et d'un autre explorateur,";
+				mes "il succomba...";
+				next;
+				mes @npc$;
+				mes "Un seul survivra, il aurai réussi à s'échapper à temps pour éviter une mort certaine !";
+				mes "Malheureusement il n'a pu sauvé Elriche et sa femme ...";
+				mes "Depuis ce jour, le survivant qui se nomme Ariol est maintenant devenu notre chef !";
+				next;
+				mes @npc$;
+				mes "Je vais m'arrêter là car on dit que le fait d'en parler continu de faire souffrir Ariol !";
+				mes "Si tu veux vraiment en savoir plus, va donc le trouver, il se trouve à la taverne de la Cité Portuaire de Midgard.";
+				setquest 00000;
+				dispbottom "Vous avez reçu une nouvelle quête, vous pouvez la consulter via la commande alt+u";
+				close;
+			case 2:
+				mes @npc$;
+				mes "Voici les donjons accessible :";
+				switch(select("Bio Lab")){
+					case 1:
+						mes @npc$;
+						mes "Laisse moi le temps de me préparer pour l'expédition.";
+						set zeny,zeny-5000;
+						addtimer 10000, strnpcinfo(3)+"::OnWarp";
+						set bio, 1;
+						set alreadytalk, 1;
+						close;
+				}
+		}
+	}
+	else if (questprogress(00000) == 1){
+		mes @npc$;
+		mes "Que voulez-vous ?";
+		switch(select("Je souhaites me déplacer","Où se trouve Ariol ?")){
+			case 1:
+				mes @npc$;
+				mes "Voici les donjons accessible :";
+				switch(select("Bio Lab")){
+					case 1:
+						mes @npc$;
+						mes "Laisse moi le temps de me préparer pour l'expédition.";
+						set zeny,zeny-5000;
+						addtimer 10000, strnpcinfo(3)+"::OnWarp";
+						set bio, 1;
+						set alreadytalk, 1;
+						close;
+				}
+			case 2:
+				mes @npc$;
+				mes "Va donc trouver Ariol !";
+				mes "Il se trouve à la taverne de la Cité Portuaire de Midgard.";
+				close;
+		}
+	}
+	else if (questprogress(00000) == 2){
+		mes @npc$;
+		mes "Oh je vois que tu as fini par rejoindre l'entreprise Explorateur Corporate finalement !";
+		mes "Peu de gens y arrive ! Félicitations !";
+		mes "Je te donne donc une réduction sur les tarifs !";
+		next;
+		mes @npc$;
+		mes "Voici les donjons accessible :";
+		switch(select("Bio Lab")){
+			case 1:
+				mes @npc$;
+				mes "Laisse moi le temps de me préparer pour l'expédition.";
+				set zeny,zeny-2500;
+				addtimer 10000, strnpcinfo(3)+"::OnWarp";
+				set bio, 1;
+				set alreadytalk, 1;
+				close;
+		}
+	}
+	
+	OnWarp:
+		dispbottom "Vous allez être warp";
+		if (bio == 1){
+			set alreadytalk, 0;
+			warp "bio",0,0;
+		}
+}
+
+//=NPC WARPER DONJON MOROCC=//
+
+morocc,100,100,4	script	Explorateur	453,{
+set @npc$, "[Explorateur]";
+
+	if (questprogress(00000) == -1){
+		mes @npc$;
+		mes "Bonjour jeune aventurier, je peux t'emmener dans certains endroits reculé de cette ville,";
+		mes "certains endroits où les plus gros monstres des environs rodes !";
+		next;
+		mes @npc$;
+		mes "Que voulez-vous ?";
+		switch(select("Parlez moi de votre société","Je souhaites me déplacer")){
+			case 1:
+				mes @npc$;
+				mes "Grâce aux explorateurs de notre monde, nous avons créé Explorateur Corporate.";
+				mes "Nous pouvons vous emmenez dans différents donjons aux alentours de certaines villes.";
+				mes "Il y a peu nous avions un chef mais celui-ci est tombé sous les assaults des Orcs ...";
+				next;
+				mes @npc$;
+				mes "Notre chef, Elriche était un très bon explorateur, il allait souvent avec sa femme découvrir les donjons de ce monde,";
+				mes "mais un beau jour, après une exploration à l'Ouest de Geffen, accompagné de sa femme et d'un autre explorateur,";
+				mes "il succomba...";
+				next;
+				mes @npc$;
+				mes "Un seul survivra, il aurai réussi à s'échapper à temps pour éviter une mort certaine !";
+				mes "Malheureusement il n'a pu sauvé Elriche et sa femme ...";
+				mes "Depuis ce jour, le survivant qui se nomme Ariol est maintenant devenu notre chef !";
+				next;
+				mes @npc$;
+				mes "Je vais m'arrêter là car on dit que le fait d'en parler continu de faire souffrir Ariol !";
+				mes "Si tu veux vraiment en savoir plus, va donc le trouver, il se trouve à la taverne de la Cité Portuaire de Midgard.";
+				setquest 00000;
+				dispbottom "Vous avez reçu une nouvelle quête, vous pouvez la consulter via la commande alt+u";
+				close;
+			case 2:
+				mes @npc$;
+				mes "Voici les donjons accessible :";
+				switch(select("Ant Hell","Sphinx")){
+					case 1:
+						mes @npc$;
+						mes "Laisse moi le temps de me préparer pour l'expédition.";
+						set zeny,zeny-5000;
+						addtimer 10000, strnpcinfo(3)+"::OnWarp";
+						set turtle, 1;
+						set alreadytalk, 1;
+						close;
+					case 2:
+						mes @npc$;
+						mes "Laisse moi le temps de me préparer pour l'expédition.";
+						set zeny,zeny-5000;
+						addtimer 10000, strnpcinfo(3)+"::OnWarp";
+						set sunken, 1;
+						set alreadytalk, 1;
+						close;
+				}
+		}
+	}
+	else if (questprogress(00000) == 1){
+		mes @npc$;
+		mes "Que voulez-vous ?";
+		switch(select("Je souhaites me déplacer","Où se trouve Ariol ?")){
+			case 1:
+				mes @npc$;
+				mes "Voici les donjons accessible :";
+				switch(select("Ant Hell","Sphinx")){
+					case 1:
+						mes @npc$;
+						mes "Laisse moi le temps de me préparer pour l'expédition.";
+						set zeny,zeny-5000;
+						addtimer 10000, strnpcinfo(3)+"::OnWarp";
+						set anthell, 1;
+						set alreadytalk, 1;
+						close;
+					case 2:
+						mes @npc$;
+						mes "Laisse moi le temps de me préparer pour l'expédition.";
+						set zeny,zeny-5000;
+						addtimer 10000, strnpcinfo(3)+"::OnWarp";
+						set sphinx, 1;
+						set alreadytalk, 1;
+						close;
+				}
+			case 2:
+				mes @npc$;
+				mes "Va donc trouver Ariol !";
+				mes "Il se trouve à la taverne de la Cité Portuaire de Midgard.";
+				close;
+		}
+	}
+	else if (questprogress(00000) == 2){
+		mes @npc$;
+		mes "Oh je vois que tu as fini par rejoindre l'entreprise Explorateur Corporate finalement !";
+		mes "Peu de gens y arrive ! Félicitations !";
+		mes "Je te donne donc une réduction sur les tarifs !";
+		next;
+		mes @npc$;
+		mes "Voici les donjons accessible :";
+		switch(select("Ant Hell","Sphinx")){
+			case 1:
+				mes @npc$;
+				mes "Laisse moi le temps de me préparer pour l'expédition.";
+				set zeny,zeny-2500;
+				addtimer 10000, strnpcinfo(3)+"::OnWarp";
+				set anthell, 1;
+				set alreadytalk, 1;
+				close;
+			case 2:
+				mes @npc$;
+				mes "Laisse moi le temps de me préparer pour l'expédition.";
+				set zeny,zeny-2500;
+				addtimer 10000, strnpcinfo(3)+"::OnWarp";
+				set sphinx, 1;
+				set alreadytalk, 1;
+				close;
+		}
+	}
+	
+	OnWarp:
+		dispbottom "Vous allez être warp";
+		if (anthell == 1){
+			set alreadytalk, 0;
+			warp "anthell",0,0;
+		}
+		else if (sphinx == 1){
+			set alreadytalk, 0;
+			warp "sphinx",0,0;
+		}
+}
+
+//=NPC WARPER DONJON PRONTERA=//
+
+prontera,100,100,4	script	Explorateur	453,{
+set @npc$, "[Explorateur]";
+
+	if (questprogress(00000) == -1){
+		mes @npc$;
+		mes "Bonjour jeune aventurier, je peux t'emmener dans certains endroits reculé de cette ville,";
+		mes "certains endroits où les plus gros monstres des environs rodes !";
+		next;
+		mes @npc$;
+		mes "Que voulez-vous ?";
+		switch(select("Parlez moi de votre société","Je souhaites me déplacer")){
+			case 1:
+				mes @npc$;
+				mes "Grâce aux explorateurs de notre monde, nous avons créé Explorateur Corporate.";
+				mes "Nous pouvons vous emmenez dans différents donjons aux alentours de certaines villes.";
+				mes "Il y a peu nous avions un chef mais celui-ci est tombé sous les assaults des Orcs ...";
+				next;
+				mes @npc$;
+				mes "Notre chef, Elriche était un très bon explorateur, il allait souvent avec sa femme découvrir les donjons de ce monde,";
+				mes "mais un beau jour, après une exploration à l'Ouest de Geffen, accompagné de sa femme et d'un autre explorateur,";
+				mes "il succomba...";
+				next;
+				mes @npc$;
+				mes "Un seul survivra, il aurai réussi à s'échapper à temps pour éviter une mort certaine !";
+				mes "Malheureusement il n'a pu sauvé Elriche et sa femme ...";
+				mes "Depuis ce jour, le survivant qui se nomme Ariol est maintenant devenu notre chef !";
+				next;
+				mes @npc$;
+				mes "Je vais m'arrêter là car on dit que le fait d'en parler continu de faire souffrir Ariol !";
+				mes "Si tu veux vraiment en savoir plus, va donc le trouver, il se trouve à la taverne de la Cité Portuaire de Midgard.";
+				setquest 00000;
+				dispbottom "Vous avez reçu une nouvelle quête, vous pouvez la consulter via la commande alt+u";
+				close;
+			case 2:
+				mes @npc$;
+				mes "Voici les donjons accessible :";
+				switch(select("Culvert","Hidden Temple")){
+					case 1:
+						mes @npc$;
+						mes "Laisse moi le temps de me préparer pour l'expédition.";
+						set zeny,zeny-5000;
+						addtimer 10000, strnpcinfo(3)+"::OnWarp";
+						set culvert, 1;
+						set alreadytalk, 1;
+						close;
+					case 2:
+						mes @npc$;
+						mes "Laisse moi le temps de me préparer pour l'expédition.";
+						set zeny,zeny-5000;
+						addtimer 10000, strnpcinfo(3)+"::OnWarp";
+						set hidden, 1;
+						set alreadytalk, 1;
+						close;
+				}
+		}
+	}
+	else if (questprogress(00000) == 1){
+		mes @npc$;
+		mes "Que voulez-vous ?";
+		switch(select("Je souhaites me déplacer","Où se trouve Ariol ?")){
+			case 1:
+				mes @npc$;
+				mes "Voici les donjons accessible :";
+				switch(select("Culvert","Hidden Temple")){
+					case 1:
+						mes @npc$;
+						mes "Laisse moi le temps de me préparer pour l'expédition.";
+						set zeny,zeny-5000;
+						addtimer 10000, strnpcinfo(3)+"::OnWarp";
+						set culvert, 1;
+						set alreadytalk, 1;
+						close;
+					case 2:
+						mes @npc$;
+						mes "Laisse moi le temps de me préparer pour l'expédition.";
+						set zeny,zeny-5000;
+						addtimer 10000, strnpcinfo(3)+"::OnWarp";
+						set hidden, 1;
+						set alreadytalk, 1;
+						close;
+				}
+			case 2:
+				mes @npc$;
+				mes "Va donc trouver Ariol !";
+				mes "Il se trouve à la taverne de la Cité Portuaire de Midgard.";
+				close;
+		}
+	}
+	else if (questprogress(00000) == 2){
+		mes @npc$;
+		mes "Oh je vois que tu as fini par rejoindre l'entreprise Explorateur Corporate finalement !";
+		mes "Peu de gens y arrive ! Félicitations !";
+		mes "Je te donne donc une réduction sur les tarifs !";
+		next;
+		mes @npc$;
+		mes "Voici les donjons accessible :";
+		switch(select("Culvert","Hidden Temple")){
+			case 1:
+				mes @npc$;
+				mes "Laisse moi le temps de me préparer pour l'expédition.";
+				set zeny,zeny-2500;
+				addtimer 10000, strnpcinfo(3)+"::OnWarp";
+				set culvert, 1;
+				set alreadytalk, 1;
+				close;
+			case 2:
+				mes @npc$;
+				mes "Laisse moi le temps de me préparer pour l'expédition.";
+				set zeny,zeny-2500;
+				addtimer 10000, strnpcinfo(3)+"::OnWarp";
+				set hidden, 1;
+				set alreadytalk, 1;
+				close;
+		}
+	}
+	
+	OnWarp:
+		dispbottom "Vous allez être warp";
+		if (culvert == 1){
+			set alreadytalk, 0;
+			warp "culvert",0,0;
+		}
+		else if (hidden == 1){
+			set alreadytalk, 0;
+			warp "prt_maze01",0,0;
+		}
+}
+
+
+//=NPC WARPER DONJON PAYON=//
+
+payon,100,100,4	script	Explorateur	453,{
+set @npc$, "[Explorateur]";
+
+	if (questprogress(00000) == -1){
+		mes @npc$;
+		mes "Bonjour jeune aventurier, je peux t'emmener dans certains endroits reculé de cette ville,";
+		mes "certains endroits où les plus gros monstres des environs rodes !";
+		next;
+		mes @npc$;
+		mes "Que voulez-vous ?";
+		switch(select("Parlez moi de votre société","Je souhaites me déplacer")){
+			case 1:
+				mes @npc$;
+				mes "Grâce aux explorateurs de notre monde, nous avons créé Explorateur Corporate.";
+				mes "Nous pouvons vous emmenez dans différents donjons aux alentours de certaines villes.";
+				mes "Il y a peu nous avions un chef mais celui-ci est tombé sous les assaults des Orcs ...";
+				next;
+				mes @npc$;
+				mes "Notre chef, Elriche était un très bon explorateur, il allait souvent avec sa femme découvrir les donjons de ce monde,";
+				mes "mais un beau jour, après une exploration à l'Ouest de Geffen, accompagné de sa femme et d'un autre explorateur,";
+				mes "il succomba...";
+				next;
+				mes @npc$;
+				mes "Un seul survivra, il aurai réussi à s'échapper à temps pour éviter une mort certaine !";
+				mes "Malheureusement il n'a pu sauvé Elriche et sa femme ...";
+				mes "Depuis ce jour, le survivant qui se nomme Ariol est maintenant devenu notre chef !";
+				next;
+				mes @npc$;
+				mes "Je vais m'arrêter là car on dit que le fait d'en parler continu de faire souffrir Ariol !";
+				mes "Si tu veux vraiment en savoir plus, va donc le trouver, il se trouve à la taverne de la Cité Portuaire de Midgard.";
+				setquest 00000;
+				dispbottom "Vous avez reçu une nouvelle quête, vous pouvez la consulter via la commande alt+u";
+				close;
+			case 2:
+				mes @npc$;
+				mes "Voici les donjons accessible :";
+				switch(select("Payon Cave")){
+					case 1:
+						mes @npc$;
+						mes "Laisse moi le temps de me préparer pour l'expédition.";
+						set zeny,zeny-5000;
+						addtimer 10000, strnpcinfo(3)+"::OnWarp";
+						set payon, 1;
+						set alreadytalk, 1;
+						close;
+				}
+		}
+	}
+	else if (questprogress(00000) == 1){
+		mes @npc$;
+		mes "Que voulez-vous ?";
+		switch(select("Je souhaites me déplacer","Où se trouve Ariol ?")){
+			case 1:
+				mes @npc$;
+				mes "Voici les donjons accessible :";
+				switch(select("Payon Cave")){
+					case 1:
+						mes @npc$;
+						mes "Laisse moi le temps de me préparer pour l'expédition.";
+						set zeny,zeny-5000;
+						addtimer 10000, strnpcinfo(3)+"::OnWarp";
+						set payon, 1;
+						set alreadytalk, 1;
+						close;
+				}
+			case 2:
+				mes @npc$;
+				mes "Va donc trouver Ariol !";
+				mes "Il se trouve à la taverne de la Cité Portuaire de Midgard.";
+				close;
+		}
+	}
+	else if (questprogress(00000) == 2){
+		mes @npc$;
+		mes "Oh je vois que tu as fini par rejoindre l'entreprise Explorateur Corporate finalement !";
+		mes "Peu de gens y arrive ! Félicitations !";
+		mes "Je te donne donc une réduction sur les tarifs !";
+		next;
+		mes @npc$;
+		mes "Voici les donjons accessible :";
+		switch(select("Payon Cave")){
+			case 1:
+				mes @npc$;
+				mes "Laisse moi le temps de me préparer pour l'expédition.";
+				set zeny,zeny-2500;
+				addtimer 10000, strnpcinfo(3)+"::OnWarp";
+				set payon, 1;
+				set alreadytalk, 1;
+				close;
+		}
+	}
+	
+	OnWarp:
+		dispbottom "Vous allez être warp";
+		if (payon == 1){
+			set alreadytalk, 0;
+			warp "payon_dun",0,0;
+		}
+}
+
+
+//=NPC WARPER DONJON RACHEL=//
+
+rachel,100,100,4	script	Explorateur	453,{
+set @npc$, "[Explorateur]";
+
+	if (questprogress(00000) == -1){
+		mes @npc$;
+		mes "Bonjour jeune aventurier, je peux t'emmener dans certains endroits reculé de cette ville,";
+		mes "certains endroits où les plus gros monstres des environs rodes !";
+		next;
+		mes @npc$;
+		mes "Que voulez-vous ?";
+		switch(select("Parlez moi de votre société","Je souhaites me déplacer")){
+			case 1:
+				mes @npc$;
+				mes "Grâce aux explorateurs de notre monde, nous avons créé Explorateur Corporate.";
+				mes "Nous pouvons vous emmenez dans différents donjons aux alentours de certaines villes.";
+				mes "Il y a peu nous avions un chef mais celui-ci est tombé sous les assaults des Orcs ...";
+				next;
+				mes @npc$;
+				mes "Notre chef, Elriche était un très bon explorateur, il allait souvent avec sa femme découvrir les donjons de ce monde,";
+				mes "mais un beau jour, après une exploration à l'Ouest de Geffen, accompagné de sa femme et d'un autre explorateur,";
+				mes "il succomba...";
+				next;
+				mes @npc$;
+				mes "Un seul survivra, il aurai réussi à s'échapper à temps pour éviter une mort certaine !";
+				mes "Malheureusement il n'a pu sauvé Elriche et sa femme ...";
+				mes "Depuis ce jour, le survivant qui se nomme Ariol est maintenant devenu notre chef !";
+				next;
+				mes @npc$;
+				mes "Je vais m'arrêter là car on dit que le fait d'en parler continu de faire souffrir Ariol !";
+				mes "Si tu veux vraiment en savoir plus, va donc le trouver, il se trouve à la taverne de la Cité Portuaire de Midgard.";
+				setquest 00000;
+				dispbottom "Vous avez reçu une nouvelle quête, vous pouvez la consulter via la commande alt+u";
+				close;
+			case 2:
+				mes @npc$;
+				mes "Voici les donjons accessible :";
+				switch(select("Ice Donjon","Rachel Sanctuary")){
+					case 1:
+						mes @npc$;
+						mes "Laisse moi le temps de me préparer pour l'expédition.";
+						set zeny,zeny-5000;
+						addtimer 10000, strnpcinfo(3)+"::OnWarp";
+						set ice, 1;
+						set alreadytalk, 1;
+						close;
+					case 2:
+						mes @npc$;
+						mes "Laisse moi le temps de me préparer pour l'expédition.";
+						set zeny,zeny-5000;
+						addtimer 10000, strnpcinfo(3)+"::OnWarp";
+						set rachel, 1;
+						set alreadytalk, 1;
+						close;
+				}
+		}
+	}
+	else if (questprogress(00000) == 1){
+		mes @npc$;
+		mes "Que voulez-vous ?";
+		switch(select("Je souhaites me déplacer","Où se trouve Ariol ?")){
+			case 1:
+				mes @npc$;
+				mes "Voici les donjons accessible :";
+				switch(select("Ice Donjon","Rachel Sanctuary")){
+					case 1:
+						mes @npc$;
+						mes "Laisse moi le temps de me préparer pour l'expédition.";
+						set zeny,zeny-5000;
+						addtimer 10000, strnpcinfo(3)+"::OnWarp";
+						set ice, 1;
+						set alreadytalk, 1;
+						close;
+					case 2:
+						mes @npc$;
+						mes "Laisse moi le temps de me préparer pour l'expédition.";
+						set zeny,zeny-5000;
+						addtimer 10000, strnpcinfo(3)+"::OnWarp";
+						set rachel, 1;
+						set alreadytalk, 1;
+						close;
+				}
+			case 2:
+				mes @npc$;
+				mes "Va donc trouver Ariol !";
+				mes "Il se trouve à la taverne de la Cité Portuaire de Midgard.";
+				close;
+		}
+	}
+	else if (questprogress(00000) == 2){
+		mes @npc$;
+		mes "Oh je vois que tu as fini par rejoindre l'entreprise Explorateur Corporate finalement !";
+		mes "Peu de gens y arrive ! Félicitations !";
+		mes "Je te donne donc une réduction sur les tarifs !";
+		next;
+		mes @npc$;
+		mes "Voici les donjons accessible :";
+		switch(select("Ice Donjon","Rachel Sanctuary")){
+			case 1:
+				mes @npc$;
+				mes "Laisse moi le temps de me préparer pour l'expédition.";
+				set zeny,zeny-2500;
+				addtimer 10000, strnpcinfo(3)+"::OnWarp";
+				set ice, 1;
+				set alreadytalk, 1;
+				close;
+			case 2:
+				mes @npc$;
+				mes "Laisse moi le temps de me préparer pour l'expédition.";
+				set zeny,zeny-2500;
+				addtimer 10000, strnpcinfo(3)+"::OnWarp";
+				set rachel, 1;
+				set alreadytalk, 1;
+				close;
+		}
+	}
+	
+	OnWarp:
+		dispbottom "Vous allez être warp";
+		if (ice == 1){
+			set alreadytalk, 0;
+			warp "ice_dun01",0,0;
+		}
+		else if (rachel == 1){
+			set alreadytalk, 0;
+			warp "rachel_sanc",0,0;
+		}
+}
+
+
+//=NPC WARPER DONJON VEINS=//
+
+veins,100,100,4	script	Explorateur	453,{
+set @npc$, "[Explorateur]";
+
+	if (questprogress(00000) == -1){
+		mes @npc$;
+		mes "Bonjour jeune aventurier, je peux t'emmener dans certains endroits reculé de cette ville,";
+		mes "certains endroits où les plus gros monstres des environs rodes !";
+		next;
+		mes @npc$;
+		mes "Que voulez-vous ?";
+		switch(select("Parlez moi de votre société","Je souhaites me déplacer")){
+			case 1:
+				mes @npc$;
+				mes "Grâce aux explorateurs de notre monde, nous avons créé Explorateur Corporate.";
+				mes "Nous pouvons vous emmenez dans différents donjons aux alentours de certaines villes.";
+				mes "Il y a peu nous avions un chef mais celui-ci est tombé sous les assaults des Orcs ...";
+				next;
+				mes @npc$;
+				mes "Notre chef, Elriche était un très bon explorateur, il allait souvent avec sa femme découvrir les donjons de ce monde,";
+				mes "mais un beau jour, après une exploration à l'Ouest de Geffen, accompagné de sa femme et d'un autre explorateur,";
+				mes "il succomba...";
+				next;
+				mes @npc$;
+				mes "Un seul survivra, il aurai réussi à s'échapper à temps pour éviter une mort certaine !";
+				mes "Malheureusement il n'a pu sauvé Elriche et sa femme ...";
+				mes "Depuis ce jour, le survivant qui se nomme Ariol est maintenant devenu notre chef !";
+				next;
+				mes @npc$;
+				mes "Je vais m'arrêter là car on dit que le fait d'en parler continu de faire souffrir Ariol !";
+				mes "Si tu veux vraiment en savoir plus, va donc le trouver, il se trouve à la taverne de la Cité Portuaire de Midgard.";
+				setquest 00000;
+				dispbottom "Vous avez reçu une nouvelle quête, vous pouvez la consulter via la commande alt+u";
+				close;
+			case 2:
+				mes @npc$;
+				mes "Voici les donjons accessible :";
+				switch(select("Abbey Donjon","Thor Volcano")){
+					case 1:
+						mes @npc$;
+						mes "Laisse moi le temps de me préparer pour l'expédition.";
+						set zeny,zeny-5000;
+						addtimer 10000, strnpcinfo(3)+"::OnWarp";
+						set abbey, 1;
+						set alreadytalk, 1;
+						close;
+					case 2:
+						mes @npc$;
+						mes "Laisse moi le temps de me préparer pour l'expédition.";
+						set zeny,zeny-5000;
+						addtimer 10000, strnpcinfo(3)+"::OnWarp";
+						set thor, 1;
+						set alreadytalk, 1;
+						close;
+				}
+		}
+	}
+	else if (questprogress(00000) == 1){
+		mes @npc$;
+		mes "Que voulez-vous ?";
+		switch(select("Je souhaites me déplacer","Où se trouve Ariol ?")){
+			case 1:
+				mes @npc$;
+				mes "Voici les donjons accessible :";
+				switch(select("Abbey Donjon","Thor Volcano")){
+					case 1:
+						mes @npc$;
+						mes "Laisse moi le temps de me préparer pour l'expédition.";
+						set zeny,zeny-5000;
+						addtimer 10000, strnpcinfo(3)+"::OnWarp";
+						set abbey, 1;
+						set alreadytalk, 1;
+						close;
+					case 2:
+						mes @npc$;
+						mes "Laisse moi le temps de me préparer pour l'expédition.";
+						set zeny,zeny-5000;
+						addtimer 10000, strnpcinfo(3)+"::OnWarp";
+						set thor, 1;
+						set alreadytalk, 1;
+						close;
+				}
+			case 2:
+				mes @npc$;
+				mes "Va donc trouver Ariol !";
+				mes "Il se trouve à la taverne de la Cité Portuaire de Midgard.";
+				close;
+		}
+	}
+	else if (questprogress(00000) == 2){
+		mes @npc$;
+		mes "Oh je vois que tu as fini par rejoindre l'entreprise Explorateur Corporate finalement !";
+		mes "Peu de gens y arrive ! Félicitations !";
+		mes "Je te donne donc une réduction sur les tarifs !";
+		next;
+		mes @npc$;
+		mes "Voici les donjons accessible :";
+		switch(select("Abbey Donjon","Thor Volcano")){
+			case 1:
+				mes @npc$;
+				mes "Laisse moi le temps de me préparer pour l'expédition.";
+				set zeny,zeny-2500;
+				addtimer 10000, strnpcinfo(3)+"::OnWarp";
+				set abbey, 1;
+				set alreadytalk, 1;
+				close;
+			case 2:
+				mes @npc$;
+				mes "Laisse moi le temps de me préparer pour l'expédition.";
+				set zeny,zeny-2500;
+				addtimer 10000, strnpcinfo(3)+"::OnWarp";
+				set thor, 1;
+				set alreadytalk, 1;
+				close;
+		}
+	}
+	
+	OnWarp:
+		dispbottom "Vous allez être warp";
+		if (abbey == 1){
+			set alreadytalk, 0;
+			warp "abbey",0,0;
+		}
+		else if (thor == 1){
+			set alreadytalk, 0;
+			warp "thor",0,0;
+		}
+}
+
+
+//=NPC WARPER DONJON YUNO=//
+
+yuno,100,100,4	script	Explorateur	453,{
+set @npc$, "[Explorateur]";
+
+	if (questprogress(00000) == -1){
+		mes @npc$;
+		mes "Bonjour jeune aventurier, je peux t'emmener dans certains endroits reculé de cette ville,";
+		mes "certains endroits où les plus gros monstres des environs rodes !";
+		next;
+		mes @npc$;
+		mes "Que voulez-vous ?";
+		switch(select("Parlez moi de votre société","Je souhaites me déplacer")){
+			case 1:
+				mes @npc$;
+				mes "Grâce aux explorateurs de notre monde, nous avons créé Explorateur Corporate.";
+				mes "Nous pouvons vous emmenez dans différents donjons aux alentours de certaines villes.";
+				mes "Il y a peu nous avions un chef mais celui-ci est tombé sous les assaults des Orcs ...";
+				next;
+				mes @npc$;
+				mes "Notre chef, Elriche était un très bon explorateur, il allait souvent avec sa femme découvrir les donjons de ce monde,";
+				mes "mais un beau jour, après une exploration à l'Ouest de Geffen, accompagné de sa femme et d'un autre explorateur,";
+				mes "il succomba...";
+				next;
+				mes @npc$;
+				mes "Un seul survivra, il aurai réussi à s'échapper à temps pour éviter une mort certaine !";
+				mes "Malheureusement il n'a pu sauvé Elriche et sa femme ...";
+				mes "Depuis ce jour, le survivant qui se nomme Ariol est maintenant devenu notre chef !";
+				next;
+				mes @npc$;
+				mes "Je vais m'arrêter là car on dit que le fait d'en parler continu de faire souffrir Ariol !";
+				mes "Si tu veux vraiment en savoir plus, va donc le trouver, il se trouve à la taverne de la Cité Portuaire de Midgard.";
+				setquest 00000;
+				dispbottom "Vous avez reçu une nouvelle quête, vous pouvez la consulter via la commande alt+u";
+				close;
+			case 2:
+				mes @npc$;
+				mes "Voici les donjons accessible :";
+				switch(select("Magma Donjon")){
+					case 1:
+						mes @npc$;
+						mes "Laisse moi le temps de me préparer pour l'expédition.";
+						set zeny,zeny-5000;
+						addtimer 10000, strnpcinfo(3)+"::OnWarp";
+						set magma, 1;
+						set alreadytalk, 1;
+						close;
+				}
+		}
+	}
+	else if (questprogress(00000) == 1){
+		mes @npc$;
+		mes "Que voulez-vous ?";
+		switch(select("Je souhaites me déplacer","Où se trouve Ariol ?")){
+			case 1:
+				mes @npc$;
+				mes "Voici les donjons accessible :";
+				switch(select("Magma Donjon")){
+					case 1:
+						mes @npc$;
+						mes "Laisse moi le temps de me préparer pour l'expédition.";
+						set zeny,zeny-5000;
+						addtimer 10000, strnpcinfo(3)+"::OnWarp";
+						set magma, 1;
+						set alreadytalk, 1;
+						close;
+				}
+			case 2:
+				mes @npc$;
+				mes "Va donc trouver Ariol !";
+				mes "Il se trouve à la taverne de la Cité Portuaire de Midgard.";
+				close;
+		}
+	}
+	else if (questprogress(00000) == 2){
+		mes @npc$;
+		mes "Oh je vois que tu as fini par rejoindre l'entreprise Explorateur Corporate finalement !";
+		mes "Peu de gens y arrive ! Félicitations !";
+		mes "Je te donne donc une réduction sur les tarifs !";
+		next;
+		mes @npc$;
+		mes "Voici les donjons accessible :";
+		switch(select("Magma Donjon")){
+			case 1:
+				mes @npc$;
+				mes "Laisse moi le temps de me préparer pour l'expédition.";
+				set zeny,zeny-2500;
+				addtimer 10000, strnpcinfo(3)+"::OnWarp";
+				set magma, 1;
+				set alreadytalk, 1;
+				close;
+		}
+	}
+
+	OnWarp:
+		dispbottom "Vous allez être warp";
+		if (magma == 1){
+			set alreadytalk, 0;
+			warp "magma",0,0;
 		}
 }
