@@ -1,0 +1,59 @@
+//===== Hercules Script ======================================
+//= Sample: Tool Dealer Universel
+//===== By: ==================================================
+//= Baps
+//===== Current Version: =====================================
+//= 20131225
+//===== Script Version =======================================
+//= V1 
+//===== Description: =========================================
+//= NPC Tool Dealer Universel
+//============================================================
+
+-	trader	Tool Dealer	-1,{
+	OnInit:
+		sellitem Wing_Of_Butterfly;
+		sellitem Wing_Of_Fly;
+		sellitem Red_Potion;
+		sellitem Orange_Potion;
+		sellitem Yellow_Potion;
+		sellitem White_Potion;
+		sellitem Green_Potion;
+		sellitem Center_Potion;
+		sellitem Awakening_Potion;
+		sellitem Berserk_Potion;
+		sellitem Blue_Gemstone;
+		sellitem Arrow;
+		sellitem Silver_Arrow;
+		sellitem Fire_Arrow;
+		sellitem Booby_Trap;
+		sellitem Leaf_Of_Yggdrasil;
+	end;
+}
+
+////////////////////////////////////////////////////////////////
+//////////////////////////Duplicates////////////////////////////
+////////////////////////////////////////////////////////////////
+
+alberta,100,100,4	duplicate(Tool Dealer)	Tool Dealer#alb	453
+aldebaran,100,100,4	duplicate(Tool Dealer)	Tool Dealer#alde	453
+amatsu,100,100,4	duplicate(Tool Dealer)	Tool Dealer#ama	453
+ayothaya,100,100,4	duplicate(Tool Dealer)	Tool Dealer#ayo	453
+comodo,100,100,4	duplicate(Tool Dealer)	Tool Dealer#com	453
+einbech,100,100,4	duplicate(Tool Dealer)	Tool Dealer#einbe	453
+einbroch,100,100,4	duplicate(Tool Dealer)	Tool Dealer#einbr	453
+geffen,100,100,4	duplicate(Tool Dealer)	Tool Dealer#gef	453
+gonryun,100,100,4	duplicate(Tool Dealer)	Tool Dealer#gon	453
+hugel,100,100,4	duplicate(Tool Dealer)	Tool Dealer#hug	453
+izlude,100,100,4	duplicate(Tool Dealer)	Tool Dealer#izl	453
+jawaii,100,100,4	duplicate(Tool Dealer)	Tool Dealer#jaw	453
+lighthalzen,100,100,4	duplicate(Tool Dealer)	Tool Dealer#lig	453
+louyang,100,100,4	duplicate(Tool Dealer)	Tool Dealer#lou	453
+morocc,100,100,4	duplicate(Tool Dealer)	Tool Dealer#mor	453
+niflheim,100,100,4	duplicate(Tool Dealer)	Tool Dealer#nif	453
+payon,100,100,4	duplicate(Tool Dealer)	Tool Dealer#pay	453
+prontera,100,100,4	duplicate(Tool Dealer)	Tool Dealer#prt	453
+rachel,100,100,4	duplicate(Tool Dealer)	Tool Dealer#rac	453
+veins,100,100,4	duplicate(Tool Dealer)	Tool Dealer#vei	453
+xmas,100,100,4	duplicate(Tool Dealer)	Tool Dealer#xma	453
+yuno,100,100,4	duplicate(Tool Dealer)	Tool Dealer#yun	453
