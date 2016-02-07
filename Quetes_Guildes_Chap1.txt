@@ -39,13 +39,13 @@
 //////////////////////////////////////
 
 izlude_in,72,172,4	script	Amorl#iz	4_M_1STPRIN1,{
-	if ((questprogress(60343) == 2) && (BaseJob == Job_Swordman)){ //Quête pas encore commence
+	if ((questprogress(80002) == 2) && (BaseJob == Job_Swordman)){ //Quête pas encore commence
 		mes "^50A92C[Amorl]^000000";
 		mes "Bonjour "+strcharinfo(0)+", comment vas-tu ?";
 		mes "Suis ton propre destin !";
 		close;
 	}
-	else if ((questprogress(60343) == 1) && (BaseJob == Job_Swordman)){ //Precedente quête fini (training ground)
+	else if ((questprogress(80002) == 1) && (BaseJob == Job_Swordman)){ //Precedente quête fini (training ground)
 		//Quete active
 		mes "^50A92C[Amorl]^000000";
 		mes "Bonjour "+strcharinfo(0)+", nous sommes la guilde des ^D41B1BSwordmans^000000,";
@@ -100,18 +100,18 @@ izlude_in,72,172,4	script	Amorl#iz	4_M_1STPRIN1,{
 		mes "^50A92C[Amorl]^000000";
 		mes "puisse-t'elle avoir raison ! Si c'est le cas, nous le saurons bien assez tôt..!";
 		mes "Allé va maintenant..., adresse toi à ^0000FFBelior^000000 pour poursuivre ta formation, il t'attend dans la pièce à droite. Puisse Odin te guider";
-		setquest 60344; //Active la quête pour aller voir Swordman pour passer sa classe dans alt+u
-		completequest 60343;//Quête Destinée terminée, aller voir l'intendant
+		setquest 80010; //Active la quête pour aller voir Swordman pour passer sa classe dans alt+u
+		completequest 80002;//Quête Destinée terminée, aller voir l'intendant
 		dispbottom "Vous avez complété une quête";
 		getexp 20000,0; //Donne de l'xp a la fin de la quete 
 		dispbottom "Vous avez gagné 20,000 Xp Base";
-		dispbottom "Vous avez recçus une nouvelle quête";
+		dispbottom "Vous avez reçus une nouvelle quête";
 		close;
 		OnInit:
-			questinfo 60344, QTYPE_QUEST, 0;
+			questinfo 80010, QTYPE_QUEST, 0;
 		end;	
 	}
-	else if (questprogress(60344) == 1){
+	else if (questprogress(80010) == 1){
 		mes "^50A92C[Amorl]^000000";
 		mes "Bah alors qu'est-ce que tu attends ! ^0000FFBelior^000000 t'attend dans la pièce à droite!";
 		close;
@@ -137,14 +137,14 @@ izlude_in,72,172,4	script	Amorl#iz	4_M_1STPRIN1,{
 //////////////////////////////////////
 
 prt_church,103,84,3	script	Pere Shawn#prt_in	4_M_OLDFRIAR,{
-	if ((questprogress(60343) == 2) && (BaseJob == Job_Acolyte)){ //Avoir fini la quete avant (training ground){
+	if ((questprogress(80002) == 2) && (BaseJob == Job_Acolyte)){ //Avoir fini la quete avant (training ground)
 		//Quete pas encore commence
 		mes "^50A92C[Père Shawn]^000000";
 		mes "Bonjour "+strcharinfo(0)+", comment vas-tu ?";
 		mes "Bonne chance à toi ! Et puisse Dieu guider tes pas ";
 		close;
 	}
-	else if ((questprogress(60343) == 1) && (BaseJob == Job_Acolyte)){ //Precedente quete fini (training ground)
+	else if ((questprogress(80002) == 1) && (BaseJob == Job_Acolyte)){ //Precedente quete fini (training ground)
 		//Quete active
 		mes "^50A92C[Père Shawn]^000000";
 		mes "Bienvenu à toi "+strcharinfo(0)+",  si tu es ici c’est que tu as choisi de devenir un enfant de notre seigneur.";
@@ -186,18 +186,18 @@ prt_church,103,84,3	script	Pere Shawn#prt_in	4_M_OLDFRIAR,{
 		mes "Enfin bon, après t’avoir raconté tout ça, tu n’as surement qu’une envie c’est de commencer ta quête.";
 		mes "Tu peux y aller maintenant, je ne te retiens pas plus longtemps !";
 		mes "Soeur Mathild t'attend pour ton baptême, elle doit être en train de prier dans la nef.";
-		setquest 60345; //Active la quete pour aller voir Father X pour passer sa classe dans alt+u
-		completequest 60343; //Quête Destinée terminée, aller voir l'intendant
+		setquest 80030; //Active la quete pour aller voir Father X pour passer sa classe dans alt+u
+		completequest 80002; //Quête Destinée terminée, aller voir l'intendant
 		dispbottom "Vous avez complété une quête";
 		getexp 20000,0; //Donne de l'xp a la fin de la quete 
 		dispbottom "Vous avez gagné 20,000 Xp Base";
 		dispbottom "Vous avez reçus une nouvelle quete";
 		close;
 		OnInit: //Initialisation de la prochaine quete
-			questinfo 60345, QTYPE_QUEST, 0;
+			questinfo 80030, QTYPE_QUEST, 0;
 		end;	
 	}
-	else if (questprogress(60345) == 1){ //Quete 60344 lancee
+	else if (questprogress(80030) == 1){ //Quete 80010 lancee
         mes "^50A92C[Père Shawn]^000000";
         mes "Tu hésites mon enfant ? Va voir Soeur Mathild dans la nef.";
         close;
@@ -223,14 +223,14 @@ prt_church,103,84,3	script	Pere Shawn#prt_in	4_M_OLDFRIAR,{
 
 
 geffen_in,174,110,6	script	Aguara#geffen_in	1_F_SIGNZISK,{
-	if ((questprogress(60343) == 2) && (BaseJob == Job_Mage)){ //Avoir fini la quete avant (training ground){
+	if ((questprogress(80002) == 2) && (BaseJob == Job_Mage)){ //Avoir fini la quete avant (training ground)
 		//Quete pas encore commence
 		mes "^50A92C[Aguara]^000000";
 		mes "Bonjour "+strcharinfo(0)+", comment vas-tu ?";
 		mes "Bonne chance à toi ! Et puisse Dieu guider tes pas ";
 		close;
 	}
-	else if ((questprogress(60343) == 1) && (BaseJob == Job_Mage)){ //Precedente quete fini (training ground)
+	else if ((questprogress(80002) == 1) && (BaseJob == Job_Mage)){ //Precedente quete fini (training ground)
 		//Quete active
 		mes "^50A92C[Aguara]^000000";
 		mes "Bonjour "+strcharinfo(0)+", laisse-moi deviner, tu es ici pour devenir ^D41B1BMage^000000 n’est-ce pas ? ";
@@ -271,18 +271,18 @@ geffen_in,174,110,6	script	Aguara#geffen_in	1_F_SIGNZISK,{
 		mes "Nous devons nous préparer à toutes les éventualités.";
 		mes "Tout ceci n’est que supputations et il ne faut surement pas en tenir compte, tu es jeune et faible encore, ces hypothèses ne doivent pas t’atteindre !";
 		mes "Commence déjà par apprendre la magie ! ^D41B1BOlafe^000000 t’attend, tu devrais aller le voir !";
-		setquest 60346; //Active la quete pour aller voir Father X pour passer sa classe dans alt+u
-		completequest 60343; //Quête Destinée terminée, aller voir l'intendant
+		setquest 80060; //Active la quete pour aller voir Father X pour passer sa classe dans alt+u
+		completequest 80002; //Quête Destinée terminée, aller voir l'intendant
 		dispbottom "Vous avez complété une quête";
 		getexp 20000,0; //Donne de l'xp a la fin de la quete 
 		dispbottom "Vous avez gagné 20,000 Xp Base";
 		dispbottom "Vous avez reçus une nouvelle quête";
 		close;
 		OnInit: //Initialisation de la prochaine quete
-			questinfo 60346, QTYPE_QUEST, 0;
+			questinfo 80060, QTYPE_QUEST, 0;
 		end;	
 	}
-	else if (questprogress(60346) == 1){ //Quete 60344 lancee
+	else if (questprogress(80060) == 1){ //Quete 80010 lancee
         mes "^50A92C[Aguara]^000000";
         mes "Tu ne veux pas devenir un puissant mage? Va voir ^0000FFOlafe^000000";
         close;
@@ -292,7 +292,7 @@ geffen_in,174,110,6	script	Aguara#geffen_in	1_F_SIGNZISK,{
         mes "Que fais-tu ici ? Tu dois d'abord devenir ^0000FFMage^0000FF.";
         close;
     }
-
+}
 /////////////////////////////////////////////////////
 ///////////////////THIEF QUEST///////////////////////
 /////////////////////////////////////////////////////
@@ -306,14 +306,14 @@ geffen_in,174,110,6	script	Aguara#geffen_in	1_F_SIGNZISK,{
 //////////////////////////////////////
 
 moc_prydb1,46,135,4	script	Pydar#pyr	4_M_THIEF_RUMIN,{
-	if ((questprogress(60343) == 2) && (BaseJob == Job_Thief)){ //Avoir fini la quete avant (training ground){
+	if ((questprogress(80002) == 2) && (BaseJob == Job_Thief)){ //Avoir fini la quete avant (training ground)
 		//Quete pas encore commence
 		mes "^50A92C[Pydar]^000000";
 		mes "Bonjour "+strcharinfo(0)+", comment vas tu ?";
 		mes "Retourne de là où tu viens !";
 		close;
 	}
-	else if ((questprogress(60343) == 1) && (BaseJob == Job_Thief)){ //Precedente quete fini (training ground)
+	else if ((questprogress(80002) == 1) && (BaseJob == Job_Thief)){ //Precedente quete fini (training ground)
 		//Quete active
 		mes "^50A92C[Pydar]^000000";
 		mes "Bonjour "+strcharinfo(0)+",je m'appelle Pydar et si tu es ici c'est que tu as décidé de rallier la guilde secrète de Midgard, les ^D41B1BThiefs^000000.";
@@ -355,18 +355,18 @@ moc_prydb1,46,135,4	script	Pydar#pyr	4_M_THIEF_RUMIN,{
 		mes "^50A92C[Pydar]^000000";
 		mes "Suis le chemin des ombres et trouve ^0000FFVenem^000000 pour commencer ta quête.";
 		mes "Que Loki et Hel te garde et te montre le chemin à prendre.";
-		setquest 60347; //Active la quete pour aller voir X pour passer sa classe dans alt+u
-		completequest 60343; //Quête Destinée terminée, aller voir l'intendant
+		setquest 80080; //Active la quete pour aller voir X pour passer sa classe dans alt+u
+		completequest 80002; //Quête Destinée terminée, aller voir l'intendant
 		dispbottom "Vous avez complété une quête";
 		getexp 20000,0; //Donne de l'xp a la fin de la quete 
 		dispbottom "Vous avez gagné 20,000 Xp Base";
 		dispbottom "Vous avez reçus une nouvelle quête";
 		close;
 		OnInit: //Initialisation de la prochaine quete
-			questinfo 60347, QTYPE_QUEST, 0;
+			questinfo 80080, QTYPE_QUEST, 0;
 		end;	
 	}
-	else if (questprogress(60347) == 1){ //Quete 60344 lancee
+	else if (questprogress(80080) == 1){ //Quete 80080 lancee
         mes "^50A92C[Pydar]^000000";
         mes "Qu'attends-tu ? Retrouve ^0000FFVenem^000000 !";
         close;
@@ -390,13 +390,13 @@ moc_prydb1,46,135,4	script	Pydar#pyr	4_M_THIEF_RUMIN,{
 //////////////////////////////////////
 
 payon_in02,60,70,3	script	Feleon#payon_in02	4_M_FARIY_HISIE,{
-	if ((questprogress(60343) == 2) && (BaseJob == Job_Archer)){
+	if ((questprogress(80002) == 2) && (BaseJob == Job_Archer)){
 		mes "^50A92C[Feleon]^000000";
 		mes "Bonjour "+strcharinfo(0)+", comment vas-tu ?";
 		mes "Bonne chance à toi jeune pousse ! Et puisse la Déesse te protéger.";
 		close;
 	}
-	else if ((questprogress(60343) == 1) && (BaseJob == Job_Archer)){ 
+	else if ((questprogress(80002) == 1) && (BaseJob == Job_Archer)){ 
 		mes "^50A92C[Feleon]^000000";
 		mes "Salutation "+strcharinfo(0)+", serais-tu venu ici dans le but de communier avec mère Nature ?";
 		mes "Si c’est le cas, tu es au bon endroit petit bourgeon.";
@@ -426,18 +426,18 @@ payon_in02,60,70,3	script	Feleon#payon_in02	4_M_FARIY_HISIE,{
 		mes"Enfin … Il est grand temps pour toi d’ouvrir tes ailes et t’envoler voir ^0000FFFohenn^000000 pour commencer ta communion avec la nature."; 
 		mes "Trouve-le et épanoui toi petit scarabée.";
 		mes "Que Nerthus t’inonde de sa bienveillance et de sa bonté.« Arc Lointain !!! »";
-		setquest 60348; 
-		completequest 60343;		
+		setquest 80100; 
+		completequest 80002;		
 		getexp 20000,0;
 		dispbottom "Vous avez complété une quête"; 
 		dispbottom "Vous avez gagné 20,000 Xp Base";
 		dispbottom "Vous avez reçu une nouvelle quête";
 		close;
 		OnInit: 
-			questinfo 60348, QTYPE_QUEST, 0;
+			questinfo 80100, QTYPE_QUEST, 0;
 		end;	
 	}
-	else if (questprogress(60348) == 1){ 
+	else if (questprogress(80100) == 1){ 
         mes "^50A92C[Feleon]^000000";
         mes "Cours, chante, vole jusqu'à ^0000FFFohenn^000000 jeune pousse!";
         close;
@@ -472,15 +472,14 @@ payon_in02,60,70,3	script	Feleon#payon_in02	4_M_FARIY_HISIE,{
 //=Culvert=//
 
 izlude_in,115,164,1	script	Belior#iz	4_M_EDEN_GUARDER,{
-	if ((questprogress(60343) == 1) && (BaseJob == Job_Swordman)){ //Avoir fini la quete avant (training ground)
+	if ((questprogress(80002) == 1) && (BaseJob == Job_Swordman)){ //Avoir fini la quete avant (training ground)
 		//Quete pas encore commence
 		mes "^50A92C[Belior]^000000";
 		mes "Tu devrais commencer par allé voir ^0000FFAmorl^000000.";
 		mes "Suis ton propre destin !";
 		close;
 	}
-	
-		else if	(questprogress(60344) == 1){ //Quête de Armol en cours
+		else if	(questprogress(80010) == 1){ //Quête de Armol en cours
 			mes "^0000FF[Belior]^000000";
 			mes "Ah tu tombes bien ! C'est Amorl qui t'envoie c'est ça ?";
 			mes "Il m'avait prévenu de ton arrivée imminente,";
@@ -504,8 +503,8 @@ izlude_in,115,164,1	script	Belior#iz	4_M_EDEN_GUARDER,{
 							mes "Au fait, tiens prend ça, elles te seront surement utiles là bas !";
 							getitem Red_Potion,25;
 							mes "Rapporte-moi 20 Earthworm Peeling, 10 Insect Feeler, 15 Feather pour me prouver ton envie !";
-							setquest 60350; //Activation quête (Culvert)
-							completequest 60344;
+							setquest 80011; //Activation quête (Culvert)
+							completequest 80010;
 							dispbottom "Vous avez complété une quête";
 							dispbottom "Vous avez reçu une nouvelle quête";
 							close;
@@ -522,18 +521,18 @@ izlude_in,115,164,1	script	Belior#iz	4_M_EDEN_GUARDER,{
 					close;
 			}
 		}
-		else if (questprogress(60350) == 1 && (countitem(1055) < 20 || countitem(928) < 10 || countitem(949) < 15)){ //Quête de Culvert en cours mais pas encore les items
+		else if (questprogress(80011) == 1 && (countitem(1055) < 20 || countitem(928) < 10 || countitem(949) < 15)){ //Quête de Culvert en cours mais pas encore les items
 			mes "^0000FF[Belior]^000000";
 			mes "Vous n'avez pas encore rapporté tous les items.";
 			mes "Reviens quand ce sera le cas !";
 			close;
 		}
-		else if (questprogress(60350) == 1 && (countitem(1055) >= 20 && countitem(928) >= 10 && countitem(949) >= 15)){ //Quête de Culvert en cours et tous les items
+		else if (questprogress(80011) == 1 && (countitem(1055) >= 20 && countitem(928) >= 10 && countitem(949) >= 15)){ //Quête de Culvert en cours et tous les items
 			mes "^0000FF[Belior]^000000";
 			mes "Ah ! Amorl ne s'est pas trompé en te recrutant !";
 			mes "Félicitations tu as réussi ta première mission pour le compte de la guilde.";
 			mes "Tout effort mérite récompense ! Tiens prends ceci";
-			completequest 60350; //Quête de culvert terminée
+			completequest 80011; //Quête de culvert terminée
 			getexp 10000,10000;
 			dispbottom "Vous avez gagné 10,000 XpBase et 10,000 XpJob";
 			delitem 1055,20;
@@ -546,26 +545,26 @@ izlude_in,115,164,1	script	Belior#iz	4_M_EDEN_GUARDER,{
 			mes "Notre Capitaine Malerme a perdu son Péco Péco, tu devrais aller la voir pour plus d'informations.";
 			mes "Elle se trouve à Prontera, tu devrais facilement la trouver";
 			mes "Bonne chance et qu'Odin te protège !";
-			setquest 20000; //Activation de la prochaine quête (PecoPeco);
+			setquest 80012; //Activation de la prochaine quête (PecoPeco);
 			dispbottom "Vous avez reçu une nouvelle quête consultée la avec alt+u";
 			close;
 		}
-		else if (questprogress(20000) == 1){ //Quête du PecoPeco Perdu - Obtenue & en cours
+		else if (questprogress(80012) == 1){ //Quête du PecoPeco Perdu - Obtenue & en cours
 			mes "^0000FF[Belior]^000000";
 			mes "Notre Capitaine Marlerme a perdu son Péco Péco, tu devrais vraiment aller la voir.";
 			mes "Tu ne l'as pas encore trouvé à Prontera ?";
 			close;
 		}
-		else if (questprogress(20000) == 2){ //Quête du PecoPeco Perdu - Finie - Activation Quête Colis
+		else if (questprogress(80012) == 2){ //Quête du PecoPeco Perdu - Finie - Activation Quête Colis
 			mes "^0000FF[Belior]^000000";
 			mes "Woah, tu as retrouvé le Péco Péco du capitaine, Super !";
 			mes "Bon, j'ai une autre quête pour toi, j'espère, que tu pourras me donner un coup de main!";
 			mes "Le Sergent Gourt aurait besoin de ton aide. Va le voir, il se trouve dans cette ville.";
-			setquest 60357; //Activation de la prochaine quête (colis)
+			setquest 80013; //Activation de la prochaine quête (colis)
 			dispbottom "Vous avez reçu une nouvelle quête consultez la via alt+u";	
 			close;
 		}
-		else if (questprogress(60357) == 2)){ //Quête Colis - Finie - Activation Quête Cave Payon
+		else if (questprogress(80013) == 2){ //Quête Colis - Finie - Activation Quête Cave Payon
 			mes "^0000FF[Belior]^000000";
 			mes "Tu as réussi à donner le colis à ce que je peux voir.";
 			mes "J'ai une dernière quête pour toi !";
@@ -574,35 +573,35 @@ izlude_in,115,164,1	script	Belior#iz	4_M_EDEN_GUARDER,{
 			mes "^0000FF[Belior]^000000";
 			mes "Et malgré les efforts des Acolytes, ils n'arrivent pas à faire baisser leur population.";
 			mes "Je te demande donc d'aller voir Sayron du côté de Payon Cave, il t'en parlera mieux que moi.";
-			setquest 20001; //Activation de la prochaine quête (Cave Payon)
+			setquest 80014; //Activation de la prochaine quête (Cave Payon)
 			dispbottom "Vous avez reçu une nouvelle quête consultez la via alt+u";
 			close;
 		}
-		else if (questprogress(20001) == 1){ //Quête Payon Cave - Obtenue & en cours
+		else if (questprogress(80014) == 1){ //Quête Payon Cave - Obtenue & en cours
 			mes "^0000FF[Belior]^000000";
 			mes "Sayron t'attend prêt de Payon Cave au Nord de Payon. Il te dira quoi faire !";
 			close;
 		}
-		else if (questprogress(20001) == 2){ //Quête Payon Cave - Finie
+		else if (questprogress(80014) == 2){ //Quête Payon Cave - Finie
 			mes "^0000FF[Belior]^000000";
-			mes "Alors tu as réussi ta mission à ce qu'on m'a rapporté ! Félicitations "+strcharinfo+" tu as réussi ta formation avec moi avec brio !";
+			mes "Alors tu as réussi ta mission à ce qu'on m'a rapporté ! Félicitations "+strcharinfo(0)+" tu as réussi ta formation avec moi avec brio !";
 			mes "Je ne peux plus rien t'apprendre, il faut maintenant que tu aille voir XXXXXXXX pour ta Quête de Bravoure !";
 			mes "A bientôt j'espère !";
 			close;
 		}
 	//Partie Quête Colis Acolyte
-		else if (questprogress(20003) == 1){
+		else if (questprogress(80031) == 1){
 			mes "^0000FF[Belior]^000000";
 			mes "Ah tu dois être l'Acolyte que j'attendais pour ma livraison de matériel !";
 			mes "Tu as fait vite ! Merci beaucoup pour la livraison.";
 			mes "Je te remets ce Voucher pour Soeur Mathilde.";
 			mes "Merci encore !";
-			set alrdytalkbelior == 1;
+			set alrdytalkbelior, 1;
 			getitem 1080,1;
 			delitem 1091,1;
 			close;
 		}
-		else if (questprogress(20003) == 2){
+		else if (questprogress(80031) == 2){
 			mes "^0000FF[Belior]^000000";
 			mes "Merci encore pour cette livraison !";
 			mes "Au plaisir de te revoir !";
@@ -614,24 +613,24 @@ izlude_in,115,164,1	script	Belior#iz	4_M_EDEN_GUARDER,{
 		close;
 	}
 	OnInit:
-		questinfo 60350, QTYPE_QUEST, 0; //Quête Culvert
-		questinfo 20000, QTYPE_QUEST, 0; //Quête PecoPeco
-		questinfo 60357, QTYPE_QUEST, 0; //Quête Colis
-		questinfo 20001, QTYPE_QUEST, 0; //Quête Payon Cave
-		questinfo 20002, QTYPE_QUEST, 0; //Quête Hunting Payon Cave
+		questinfo 80011, QTYPE_QUEST, 0; //Quête Culvert
+		questinfo 80012, QTYPE_QUEST, 0; //Quête PecoPeco
+		questinfo 80013, QTYPE_QUEST, 0; //Quête Colis
+		questinfo 80014, QTYPE_QUEST, 0; //Quête Payon Cave
+		questinfo 80015, QTYPE_QUEST, 0; //Quête Hunting Payon Cave
 	end;	
 }
 
-//=Quête Peco Peco=//
+//=Quête Peco Peco & Colis=//
 
 prontera,164,182,3	script	Capitaine Malerme#prt	4_F_JOB_KNIGHT,{
-	if ((questprogress(20000) == -1) && (BaseJob == Job_Swordman)){ //Avoir fini la quete avant (Culvert)
+	if ((questprogress(80012) == -1) && (BaseJob == Job_Swordman)){ //Avoir fini la quete avant (Culvert)
 		mes "^0000FF[Capitaine Malerme]^000000";
 		mes "Tien, que fais tu ici ? On ne m'a pas parlé de ton arrivée ?";
 		mes "Tu devrais aller voir du côté de ton formateur dans ces cas-là.";
 		close;
 	}
-		else if	(questprogress(20000) == 1){ //Quête de Belior en cours
+		else if	(questprogress(80012) == 1){ //Quête de Belior en cours
 			mes "^0000FF[Capitaine Malerme]^000000";
 			mes "Excusez moi vous n'auriez pas vu mon Péco Péco ?";
 			mes "Il s'est enfui tout à l'heure après un bruit étrange près du Temple Caché de Prontera";
@@ -642,7 +641,7 @@ prontera,164,182,3	script	Capitaine Malerme#prt	4_F_JOB_KNIGHT,{
 			mes "*Se met à pleurer";
 			mes "Nous nous connaissons depuis le moment où je suis passée Knight !";
 			next;
-			switch(select("Mais ne pleurer pas, je vais aller le chercher","Désolé je n'ai pas le temps de vous aider");
+			switch(select("Mais ne pleurer pas, je vais aller le chercher","Désolé je n'ai pas le temps de vous aider")){
 				case 1:
 					mes "^0000FF[Capitaine Malerme]^000000";
 					mes "C'est vrai ? Vous allez vraiment m'aider ?";
@@ -651,7 +650,7 @@ prontera,164,182,3	script	Capitaine Malerme#prt	4_F_JOB_KNIGHT,{
 					mes "^0000FF[Capitaine Malerme]^000000";
 					mes "La dernière fois que je l'ai vu, il partait en direction du Temple Caché de Prontera,";
 					mes "Tu devrais commencer tes recherches par là-bas je pense";
-					set alrdytalkcapitaine == 1;
+					set alrdytalkcapitaine, 1;
 					close;
 				case 2:
 					mes "^0000FF[Capitaine Malerme]^000000";
@@ -659,21 +658,23 @@ prontera,164,182,3	script	Capitaine Malerme#prt	4_F_JOB_KNIGHT,{
 					mes "Sache que je suis Capitaine, je remonterai ton refus à tes supérieurs !";
 					close;
 			}
-			else if (questprogress(20000) == 1 && (countitem(7101) < 1 || countitem(7154) < 1)){ //Quête du Péco non finie
-				mes "^0000FF[Capitaine Malerme]^000000";
-				mes "Alors ? Tu l'as retrouvé ?";
-				mes "Il doit se trouver au Nord de Prontera";
-				close;
-			else if (questprogress(20000) == 1 && countitem(7101) >= 1 && countitem(7154) >= 1){ //Quête du Péco terminée + Péco retrouvé
-				mes "^0000FF[Capitaine Malerme]^000000";
-				mes "Oh ! Tu as retrouvé mon Péco Péco ?!";
-				mes "Qu...Quoi ? Tu l'as retrouvé agonisant ..?!";
-				mes "Ce n'est pas vrai ! C'est pas possible !";
-				mes "*Vous lui tendez les preuves*";
-				mes "Oh mon dieu... ! C'est bien une de ses plumes ..!";
-				mes "Et du poison ? Ce poison ? Tu es sur ?";
-				next;
-				switch(select("Oui, j'en suis sur"){
+		}
+		else if (questprogress(80012) == 1 && (countitem(7101) < 1 || countitem(7154) < 1)){ //Quête du Péco non finie
+			mes "^0000FF[Capitaine Malerme]^000000";
+			mes "Alors ? Tu l'as retrouvé ?";
+			mes "Il doit se trouver au Nord de Prontera";
+			close;
+			}
+		else if (questprogress(80012) == 1 && countitem(7101) >= 1 && countitem(7154) >= 1){ //Quête du Péco terminée + Péco retrouvé
+			mes "^0000FF[Capitaine Malerme]^000000";
+			mes "Oh ! Tu as retrouvé mon Péco Péco ?!";
+			mes "Qu...Quoi ? Tu l'as retrouvé agonisant ..?!";
+			mes "Ce n'est pas vrai ! C'est pas possible !";
+			mes "*Vous lui tendez les preuves*";
+			mes "Oh mon dieu... ! C'est bien une de ses plumes ..!";
+			mes "Et du poison ? Ce poison ? Tu es sur ?";
+			next;
+				switch(select("Oui, j'en suis sur")){
 					case 1:
 					mes "^0000FF[Capitaine Malerme]^000000";
 					mes "Je pourrai reconnaitre ce poison entre mille !";
@@ -683,7 +684,7 @@ prontera,164,182,3	script	Capitaine Malerme#prt	4_F_JOB_KNIGHT,{
 					mes "Mais si ils m'indiquent ces satanés Thiefs, je jure devant Thor que ma vengeance sera terrible !";
 					mes "Peut-être qu'il est encore temps de le sauver ! Tu voudrais bien encore m'aider une dernière fois ?";
 					next;
-					switch(select("Oui","Non"){
+					switch(select("Oui","Non")){
 						case 1:
 							mes "^0000FF[Capitaine Malerme]^000000";
 							mes "Vraiment ? Merci !";
@@ -691,29 +692,30 @@ prontera,164,182,3	script	Capitaine Malerme#prt	4_F_JOB_KNIGHT,{
 							mes "Rends-toi à l'église de Prontera et va parler à Soeur Mathilde, c'est la formatrice des Acolytes,";
 							mes "Dis-lui que tu as besoin du remède pour combattre le poison des Thiefs.";
 							mes "Elle te dira quoi faire !";
-							mes "C'est d'accord ?";next;
+							mes "C'est d'accord ?";
+							next;
 							switch(select("Okay j'ai compris","Euh non vous pouvez répéter?")){
 								case 1:
 									mes "^0000FF[Capitaine Malerme]^000000";
 									mes "Très bien, fonce maintenant pendant qu'il en est encore temps !";
 									mes "Oublie pas, Soeur Mathilde !";
-									set alrdytalkeglise == 1; 
+									set alrdytalkeglise, 1; 
 									close;
 								case 2:
 									mes "^0000FF[Capitaine Malerme]^000000";
 									mes "Bon alors, il faut que tu ailles voir Soeur Mathilde qui se trouve dans l'église de Prontera.";
 									mes "Elle te donnera les informations pour fabriquer ce remède.";
 									mes "Dépêche-toi ! Le temps nous est compté !";
-									set alrdytalkeglise == 1;
+									set alrdytalkeglise, 1;
 									close;
 							}
 						case 2:
 							mes "^0000FF[Capitaine Malerme]^000000";
 							mes "Tu le laisserais mourir ? Très bien ! Sache que je retiendrai cette décision, mais je n'en parlerai guère à tes supérieurs.";
 							mes "Mais si un jour tu as besoin de moi, je me rappellerai de ce jour !";
-							completequest 20000; //Fin de la quête "Retrouver le Péco" car refuse d'aider
+							completequest 80012; //Fin de la quête "Retrouver le Péco" car refuse d'aider
 							dispbottom "Vous avez terminé une quête";
-							Zeny,Zeny+10000;
+							set Zeny,Zeny+10000;
 							getexp 15000,15000;
 							dispbottom "Vous avez gagné 15,000 XpBase et 15,000 XpJob";
 							delitem 7101,1;
@@ -722,28 +724,28 @@ prontera,164,182,3	script	Capitaine Malerme#prt	4_F_JOB_KNIGHT,{
 					}				
 				}
 			}
-				else if (questprogress(20000) == 1 && alrdytalksoeurmathilde == 1){ //Quête péco après discussion avec Soeur Mathilde
-					mes "^0000FF[Capitaine Malerme]^000000";
-					mes "Tu as le remède c'est bon ?";
-					mes "Très bien, maintenant cours voir mon ^0000FFPéco Péco^000000 et injecte-lui l'antidote !";
-					mes "Je te donne une potion pour que tu ailles bien plus vite !";
-					set alrdytalkantidote == 1; //Discussion avec Capitaine Malerme après avoir parlé à Soeur Mathilde activée
-					sc_start 12,140000,5;
-					skilleffect 29,0;
-					close;
-				}
-				else if (questprogress(20000) == 1 && alrdytalkeglise == 1){ //Quête péco avant discussion avec Soeur Mathilde
-					mes "^0000FF[Capitaine Malerme]^000000";
-					mes "Qu'est-ce que tu attends ? Fonce voir Soeur Mathilde pour faire l'antidote !";
-					mes "Sinon il va être trop tard !";
-					close;
-				}
-				else if (questprogress(20000) == 1 && alrdytalkpecoantidote == 1){ //Quête péco après avoir donné l'antidote
-					mes "^0000FF[Capitaine Malerme]^000000";
-					mes "C'est bon? C'est vrai tu as réussi à le soigner à temps ?";
-					mes "Il va s'en tirer ?";
-					next;
-					switch(select"Oui mais il ne peut pas encore bouger"){
+			else if (questprogress(80012) == 1 && alrdytalksoeurmathilde == 1){ //Quête péco après discussion avec Soeur Mathilde
+				mes "^0000FF[Capitaine Malerme]^000000";
+				mes "Tu as le remède c'est bon ?";
+				mes "Très bien, maintenant cours voir mon ^0000FFPéco Péco^000000 et injecte-lui l'antidote !";
+				mes "Je te donne une potion pour que tu ailles bien plus vite !";
+				set alrdytalkantidote, 1; //Discussion avec Capitaine Malerme après avoir parlé à Soeur Mathilde activée
+				sc_start 12,140000,5;
+				skilleffect 29,0;
+				close;
+			}
+			else if (questprogress(80012) == 1 && alrdytalkeglise == 1){ //Quête péco avant discussion avec Soeur Mathilde
+				mes "^0000FF[Capitaine Malerme]^000000";
+				mes "Qu'est-ce que tu attends ? Fonce voir Soeur Mathilde pour faire l'antidote !";
+				mes "Sinon il va être trop tard !";
+				close;
+			}
+			else if (questprogress(80012) == 1 && alrdytalkpecoantidote == 1){ //Quête péco après avoir donné l'antidote
+				mes "^0000FF[Capitaine Malerme]^000000";
+				mes "C'est bon? C'est vrai tu as réussi à le soigner à temps ?";
+				mes "Il va s'en tirer ?";
+				next;
+					switch(select("Oui mais il ne peut pas encore bouger")){
 						case 1:
 								mes "^0000FF[Capitaine Malerme]^000000";
 								mes "D'accord, mais c'est déjà extraordinaire qu'il ait réussi à survivre autant de temps.";
@@ -751,13 +753,13 @@ prontera,164,182,3	script	Capitaine Malerme#prt	4_F_JOB_KNIGHT,{
 								mes "La liberté doit lui être donnée maintenant même si ça me rend triste...";
 								mes "Au fait comment tu t'appelles?";
 								next;
-								switch(select(""+strcharinfo+"")){
+								switch(select(""+strcharinfo(0)+"")){
 									case 1:
 									mes "^0000FF[Capitaine Malerme]^000000";
-									mes ""+strcharinfo+" ?? Oh mais attend, tu es alors le jeune Swordman très prometteur dont toute la guilde parle !";
+									mes ""+strcharinfo(0)+" ?? Oh mais attend, tu es alors le jeune Swordman très prometteur dont toute la guilde parle !";
 									mes "Continu comme ça et tu deviendras un grand champion au sein de notre guilde !";
 									mes "Au fait tu mérites bien quelques choses après t'être donné tant de mal!";
-									Zeny,Zeny+20000;
+									set Zeny,Zeny+80012;
 									getitem 2405,1;
 									getexp 20000,20000;
 									delitem 7101,1;
@@ -767,16 +769,16 @@ prontera,164,182,3	script	Capitaine Malerme#prt	4_F_JOB_KNIGHT,{
 									mes "^0000FF[Capitaine Malerme]^000000";
 									mes "Tu devrais retourner voir ton formateur, ^0000FFBelior^000000, il doit surement avoir autre chose à te faire faire.";
 									mes "Mes amitiés, chère camarade!";
-									completequest 20000; //Fin de la quête "Retrouver le Péco Péco"
+									completequest 80012; //Fin de la quête "Retrouver le Péco Péco"
 									dispbottom "Vous avez complété une quête";
 									close;
 								}
 								
 					}
-				}
-			else if (questprogress(20000) == 2){ //Quête Péco fini
+			}
+			else if (questprogress(80012) == 2){ //Quête Péco fini
 				mes "^0000FF[Capitaine Malerme]^000000";
-				mes "Encore merci de m'avoir aidé "+strcharinfo+"";
+				mes "Encore merci de m'avoir aidé "+strcharinfo(0)+"";
 				mes "Je suis ravi qu'on arrive à former des jeunes avec un courage comme le tien !";
 				mes "Va voir ^0000FFBélior^000000 maintenant, il doit t'attendre !";
 				close;
@@ -790,7 +792,7 @@ prontera,164,182,3	script	Capitaine Malerme#prt	4_F_JOB_KNIGHT,{
 }
 
 prt_maze01,96,182,2	script	Péco Péco#prt_mz	4_PECOPECO,{
-	if (questprogress(20000) == 1 && alrdytalkcapitaine == 1){ //Quête Péco après discussion avec Capitaine
+	if (questprogress(80012) == 1 && alrdytalkcapitaine == 1){ //Quête Péco après discussion avec Capitaine
 		mes "[^0000FFPeco Peco^000000]";
 		mes "...Peco.....Peco";
 		mes "Peco..........Peco.......Peco";
@@ -798,10 +800,10 @@ prt_maze01,96,182,2	script	Péco Péco#prt_mz	4_PECOPECO,{
 		mes "...Capitaine Malerme... Péco";
 		mes "*Le Peco Peco lâche son dernier souffle";
 		next;
-		mes "[^0000FF"+strcharinfo+"^000000]"
-		mes "Oh mon dieu..."
+		mes "[^0000FF"+strcharinfo(0)+"^000000]";
+		mes "Oh mon dieu...";
 		next;
-		mes "Inspecter l'animal ?"
+		mes "Inspecter l'animal ?";
 		switch(select("Oui","Non")){
 			case 1:
 				mes "[^0000FFPeco Peco^000000]";
@@ -812,7 +814,7 @@ prt_maze01,96,182,2	script	Péco Péco#prt_mz	4_PECOPECO,{
 				mes "*Vous repartez voir la Capitaine Malerme en prenant avec vous quelques indices*";
 				getitem 7101,1; //Indices
 				getitem 7154,1; //Indices
-				set alrdytalkpeco == 1;
+				set alrdytalkpeco, 1;
 				close;
 			case 2:
 				mes "[^0000FFPeco Peco^000000]";
@@ -821,33 +823,33 @@ prt_maze01,96,182,2	script	Péco Péco#prt_mz	4_PECOPECO,{
 		}
 		
 	}
-			else if (questprogress(20000) == 1 && alrdytalkantidote == 1){ //Quête Péco après avoir récupéré antidote
-				mes "["+strcharinfo+"]";
+			else if (questprogress(80012) == 1 && alrdytalkantidote == 1){ //Quête Péco après avoir récupéré antidote
+				mes "["+strcharinfo(0)+"]";
 				mes "*Vous injectez l'antidote*";
 				mes "*Le Péco Péco rouvre les yeux lentement*";
 				mes "Il a l'air de se stabiliser, je pense qu'il est tiré d'affaire.";
-				set alrdytalkpecoantidote == 1; //Discussion avec Péco après injection antidote ativé
+				set alrdytalkpecoantidote, 1; //Discussion avec Péco après injection antidote ativé
 				delitem 525,1;
 				close;
 			}
-			else if (questprogress(20000) == 1 && alrdytalksoeurmathilde == 1){ //Quête Péco après discussion avec Soeur Mathilde mais pas avec Capitaine Malerme
-				mes "["+strcharinfo+"]";
+			else if (questprogress(80012) == 1 && alrdytalksoeurmathilde == 1){ //Quête Péco après discussion avec Soeur Mathilde mais pas avec Capitaine Malerme
+				mes "["+strcharinfo(0)+"]";
 				mes "Je devrais peut-être allé voir d'abord Capitaine Malerme";
 				close;
 			}
-			else if (questprogress(20000) == 1 && alrdytalkpeco == 1){ //Quête Péco après discussion avec le Péco après indices
-				mes "["+strcharinfo+"]";
+			else if (questprogress(80012) == 1 && alrdytalkpeco == 1){ //Quête Péco après discussion avec le Péco après indices
+				mes "["+strcharinfo(0)+"]";
 				mes "Je devrais retourner voir le capitaine pour lui apporter ces indices";
 				close;
 			}
-		else if (questprogress(20000) == 2){ //Quête Péco fini
+		else if (questprogress(80012) == 2){ //Quête Péco fini
 			mes "[^0000FFPeco Peco^000000]";
 			mes ".................";
 			mes "Ce Peco Peco va vraiment mieux aujourd'hui !";
-			mes "Grâce à Soeur Mathilde et à la Capitaine Malerme, j'ai pu l'aidé !"
+			mes "Grâce à Soeur Mathilde et à la Capitaine Malerme, j'ai pu l'aidé !";
 			close;
 		}
-		else if (questprogress(20000) == -1 && BaseJob == Job_Swordman){ //Quête Péco pas commencé et Job Swordman
+		else if (questprogress(80012) == -1 && BaseJob == Job_Swordman){ //Quête Péco pas commencé et Job Swordman
 			mes "[^0000FFPeco Peco^000000]";
 			mes "Ce peco peco semble appartenir à un Capitaine, nous pouvons voir son insigne dessus";
 			close;
@@ -864,28 +866,28 @@ prt_maze01,96,182,2	script	Péco Péco#prt_mz	4_PECOPECO,{
 //=Quête Colis=//
 
 izlude,157,137,2	script	Sergent Gourt#iz	4_M_KNIGHT_SILVER,{
-	if ((questprogress(60357) == -1) && (BaseJob == Job_Swordman)){ //Avoir fini quête Peco
+	if ((questprogress(80013) == -1) && (BaseJob == Job_Swordman)){ //Avoir fini quête Peco
 		mes "[^0000FFSergent Gourt^000000]";
-		mes "Bonjour "+strcharinfo+"";
+		mes "Bonjour "+strcharinfo(0)+"";
 		mes "C'est donc toi la jeune recrue ! On m'a beaucoup parlé de toi !";
 		mes "Continu comme ça et l'avenir te sera radieux !";
 		close;
 	}
-		else if (questprogress(60357) == 1){ //Quête Colis Activée
+		else if (questprogress(80013) == 1){ //Quête Colis Activée
 			mes "[^0000FFSergent Gourt^000000]";
-			mes "Bonjour "+strcharinfo+"";
+			mes "Bonjour "+strcharinfo(0)+"";
 			mes "J'ai une livraison à effectuer, mais malheureusement je n'ai pas le temps en ce moment et c'est un colis important";
 			mes "pour la Guilde des Acolytes. Ils en ont besoin pour l'une de leurs offrandes à Odin !";
 			mes "Pourrais-tu livrer à ma place ?";
 			next;
-			switch (select("Je suis volontaire !","Je suis occupé désolé Sergent"){
+			switch (select("Je suis volontaire !","Je suis occupé désolé Sergent")){
 				case 1:
 					mes "[^0000FFSergent Gourt^000000]";
 					mes "Merci beaucoup, tu me sauves la vie, car sinon notre chef m'aurait passé un savon !";
 					mes "Je t'explique donc ta mission, tu dois livrer ce colis au Père Vault qui se trouve dans un field près de Prontera.";
 					mes "Il y étudie le comportement de group sur les Yoyos";
 					getitem 1091,1;
-					set alrdytalksergentgourt == 1;
+					set alrdytalksergentgourt, 1;
 					mes "Allez fonce lui livrer !";
 					close;
 				case 2:
@@ -894,20 +896,20 @@ izlude,157,137,2	script	Sergent Gourt#iz	4_M_KNIGHT_SILVER,{
 					close;
 			}
 		}
-		else if (questprogress(60357) == 1 && alrdytalkperevault == 0){ //Quête Colis sans avoir parlé au Père Vault
+		else if (questprogress(80013) == 1 && alrdytalkperevault == 0){ //Quête Colis sans avoir parlé au Père Vault
 			mes "[^0000FFSergent Gourt^000000]";
 			mes "Allez, va parler au Père Vault, il attend son colis.";
 			mes "Il se trouve à l'Ouest de Prontera, il étudie les Yoyos";
 			close;
 		}
-		else if (questprogress(60357) == 1 && alrdytalkperevault == 1){ //Quête Colis après avoir parlé au Père Vault
+		else if (questprogress(80013) == 1 && alrdytalkperevault == 1){ //Quête Colis après avoir parlé au Père Vault
 			mes "[^0000FFSergent Gourt^000000]";
 			mes "Tu as réussi à le trouver et à lui livrer le colis ?";
 			mes "Super ! Merci énormément ! Notre chef va être content !";
-			netx;
+			next;
 			mes "[^0000FFSergent Gourt^000000]";
 			mes "Tien pour te remercier d'avoir fait cette course pour moi :";
-			Zeny,Zeny+10000;
+			set Zeny,Zeny+10000;
 			getitem 2505,1;
 			getexp 15000,15000;
 			dispbottom "Vous avez gagné 15,000 XpBase et 15,000 XpJob";
@@ -917,7 +919,7 @@ izlude,157,137,2	script	Sergent Gourt#iz	4_M_KNIGHT_SILVER,{
 			mes "Retourne voir Bélior pour lui faire savoir que tu m'as aidé.";
 			close;
 		}
-		else if (questprogress(60357) == 2){ //Quête Colis Fini
+		else if (questprogress(80013) == 2){ //Quête Colis Fini
 			mes "[^0000FFSergent Gourt^000000]";
 			mes "Encore merci pour la livraison, retourne voir Bélior pour lui dire que la mission est achevée.";
 			close;
@@ -931,17 +933,17 @@ izlude,157,137,2	script	Sergent Gourt#iz	4_M_KNIGHT_SILVER,{
 }
 
 prt_fild03,305,51,7	script	Père Vault#prt_fild	4_M_RACHOLD1,{
-	if (questprogress(60357) == 1 && alrdytalksergentgourt == 1 && countitem(1091) == 1){ //Quête Colis activé - Avoir parlé au Sergent - Item Colis
+	if (questprogress(80013) == 1 && alrdytalksergentgourt == 1 && countitem(1091) == 1){ //Quête Colis activé - Avoir parlé au Sergent - Item Colis
 		mes "[^0000FFPère Vault^000000]";
 		mes "Ah ! Vous êtes le Sergent Gourt ?! Il forme vraiment très jeune les Swordmans de nos jours !";
 		mes "Bientôt les Colonels seront Knights";
 		next;
-		switch(select("Mon Père je ne suis pas Sergent"){
+		switch(select("Mon Père je ne suis pas Sergent")){
 			case 1:
 				mes "[^0000FFSergent Gourt^000000]";
 				mes "Vous n'êtes pas le Sergent Gourt ? Alors qui êtes-vous ?";
 				next;
-				switch(select("Je viens de la part du Sergent Gourt"){
+				switch(select("Je viens de la part du Sergent Gourt")){
 					case 1:
 						mes "[^0000FFSergent Gourt^000000]";
 						mes "Ah oui d'accord, il n'avait surement pas le temps, c'est pour ça qu'il vous a demandé de livrer à sa place.";
@@ -950,28 +952,28 @@ prt_fild03,305,51,7	script	Père Vault#prt_fild	4_M_RACHOLD1,{
 						mes "[^0000FFSergent Gourt^000000]";
 						mes "Avez-vous donc mon colis jeune Swordman ?";
 						next;
-						switch(select("Oui bien sûr !"){
+						switch(select("Oui bien sûr !")){
 							case 1:
 								mes "[^0000FFSergent Gourt^000000]";
 								mes "Fantastique ! Merci beaucoup de vous être déplacé.";
 								mes "Je vous remets le reçu pour votre Sergent.";
 								getitem 1080,1;
 								delitem 1091,1;
-								set alrdytalkperevault == 1;
+								set alrdytalkperevault, 1;
 								close;
 						}
 				}
 		}
 	}
-		else if ((questprogress(60357) == 1 && alrdytalksergentgourt == 0) || (questprogress(60357) == 1 && countitem(1091) == 1)){ //Quête Colis activée et ne pas avoir parlé au Sergent OU Quête Colis activée et avoir l'item colis
+		else if ((questprogress(80013) == 1 && alrdytalksergentgourt == 0) || (questprogress(80013) == 1 && countitem(1091) == 1)){ //Quête Colis activée et ne pas avoir parlé au Sergent OU Quête Colis activée et avoir l'item colis
 			mes "[^0000FFSergent Gourt^000000]";
 			mes "Que fais-tu ici ? J'attends mon colis de la part du Sergent Gourt ! J'espère qu'il ne va pas tarder !";
 			close;
 		}
-		else if (questprogress(60357) == 2){ //Quête Colis Finie
+		else if (questprogress(80013) == 2){ //Quête Colis Finie
 			mes "[^0000FFSergent Gourt^000000]";
 			mes "Merci encore pour le colis, grâce à toi je peux continuer à étudier les Yoyos";
-			cose;
+			close;
 		}
 	else{
 		mes "[^0000FFSergent Gourt^000000]";
@@ -983,12 +985,12 @@ prt_fild03,305,51,7	script	Père Vault#prt_fild	4_M_RACHOLD1,{
 //=Quête Payon Cave=//
 
 pay_arche,37,136,4	script	Sayron	4_M_BARMUND,{
-	if (questprogress(20001) == -1 && BaseJob == Job_Swordman){ //Quête Colis non fini
+	if (questprogress(80014) == -1 && BaseJob == Job_Swordman){ //Quête Colis non fini
 		mes "^0000FF[Sayron]^000000";
 		mes "J'aurai vraiment besoin d'aide pas ici ! Que fais Belior pour m'envoyer de nouvelles recrues !";
 		close;
 	}
-		else if (questprogress(20001) == 1){ //Quête Payon Cave Activée
+		else if (questprogress(80014) == 1){ //Quête Payon Cave Activée
 			mes "^0000FF[Sayron]^000000";
 			mes "Ah ! Enfin une nouvelle recrue ! J'en attendais depuis longtemps !";
 			mes "J'ai une mission pour toi, Belior a déjà dû t'en parler un peu mais je vais quand même résumé.";
@@ -997,20 +999,20 @@ pay_arche,37,136,4	script	Sayron	4_M_BARMUND,{
 			mes "Ces pauvres personnes sont submergées et comme ce sont nos alliés, nous allons les aider !";
 			mes "Ta mission sera de tuer 20x Soldier Skeleton et 15x Archer Skeleton ! Tu les trouveras au second niveau de ce donjon.";
 			mes "As-tu bien compris ta mission ?";
-			switch(select("Oui monsieur"){
+			switch(select("Oui monsieur")){
 				case 1:
 					mes "^0000FF[Sayron]^000000";
 					mes "Ah ! En voila un qui comprend vite ! J'aime ça ! Allez va me détruire ces monstres répugnants !";
-					setquest 20002;
+					setquest 80015;
 					dispbottom "Vous avez reçu une nouvelle quête consultez la via alt+u";
 					close;
 			}
 		}
-	if (questprogress(20002) == 1){	
-		if (questprogress(20002,HUNTING) !=2){ //Quête Hunting - Obtenue & en cours)
+	if (questprogress(80015) == 1){	
+		if (questprogress(80015,HUNTING) !=2){ //Quête Hunting - Obtenue & en cours)
 			mes "^0000FF[Sayron]^000000";
 			mes "Tu as déjà fini ta quête ?";
-			switch(select("Oui","Non"){
+			switch(select("Oui","Non")){
 				case 1:
 					mes "^0000FF[Sayron]^000000";
 					mes "Hmmm je ne crois pas que tu es fini. Il te manque des montres !";
@@ -1027,43 +1029,42 @@ pay_arche,37,136,4	script	Sayron	4_M_BARMUND,{
 			mes "Tien pour te récompenser";
 			getexp 25000,25000;
 			dispbottom "Vous avez gagné 25,000 XpBase et 25,000 XpJob";
-			completequest 20002;
+			completequest 80015;
 			next;
 			mes "^0000FF[Sayron]^000000";
 			mes "Retourne vois Belior pour lui dire que le travail est terminé ici.";
 			mes "Bonne continuation jeune aventurier !";
-			completequest 20001;
+			completequest 80014;
 			dispbottom "Vous avez terminé une quête";
 			close;
 		}
 	}
-	else if (questprogress(20002) == 2 || questprogress(20001) == 2){
+	else if (questprogress(80015) == 2 || questprogress(80014) == 2){
 		mes "^0000FF[Sayron]^000000";
 		mes "Merci encore de m'avoir aider jeune aventurier !";
 		mes "Au plaisir de vous revoir !";
 		close;
 	}
 }
-
 ///////////////////ACOLYTE QUEST///////////////////
 
-prt_church,183,15,1	script	Soeur Mathilde#prt_church	4_F_MADAME,{
-	if (questprogress(60347) == -1 && BaseJob == Job_Acolyte){ //Quête Training Groudn Non Active
+prt_church,183,15,1	script	Soeur Mathilde#prt_ch	4_F_MADAME,{
+	if (questprogress(80030) == -1 && BaseJob == Job_Acolyte){ //Quête Training Groudn Non Active
 		mes "[^0000FFSoeur Mathilde^000000]";
 		mes "Bonjour mon enfant, bienvenue dans la maison de Dieu,";
 		mes "Tu devrais aller voir Père Shawn qui se trouve dans cette église et reviens me voir après.";
-		mes "Peu importe ce que vous chercher, j'espère que vous le trouverez ici."
+		mes "Peu importe ce que vous chercher, j'espère que vous le trouverez ici.";
 		close;
 	}
-		else if (questprogress(60347) == 1){ //Quête Training Groudn Active
+		else if (questprogress(80002) == 1){ //Quête Training Groudn Active
 			mes "[^0000FFSoeur Mathilde^000000]";
-			mes "Bonjour "+strcharinfo+", Dieu m'a parlé de ta venu en notre église. Je vais t'aider à continuer ta formation au sein du clergé.";
+			mes "Bonjour "+strcharinfo(0)+", Dieu m'a parlé de ta venu en notre église. Je vais t'aider à continuer ta formation au sein du clergé.";
 			mes "Pour ce faire tu devras effectuer quelques missions au sein de notre église pour prouver ta valeur.";
 			mes "Ce parcours n'est pas de tout repos, tu devras te fier entièrement à Dieu et à aider ton prochain.";
 			next;
 			mes "[^0000FFSoeur Mathilde^000000]";
 			mes "En es-tu capable ?";
-			switch(select("Oui ma soeur","Je vais encore y réfléchir"){
+			switch(select("Oui ma soeur","Je vais encore y réfléchir")){
 				case 1:
 					mes "[^0000FFSoeur Mathilde^000000]";
 					mes "J'en suis ravi ! Je vais donc continuer ta formation et te donner les armes pour réussir tes quêtes dans ce monde.";
@@ -1073,14 +1074,14 @@ prt_church,183,15,1	script	Soeur Mathilde#prt_church	4_F_MADAME,{
 					mes "[^0000FFSoeur Mathilde^000000]";
 					mes "Le colis est à livrer à Belior, c'est le formateur des Swordmans, il a besoin de ce matériel pour former les jeunes recrues.";
 					mes "As-tu comprit ?";
-					switch(select("Oui j'ai bien compris"){
+					switch(select("Oui j'ai bien compris")){
 						case 1:
 							mes "[^0000FFSoeur Mathilde^000000]";
 							mes "Parfait ! Tu comprends les attentes très rapidemment !";
 							mes "N'oublie pas, le colis doit être livrer à Belior, le formateur des Swordmans, il se trouveà Izlude.";
-							mes "Bonne chance "+strcharinfo+", que Dieu guide tes pas.";
-							setquest 20003; //Activation Quête Colis
-							completequest 60347; //Désactivation Quête Training Ground
+							mes "Bonne chance "+strcharinfo(0)+", que Dieu guide tes pas.";
+							setquest 80031; //Activation Quête Colis
+							completequest 80080; //Désactivation Quête Training Ground
 							getitem 1091,1; //Donnation du colis
 							dispbottom "Vous avez complété une quête";
 							dispbottom "Vous avez reçu une nouvelle quête consultez la via alt+u";
@@ -1092,23 +1093,23 @@ prt_church,183,15,1	script	Soeur Mathilde#prt_church	4_F_MADAME,{
 					close;
 			}
 		}
-		else if (questprogress(20003) == 1 && alrdytalkbelior == 0){ //Quête Colis - Non Finie - Pas Parlé A Belior
+		else if (questprogress(80031) == 1 && alrdytalkbelior == 0){ //Quête Colis - Non Finie - Pas Parlé A Belior
 			mes "[^0000FFSoeur Mathilde^000000]";
 			mes "Tu dois aller livrer le colis à Belior qui se trouve à Izlude. C'est le formateur des Swordmans tu ne peux pas te tromper.";
 			mes "Aller dépêche toi !";
 			close;
 		}
-		else if (questprogress(20003) == 1 && alrdytalkbelior == 1){ //Quête Colis - Non Finie - Parlé A Belior
+		else if (questprogress(80031) == 1 && alrdytalkbelior == 1){ //Quête Colis - Non Finie - Parlé A Belior
 			mes "[^0000FFSoeur Mathilde^000000]";
 			mes "Ah tu reviens déjà ? Et en plus tu as déjà livré le colis !";
-			mes "Merci beaucoup "+strcharinfo+" !";
+			mes "Merci beaucoup "+strcharinfo(0)+" !";
 			mes "Tu viens de finir ta première quête félicitations !";
 			mes "Tout travail mérite récompense !";
 			delitem 1080,1; //Retiration du Voucher
 			getexp 15000,15000;
-			get Zeny,Zeny+15000;
+			set Zeny,Zeny+15000;
 			dispbottom "Vous avez gagné 15,000 XpBase, 15,000 XpJob et 15,000 Zénys";
-			completequest 20003; //Quête Colis - Finie
+			completequest 80031; //Quête Colis - Finie
 			dispbottom "Vous avez complété une quête";
 			next;
 			mes "[^0000FFSoeur Mathilde^000000]";
@@ -1121,17 +1122,17 @@ prt_church,183,15,1	script	Soeur Mathilde#prt_church	4_F_MADAME,{
 			mes "Une fois ces informations récupérées, tu devras me prouver que tu auras bien apprit, alors prend bien le temps de lire ce qu'il explique.";
 			mes "Le premier à aller voir est Lapo qui se trouve à XXXX, et ce sera lui qui te dira où se trouvera le prochain. Tu en auras 3 à voir en tout.";
 			mes "Surtout ne perd pas foi pendant cette marche, tu n'en sortiras que plus fort !";
-			setquest 20004; //Activation Quête Pélerinage
+			setquest 80032; //Activation Quête Pélerinage
 			dispbottom "Vous avez reçu une nouvelle quête consultez la via alt+u";
 			close;
 		}
-		else if (questprogress(20004) == 1){
+		else if (questprogress(80032) == 1){
 			mes "[^0000FFSoeur Mathilde^000000]";
 			mes "Commence ton pélerinage, tu dois aller voir le missionaire Lato qui se trouve à ";
 			close;
 		}
 	//Partie Quête Peco Swordman
-		else if (questprogress(20000) == 1 && alrdytalkeglise == 1){ //Quête Péco après avoir parlé pour la 2eme fois au Capitaine Malerme
+		else if (questprogress(80012) == 1 && alrdytalkeglise == 1){ //Quête Péco après avoir parlé pour la 2eme fois au Capitaine Malerme
 			mes "[^0000FFSoeur Mathilde^000000]";
 			mes "Bonjour mon enfant. Que viens-tu faire dans la maison de Dieu ?";
 			switch(select("je viens en urgence de la part du Capitaine Malerme","Je viens pour visiter")){
@@ -1142,7 +1143,7 @@ prt_church,183,15,1	script	Soeur Mathilde#prt_church	4_F_MADAME,{
 					switch(select("Son Péco Péco est mourant et j'ai besoin d'un antidote")){
 						case 1:
 							mes "[^0000FFSoeur Mathilde^000000]";
-							mes "Contre quoi ? Le poison des Thiefs ? Oh mon dieu... Je poserai les questions plus tard."
+							mes "Contre quoi ? Le poison des Thiefs ? Oh mon dieu... Je poserai les questions plus tard.";
 							mes "Il faut faire vite. Le problème c'est que je n'ai pas tous les ingrédients pour fabriquer l'antidote..!";
 							mes "Il faudrait que tu ailles me chercher ces items :";
 							mes " ^0000FF5x Green Herb, 1 Empty Potion Bottle et 1 Alcohol^000000";
@@ -1151,38 +1152,38 @@ prt_church,183,15,1	script	Soeur Mathilde#prt_church	4_F_MADAME,{
 					}
 				case 2:
 					mes "[^0000FFSoeur Mathilde^000000]";
-					mes "Très bien, prend ton temps, tu ne dois pas avoir de mission si tu es ici."
+					mes "Très bien, prend ton temps, tu ne dois pas avoir de mission si tu es ici.";
 					close;
 			}
 		}
-		else if (questprogress(20000) == 1 && countitem(511) >= 5 && countitem(1093) >= 1 && countitem(970) < 1){ //Quête Péco après discussion avec Soeur Mathile et avec objets complet
+		else if (questprogress(80012) == 1 && countitem(511) >= 5 && countitem(1093) >= 1 && countitem(970) < 1){ //Quête Péco après discussion avec Soeur Mathile et avec objets complet
 			mes "[^0000FFSoeur Mathilde^000000]";
 			mes "C'est bon tu as réussi à trouver tous les items !";
-			mes "Parfait, laisse-moi le temps de préparer tout ça !"
+			mes "Parfait, laisse-moi le temps de préparer tout ça !";
 			specialeffect 39,AREA,"Soeur Mathilde#prt_church"; //lance le skill pour créer les holy water
 			next;
 			mes "[^0000FFSoeur Mathilde^000000]";
-			mes "Tiens prend ça, ça devrait suffire !"
+			mes "Tiens prend ça, ça devrait suffire !";
 			mes "Injecte lui par voie orale, retourne voir ^0000FFCapitaine Malerme^000000 au cas où avant.";
 			getitem 525,1;
 			delitem 511,5;
 			delitem 1093,1;
 			delitem 970,1;
-			set alrdytalksoeurmathilde == 1;
+			set alrdytalksoeurmathilde, 1;
 			close;
 		}
-		else if (questprogress(20000) == 1 && (countitem(511) < 5 && countitem(1093) < 1 && countitem(970) < 1){ //Quête Péco après discussion avec Soeur Mathilde et sans objets complet
+		else if (questprogress(80012) == 1 && countitem(511) < 5 && countitem(1093) < 1 && countitem(970) < 1){ //Quête Péco après discussion avec Soeur Mathilde et sans objets complet
 			mes "[^0000FFSoeur Mathilde^000000]";
-			mes "Tu n'as pas tous les objets, il me les faut tous !"
+			mes "Tu n'as pas tous les objets, il me les faut tous !";
 			mes "Je t'attends ici !";
 			close;
 		}
 	//Fin Partie Quête Swordman
 	OnInit:
-		questinfo 20003, QTYPE_QUEST, 0; //Quête Colis
-		questinfo 00000, QTYPE_QUEST, 0; //Quête Pélerinage
-		questinfo 00000, QTYPE_QUEST, 0; //Quête Payon Cave Zombie
-		questinfo 00000, QTYPE_QUEST, 0; //Quête Hunting Payon Cave Zombie ===> A voir si besoin de 2 quêtes
+		questinfo 80031, QTYPE_QUEST, 0; //Quête Colis
+		questinfo 80032, QTYPE_QUEST, 0; //Quête Pélerinage
+		questinfo 80014, QTYPE_QUEST, 0; //Quête Payon Cave Zombie
+		questinfo 80015, QTYPE_QUEST, 0; //Quête Hunting Payon Cave Zombie ===> A voir si besoin de 2 quêtes
 		questinfo 00000, QTYPE_QUEST, 0; //Quête Repentir Assassin
 	end;
 }
@@ -1194,14 +1195,14 @@ prt_church,183,15,1	script	Soeur Mathilde#prt_church	4_F_MADAME,{
 
 // A CORRIGER //
 pay_arche,144,156,1	script	Fohenn#ipayon	4_M_EDEN_GUARDER,{
-	if ((questprogress(60343) == 1) && (BaseJob == Job_Archer)){ //Avoir fini la quete avant (training ground)
+	if ((questprogress(80002) == 1) && (BaseJob == Job_Archer)){ //Avoir fini la quete avant (training ground)
 		//Quete pas encore commence
 		mes "^50A92C[Fohenn]^000000";
 		mes "Tu devrais commencer par aller voir ^0000FFFeleon^000000, petit chêne.";
 		close;
 	}
 	
-		else if	(questprogress(00000) == 1){ //Quête de Feleon
+		else if	(questprogress(80100) == 1){ //Quête de Feleon
 			mes "^0000FF[Fohenn]^000000";
 			mes "Te voici donc prêt à germer petit chêne !";
 			mes "Il est temps pour toi de découvrir la forêt.";
@@ -1228,8 +1229,8 @@ pay_arche,144,156,1	script	Fohenn#ipayon	4_M_EDEN_GUARDER,{
 							mes "Au fait, tiens prend ça, elles te seront surement utiles là bas !";
 							getitem Arrow,200;
 							mes "Rapporte-moi 10 ^0000FFCrystal Blue^000000!";
-							setquest 00000; //Activation quête (Payon_village)
-							completequest 00000; //Quête de Feleon
+							setquest 80101; //Activation quête : Découverte de la forêt
+							completequest 80100; //Quête de Feleon
 							dispbottom "Vous avez complété une quête";
 							dispbottom "Vous avez reçu une nouvelle quête";
 							close;
@@ -1246,20 +1247,20 @@ pay_arche,144,156,1	script	Fohenn#ipayon	4_M_EDEN_GUARDER,{
 					close;
 			}
 		}
-		else if (questprogress(00000) == 1 && countitem(991) < 10){ //Quête de Payon en cours mais pas encore les items
+		else if (questprogress(80101) == 1 && countitem(991) < 10){ //Quête de Payon en cours mais pas encore les items
 			mes "^0000FF[Fohenn]^000000";
 			mes "Vous n'avez pas encore rapporté tous les items.";
 			mes "Revienez quand ce sera le cas !";
 			close;
 		}
-		else if (questprogress(00000) == 1 && countitem(991) >= 10){ //Quête de Payon en cours et tous les items
+		else if (questprogress(80101) == 1 && countitem(991) >= 10){ //Quête de Payon en cours et tous les items
 			mes "^0000FF[Fohenn]^000000";
 			mes "Ah ! Bravo petit chêne !";
 			mes "Félicitations tu as réussi ta première mission pour le compte de la guilde.";
 			mes "Tout effort mérite une récompense ! Je vais te fabriquer des flèches avec les objets que tu m'as apportés, elles te seront utiles pour ta prochaine quête, plus tard tu apprendras à fabriquer tes propres flèches.";
-			completequest 00000; //Quête de Payon terminée
+			completequest 80101; //Quête de Payon terminée
 			delitem 991,10;
-			getitem 1754 1500;
+			getitem 1754, 1500;
 			getexp 20000,10000;
 			dispbottom "Vous avez complété une quête";
 			next;
@@ -1273,8 +1274,8 @@ pay_arche,144,156,1	script	Fohenn#ipayon	4_M_EDEN_GUARDER,{
 					mes "Ah, tu me surprendras toujours jeune chêne!";
 					mes "Bien, dans ce cas règle leur compte à 20 ^0000FFWillow^000000";
 					mes "Tu les trouveras au sud et au sud-ouest du village";
-					mes "Courage petit chêne!"
-					setquest 00000; //Activation de la prochaine quête (?);
+					mes "Courage petit chêne!";
+					setquest 80102; //Activation de la prochaine quête , Preserver la forêt
 					dispbottom "Vous avez reçu une nouvelle quête consultée la avec alt+u";
 					close;
 				case 2:
@@ -1282,19 +1283,19 @@ pay_arche,144,156,1	script	Fohenn#ipayon	4_M_EDEN_GUARDER,{
 					close;
 			}
 		}
-		else if (questprogress(00000,HUNTING) == 1){ //Quête de payon2 - Obtenue & en cours
+		else if (questprogress(80102,HUNTING) == 1){ //Quête de payon2 - Obtenue & en cours
 			mes "^0000FF[Fohenn]^000000";
 			mes "Régle leur compte à 20 ^0000FFWillow^000000.";
 			mes "Et reviens me voir.";
 			mes "Tu les trouveras au sud et au sud-ouest du village";
 			close;
 		}
-		else if (questprogress(00000,HUNTING) == 2){ //Quête de payon2 - Finie
+		else if (questprogress(80102,HUNTING) == 2){ //Quête de payon2 - Finie
 			mes "^0000FF[Fohenn]^000000";
 			mes "Super petit chêne tu as vaincu les monstres !";
 			mes "Bon, j'ai une autre quête pour toi, j'espère, que tu pourras me donner un coup de main!";
 			mes "BLABLABLABLA"	; //Remplacer par phrase avec nom du prochain NPC
-			setquest 00000; //Activation de la prochaine quête 
+			setquest 80103; //Activation de la prochaine quête 
 			dispbottom "Vous avez reçu une nouvelle quête consultée la via alt+u";	
 			close;
 		}
@@ -1304,9 +1305,9 @@ pay_arche,144,156,1	script	Fohenn#ipayon	4_M_EDEN_GUARDER,{
 		close;
 	}
 	OnInit:
-		questinfo 00000, QTYPE_QUEST, 0; //Quête payon Crystal Blue
-		questinfo 00000, QTYPE_QUEST, 0; //Quête payon2 Willow
-		questinfo 00000, QTYPE_QUEST, 0; //
+		questinfo 80101, QTYPE_QUEST, 0; //Quête payon Crystal Blue
+		questinfo 80102, QTYPE_QUEST, 0; //Quête payon2 Willow
+		questinfo 80103, QTYPE_QUEST, 0; //
 	end;	
 }
 // A CORRIGER //
