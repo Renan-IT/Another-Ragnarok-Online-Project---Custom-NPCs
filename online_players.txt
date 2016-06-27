@@ -1,0 +1,153 @@
+/*
+    Shows current players online, then a list with players online
+    (C) 2015, Oxxy, v2.1.3
+    v1.0 initial release.
+    v1.1 added @online atcommand.
+    v1.2 added GMs online list.
+	v1.2.1 fixed typos.
+	v1.2.2 fixed menu.
+	v1.2.3 fixed more typos.
+	v1.3 added config to show location, level, location+level or nothing but name.
+	v1.3.1 fixed MORE typos, finally should be working.
+	v1.4 Added .MaxGrpID config. See OnInit for description.
+	v1.5 Added GM Level to show together with GM's name. Location of GM will only be shown if the variable .showLocation equals to 1 and your group id is more than 0
+	v1.5.1 fixed small typo in check of group id. (OnPCLoginEvent and OnPCLogoutEvent)
+	v1.5.2 Instead of SQL query, update waitingroom with script command getusers(1). - ty Dastgir for pointing that out.
+	v1.5.3 Merged .showLocation and .showLevel variable into one bitwise variable .showPlayerInfo - ty Dastgir
+	v1.5.4 Added Job level to show in NPC. so .showPlayerInfo = 1; shows Base and Job level together.
+	v1.6 Added Peak Online
+	v1.7 Added disabling of location show when WOE is on if setting .checkWOE equal to 1.
+	v1.8 Added menu after every .maxPlayersPerPage players, that will allow you to quit at any point, or just continue listing through players.
+	v1.8.1 translated russian string, accidently got from my script.
+	v1.8.2 now only players with .minGrpID can see GMs location, fixed one more russian string. hehe.
+	v1.9 Added Job to show, changed variable .showLocLevel to .showPlayerInfo
+	v1.9.1 Fixed peak online. Now should be saving properly.
+	v1.9.2 Cleaned up code a bit(GM location showing code)
+	v1.9.3 Swapped array variables from .NPC_type to $Global_type -> GMs will be still shown even if you @reloadscript
+	v1.9.4 Added .showPeakOnline bitwise variable. Check OnInit
+	v1.9.5 Added new option .announceCurrentOnline. Check OnInit
+	v1.9.6 Added support of .hidePlayerInfoWOE
+	v1.9.7 Renamed .hidePlayerInfoWOE to .showPlayerInfoWOE, updated info. Check OnInit
+	v1.9.8 Updated script, made it with infinite loop which makes it more user-friendly to players
+	v1.9.9 More explicit conditions - ty GaryMcNabb for helping
+	v2.0 Added X and Y coordinates to show together with GM's location. (Only players with grp id > .MinGrpID can see GM's location)
+	v2.1 Fixed GM Online list, added sorting by player chose.
+	v2.1.1 Deleted useless code.
+	v2.1.2 Fixed small typos.
+	v2.1.3 Fixed users online.
+
+*/
+
+izlude,123,142,6	script	Online	4_F_NURSE,{
+    OnShowOnline:
+	while(1) {
+		switch(select("Players Online:Close")) {
+		
+		case 1://Players Online
+		mes "[Players Online: ^FF0000"+getusers(1)+"^000000"+((.showPeakOnline&1)?" / ^FF0000"+$PeakOnline+"^000000]":"]")+"";
+		if(.allowOtherSortTypes) {	// Sorting
+			mes "Comment souhaitez vous trier les joueurs en ligne ?";
+			switch(select("Map:Base Level:Job Level:Classe")) {
+				case 1: // Sort by Map
+				query_sql "SELECT `name`,`last_map`,`base_level`,`job_level`,`class` FROM `char` WHERE `online` > 0 ORDER BY `last_map`", .@names$, .@loc$, .@blevel, .@jlevel, .@job;
+				goto Output;
+				
+				case 2: // Sort by Base Level
+				query_sql "SELECT `name`,`last_map`,`base_level`,`job_level`,`class` FROM `char` WHERE `online` > 0 ORDER BY `base_level`", .@names$, .@loc$, .@blevel, .@jlevel, .@job;
+				goto Output;
+				
+				case 3: // Sort by Job Level
+				query_sql "SELECT `name`,`last_map`,`base_level`,`job_level`,`class` FROM `char` WHERE `online` > 0 ORDER BY `job_level`", .@names$, .@loc$, .@blevel, .@jlevel, .@job;
+				goto Output;
+				
+				case 4: // Sort by Class
+				query_sql "SELECT `name`,`last_map`,`base_level`,`job_level`,`class` FROM `char` WHERE `online` > 0 ORDER BY `class`", .@names$, .@loc$, .@blevel, .@jlevel, .@job;
+				goto Output;
+			}
+		} else {
+			query_sql "SELECT `name`,`last_map`,`base_level`,`job_level`,`class` FROM `char` WHERE `online` > 0 ORDER BY `last_map`", .@names$, .@loc$, .@blevel, .@jlevel, .@job;
+			
+			Output:
+			for(.@i = 0; .@i < getarraysize(.@names$); .@i++) {
+					mes "["+ (.@i + 1)+ "] "+ .@names$[.@i]+ " "+
+					( .showPlayerInfo&4 && ( !.checkWOE || (.checkWOE && ((agitcheck() == 0 && agitcheck2() == 0) || ((agitcheck() || agitcheck2()) && .showPlayerInfoWOE&4 )))) ? " - "+ jobname(.@job[.@i])+ "" : "" )+ 
+					( .showPlayerInfo&1 && ( !.checkWOE || (.checkWOE && ((agitcheck() == 0 && agitcheck2() == 0) || ((agitcheck() || agitcheck2()) && .showPlayerInfoWOE&1 )))) ? " - Lvl: "+ .@blevel[.@i]+ "/"+ .@jlevel[.@i]+ " " : "" )+
+					( .showPlayerInfo&2 && ( !.checkWOE || (.checkWOE && ((agitcheck() == 0 && agitcheck2() == 0) || ((agitcheck() || agitcheck2()) && .showPlayerInfoWOE&2 )))) ? " - Map: "+ .@loc$[.@i]+ "" : "");
+				if ( ((.@i+1) % .maxPlayersPerPage) == 0 && .@names$[.@i+1] != "" ) {
+					if(select("Montrer les "+.maxPlayersPerPage+" joueurs suivant:Fermer") == 2) close;
+					next;
+				}
+			}
+			continue;
+		}
+		
+		case 2: close;
+		}
+	}
+    
+    OnInit:
+        .maxPlayersPerPage = 20;	// Max number per page that'll be shown.
+        .MinGrpID = 1;				// Min. group id to show in GM list. Also player with grp id < .MinGrpID can't see GMs location.
+		.MaxGrpID = 99;				// Max. group id to show in GM list. Players that have grp id > .MaxGrpID won't be shown in the GMs list.
+		
+		.showPlayerInfo = 7;		// Bitwise variable,
+									// 1 = Show only Base/Job Level after the name
+									// 2 = Show only Map after the name
+									// 3 = Show Base/Job Level + Map after the name
+									// 4 = Show only Job after the name
+									// 5 = Show Job + Base/Job Level
+									// 6 = Show Job + Map
+									// 7 = Show Job + Base/Job level + Map
+								
+		.checkWOE = 1;				// If you set this to 1, then it will not show locations during WOE.
+									// 0 to disable this check.
+					
+		.showPlayerInfoWOE = 5;		// Show players info while WOE is on? Bitwsie Variable; .checkWOE have to be set to 1.
+									// 1 = Show only Base/Job Level
+									// 2 = Show only Map
+									// 3 = Show Base/Job Level + Map
+									// 4 = Show only Job
+									// 5 = Show Job + Base/Job Level
+									// 7 = Show Job + Base/Job Level + Map
+								
+		.showPeakOnline = 3;		// Show peak online? Bitwise variable
+									// 1 = show only in NPC dialog
+									// 2 = show only in waitingroom
+									// 3 = show in NPC and waitingroom together.
+		
+		.announceCurrentOnline = 1; // Announce current online every hour?
+		
+		.allowOtherSortTypes = 1;	// Allow sort by map, b.lvl, j.lvl or class?
+									// 1 = yes
+									// 0 = no
+								
+        bindatcmd "online", strnpcinfo(0)+"::OnShowOnline";
+        initnpctimer;
+        end;
+    
+    OnTimer1000:
+        delwaitingroom;
+        waitingroom "Players online: "+getusers(1)+" "+((.showPeakOnline&2)?"":"")+"",0;
+		if(.announceCurrentOnline && gettime(2) == 00 && gettime(1) == 01)
+			announce "[System]: Il y a"+((getusers(1) > 2)?"":"")+" "+getusers(1)+" joueurs "+((getusers(1)>2)?"s":"")+" connecté.",bc_all;
+        stopnpctimer;
+        initnpctimer;
+        end;
+
+	OnPCLoginEvent:
+		if($PeakOnline < getusers(1)) $PeakOnline = getusers(1);
+		if(getgroupid() < .MinGrpID || getgroupid() > .MaxGrpID) end;
+		.GM_Name$[getarraysize(.GM_Name$)] = strcharinfo(0);
+		.GM_Level[getarraysize(.GM_Level)] = getgroupid();
+		end;
+
+	OnPCLogoutEvent:
+		if(getgroupid() < .MinGrpID || getgroupid() > .MaxGrpID) end;
+		for(.@i = 0; .@i < getarraysize(.GM_Name$); .@i++) {
+			if(strcharinfo(0) != .GM_Name$[.@i]) continue;
+			deletearray .GM_Name$[.@i],1;
+			deletearray .GM_Level[.@i],1;
+			end;
+		}
+		end;
+}

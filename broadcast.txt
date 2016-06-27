@@ -1,0 +1,408 @@
+izlude,124,135,6	script	Broadcaster	4_F_NURSE,{
+	callfunc "Func_Main";
+}
+
+// Function Func_Main //
+
+function	script	Func_Main	{
+Func_Main:
+.@ServNam$ = "MyRO";
+	if($ShutDown == 1 && getgmlevel() >= 80)
+	{
+		mes "[Valkyrie]";
+		mes "Entrez le code pour modifier le NPC.";
+		mes "Entez 0 pour quitter.";
+		input .@override;
+		if(.@override == 0) close;
+		if(.@override != $Override)
+		{
+			mes "Ce code est incorrect.";
+			next;
+			callsub Func_Main;
+		}
+		$ShutDown = 0;
+		$Override = 0;
+		mes "Activé. Bienvenu "+strcharinfo(0)+", c'est bon de vous revoir.";
+		close;
+	}
+	else if($ShutDown == 1 && getgmlevel() < 1) end;
+
+	mes "[Valkyrie]";
+	mes "Bonjour, aventurier ^0000FF"+strcharinfo(0)+"^000000.";
+	mes "Je suis l'annonceur pour ^FF0000"+.@ServNam$+"^000000.";
+	mes "Que voulez-vous faire ?";
+	next;
+	if(getgmlevel() >= 80) callsub GM_Menu;
+
+L_Main:
+	if($Flood_Control == 0 && $@Flood_Control == 0)
+	{
+		menu	"Broadcast un message à tout le serveur",-,
+			//"Anonymously broadcast serverwide",-,
+			"Qu'est-ce qu'un broadcast et qu'est-ce que ça fait ?",-;
+			callsub L_Menu;
+	}
+	else
+	{
+		menu	"Broadcast un message à tout le serveur",-,
+			//"Anonymously broadcast serverwide",-,
+			"Qu'est-ce qu'un broadcast et qu'est-ce que ça fait ?",-;
+			//"Broadcast up to 5 messages serverwide",-;
+	}
+
+L_Menu:
+	switch(@menu)
+	{
+		case 1: callfunc "L_ServerCast"; break;
+		//case 2: callfunc "L_AnonCast"; break;
+
+		case 2: 
+				mes "[Valkyrie]";
+				mes "Un broadcast est un message qui apparaît à chaque personne sur tout le serveur.";
+				mes "C'est vraiment utile si vous voulez faire passer un message à tout le monde.";
+				mes "Le broadcast sera toujours attaché à votre nom.";
+				mes "Les GMs peuvent utiliser le broadcast pour parler avec tous les joueurs ou quand ils lancent un event.";
+				mes "Je peux faire un broadcast pour vous mais j'aurai besoin d'un peu de zény.";
+				next;
+				break;
+
+		case 3: callfunc "L_MultiCast"; break;
+	}
+	callsub L_Main;
+
+GM_Menu:
+	menu	"Activate Flood Control",-,
+		"Change Broadcasting Price",-,
+		"Disable NPC (Only if abused)",-,
+		"Last Edited By",-,
+		"Menu Joueur",L_Main;
+
+	switch(@menu)
+	{
+		case 1: callfunc "GM_FloodControl"; break;
+		case 2: callfunc "GM_BcastPrice"; break;
+		case 3: callfunc "GM_NPCDisable"; break;
+		case 4: callfunc "GM_EditedList"; break;
+	}
+}
+
+// Fonction anon_bcast //
+
+function	script	L_AnonCast	{
+	next;
+	mes "[Valkyrie]";
+	mes " - Price: ^0000FF"+$AnonPrice+"^000000";
+	mes (($Flood_Control || $@Flood_Control) ? " - Flood Control: ^33DD55Active^000000" : " - Flood Control: ^FF0000Disabled^000000");
+	next;
+	mes "[Valkyrie]";
+	mes "Would you still like to broadcast?";
+	next;
+	if(select("Yes:No")&2) callfunc "Func_Main";
+	if(Zeny < $AnonPrice)
+	{
+		mes "[Valkyrie]";
+		mes "You don't have enough Zeny.";
+		mes "Please come back with ^0000FF"+($AnonPrice - Zeny)+"^000000 more Zeny.";
+		next;
+		callfunc "Func_Main";
+	}
+	if($@Bcast == 1)
+	{
+		mes "[Valkyrie]";
+		mes "The flood timer is still active. Please wait...";
+		next;
+		callfunc "Func_Main";
+	}
+	mes "[Valkyrie]";
+	mes "Please enter your message.";
+	input .@message$;
+	next;
+	mes "[Valkyrie]";
+	mes "Your message is:";
+	mes "^3333FF"+.@message$+"^000000";
+	mes "Is this right?";
+	next;
+	if(select("Broadcast:Main menu")&2) callfunc "Func_Main";
+	if($Flood_Control == 1 || $@Flood_Control == 1)
+	{
+		Zeny -= $AnonPrice;
+		announce .@message$,0;
+		$@Bcast = 1;
+		close2;
+		callfunc "L_FloodTimer",$Flood;
+		end;
+	}
+	else
+	{
+		Zeny-=$AnonPrice;
+		announce .@message$,0;
+		close;
+	}
+}
+
+// Fonction flood_feature //
+
+function	script	GM_FloodControl	{
+	next;
+	if($Flood_Control == 1 || $@Flood_Control == 1)
+	{
+		mes "[Valkyrie Controls]";
+		mes "La fonction Flood Control est active.";
+		mes "Voulez-vous la désactivé ou changer les paramètres ?";
+		next;
+		switch(select("Non:Oui:Run Flood Timer:Change Time")) {
+			case 1: callfunc "Func_Main";
+			case 2: 
+				mes "[Valkyrie Controls]";
+				mes "Désactivation de la fonction Flood Control...";
+				$@Bcast = 0;
+				$Flood_Control = 0;
+				$@Flood_Control = 0;
+				$Flood = 0;
+				$FloodGM$ = strcharinfo(0);
+				next;
+				callfunc "Func_Main";
+			case 3:
+				close2;
+				callfunc "L_FloodTimer";
+				end;
+			case 4: callsub L_FloodSettings;
+		}
+	}
+	mes "[Valkyrie Controls]";
+	mes "Ici vous pouvez activez la fonction Flood Control.";
+	mes "Si celle-ci est active, les joueurs ne pourront pas spam les annonces.";
+	next;
+	mes "[Valkyrie Controls]";
+	mes "Vous pouvez établir le timer à 1, 2, 3, ou 5 minutes.";
+	mes "Voulez-vous activer la fonction Flood Control ?";
+	next;
+	if(select("Oui:Non")&2) callfunc "Func_Main";
+L_FloodSettings:
+	mes "[Valkyrie Controls]";
+	mes "Voulez-vous que la fonction Flood Control soit réactivé après chaque restart server ?";
+	next;
+	if(select("Oui:Non")&2) $@Flood_Control = 1;
+	else $Flood_Control = 1;
+	mes "[Valkyrie Controls]";
+	mes "Combien voulez-vous mettre d'attendre entre chaque annonce ?";
+	switch(select("1 minute:2 minutes:3 minutes:5 minutes"))
+	{
+		case 1: $Flood = 1; break;
+		case 2: $Flood = 2; break;
+		case 3: $Flood = 3; break;
+		case 4: $Flood = 5; break;
+	}
+	next;
+	mes "[Valkyrie Controls]";
+	mes "Voila vos paramètres :";
+	mes "Flood Control: ^00AA00Active^000000";
+	mes ($Flood_Control) ? "^00AA00Active^000000 après redémarrage du serveur" : "^00AA00Not active^000000 après redémarrage du serveur";
+	mes "^00AA00"+$Flood+"^000000 minute(s)";
+	next;
+	mes "[Valkyrie Controls]";
+	mes "Êtes-vous d'accord ?";
+	if(select("Non:Oui")&1)
+	{
+		mes "Les options vont être réinitialisées.";
+		$Flood_Control = 0;
+		$@Flood_Control = 0;
+		$Flood = 0;
+		callfunc "Func_Main";
+	}
+	next;
+	$FloodGM$ = strcharinfo(0);
+	mes "[Valkyrie Controls]";
+	mes "La fonction Flood Control est maintenant active.";
+	next;
+	callfunc "Func_Main";
+}
+
+// Fonction flood_func //
+
+function	script	L_FloodTimer	{
+	sleep 60000*$Flood;
+	$@Bcast = 0;
+	end;
+}
+
+// Fonction gm_list //
+
+function	script	GM_EditedList	{
+	next;
+	mes "[Valkyrie Controls]";
+	mes "Fonction Flood Control édité dernièrement par: ^FF0000"+$FloodGM$+"^000000";
+	mes "Prix édité dernièrement par: ^FF0000"+$PriceGM$+"^000000";
+	mes "NPC édité dernièrement par: ^FF0000"+$DisableGM$+"^000000";
+	next;
+	callfunc "Func_Main";
+}
+
+// Fonction multicast //
+
+function	script	L_MultiCast_Cast	{
+
+	for( .@i = 1; .@i<=getarg(0); .@i += 1)
+	{
+		if(.@i<=getarg(0))
+		{
+			announce $@messages$[0]+": "+$@messages$[.@i],0;
+			sleep2 5000;
+		}
+	}
+	deletearray $@messages$[0],127;
+	callfunc "L_FloodTimer",$Flood;
+}
+
+// Fonction npc_disable //
+
+function	script	GM_NPCDisable	{
+	next;
+	mes "[Valkyrie Controls]";
+	mes "Me désactiver empêche toute annonce par quiconque, même les GMs. Je ne peux être réactivé que par les GMs.";
+	next;
+	mes "[Valkyrie Controls]";
+	mes "Je suis désactivé car les joueurs ont trop abusé de ma générosité.";
+	mes "Voulez-vous me réactiver ?";
+	if(select("Non:Oui")&1) callfunc "Func_Main";
+	next;
+	mes "[Valkyrie Controls]";
+	mes "Entrez le code GM pour me réactiver pour me réactiver plus tard.";
+	mes "Ce code ne doit pas être 0 ou 00 ou 000 ou 0000";
+	input $Override;
+	next;
+	mes "[Valkyrie Controls]";
+	mes "Le code est ^FF0000"+$Override+"^000000";
+	mes "S'il vous plait, écrivez le, sinon je ne pourrai être réactivé.";
+	$ShutDown = 1;
+	$DisableGM$ = strcharinfo(0);
+	close;
+}
+
+// Fonction price_feature //
+
+function	script	GM_BcastPrice	{
+	next;
+	mes "[valkyrie Controls]";
+	mes "Le prix actuellement est de:";
+	mes "Serverwide Broadcast: ^0000FF"+$BcastPrice+"^000000";
+	mes "Anonymous Broadcast: ^0000FF"+$AnonPrice+"^000000";
+	mes "Multi-Broadcast: ^0000FF"+$MultiPrice+"^000000";
+	mes "Dernièrement édité par : ^00AA00"+$PriceGM$+"^000000";
+	next;
+	mes "[Valkyrie Controls]";
+	mes "Voulez-vous changer les prix ?";
+	next;
+	if(select("Non:Oui")&1) callfunc "Func_Main";
+	mes "[Valkyrie Controls]";
+	mes "Que voulez-vous changer ?";
+	switch(select("Prix Broadcast:Anonymous Price:Prix Multi-Cast:Menu Princpal"))
+	{
+		case 1: S_Bcast:
+			next;
+			mes "[Valkyrie Controls]";
+			mes "Entrez un nouveau prix.";
+			input .@BcastPrice,50000,1000000000;
+			next;
+			mes "[Valkyrie Controls]";
+			mes "Set Broadcast Price to ^0000FF"+.@BcastPrice+"^000000?";
+			if(select("No:Yes")&1) callsub S_Bcast;
+			next;
+			$BcastPrice = .@BcastPrice;
+			$PriceGM$ = strcharinfo(0);
+			mes "[Valkyrie Controls]";
+			mes "Price set.";
+			next;
+			callfunc "Func_Main";
+
+		case 2: S_Anon:
+			next;
+			mes "[Valkyrie Controls]";
+			mes "Entrez un nouveau prix.";
+			input .@AnonPrice,50000,1000000000;
+			next;
+			mes "[Valkyrie Controls]";
+			mes "Set Anonymous Price to ^0000FF"+.@AnonPrice+"^000000?";
+			if(select("Non:Oui")&1) callsub S_Anon;
+			next;
+			$AnonPrice = .@AnonPrice;
+			$PriceGM$ = strcharinfo(0);
+			mes "[Valkyrie Controls]";
+			mes "Price set.";
+			next;
+			callfunc "Func_Main";
+
+		case 3: S_Multi:
+			next;
+			mes "[Valkyrie Controls]";
+			mes "Entrez un nouveau prix.";
+			input .@MultiPrice,50000,200000000;
+			next;
+			mes "[Valkyrie Controls]";
+			mes "Mettre le prix du Multi-cast à ^0000FF"+.@MultiPrice+"^000000?";
+			if(select("Non:Oui")&1) callsub S_Multi;
+			next;
+			$MultiPrice = .@MultiPrice;
+			$PriceGM$ = strcharinfo(0);
+			mes "[Valkyrie Controls]";
+			mes "Price set.";
+			next;
+			callfunc "Func_Main";
+
+		case 4: next; callfunc "Func_Main";
+	}
+}
+
+// Fonction server_bcast //
+
+function	script	L_ServerCast	{
+	next;
+	mes "[Valkyrie]";
+	mes " - Prix: ^0000FF"+$BcastPrice+"^000000";
+	mes (($Flood_Control || $@Flood_Control) ? " - Flood Control: ^33DD55Active^000000" : " - Flood Control: ^FF0000Disabled^000000");
+	next;
+	mes "[Valkyrie]";
+	mes "Voulez-vous toujours faire une annonce ?";
+	next;
+	if(select("Oui:Non")&2) callfunc "Func_Main";
+	if(Zeny < $BcastPrice)
+	{
+		mes "[Valkyrie]";
+		mes "Vous n'avez pas assez de Zeny.";
+		mes "Revenez avec ^0000FF"+($BcastPrice - Zeny)+"^000000 Zeny en plus.";
+		next;
+		callfunc "Func_Main";
+	}
+	if($@Bcast == 1)
+	{
+		mes "[Valkyrie]";
+		mes "La fonction Flood Timer est toujours active. Attendez s'il vous plait...";
+		next;
+		callfunc "Func_Main";
+	}
+	mes "[Valkyrie]";
+	mes "Entrez votre message, je rappelle que toutes insultes, provocations ne sont pas autorisées. Tout abus sera puni.";
+	input .@message$;
+	next;
+	mes "[Valkyrie]";
+	mes "Votre message est :";
+	mes "^3333FF"+.@message$+"^000000";
+	mes "Est-ce bon ?";
+	next;
+	if(select("Broadcast:Menu Principal")&2) callfunc "Func_Main";
+	if($Flood_Control == 1 || $@Flood_Control == 1)
+	{
+		Zeny -= $BcastPrice;
+		announce strcharinfo(0)+": "+.@message$,0;
+		$@Bcast = 1;
+		close2;
+		callfunc "L_FloodTimer",$Flood;
+		end;
+	}
+	else
+	{
+		Zeny -= $BcastPrice;
+		announce strcharinfo(0)+": "+.@message$,0;
+		close;
+	}
+}

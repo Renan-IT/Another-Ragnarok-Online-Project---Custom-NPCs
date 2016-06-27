@@ -1,0 +1,81 @@
+// ==== Author: Oxxy
+// ==== Version: 1.0.1
+// ==== Changelog:
+// ==== Version 1.0.0: First Release.
+// ==== Version 1.0.1: Fixed script little bit.
+
+// ==== Increases Player's <Town> reputation by <value>
+// ==== Syntax is: CallFunc("getRep", "<Town>", <value>);
+function	script	getRep	{
+    .@Town$ = getarg(0);
+    .@rep = getarg(1);
+    setd(.@Town$+"_rep"), getd(.@Town$+"_rep") + .@rep;
+    return;
+}
+
+// ==== Check if player meets <value> reputation requirement of <Town> reputation.
+// ==== Syntax is: CallFunc("checkRep", "<Town>", <value>);
+// ==== Returns 0 if Town's name reputation lower than required reputation.
+// ==== Returns 1 if Town's name reputation greater or equal to required rep.
+function	script	checkRep	{
+    .@Town$ = getarg(0);
+    .@neededRep$ = getarg(1);
+    set @townRep$, getd(.@Town$+"_rep");
+    
+    if(@townRep$ < .@neededRep$)
+        return 0;
+    
+    if(@townRep$ >= .@neededRep$)
+        return 1;
+    
+    return;
+
+}
+
+// ==== Decreases Player's <Town> reputation
+// ==== First argument is Town's name (i.e Prontera)
+// ==== Second argument is the amount of town's reputation you want to decrease by.
+// ==== Third argument means if you want to delete all the reputation of the town <Town>, to delete all the reputation set it to 1.
+// ==== Syntax is: CallFunc("delRep", "<Town>", <value>, "<1:0>");
+function	script	delRep	{
+    .@Town$ = getarg(0);
+    .@amount = getarg(1);
+    .@del_all = getarg(2);
+    
+    if(.@del_all)
+        setd(.@Town$+"_rep"), 0;
+    else
+        setd(.@Town$+"_rep"), getd(.@Town$+"_rep") - .@amount;
+        
+    if(getd(.@Town$+"_rep") - .@amount < 0)
+        setd(.@Town$+"_rep"), 0;
+        
+    return;
+}
+
+// ==== Shows Player's <Town> reputation
+// ==== Syntax is: CallFunc("showRep", "<Town>");
+function	script	showRep	{
+    .@Town$ = getarg(0);
+    .@townRep = getd(.@Town$+"_rep");    
+    dispbottom "Votre reputation sur la region "+.@Town$+" est de "+.@townRep;    
+    return;
+}
+
+-	script	at_reputat	-1,{
+
+OnInit:
+	bindatcmd "reputation", strnpcinfo(3)+"::OnReputation";
+	bindatcmd "reput", strnpcinfo(3)+"::OnReputation";
+end;
+
+OnReputation:
+	callfunc "showRep","Alberta, Amatsu, Ayothaya, Louyang, Payon";
+	callfunc "showRep","Alde Baran, Amatsu, Geffen, Gonryun, Prontera";
+	callfunc "showRep","Comodo, Jawaii, Morocc, Nifheim, Umbala";
+	callfunc "showRep","Einbech, Einbroch, Lighthalzen";
+	callfunc "showRep","Hugel, Yuno, Lutie";
+	callfunc "showRep","Izlude";
+	callfunc "showRep","Rachel, Veins";
+end;
+}

@@ -1,0 +1,64 @@
+//===== Hercules Script ======================================
+//= Sample: WoE Warper
+//===== By: ==================================================
+//= Baps
+//===== Current Version: =====================================
+//= 20131225
+//===== Script Version =======================================
+//= V1 
+//===== Description: =========================================
+//= NPC WoE Warper avec repairall
+//============================================================
+
+izlude,120,148,4	script	WoE Warper	4_M_KAGE_OLD,{
+	
+set @npc$, "^0006D3Woe Warper^000000"; //Nom NPC
+set @serveur$, "MyRO"; //Nom du serveur
+set @chamer$, "Kriemlhid"; //Chateau du mercredi
+set @chasam$, "Fadhgridh"; //Chateau du samedi
+ 
+
+	mes @npc$;
+	mes "Je suis le WoE Warper de "+@serveur$+", je peux vous warper au château ouvert si vous le souhaitez.";
+	mes "De plus, si je vous warp, je réparerai vos équipements endommagés !";
+	if (gettime(4) == 4){ //Si jour = mercredi
+		mes "Aujourd'hui, la WoE sera au château suivant : ^0006D3"+@chamer$+"^000000";
+	}
+	else if (gettime(4) == 6){ //Si jour = samedi
+		mes "Aujourd'hui, la WoE sera au château suivant : ^0006D3"+@chasam$+"^000000";
+	}
+	mes "Souhaitez-vous être warper au château ?";
+	next;
+	switch (select("Oui s'il vous plait","Non merci")){
+		case 1:
+			mes @npc$;
+			mes "Très bien, je vous warp !";
+			mes "A bientôt !";
+			repairall;
+			if (gettime(3)){ //Si jour = mercredi
+				warp "prt_gld",138,64; //Kriemlhid
+				close;
+			}
+			else if (gettime(6)){ //Si jour = samedi
+				warp "prt_gld",153,136; //Fadhgridh
+				close;
+			}
+			close;
+		case 2:
+			mes @npc$;
+			mes "Revenez quand vous-voulez, je suis disponible jusqu'à la fin de la WoE.";
+			close;
+	}
+	
+	OnInit:
+		disablenpc "WoE Warper";
+		end;
+	OnAgitStart:
+	OnAgitStart2:
+		enablenpc "WoE Warper";
+		end;
+	OnAgitEnd:
+	OnAgitEnd2:
+		disablenpc "WoE Warper";
+		end;
+}

@@ -1,0 +1,103 @@
+/* 	Server News script
+	Version 1.0
+	Special thanks to IeYasuru for providing the script on eAthena years ago and for my Server.
+	Special thanks to Garr for providing an updated SQL table for this script.
+	Recoded and formated for Hercules by: Aeromesi
+	Information/How to use: Whisper NPC:servnews so that you can post the Latest news for your server, install the SQL Table in your MySQL Server
+	You may Add as many posts as you want as well as Delete based on the post_id in the SQL.
+	Players will be able to view all current News upon login, when they relog they won't see the message until more updated news is announced.
+	
+*/
+
+	/* SQL Table
+DROP TABLE IF EXISTS `gm_news`;
+CREATE TABLE IF NOT EXISTS `gm_news` (
+  `post_id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `gm_poster` char(50) DEFAULT NULL,
+  `message` char(50) DEFAULT NULL,
+  PRIMARY KEY (`post_id`)
+) ENGINE=InnoDB; */
+	
+-	script	servnews	-1,{
+OnWhisperGlobal:
+callfunc ("Serv_News");
+end;
+}
+function	script	Serv_News	{
+if (getgmlevel() >= 99) {
+	mes "[Game Master]";
+	mes "Voulez-vous ajouter une news pour les joueurs ?";
+	next;
+	if(select("Ajouter:Supprimer")&2)
+	{
+		query_sql "SELECT * FROM `gm_news` WHERE `post_id` > 0",.@id,.@gm$,.@msg$;
+		mes "[Game Master]";
+		.@c = 0;
+		while(1)
+		{
+			if(.@c >= getarraysize(.@id)) break;
+			mes .@id[.@c]+" - "+.@msg$[.@c];
+			mes " ";
+			.@c+=1;
+		}
+		next;
+		mes "[Game Master]";
+		mes "Quel message voulez-vous supprimer ?";
+		next;
+		input .@row;
+		if(.@row == 0) close;
+		mes "[Game Master]";
+		mes "Supprimer le numéro ID du message "+.@row+"?";
+		next;
+		if(select("No:Yes")&1) close;
+		query_sql "DELETE FROM `gm_news` WHERE `post_id` = "+.@row;
+		mes "[Game Master]";
+		mes "Message supprimé.";
+		close;
+	}
+	mes "[Game Master]";
+	mes "Que voulez-vous dire ?";
+	next;
+	input .@news$;
+	mes "[Game Master]";
+	mes "Votre message est :";
+	mes "^00AA00"+.@news$;
+	mes "^000000Est-ce correct ?";
+	next;
+	if(select("Non:Oui")&1) callfunc("Serv_News");
+	mes "[Game Master]";
+	mes "Votre message sera ajouté à la database momentanément...";
+	.@gm$ = escape_sql(strcharinfo(0));
+	.@news$ = escape_sql(.@news$);
+	query_sql("INSERT INTO `gm_news` (gm_poster,message) VALUES ('"+.@gm$+"','"+.@news$+"')");
+	announce "Dernières News: "+.@news$,0;
+	next;
+	mes "[Game Master]";
+	mes "Message ajouté.";
+	close;
+} else
+end;
+close;
+}
+-	script	News Viewer	-1,{
+OnPCLoginEvent:
+	query_sql "SELECT * FROM `gm_news` WHERE `post_id` > 0",@id,@gm$,@msg$;
+	if(!getarraysize(@id)) end;
+	@d = 0;
+	while(1) { if(@d >= getarraysize(@id)) break; @d+=1; }
+	if(#News == @id[@d-1]) end;		// Works with while(1) loop above to keep players' news ID current.
+	mes "[Dernières News]";
+	@c = 0;
+	while(1)
+	{
+		if(@c >= getarraysize(@id))
+		{
+			#News = @id[@c-1];
+			break;
+		}
+		mes @id[@c]+" - "+@msg$[@c]+" ^00AA00posted by^000000 "+@gm$[@c];
+		mes " ";
+		@c += 1;
+	}
+	close;
+}

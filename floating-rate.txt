@@ -1,0 +1,103 @@
+-	script	floating_rate	-1,{
+
+OnInit:
+	// original Base/Job Exp and Drop Rates
+set .bexp_rate,1; //Put you rate...
+set .jexp_rate,1; //put you rate...
+set $alrdytalk, 0;
+
+OnJour:
+	if ($alrdytalk == 0) {
+		if (gettime(6) == JANUARY || gettime(6) == MARCH || gettime(6) == MAY || gettime(6) == JULY ||gettime(6) == AUGUST || gettime(6) == OCTOBER ||gettime(6) == DECEMBER) {
+			// Mois avec 31 jours
+			set .jour31, rand(1,31);
+			if (.jour31 >= gettime(5)) {
+				announce "L'event double Xp sera activé le "+.jour31+"/"+gettime(6)+" pour une durée de 24h!", bc_all;
+				
+				if (gettime(5) == .jour31) {
+					setbattleflag "base_exp_rate", .bexp_rate*100 * 2;
+					setbattleflag "job_exp_rate", .jexp_rate*100 * 2;
+					atcommand "@reloadmobdb";
+					announce "L'event double Xp est maintenant activé, profitez en !", bc_all;
+					set $alrdytalk, 1;
+				}
+			}
+			else {
+				goto OnJour;
+			}
+			
+		}
+
+		else if (gettime(6) == APRIL || gettime(6) == JUNE || gettime(6) == SEPTEMBER || gettime(6) == NOVEMBER) {
+			// Mois avec 30 jours
+			set .jour30, rand(1,30);
+			if (.jour30 >= gettime(5)) {
+				announce "L'event double Xp sera activé le "+.jour30+" "+gettime(6)+" ", bc_all;
+				
+				if (gettime(5) == .jour30) {
+					setbattleflag "base_exp_rate", .bexp_rate*100 * 2;
+					setbattleflag "job_exp_rate", .jexp_rate*100 * 2;
+					atcommand "@reloadmobdb";
+					announce "L'event double Xp est maintenant activé, profitez en !", bc_all;
+					set alrdytalk, 1;
+				}
+			}
+			else {
+				goto OnJour;
+			}
+		}
+
+		else if (gettime(6) == FEBRUARY && gettime(5) <= 28) {
+			// Février mettre pour année normale
+			set .jour28, rand(1,28);
+			if (.jour28 >= gettime(5)) {
+				announce "L'event double Xp sera activé le "+.jour28+" "+gettime(6)+" ", bc_all;
+				
+				if (gettime(5) == .jour28) {
+					setbattleflag "base_exp_rate", .bexp_rate*100 * 2;
+					setbattleflag "job_exp_rate", .jexp_rate*100 * 2;
+					atcommand "@reloadmobdb";
+					announce "L'event double Xp est maintenant activé, profitez en !", bc_all;
+					set alrdytalk, 1;
+				}
+			}
+			else {
+				goto OnJour;
+			}
+		}
+
+		else if (gettime(6) == FEBRUARY && gettime(5) > 28) {
+			// Février mettre pour année bisextile
+			set .jour29, rand(1,29);
+			if (.jour29 >= gettime(5)) {
+				announce "L'event double Xp sera activé le "+.jour29+" "+gettime(6)+" ", bc_all;
+				
+				if (gettime(5) == .jour29) {
+					setbattleflag "base_exp_rate", .bexp_rate*100 * 2;
+					setbattleflag "job_exp_rate", .jexp_rate*100 * 2;
+					atcommand "@reloadmobdb";
+					announce "L'event double Xp est maintenant activé, profitez en !", bc_all;
+					set alrdytalk, 1;
+				}
+			}
+			else {
+				goto OnJour;
+			}
+		}
+	}
+end;
+
+	if ($alrdytalk == 1) {
+		OnClock0500:
+			setbattleflag "base_exp_rate", .bexp_rate*100;
+			setbattleflag "job_exp_rate", .jexp_rate*100;
+			atcommand "@reloadmobdb";
+			announce "L'event double Xp est maintenant terminé !", bc_all;
+			set $alrdytalk, 0;
+			end;
+	}
+	
+	if (gettime(5) == 01) {
+		goto OnJour;
+	}
+}

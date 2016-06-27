@@ -1,0 +1,482 @@
+//===== Hercules Script ======================================
+//= Ep 13 Novice Ground
+//===== By: ==================================================
+//= Baps
+//===== Current Version: =====================================
+//= 1 Creation NPC
+//= 1.1 Ajout TP+GetItem+Warp
+//= 1.2 Ajout Save
+//= 1.3 Ajout verification Weight
+//===== Description: =========================================
+//= [Choose your classe]
+//= Novice Training Grounds
+//===== Additional Comments: =================================
+//= 
+//============================================================
+
+new_1-4,91,16,4	script	Swordman#nv	4_M_SWORDMAN,{
+	if(alrdytalked == 1){
+		mes "^0000FF[Swordman]^000000";
+		mes "Tres beau temps aujourd'hui n'est-ce pas ?";
+		close;
+	}
+	else{
+		mes "^0000FF[Swordman]^000000";
+		mes "Bonjour a toi jeune aventurier !";
+		next;
+		mes "^0000FF[Swordman]^000000";
+		mes "Je fais partie de la guilde des ^D41B1BSwordmans^000000 et je suis ici pour le recrutement.";
+		mes "Si vous nous rejoigniez je vous apprendrez a manier l'epee comme personne!";
+		mes "De plus vous aurez le choix soit de servir Dieu soit de servir Midgard !";
+		next;
+		if (Class == Job_Novice && getskilllv("NV_BASIC") >= 9){
+			mes "^0000FF[Swordman]^000000";
+			mes "Voulez-vous nous rejoindre, attention ce choix sera irrevocable ?";
+			
+			switch(select("Hum...Pourquoi pas !","Non merci les epees c'est pas mon truc...")){
+				case 1:
+					mes "^0000FF[Swordman]^000000";
+					mes "Vous etes sur ?";
+					switch(select("Oui, donnez moi une epee !","Hum tout compte fait...")){
+						case 1:
+							next;
+							if (checkweight (1107,1)){ //check weight
+								mes "^0000FF[Swordman]^000000";
+								mes "Ah genial une nouvelle recrue !";
+								mes "*Nous allons pouvoir nous en servir*";
+								next;
+								mes "^0000FF[Swordman]^000000";
+								mes "Je vais donc vous teleporter à la guilde des Swordmans";
+								mes "pour que vous puissiez commencer votre aventure !";
+								//tp endroit + donation item + zeny + save
+								getitem 1107,1;
+								set Zeny,Zeny+10000;
+								warp "izlude",51,169;
+								savepoint "izlude",51,169;
+								set alrdytalked, 1;
+								close;
+							}
+							else{
+								mes "^0000FF[Swordman]^000000";
+								mes "Desole mais vous avez un poids beaucoup trop haut pour vous teleporter !";
+								mes "Revenez quand vous serez moins lourd.";
+								close;
+							}
+						case 2:
+							mes "^0000FF[Swordman]^000000";
+							mes "Bah il va falloir se decider mon petit !";
+							mes "Aller va choisir une autre guilde mais sache que tu le regretteras !";
+							close;
+					}
+				case 2:
+					mes "^0000FF[Swordman]^000000";
+					mes "Je comprends jeune aventurier !";
+					mes "Ici c'est pas pour les mauviettes !";
+					close;
+			close;
+			}
+		}
+		else{
+			mes "^0000FF[Swordman]^000000";
+			mes "Oh mais je vois que vous n'etes pas encore assez brave !";
+			mes "Revenez me voir quand vous le serez.";
+			close;
+		}
+	}
+}		
+
+
+
+
+new_1-4,91,20,4	script	Mage#nv	4_M_ARUNA_NFM1,{
+	if (alrdytalked1 == 1){
+		mes "^0000FF[Mage]^000000";
+		mes "...Avada kedavra...";
+		mes "......Expelliarmus......";
+		mes "....Allohomora....";
+		mes "Raaaaaahhhh !!!! Ce n'est pas ca !";
+		close;
+	}
+	else{
+		mes "^0000FF[Mage]^000000";
+		mes "Bonjour a toi jeune aventurier !";
+		next;
+		mes "^0000FF[Mage]^000000";
+		mes "Je fais partie de la guilde des ^D41B1BMages^000000 et je suis ici pour le recrutement.";
+		mes "Si vous nous rejoigniez vous apprendrez la magie!";
+		mes "Vous aurez la possibilite de maitriser de la magie sur une personne ou sur plusieurs !";
+		next;
+		if (Class == Job_Novice && getskilllv("NV_BASIC") >= 9){
+			mes "^0000FF[Mage]^000000";
+			mes "Voulez-vous nous rejoindre, attention ce choix sera irrevocable ?";
+			
+			switch(select("Oui, j'ai toujours voulu lancer des sorts !","Non merci j'ai jamais ete bon en chimie...")){
+				case 1:
+					mes "^0000FF[Mage]^000000";
+					mes "Vous etes sur ?";
+					switch(select("Oui absolument !","Hum tout compte fait je ne prefere pas...")){
+						case 1:
+							next;
+							if (checkweight (1604,1,2101,1)){
+								mes "^0000FF[Mage]^000000";
+								mes "Ah super une nouvelle recrue !";
+								mes "*Nous allons pouvoir le torturer*";
+								next;
+								mes "^0000FF[Mage]^000000";
+								mes "Je vais donc vous teleporter à la guilde des Mages";
+								mes "pour que vous puissiez commencer votre aventure !";
+								//tp endroit + donation item + zeny + parler une fois
+								getitem 1604,1;
+								getitem 2101,1;
+								set Zeny,Zeny+10000;
+								warp "geffen",65,176;
+								savepoint "geffen",65,176;
+								set alrdytalked1, 1;
+								close;
+							}
+							else{
+								mes "^0000FF[Mage]^000000";
+								mes "Desole mais vous avez un poids beaucoup trop haut pour vous teleporter !";
+								mes "Revenez quand vous serez moins lourd.";
+								close;
+							}
+						case 2:
+							mes "^0000FF[Mage]^000000";
+							mes "Très bien je comprends tout à fait !";
+							mes "La magie c'est pas pour tout le monde !";
+							close;
+					}
+				case 2:
+					mes "^0000FF[Mage]^000000";
+					mes "Je comprends jeune aventurier !";
+					mes "Cette guilde se passera de toi !";
+					close;
+			close;
+			}
+		}
+		else{
+			mes "^0000FF[Mage]^000000";
+			mes "Oh mais je vois que vous n'etes pas encore assez fort intellectuellement !";
+			mes "Revenez me voir quand vous le serez.";
+			close;
+		}
+	}
+}
+
+
+
+new_1-4,91,24,4	script	Archer#nv	4_M_ARCHER,{
+	if(alrdytalked2 == 1){
+		mes "^0000FF[Archer]^000000";
+		mes "Un bon archer atteint sa cible avant meme d'avoir tire n'est-ce pas ?";
+		close;
+	}
+	else{
+		mes "^0000FF[Archer]^000000";
+		mes "Bonjour a toi jeune aventurier !";
+		next;
+		mes "^0000FF[Archer]^000000";
+		mes "Je fais partie de la guilde des ^D41B1BArchers^000000 et je suis ici pour le recrutement.";
+		mes "Je suis l'un des meilleurs de ma categorie ! Je peux viser un arbre a 10 metres !";
+		next;
+		mes "Si vous nous rejoigniez vous pourrez faire peut etre aussi bien que moi !";
+		mes "De plus vous aurez le choix soit de faire rire la galerie accompagne d'une tres belle danseuse soit de devenir un franc tireur accompagne de son faucon!";
+		next;
+		if (Class == Job_Novice && getskilllv("NV_BASIC") >= 9){
+			mes "^0000FF[Archer]^000000";
+			mes "Alors je t'ai convaincu, attention ce choix sera irrevocable ?";
+			
+			switch(select("Hum... Oui enormement !","Non pas vraiment puis j'aime pas la chasse...")){
+				case 1:
+					mes "^0000FF[Archer]^000000";
+					mes "Vous etes sur ?";
+					switch(select("Oui, donnez moi mon carquois et mon arc !","Hum tout compte fait...")){
+						case 1:
+							next;
+							if (checkweight (1707,1,1751,300)){
+								mes "^0000FF[Archer]^000000";
+								mes "Ah une nouvelle recrue pour moi ! Mon chef va être content !";
+								mes "Nous allons pouvoir vous former pour devenir le meilleur !";
+								next;
+								mes "^0000FF[Archer]^000000";
+								mes "Je vais donc maintenant vous teleporter à la guilde des Archers";
+								mes "pour que vous puissiez commencer votre aventure dans cet elegant monde qu'est Midgard !";
+								//tp endroit + donation item + zeny
+								getitem 1707,1;
+								getitem 1751,300;
+								set Zeny,Zeny+10000;
+								warp "pay_arche",142,162; 
+								savepoint "pay_arche",142,162;
+								set alrdytalked2, 1;
+								close;
+							}
+							else{
+								mes "^0000FF[Archer]^000000";
+								mes "Desole mais vous avez un poids beaucoup trop haut pour vous teleporter !";
+								mes "Revenez quand vous serez moins lourd.";
+								close;
+							}
+						case 2:
+							mes "^0000FF[Archer]^000000";
+							mes "Bah il va falloir se decider mon petit !";
+							mes "Aller va choisir une autre guilde mais sache que tu le regretteras !";
+							close;
+					}
+				case 2:
+					mes "^0000FF[Archer]^000000";
+					mes "Je comprends jeune aventurier !";
+					mes "Ici c'est pas pour les mauviettes !";
+					close;
+			close;
+			}
+		}
+		else{
+			mes "^0000FF[Archer]^000000";
+			mes "Oh mais je vois que vous manquez encore de precision !";
+			mes "Revenez me voir quand vous en aurez un peu plus.";
+			close;
+		}
+	}
+}
+
+
+new_1-4,108,24,4	script	Thief#nv	2_M_THIEFMASTER,{
+	if(alrdytalked3 == 1){
+		mes "^0000FF[Thief]^000000";
+		mes "Oh regardez la bas un homme vole cette dame !";
+		set Zeny,Zeny-1000;
+		mes "*hehe il n'a meme pas vu que je lui ai prit de l'argent";
+		close;
+	}
+	else{
+		mes "^0000FF[Thief]^000000";
+		mes "Bonjour a toi mon brave !";
+		next;
+		mes "^0000FF[Thief]^000000";
+		mes "Je fais partie de la guilde des ^D41B1BThiefs^000000 et je suis ici pour le recrutement.";
+		mes "Je suis a ce qu'il parait le meilleur dans mon domaine : le vole !";
+		next;
+		mes "Si vous nous rejoigniez vous pourriez peut etre voler avec moi et nous deviendrons riche a ne plus savoir quoi en faire !";
+		mes "De plus vous aurez le choix soit de devenir le meilleur en au niveau du vole soit de devenir un assassin inaretable  !";
+		next;
+		if (Class == Job_Novice && getskilllv("NV_BASIC") >= 9){
+			mes "^0000FF[Thief]^000000";
+			mes "Alors je t'ai convaincu, attention ce choix sera irrevocable ?";
+			
+			switch(select("Hum... Peut etre !","Non pas vraiment, je suis un honnete homme !")){
+				case 1:
+					mes "^0000FF[Thief]^000000";
+					mes "Vous deviendrez un homme que tout le monde respectera vous savez ?";
+					switch(select("Aller, d'accord je veux devenir un Thief !","Oui mais je pense qu'il y a d'autre facon de se faire respecter...")){
+						case 1:
+							next;
+							if (checkweight (1207,1,2101,1)){
+								mes "^0000FF[Thief]^000000";
+								mes "Ah une nouvelle recrue pour moi ! Mon chef va me remercier en me donnant de l'argent ! Hehe";
+								mes "Nous allons pouvoir vous former pour devenir le meilleur voleur que Midgard est connu !";
+								next;
+								mes "^0000FF[Thief]^000000";
+								mes "Je vais donc maintenant vous teleporter à la guilde des Thiefs";
+								mes "pour que vous puissiez commencer votre aventure dans cet elegant monde qu'est Midgard !";
+								//tp endroit + donation item + zeny 
+								getitem 1207,1;
+								getitem 2101,1;
+								set Zeny,Zeny+10000;
+								warp "moc_ruins",60,161; 
+								savepoint "moc_ruins",60,161;
+								set alrdytalked3, 1;
+								close;
+							}
+							else{
+								mes "^0000FF[Thief]^000000";
+								mes "Desole mais vous avez un poids beaucoup trop haut pour vous teleporter !";
+								mes "Revenez quand vous serez moins lourd.";
+								close;
+							}
+						case 2:
+							mes "^0000FF[Thief]^000000";
+							mes "Bah il va falloir se decider mon petit !";
+							mes "Aller va choisir une autre guilde mais sache que tu le regretteras !";
+							close;
+					}
+				case 2:
+					mes "^0000FF[Thief]^000000";
+					mes "Je comprends jeune aventurier !";
+					mes "Ici c'est pas pour les peureux !";
+					close;
+			close;
+			}
+		}
+		else{
+			mes "^0000FF[Thief]^000000";
+			mes "Oh mais je vois que vous n'etes pas encore assez malsain jeunne homme !";
+			mes "Revenez me voir quand vous serez capable de voler.";
+			close;
+		}
+	}
+}
+
+
+new_1-4,108,20,4	script	Merchant#nv	1_M_SIGNMCNT,{
+	if(alrdytalked4 == 1){
+		mes "^0000FF[Merchant]^000000";
+		mes "1..2..3..4 !";
+		mes "Wahooo je me suis fait 40000 zenys rien qu'avec ces recrutements ? Genial !";
+		close;
+	}
+	else{
+		mes "^0000FF[Merchant]^000000";
+		mes "Bonjour a toi futur riche !";
+		next;
+		mes "^0000FF[Merchant]^000000";
+		mes "Je fais partie de la guilde des ^D41B1BMerchants^000000 et je suis ici pour le recrutement.";
+		mes "Je suis une personne qui ramasse beaucoup d'argent en peu de temps ! Et mon but c'est d'acheter tout ce que je veux !";
+		next;
+		mes "^0000FF[Merchant]^000000";
+		mes "Si vous nous rejoigniez vous pourriez peut etre devenir aussi riche que moi et a nous deux nous racheterons tout Midgard !";
+		next;
+		mes "^0000FF[Merchant]^000000";
+		mes "De plus vous aurez le choix soit de devenir un forgeron dont la puissance de ses armes ne seront plus a demontrer";
+		mes "ou bien un scientifique qui inventera cesse de nouvelles potions !";
+		next;
+		if (Class == Job_Novice && getskilllv("NV_BASIC") >= 9){
+			mes "^0000FF[Merchant]^000000";
+			mes "Alors qu'en dis-tu ?";
+			
+			switch(select("Oh oui je veux devenir riche !","Je suis deja bien assez riche comme ca !")){
+				case 1:
+					mes "^0000FF[Merchant]^000000";
+					mes "Etes-vous certains, ce choix sera irrevocable ?";
+					switch(select("Oui, je suis certains !","Euh... En fait non, la richesse peut rendre fou !")){
+						case 1:
+							next;
+							if (checkweight (1301,1,2101,1)){
+								mes "^0000FF[Merchant]^000000";
+								mes "Ah une nouvelle recrue pour moi ! Mon chef va me remercier en me donnant de l'argent ! Hehe";
+								mes "Nous allons pouvoir conquerir Midgard a coups de billets !";
+								mes "*voix machiavelique*";
+								next;
+								mes "^0000FF[Merchant]^000000";
+								mes "Je vais donc maintenant vous teleporter à la guilde des Merchants";
+								mes "pour que vous puissiez commencer votre aventure et devenir l'homme le plus riche que Midgard est portee !";
+								//tp endroit + donation item + zeny 
+								getitem 1301,1;
+								getitem 2101,1;
+								set Zeny,Zeny+10000;
+								warp "alberta",37,42; 
+								savepoint "alberta",37,42;
+								set alrdytalked4, 1;
+								close;
+							}
+							else{
+								mes "^0000FF[Merchant]^000000";
+								mes "Desole mais vous avez un poids beaucoup trop haut pour vous teleporter !";
+								mes "Revenez quand vous serez moins lourd.";
+								close;
+							}
+						case 2:
+							mes "^0000FF[Merchant]^000000";
+							mes "Okay, tant pis... !";
+							mes "J'aurai aime avoir de la conccurence !";
+							close;
+					}
+				case 2:
+					mes "^0000FF[Merchant]^000000";
+					mes "*Argh* !";
+					mes "Va voir ailleurs alors !";
+					close;
+			close;
+			}
+		}
+		else{
+			mes "^0000FF[Merchant]^000000";
+			mes "Oh mais je vois que vous n'etes pas encore assez fort pour porter toute la riche de Midgard !";
+			mes "Revenez me voir quand vous serez capable de la porter.";
+			close;
+		}
+	}
+}
+
+
+new_1-4,108,16,4	script	Acolyte#nv	4_F_ACOLYTE,{
+	if(alrdytalked5 == 1){
+		mes "^0000FF[Acolyte]^000000";
+		mes "Pater Noster, qui es in caelis : sanctificetur nomen tuum ; adve niat regnum tuum ; fiat voluntas tua, !";
+		mes "sicut in caelo, et in terra. Panem nostrum quotidianum da nobis hodie; et dimitte nobis debita ";
+		mes "nostra, sicut et nos dimittimus debitoribus nostris ; et ne nos inducas in tentationem ; sed libera nos a malo."; 
+		mes "Amen.";
+		close;
+	}
+	else{
+		mes "^0000FF[Acolyte]^000000";
+		mes "Bonjour a toi ame vagabonde !";
+		next;
+		mes "^0000FF[Acolyte]^000000";
+		mes "Je fais partie de la guilde des ^D41B1BAcolytes^000000 et je suis ici pour le recrutement de notre paroisse.";
+		mes "Je suis une personne qui prie Dieu tous les jours tout en aidant mon prochain !";
+		next;
+		mes "^0000FF[Acolyte]^000000";
+		mes "Si vous nous rejoigniez vous pourriez peut etre devenir aussi bon que notre pere et a nous deux nous racheterons benirons tout Midgard !";
+		next;
+		mes "^0000FF[Acolyte]^000000";
+		mes "De plus vous aurez le choix soit de devenir une force de la nature grace au pouvoir de Dieu";
+		mes "ou bien un homme de dieu, qui servira Dieu sans cesse et qui n'hesitera pas a aider son prochain !";
+		next;
+		if (Class == Job_Novice && getskilllv("NV_BASIC") >= 9){
+			mes "^0000FF[Acolyte]^000000";
+			mes "Alors qu'en dis-tu ?";
+			
+			switch(select("Oui je suis interesse !","Je ne peux satisfaire Dieu !")){
+				case 1:
+					mes "^0000FF[Acolyte]^000000";
+					mes "Etes-vous certains, ce choix sera irrevocable ?";
+					switch(select("Oui, faites de moi un enfant de Dieu !","Euh... En fait non, je ne souhaites plus !")){
+						case 1:
+							next; 
+							if (checkweight (1604,1,2101,1)){
+								mes "^0000FF[Acolyte]^000000";
+								mes "Ah une nouvelle recrue pour moi ! Dieu vous a envoye et je l'en remercie !";
+								mes "Nous allons pouvoir aider Midgard a se sentir mieux et a se repentir !";
+								next;
+								mes "^0000FF[Acolyte]^000000";
+								mes "Je vais donc maintenant vous teleporter à la guilde des Acolytes";
+								mes "pour que vous puissiez commencer votre aventure et devenir quelqu'un d'expectionnel !";
+								next;
+								//tp endroit + donation item + zeny 
+								getitem 1604,1;
+								getitem 2101,1;
+								set Zeny,Zeny+10000;
+								warp "prontera",234,314;
+								savepoint "prontera",234,314;
+								set alrdytalked5, 1;
+								close;
+							}
+							else{
+								mes "^0000FF[Acolyte]^000000";
+								mes "Desole mais vous avez un poids beaucoup trop haut pour vous teleporter !";
+								mes "Revenez quand vous serez moins lourd.";
+								close;
+							}
+						case 2:
+							next;
+							mes "^0000FF[Acolyte]^000000";
+							mes "Okay, tant pis... !";
+							mes "J'aurai aime avoir de la conccurence !";
+							close;
+					}
+				case 2:
+					mes "^0000FF[Acolyte]^000000";
+					mes "*Argh* !";
+					mes "Va voir ailleurs alors !";
+					close;
+			close;
+			}
+		}
+		else{
+			mes "^0000FF[Acolyte]^000000";
+			mes "Oh mais je vois que vous n'etes pas encore assez fort pour porter toute la riche de Midgard !";
+			mes "Revenez me voir quand vous serez capable de la porter.";
+			close;
+		}
+	}
+}

@@ -1,0 +1,446 @@
+//===== Hercules Script ======================================
+//= Sample: Qu�te Healer
+//===== By: ==================================================
+//= Baps & Syph
+//===== Current Version: =====================================
+//= 20131225
+//===== Script Version =======================================
+//= V1 Ajout NPC Healer
+//= V1.1 Modification quelques bugs
+//===== Description: =========================================
+//= NPC Healer
+//============================================================
+
+//=NPC Healer=//
+
+-	script	Healer#uni	-1,{
+
+if ((gettime(4) == 3 && gettime(3) == 21) || (gettime (4) == 6 && gettime(3) == 21)){ //Sub Routine S_HealerWoE si Mercredi ou Samedi 21h
+	callsub S_HealerWoE;
+	if ((gettime(4) == 3 && gettime(3) == 23) || (gettime (4) == 6 && gettime(3) == 23)){ //Sub Routine S_Healer si Mercredi ou Samedi 23h
+		callsub S_Healer;
+	}
+}
+else { //Sub Routine jour normaux
+	callsub S_Healer;
+}
+end;
+
+		
+	OnInit:
+		// Configuration
+		.hp = 100;		// Pourcentage d'HP �heal
+		.sp = 100;		// Pourcentage d'SP �heal
+		.delay = 60;	// Nombre en secondes de delay pour BaseLevel < 70
+		.delay2 = 120;	// Nombre en secondes de delay pour BaseLevel > 70
+	end;
+
+		
+	
+S_Healer: //Sub Routine pour Jour normaux
+	cutin "kh_ellisia",2;
+		mes "[Healer]";
+		mes "Bonjour, je peux vous soigner si vous le souhaitez.";
+		next;
+		switch(select("Oui soignez moi s'il vous plait","Non merci je n'en ai pas besoin")){
+			case 1:
+				if (BaseLevel <= 15){ //Heal Personnage + Blessing/Agi <= Lvl 15 
+					mes "[Healer]";
+					mes "Tu es un tr�s jeune aventurier, je vais utiliser mes pouvoirs pour te soigner et bien plus.";
+					specialeffect2 EF_HEAL; percentheal .hp, .sp;
+					specialeffect2 EF_BLESSING; sc_start SC_BLESSING, 360000, 10;
+					specialeffect2 EF_INCAGILITY; sc_start SC_INC_AGI, 360000, 10;
+					next;
+					mes "[Healer]";
+					mes "Voila qui est fait, profite de mes pouvoirs, ils sont pr�cieux.";
+					mes "Bonne journ�e !";
+					close2;
+					cutin "",255;
+					end;
+				}
+				else if (@pdelay > gettimetick(2)){ //V�rification du delai
+					mes "[Healer]";
+					mes "Vous avez demand� mes services il n'y a pas si longtemps, je vous demande d'attendre "+ (@pdelay - gettimetick(2)) +"s avant de revenir.";
+					close2;
+					cutin "",255;
+					end;
+				}	
+				else if (BaseLevel <= 70 && .delay){ //Heal Personnage <= Lvl 70
+					mes "[Healer]";
+					mes "Je vois que tu es encore un jeune aventurier, je vais donc te soigner gratuitement.";
+					specialeffect2 EF_HEAL; percentheal .hp, .sp;
+					next;
+					mes "[Healer]";
+					mes "Voila qui est fait.";
+					mes "Bonne journ�e !";
+					@pdelay = gettimetick(2)+.delay; //Calcul du nouveau delai
+					close2;
+					cutin "",255;
+					end;
+				}
+				else if (BaseLevel > 70 && questprogress(00000) == 2 && @pdelay2 > gettimetick(2)){ //Qu�te Healer - Finie - Delai Non Fini
+					mes "[Healer]";
+					mes "Vous avez demand� mes services il n'y a pas si longtemps, je vous demande d'attendre "+ (@pdelay2 - gettimetick(2)) +"s avant de revenir.";
+					close2;
+					cutin "",255;
+					end;
+				}
+				else if (BaseLevel > 70 && questprogress(00000) == 2 && .delay2){ //Qu�te Healer - Finie - Delai Fini
+					mes "[Healer]";
+					mes "Tu es mal en point, comme je vois que tu as fait un don au pr�t de l'Eglise, je te promulgue des soins.";
+					specialeffect2 EF_HEAL; percentheal .hp, .sp;
+					next;
+					mes "[Healer]";
+					mes "Voila qui est fait, merci encore pour ce don.";
+					@pdelay2 = gettimetick(2)+.delay2; //Calcul du nouveau delai
+					close2;
+					cutin "",255;
+					end;
+				}
+				else if (BaseLevel > 70){ //Qu�te Healer - Non Finie - Non Commenc�e
+					mes "[Healer]";
+					mes "Je ne peux vous soigner, vous prenez trop de mes pouvoirs.";
+					mes "Vous devez finir la qu�te de l'Eglise d'abord pour me demander mes services.";
+					close2;
+					cutin "",255;
+					end;
+				}
+				break;
+			case 2:
+				mes "[Healer]";
+				mes "A bient�t j'esp�re !";
+				close2;
+				cutin "",255;
+				end;
+		}
+	close2;
+	cutin "",255;
+	end;
+end;
+
+
+S_HealerWoE: //Sub Routine pour jour de WoE
+	cutin "kh_ellisia",2;
+		mes "[Healer]";
+		mes "Je suis � votre enti�re disposition pendant les War of Emperium, profitez-en !";
+		next;
+		if (BaseLevel <= 15){ //Heal Personnage + Blessing/Agi <= Lvl 15 
+			mes "[Healer]";
+			mes "Tu es un tr�s jeune aventurier, je vais utiliser mes pouvoirs pour te soigner et bien plus.";
+			specialeffect2 EF_HEAL; percentheal .hp, .sp;
+			specialeffect2 EF_BLESSING; sc_start SC_BLESSING, 360000, 10;
+			specialeffect2 EF_INCAGILITY; sc_start SC_INC_AGI, 360000, 10;
+			next;
+			mes "[Healer]";
+			mes "Voila qui est fait, profite de mes pouvoirs, ils sont pr�cieux.";
+			mes "Bonne journ�e !";
+			close2;
+			cutin "",255;
+			end;
+		}
+		else if (BaseLevel > 15){ //Heal Personnage <= Lvl 70
+			mes "[Healer]";
+			mes "Je vois que tu es bless�, je vais donc te procurer des soins.";
+			specialeffect2 EF_HEAL; percentheal .hp, .sp;
+			next;
+			mes "[Healer]";
+			mes "Voila qui est fait.";
+			mes "Bonne journ�e !";
+			close2;
+			cutin "",255;
+			end;
+		}	
+end;
+}
+
+alberta,119,65,6	duplicate(Healer#uni)	Healer#alberta	4_F_NURSE
+aldebaran,135,118,6	duplicate(Healer#uni)	Healer#aldebaran	4_F_NURSE
+amatsu,200,79,4	duplicate(Healer#uni)	Healer#amatsu	4_F_NURSE
+ayothaya,207,169,6	duplicate(Healer#uni)	Healer#ayothaya	4_F_NURSE
+comodo,184,158,6	duplicate(Healer#uni)	Healer#comodo	4_F_NURSE
+einbech,57,36,6	duplicate(Healer#uni)	Healer#einbech	4_F_NURSE
+einbroch,57,202,6	duplicate(Healer#uni)	Healer#einbroch	4_F_NURSE
+geffen,115,72,6	duplicate(Healer#uni)	Healer#geffen	4_F_NURSE
+gonryun,156,122,6	duplicate(Healer#uni)	Healer#gonryun	4_F_NURSE
+hugel,89,150,6	duplicate(Healer#uni)	Healer#hugel	4_F_NURSE
+izlude,124,148,4	duplicate(Healer#uni)	Healer#izlude	4_F_NURSE
+jawaii,250,139,4	duplicate(Healer#uni)	Healer#jawaii	4_F_NURSE
+lighthalzen,152,100,6	duplicate(Healer#uni)	Healer#lighthalzen	4_F_NURSE
+louyang,226,103,4	duplicate(Healer#uni)	Healer#louyang	4_F_NURSE
+morocc,153,97,6	duplicate(Healer#uni)	Healer#morocc	4_F_NURSE
+niflheim,212,182,5	duplicate(Healer#uni)	Healer#niflheim	4_F_NURSE
+payon,179,106,4	duplicate(Healer#uni)	Healer#payon	4_F_NURSE
+prontera,159,189,4	duplicate(Healer#uni)	Healer#prontera	4_F_NURSE
+rachel,125,116,6	duplicate(Healer#uni)	Healer#rachel	4_F_NURSE
+umbala,105,148,3	duplicate(Healer#uni)	Healer#umbala	4_F_NURSE
+veins,217,121,4	duplicate(Healer#uni)	Healer#veins	4_F_NURSE
+xmas,143,136,4	duplicate(Healer#uni)	Healer#lutie	4_F_NURSE
+yuno,164,45,4	duplicate(Healer#uni)	Healer#yun	4_F_NURSE
+
+
+
+//=Quête Healer=//
+
+ra_temple,120,92,4	script	Pape Armold#ra	4_F_ARUNA_POP,{
+	if (questprogress(00000) == -1){
+		mes "[Pape Armol]";
+		mes "Bonjour mon enfant, je vois que tu as l'air fatigué de combattre sans relâche à travers Midgard.";
+		mes "Ce monde est impitoyable je le sais, je l'ai parcouru tellement de fois dans ma longue vie...";
+		mes "Je sais aussi que c'est dur de se soigner en ce bas monde, à cause des guerres qui ont sévit, les guildes ne s'entendent plus comme avant...";
+		next;
+		mes "[Pape Armol]";
+		mes "C'est pourquoi j'ai décidé de lancer une organisation qui se trouvera dans chaque ville afin d'aider les habitants de Midgard à se relever et combatttre !";
+		mes "Malheureusement, très peu de personnes croient en un projet oomme celui-là et je ne peux les contredires, beaucoup de gens ont déjà essayé par le passé sans réussite.";
+		mes "Mais je ne perds pas éspoir, un jour, cette organisation sera reconnu dans Midgard et tout le monde sera heureux et ils me remercieront d'avoir persévéré.";
+		next;
+		mes "[Pape Armol]";
+		mes "Tiens j'y pense, tu ne voudrais pas m'aider dans ma quête ? Je te promets que ce projet va marcher !";
+		switch(select("De quoi avez vous besoin ?","Non, je n'y crois pas une seconde")){
+			case 1:
+				mes "[Pape Armol]";
+				mes "Merci de croire en moi mon enfant !";
+				mes "Pour le moment je dois lancer mon projet et même si je suis un Homme d'Eglise, comme tout le monde, j'ai besoin d'économie pour le commencer.";
+				mes "Je vois que tu as du combattre pour effectuer des missions. Serais-tu assez généreux pour me fournir un début ?";
+				next;
+				switch(select("Oui, combien?","Euh j'ai beaucoup travaillé pour ça")){
+					case 1:
+						mes "[Pape Armol]";
+						mes "J'aurai besoin de 100 000 zénys, je sais que ça fait beacoup mais il me faut au moins ça pour commencer.";
+						next;
+						switch(select("Tenez, prenez","Oula ça fait beaucoup tout compte fait")){
+							case 1:
+								mes "[Pape Armol]";
+								if (Zeny >= 100000){
+									set Zeny,Zeny-100000;
+									mes "Oh merci mon enfant ! Dieu te regarde de là haut et te remercie de ta générosité !";
+									mes "J'aurai besoin d'un autre service, je vais devoir maintenant convaincre toutes les villes de Midgard à faire de même et à créer cette organisation.";
+									mes "J'ai un plan, je vais convaincre d'abord les grande villes puis les petites suivront le pas j'en suis sûr !";
+									mes "Malheureusement je suis vieux et j'aurai besoin d'une personne pour m'épauler, serais-tu la bonne personne ?";
+									next;
+									switch(select("Je le suis","Je ne crois pas non")){
+										case 1:
+											mes "[Pape Armol]";
+											mes "Oh merci ! Tu es vraiment quelqu'un de bon !";
+											mes "Va convaincre la ville d'Izlude en parlant au Maire Ilyac qu'installer un service comme celui-ci sera bénéfique pour la ville.";
+											set alrdytalkpapearmol, 1;
+											setquest 00000;
+											dispbottom "Vous avez reçu une nouvelle quête consulter là via alt+u";
+											close;
+											OnInit:
+												questinfo 00000,QTYPE_QUEST, 0;
+											end;
+										case 2:
+											mes "[Pape Armol]";
+											mes "*Argh*, J'aurai pensé que tu étais une bonne personne prête à aider ton prochain...";
+											close;
+									}
+								}
+								else{
+									mes "[Pape Armol]";
+									mes "Tu es très généreux mais malheureusement tu n'as pas cet argent sur toi ..";
+									mes "Merci quand même.";
+									close;
+								}
+							case 2:
+								mes "[Pape Armol]";
+								mes "Je suis sur que tu as tes raisons pour ne pas me donner cet argent mais ça m'aurait été bien utile quand même";
+								close;
+						}
+					case 2:
+						mes "[Pape Armol]";
+						mes "Je comprends même si cette organisation aurait pu permettre de rendre la vie des combattants meilleurs...";
+						close;
+				}
+			case 2:
+				mes "[Pape Armol]";
+				mes "Dommage que tu ne crois pas à ce projet, il aurait pu ensuite t'aider dans la quête mais tant pis.";
+				close;
+		}
+	}
+		else if (questprogress(00000) == 1 && alrdytalkmaireizlude == 1){
+			mes "[Pape Armol]";
+			mes "Tu as réussi à convaincre le maire ?";
+			mes "Fantastique ! Je savais que je pouvais compter sur toi !";
+			mes "Pour ma part je suis allé à Morocc et même si cette ville est un peu spécial depuis les derniers événements qui s'y sont passés, la ville a accepté l'idée !";
+			next;
+			mes "Il faudrait maintenant convaincre la plus grande ville de Midgard : Prontera !";
+			mes "Tu en serai capable ?";
+			switch(select("Oui bien sûr!","Je ne pense pas")){
+				case 1:
+					mes "[Pape Armol]";
+					mes "Haha tu es vraiment une personne géniale ! Il faut que tu ailles parler au Maire Palaruc qui se trouve au Château de Prontera.";
+					mes "De mon côté je vais commencer à recruter des personnes pour les villes déjà d'accord.";
+					mes "Allez bonne chance !";
+					set alrdytalkpape, 1;
+					close;
+				case 2:
+					mes "[Pape Armol]";
+					mes "Je pensais que quelqu'un comme toi en serait capable, je me suis trompé apparemment.";
+					close;
+			}
+		}
+		else if (questprogress(00000) == 1 && alrdytalkmaireizlude == 0){
+			mes "[Pape Armol]";
+			mes "Va voir le Maire d'Izlude et essaye de le convaincre à accepter cette organisation.";
+			close;
+		}
+		else if (questprogress(00000) == 1 && alrdytalkmaireizlude == 1 && alrdytalkmaireprontera == 1){
+			mes "[Pape Armol]";
+			mes "Tu étais voir le Maire de Prontera ? Et il a accepté ? Vraiment ?";
+			mes "Si nous avons Prontera de notre côté, toutes les villes vont commencer à rélféchir et ne vont sûrement pas tarder à nous rejoindre dans notre projet !";
+			mes "Grâce à toi, le projet s'est lancé et on gagne du terrain de jour en jour !";
+			next;
+			mes "[Pape Armol]";
+			mes "Toutes les villes vont nous rejoindre et tous les combattants pourront se soigner rapidemment !";
+			mes "Merci encore "+strcharinfo(0)+", le peuple de Midgard te remercie aussi!";
+			mes "Que les Grands Dieux de se monde te suivent et te protège durant ton périple !";
+			close;
+		}
+		else if (questprogress(00000) == 1 && alrdytalkmaireizlude == 1 && alrdytalkmaireprontera == 0){
+			mes "[Pape Armol]";
+			mes "Va convaince le Maire de Prontera, c'est grâce à lui que les dernières villes nous rejoindrons !";
+			close;
+		}
+		else if (questprogress(00000) == 2){
+			mes "[Pape Armol]";
+			mes "Merci encore de m'avoir aidé pour installer et faire connaître cette organisation pour aider le peuple de Midgard.";
+			mes "Tu iras directement au Valhalla j'en suis sûr !";
+			close;
+		}
+}
+
+izlude,107,261,4	script	Maire Ilyac#izlude_in	4_M_MAYOR,{
+	if (questprogress(00000) == 1 && alrdytalkpapearmol = 1){
+		mes "[Maire Ilyac]";
+		mes "Bonjour, que venez vous faire ici ?";
+		switch(select("Je viens vous proposer un projet","Oh rien de bien spécial")){
+			case 1:
+				mes "[Maire Ilyac]";
+				mes "Un projet ? Lequel ?";
+				next;
+				switch(select("Un Healer pour combattants")){
+					case 1:
+						mes "[Maire Ilyac]";
+						mes "Ah oui ? J'avais déjà entendu parler de ce genre de projet, à l'époque il m'avait plu mais aujourd'hui je ne sais pas.";
+						mes "Le monde est calme en ce moment, en tant que Maire de la Capitale de Midagrd, je me permets d'être réticent à cette idée.";
+						mes "Mais d'un autre côté, ces combattants ont tellement souffert durant les précédentes guerres que je me dis que ça pourrait être utile.";
+						mes "De plus, les autres Maires m'ont rapporté récemment qu'un mal gronde depuis peu...";
+						next;
+						mes "[Maire Ilyac]";
+						mes "J'espère que ce n'est pas trop important.";
+						mes "Je voudrai bien intégrer cette organisation mais je ne veux pas débloquer des fonds pour le moment.";
+						mes "Trouve moi un moyen d'en avoir et je me ferai un plaisir de l'implanter.";
+						next;
+						switch(select("Je vous propose mon argent","Je vais réfléchir")){
+							case 1:
+								mes "[Maire Ilyac]";
+								mes "Ton argent ? Je veux bien mais j'aurai besoin de 50 000 zénys pour lancer le projet dans ma ville.";
+								mes "Tu voudrais vraiment me les donner ?";
+								next;
+								switch(select("Oui, c'est important","50k ? Non mais ça va pas?")){
+									case 1:
+										mes "[Maire Ilyac]";
+										mes "*Vous lui donnez 50 000 Zénys*";
+										if (Zeny >= 50000){
+											set Zeny,Zeny-50000;
+											mes "Merci camarade ! Tu es vraiment généreux ! On en fait rarement des personnes comme toi maintenant.";
+											mes "Je te promets d'intégrer ce projet dans cette ville avec l'argent que tu m'as donné.";
+											next;
+											mes "[Maire Ilyac]";
+											mes "Le peuple d'Izlude te remercie !";
+											set alrdytalkmaireizlude, 1;
+											close;
+										}
+										else{
+											mes "[Maire Ilyac]";
+											mes "Désolé mais tu n'as pas autant de Zénys...";
+											mes "Merci quand même de vouloir aider !";
+											close;
+										}
+									case 2:
+										mes "[Maire Ilyac]";
+										mes "Très bien alors pas de Healer dans ma ville.";
+										mes "Je n'ai pas l'argent en ce moment pour l'intégrer cette personne.";
+										close;
+								}
+							case 2:
+								mes "[Maire Ilyac]";
+								mes "D'accord, je ne bouge pas d'ici pour ma part.";
+								mes "J'ai beaucoup de travail, à bientôt";
+								close;
+						}
+				}
+			case 2:
+				mes "[Maire Ilyac]";
+				mes "Rien de bien spécial ? J'ai du travail moi, revenez quand vous saurez ce que vous voudrez.";
+				close;
+		}
+	}
+	else{
+		mes "[Maire Ilyac]";
+		mes "Bienvenu dans cit� d'Izlude !";
+		mes "Je suis le maire et j'esp�re que vous vous y plairez !";
+		close;
+	}
+}
+
+prt_in,284,165,3	script	Maire Palaruc#prt_in	4_M_MAYOR,{
+	if (questprogress(00000) == 1 && alrdytalkpape == 1){
+		mes "[Maire Palaruc]";
+		mes "Bonjour je suis le Maire de Prontera, l'ancienne capitale de Midgard. Pourquoi ancienne ? Car elle commençait à vieillir malheureusement mais nous essayons de changer ça.";
+		mes "Izlude a trs bien sur le faire et est devenu la plaque tournante de Midgard et est donc devenue la Capitaile de ce monde.";
+		mes "Que veux tu cher citoyen ?";
+		next;
+		switch(select("Je viens pour intégrer un Healer")){
+			mes "[Maire Palaruc]";
+			mes "Un Healer ? Dans ma ville ? Pour quoi faire ?";
+			mes "Les combattants ? Hm...";
+			mes "Je veux bien, ça pourrait redonner le plaisir de venir ici mais le problème c'est que toutes nos économies sont parties dans la rénovation de la ville...";
+			mes "Je manque cruellement de Zénys en ce moment ...";
+			next;
+			mes "Si tu as une idée pour m'aider je suis preneur ! Sinon je devrais refuser ...";
+			next;
+			switch(select("Je veux bien vous aider !","De l'argent ? J'en ai pas")){
+				case 1:
+					mes "[Maire Palaruc]";
+					mes "J'aurai besoin de 50 000 Zénys pour pouvoir intégrer ce Healer à pleins temps. Tu les aurais ?";
+					next;
+					switch(select("Oui, et je veux vous les donner","Euh peut être")){
+						case 1:
+							mes "[Maire Palaruc]";
+							mes "Me les donner ? C'est vraiment généreux de ta part !";
+							if (Zeny > 50000){
+								set Zeny,Zeny-50000;
+								mes "[Maire Palaruc]";
+								mes "Merci beaucoup, ton argent sera bien dépensé, en éspérant que du monde revienne dans cette magnifique ville qu'est Prontera !";
+								next;
+								mes "[Maire Palaruc]";
+								mes "Le peuple de Prontera te remercie !";
+								set alrdytalkmaireprontera, 1;
+								close;
+							}
+							else{
+								mes "[Maire Palaruc]";
+								mes "Oh! Mais je vois que toi non plus tu n'as pas d'argent ...";
+								mes "Si vraiment tu le souhaites, reviens me voir avec les 50 000 Zénys.";
+								close;
+							}
+						case 2:
+							mes "[Maire Palaruc]";
+							mes "Reviens me voir quand tu seras certains.";
+							close;
+					}
+				case 2:
+					mes "[Maire Palaruc]";
+					mes "Je ne pourrai donc pas installer un Healer dans la ville de Prontera, je n'ai pas l'argent pour ça, la rénovation m'a tout prit.";
+					close;
+			}
+		}
+	}
+	else{
+		mes "[Maire Palaruc]";
+		mes "Bienvenu dans la cit� de Prontera !";
+		mes "Je suis le maire et j'esp�re que vous vous y plairez !";
+		close;
+	}
+}

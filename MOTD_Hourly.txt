@@ -1,0 +1,32 @@
+-	script	MOTD_HOURLY	-1,{
+end;
+
+OnInit:
+/*************************************************************
+ *                      Configuration                        *
+ *************************************************************/
+	.@ServName$ = "YourRO";
+	setarray .announcements$, "J'espère que vous vous amusez bien sur le serveur "+.@ServName$+"!",
+		"N'oubliez pas de regarder les dernières news du serveur "+.@ServName$+", vous pouvez les voir sur le site ou le forum pour plus d'information!",
+		"N'oubliez pas, jouer de trop longue période peut causer de sérieux problèmes de santé, prenez une pause ! "+.@ServName$+" peut attendre!",
+		"Tapez @commands pour voir la liste des commandes qui vous seront utile pendant votre aventure !",
+		"N'oubliez pas de regarder le forum et/ou le site pour voir les dernières mise à jour de "+.@ServName$+"!",
+		"N'oubliez pas, un GM ne vous demandera jamais votre login et votre mot de passe, soyez prudent.",
+		"Rappel : Hackeur, Botteur, Exploiteur de bugs sera puni ! Ce n'est PAS toléré sur "+.@ServName$+".",
+		""+.@ServName$+" est vraiment heureux d'avoir une si bonne communauté !",
+		"N'oubliez pas de voter pour que la communauté s'aggrandisse et gagner des points !",
+		"Amusez-vous bien sur "+.@ServName$+"!",
+		"Vous pouvez consulter vos quêtes avec la commande alt+u!",
+		"N'oubliez pas, le chat : #Party est là pour vous aider à organiser des teams!",
+		"Les chats disponible : #Allié, #Party",
+		"Si vous avez des suggestions pour améliorer le serveur, proposez les sur le forum à l'adresse https://www.yourserveur.fr/forum!";
+		
+/*************************************************************
+ *     End of configuration. Edit below at your own risk!    *
+ *************************************************************/
+ 	end;
+	
+    OnMinute00:
+		announce .announcements$[rand(getarraysize(.announcements$))],bc_all;
+	end;
+}

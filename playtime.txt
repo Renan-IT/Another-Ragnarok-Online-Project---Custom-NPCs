@@ -1,0 +1,49 @@
+-	script	atcmd_example	-1,{
+	
+OnAtcommand:
+	.@tick = 0; // Compteur compte (account_id)
+	.@tick2 = 0; // Compteur personnage (char_id)
+	//Requête SQL pour compte 
+	query_sql "UPDATE `onlinetime` SET `total_sec` = `total_sec` + TIMESTAMPDIFF(SECOND, `start_time`,  NOW()), `start_time` = NOW() WHERE `account_id` = "+getcharid(3);
+	query_sql "SELECT `total_sec` FROM `onlinetime` WHERE `account_id` = "+getcharid(3), .@tick;
+	//Requête SQL pour personnage
+	query_sql "UPDATE `onlinetime2` SET `total_sec` = `total_sec` + TIMESTAMPDIFF(SECOND, `start_time`,  NOW()), `start_time` = NOW() WHERE `char_id` = "+getcharid(0);
+	query_sql "SELECT `total_sec` FROM `onlinetime2` WHERE `char_id` = "+getcharid(0), .@tick2;
+	//Affichage temps compte + personnage
+	dispbottom "---------------- Temps de jeu ----------------";
+	dispbottom "Compte : "+callfunc("Time2Str", gettimetick(2)+.@tick)+"";
+	dispbottom "Personnage : "+callfunc("Time2Str", gettimetick(2)+.@tick2)+"";
+	close;
+end;
+
+OnPCLoginEvent:
+	.@bool = 0;
+	.@bool2 = 0;
+	query_sql "SELECT `account_id` FROM `onlinetime` WHERE `account_id` = "+getcharid(3), .@bool;	
+	query_sql "SELECT `char_id` FROM `onlinetime2` WHERE `char_id` = "+getcharid(0), .@bool2;
+	if( .@bool ){
+		query_sql "UPDATE `onlinetime` SET `start_time` = NOW() WHERE `account_id` = "+getcharid(3);
+		query_sql "UPDATE `onlinetime2` SET `start_time` = NOW() WHERE `char_id` = "+getcharid(0);
+	}
+	else {
+		query_sql "INSERT INTO `onlinetime` VALUES("+getcharid(3)+", NOW(), 0)";
+		query_sql "INSERT INTO `onlinetime2` VALUES("+getcharid(0)+", NOW(), 0)";
+	}
+end;
+	
+OnPCLogoutEvent:
+	query_sql "UPDATE `onlinetime` SET `total_sec` = `total_sec` + TIMESTAMPDIFF(SECOND, `start_time`,  NOW()), `start_time` = NOW() WHERE `account_id` = "+getcharid(3);
+	query_sql "UPDATE `onlinetime2` SET `total_sec` = `total_sec` + TIMESTAMPDIFF(SECOND, `start_time`,  NOW()), `start_time` = NOW() WHERE `char_id` = "+getcharid(0);
+end;
+
+OnInit:
+	bindatcmd "@playtime",strnpcinfo(3)+"::OnAtcommand";
+	debugmes "[OnlineTime]: Auto-Backup player date.";
+	query_sql "INSERT INTO `onlinetime` SELECT `account_id`, NOW(), 0 FROM `char` WHERE `online` = 1 AND `account_id` NOT IN (SELECT `account_id` FROM `onlinetime`)";
+	query_sql "UPDATE `onlinetime` SET `total_sec` = `total_sec` + TIMESTAMPDIFF(SECOND, `start_time`,  NOW()), `start_time` = NOW() WHERE `account_id` IN (SELECT `account_id` FROM `char` WHERE `online` = 1)";
+	
+	query_sql "INSERT INTO `onlinetime2` SELECT `char_id`, NOW(), 0 FROM `char` WHERE `online` = 1 AND `char_id` NOT IN (SELECT `char_id` FROM `onlinetime2`)";
+	query_sql "UPDATE `onlinetime2` SET `total_sec` = `total_sec` + TIMESTAMPDIFF(SECOND, `start_time`,  NOW()), `start_time` = NOW() WHERE `char_id` IN (SELECT `char_id` FROM `char` WHERE `online` = 1)";
+end;
+	
+}

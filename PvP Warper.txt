@@ -1,0 +1,88 @@
+//===== Hercules Script ======================================
+//= Sample: PvP Warper
+//===== By: ==================================================
+//= Baps
+//===== Current Version: =====================================
+//= 20131225
+//===== Script Version =======================================
+//= V1 
+//===== Description: =========================================
+//= NPC PvP Warper
+//============================================================
+
+izlude,135,145,3	script	PvP Warper	4_F_NURSE,{
+	
+set @npc$, "[^0006D3PvP Warper^000000]";
+set @serveur$, "MyRO";
+
+callsub S_Menu;
+
+S_Menu:
+	mes @npc$;
+	mes "Je suis le PvP Warper de "+@serveur$+",";
+	mes "Je peux vous warper dans différente salle qui ont différentes règles.";
+	mes "Que voulez-vous faire ?";
+	menu "Salle PvP Solo [^0000FF"+getmapusers("pvp_y_8-2")+"^000000 Personne(s)]:Salle PvP Party vs Party [^0000FF"+getmapusers("pvp_y_8-2")+"^000000 Personne(s)]:Salle RWC [^0000FF"+getmapusers("pvp_y_8-2")+"^000000 Personne(s)]:Que font ces salles ?:Partir",L_Menu;
+end;
+		
+L_Menu:
+	switch (@menu){
+		case 1:
+			mes @npc$;
+			mes "Je vous y envoie tout de suite !";
+			mes "Bonne chance !";
+			announce "Un joueur est entrée dans la salle PvP Solo",bc_self;
+			warp "pvp_y_8-2",0,0;//Map PvP Solo
+			break;
+		case 2:
+			mes @npc$;
+			mes "Je vous y envoie tout de suite !";
+			mes "Bonne chance !";
+			announce "Une team est entrée dans la salle PvP Party vs Party",bc_self;
+			warp "pvp_y_8-2",0,0;//Map PvP Party vs Party
+			break;
+		case 3:
+			mes @npc$;
+			mes "Je vous y envoie tout de suite !";
+			mes "Bonne chance !";
+			announce "Une team est entrée dans la salle PvP RWC",bc_self;
+			warp "pvp_y_8-2",0,0;//Map PvP RWC
+			break;
+		case 4: //Explication des différentes des salles
+			next;
+			mes @npc$;
+			mes "La 1er salle permet de faire du PvP en 1 v 1, où tout le monde se bat contre tout le monde.";
+			next;
+			mes @npc$;
+			mes "La 2ème salle permet de faire du PvP en Party vs Party avec un minimum de 5 joueurs dans chaque team.";
+			next;
+			mes @npc$;
+			mes "La 3ème salle est un peu différente, elle permet de faire du PvP en Party vs Party en mode RWC !";
+			mes "Pour être plus précis, ce mode de jeu est différent des modes Party vs Party ou même War of Emperium,";
+			mes "Des règles très précisent sont instaurées avec un nombre de consommables et de skills limités !";
+			mes "C'est plus de la stratègie que les autres salles !";
+			next;
+			callsub S_Menu;
+			close;
+			
+		case 5:
+			next;
+			mes @npc$;
+			mes "A bientôt j'espère !";
+			close;
+	}
+	end;
+}
+
+//Mapflag pour pvp_y_8-2
+
+pvp_y_8-2	mapflag	pvp
+pvp_y_8-2	mapflag	pvp_noparty
+pvp_y_8-2	mapflag	pvp_noguild
+pvp_y_8-2	mapflag	nopenalty
+pvp_y_8-2	mapflag	nobranch
+pvp_y_8-2	mapflag	nowarp
+pvp_y_8-2	mapflag	nosave
+pvp_y_8-2	mapflag	noteleport
+pvp_y_8-2	mapflag	nodrop
+pvp_y_8-2	mapflag	nocommand	10

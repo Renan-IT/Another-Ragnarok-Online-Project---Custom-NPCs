@@ -1,0 +1,3391 @@
+//===== Hercules Script ======================================
+//= Sample: Warper
+//===== By: ==================================================
+//= Baps
+//===== Current Version: =====================================
+//= 20131225
+//===== Script Version =======================================
+//= V1 : Ajout NPC Warper Ville
+//= V2 : Ajout NPC Warper Donjon
+//===== Description: =========================================
+//= NPC Warper avec temps d'attente (rôle play) 
+//============================================================
+
+//NPC Warper Alberta : Payon, Izlude, Jawaii, (Nifheim via Port)
+//NPC Warper Alde Baran : Yuno, Prontera, Einbech, Einbroch
+//NPC Warper Amatsu : Gonryun, Nifheim, Jawaii
+//NPC Warper Ayothaya : Gonryun, Lutie, (Louyang, Hugel via Port)
+//NPC Warper COMODO : MOROCC, (Alberta, Rachel, Veins, Izlude via port), Umbala
+//NPC Warper Einbech : Einbroch via Train, Rachel, Alde Baran
+//NPC Warper Einbroch : Einbech via Train, Rachel, (Yuno via Airship)
+//NPC Warper Geffen : Prontera, Izlude, 
+//NPC Warper Gonryun : Amatsu, Ayothaya, Louyang, Lutie, (Izlude via Port)
+//NPC Warper Hugel : (Ayothaya via Port), Yuno, Alde Baran 
+//NPC Warper Izlude : Geffen, MOROCC, Payon, Prontera, (Yuno, Rachel, Hugel, Lighthalzen via Airship)
+//NPC Warper Jawaii : Alberta, Amatsu, Nifheim
+//NPC Warper Lighthalzen : Veins, Einbech, Einbroch, (Yuno, Rachel, Izlude, Hugel via Airhsip)
+//NPC Warper Louyang : Lutie, (Gonryun, Ayothaya, Amatsu via Port)
+//NPC Warper Lutie : Ayothaya, Gonryun, Louyang
+//NPC Warper MOROCC : Izlude, Prontera, COMODO, Umbala
+//NPC Warper Nifheim : Amatsu, Jawaii, (Alberta via Port)
+//NPC Warper Prontera : Alde Baran, Geffen, Izlude, MOROCC, Payon
+//NPC Warper Payon : Izlude, Prontera, Alberta
+//NPC Warper Rachel : Veins, Lighthalzen, Einbroch, Einbech, (Yuno, Izlude, Lighthalzen, Hugel via Airship)
+//NPC Warper Umbala : MOROCC, COMODO
+//NPC Warper Veins : Rachel, Einbech, Einbroch, Lighthalzen
+//NPC Warper Yuno : Einbech, Einbroch, (Hugel, Izlude, Rachel, Lighthalzen via Airship)
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////=NPC WARPER VILLE=/////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+//=NPC WARPER ALBERTA=//
+
+alberta,114,65,4	script	Warper#al	4_F_NURSE,{
+set @npc$, "[Warper]"; //Nom NPC
+
+	if (alreadytalk ==1){
+	mes @npc$;
+	mes "Nous préparons votre monture !";
+	close;
+	}
+	else{
+		mes @npc$;
+		mes "Bonjour "+strcharinfo(0)+",";
+		mes "Je peux vous transporter à dos de Peco Peco dans les villes alentours si vous le souhaitez.";
+		mes "Les villes accéssibles ici sont : Izlude, Jawaii et Payon.";
+		next;
+		mes @npc$;
+		mes "Dans quelles villes souhaitez-vous aller ?";
+		switch(select("Izlude","Jawaii","Payon","Aucune")){
+			case 1:
+				next;
+				mes @npc$;
+				mes "très bien je demande tout suite à un écuyer de vous préparer votre Peco Peco !";
+				mes "Il sera prêt dans 20s environ,";
+				mes "pendant ce temps là, prenez le temps de préparer 	votre équipement !";
+				addtimer 20000, strnpcinfo(3)+"::OnWarp";
+				addtimer 15000, strnpcinfo(3)+"::OnSec";
+				set izlude, 1;
+				//warp après 20s
+				set alreadytalk, 1;
+				close;
+			case 2:
+				next;
+				mes @npc$;
+				mes "très bien je demande tout suite à un écuyer de vous préparer votre Peco Peco !";
+				mes "Il sera prêt dans 20s environ,";
+				mes "pendant ce temps là, prenez le temps de préparer votre équipement !";
+				addtimer 20000, strnpcinfo(3)+"::OnWarp";
+				addtimer 15000, strnpcinfo(3)+"::OnSec";
+				set jawaii, 1;
+				//warp après 20s
+				set alreadytalk, 1;
+				close;
+			case 3:
+				next;
+				mes @npc$;
+				mes "très bien je demande tout suite à un écuyer de vous 	préparer votre Peco Peco !";
+				mes "Il sera prêt dans 20s environ,";
+				mes "pendant ce temps là, prenez le temps de préparer 	votre équipement !";
+				addtimer 20000, strnpcinfo(3)+"::OnWarp";
+				addtimer 15000, strnpcinfo(3)+"::OnSec";
+				set payon, 1;
+				//warp après 20s
+				set alreadytalk, 1;
+				close;
+			case 4:
+				mes @npc$;
+				mes "A bientôt j'espère !";
+				close;
+		}
+	}
+	OnWarp:
+		dispbottom "Vous allez être warp";
+		if (izlude == 1){
+			set alreadytalk, 0;
+			warp "izlude",128,142;
+		}
+		else if (jawaii == 1){
+			set alreadytalk, 0;
+			warp "jawaii",181,161;
+		}
+		else if (payon == 1){
+			set alreadytalk, 0;
+			warp "payon",175,102;
+		}
+	end;
+
+	OnSec:
+		dispbottom "Encore 5 secondes avant d'être téléporté, préparez-vous !";
+	end;
+	
+}
+
+//=NPC WARPER ALDE BARAN=//
+
+aldebaran,146,118,4	script	Warper#alde	4_F_NURSE,{
+set @npc$, "[Warper]"; //Nom NPC
+
+	if (alreadytalk ==1){
+	mes @npc$;
+	mes "Nous préparons votre monture !";
+	close;
+	}
+	else{
+		mes @npc$;
+		mes "Bonjour "+strcharinfo(0)+",";
+		mes "Je peux vous transporter à dos de Peco Peco dans les villes alentours si vous le souhaitez.";
+		mes "Les villes accéssibles ici sont : Einbech, Einbroch, Prontera et Yuno.";
+		next;
+		mes @npc$;
+		mes "Dans quelles villes souhaitez-vous aller ?";
+		switch(select("Einbech","Einbroch","Prontera","Yuno","Aucune")){
+			case 1:
+				next;
+				mes @npc$;
+				mes "très bien je demande tout suite à un écuyer de vous préparer votre Peco Peco !";
+				mes "Il sera prêt dans 20s environ,";
+				mes "pendant ce temps là, prenez le temps de préparer 	votre équipement !";
+				addtimer 20000, strnpcinfo(3)+"::OnWarp";
+				addtimer 15000, strnpcinfo(3)+"::OnSec";
+				set einbech, 1;
+				//warp après 20s
+				set alreadytalk, 1;
+				close;
+			case 2:
+				next;
+				mes @npc$;
+				mes "très bien je demande tout suite à un écuyer de vous préparer votre Peco Peco !";
+				mes "Il sera prêt dans 20s environ,";
+				mes "pendant ce temps là, prenez le temps de préparer votre équipement !";
+				addtimer 20000, strnpcinfo(3)+"::OnWarp";
+				addtimer 15000, strnpcinfo(3)+"::OnSec";
+				set einbroch, 1;
+				//warp après 20s
+				set alreadytalk, 1;
+				close;
+			case 3:
+				next;
+				mes @npc$;
+				mes "très bien je demande tout suite à un écuyer de vous 	préparer votre Peco Peco !";
+				mes "Il sera prêt dans 20s environ,";
+				mes "pendant ce temps là, prenez le temps de préparer 	votre équipement !";
+				addtimer 20000, strnpcinfo(3)+"::OnWarp";
+				addtimer 15000, strnpcinfo(3)+"::OnSec";
+				set prontera, 1;
+				//warp après 20s
+				set alreadytalk, 1;
+				close;
+			case 4:
+				next;
+				mes @npc$;
+				mes "très bien je demande tout suite à un écuyer de vous préparer votre Peco Peco !";
+				mes "Il sera prêt dans 20s environ,";
+				mes "pendant ce temps là, prenez le temps de préparer votre équipement !";
+				addtimer 20000, strnpcinfo(3)+"::OnWarp";
+				addtimer 15000, strnpcinfo(3)+"::OnSec";
+				set yuno, 1;
+				//warp après 20s
+				set alreadytalk, 1;
+				close;
+			case 5:
+				mes @npc$;
+				mes "A bientôt j'espère !";
+				close;
+		}
+	}
+	OnWarp:
+		dispbottom "Vous allez être warp";
+		if (einbech == 1){
+			set alreadytalk, 0;
+			warp "einbech",176,130;
+		}
+		else if (einbroch == 1){
+			set alreadytalk, 0;
+			warp "einbroch",63,200;
+		}
+		else if (prontera == 1){
+			set alreadytalk, 0;
+			warp "prontera",155,183;
+		}
+		else if (yuno == 1){
+			set alreadytalk, 0;
+			warp "yuno",158,187;
+		}
+	end;
+
+	OnSec:
+		dispbottom "Encore 5 secondes avant d'être téléporté, préparez-vous !";
+	end;
+	
+}
+
+
+//=NPC WARPER AMATSU=//
+
+amatsu,100,100,4	script	Warper#ama	4_F_NURSE,{
+set @npc$, "[Warper]"; //Nom NPC
+
+	if (alreadytalk ==1){
+	mes @npc$;
+	mes "Nous préparons votre monture !";
+	close;
+	}
+	else{
+		mes @npc$;
+		mes "Bonjour "+strcharinfo(0)+",";
+		mes "Je peux vous transporter à dos de Peco Peco dans les villes alentours si vous le souhaitez.";
+		mes "Les villes accéssibles ici sont : Gonryun, Jawaii et Niflheim";
+		next;
+		mes @npc$;
+		mes "Dans quelles villes souhaitez-vous aller ?";
+		switch(select("Gonryun","Jawaii","Niflheim","Aucune")){
+			case 1:
+				next;
+				mes @npc$;
+				mes "Très bien je demande tout suite à un écuyer de vous préparer votre Peco Peco !";
+				mes "Il sera prêt dans 20s environ,";
+				mes "pendant ce temps là, prenez le temps de préparer 	votre équipement !";
+				addtimer 20000, strnpcinfo(3)+"::OnWarp";
+				addtimer 15000, strnpcinfo(3)+"::OnSec";
+				set gonryun, 1;
+				//warp après 20s
+				set alreadytalk, 1;
+				close;
+			case 2:
+				next;
+				mes @npc$;
+				mes "Très bien je demande tout suite à un écuyer de vous préparer votre Peco Peco !";
+				mes "Il sera prêt dans 20s environ,";
+				mes "pendant ce temps là, prenez le temps de préparer votre équipement !";
+				addtimer 20000, strnpcinfo(3)+"::OnWarp";
+				addtimer 15000, strnpcinfo(3)+"::OnSec";
+				set jawaii, 1;
+				//warp après 20s
+				set alreadytalk, 1;
+				close;
+			case 3:
+				next;
+				mes @npc$;
+				mes "Très bien je demande tout suite à un écuyer de vous 	préparer votre Peco Peco !";
+				mes "Il sera prêt dans 20s environ,";
+				mes "pendant ce temps là, prenez le temps de préparer 	votre équipement !";
+				addtimer 20000, strnpcinfo(3)+"::OnWarp";
+				addtimer 15000, strnpcinfo(3)+"::OnSec";
+				set nifheim, 1;
+				//warp après 20s
+				set alreadytalk, 1;
+				close;
+			case 4:
+				mes @npc$;
+				mes "A bientôt j'espère !";
+				close;
+		}
+	}
+	OnWarp:
+		dispbottom "Vous allez être warp";
+		if (gonryun == 1){
+			set alreadytalk, 0;
+			warp "gonryun",159,117;
+		}
+		else if (jawaii == 1){
+			set alreadytalk, 0;
+			warp "jawaii",181,161;
+		}
+		else if (nifheim == 1){
+			set alreadytalk, 0;
+			warp "niflheim",194,186;
+		}
+	end;
+
+	OnSec:
+		dispbottom "Encore 5 secondes avant d'être téléporté, préparez-vous !";
+	end;
+	
+}
+
+//=NPC WARPER AYOTHAYA=//
+
+ayothaya,100,100,4	script	Warper#ayo	4_F_NURSE,{
+set @npc$, "[Warper]"; //Nom NPC
+
+	if (alreadytalk ==1){
+	mes @npc$;
+	mes "Nous préparons votre monture !";
+	close;
+	}
+	else{
+		mes @npc$;
+		mes "Bonjour "+strcharinfo(0)+",";
+		mes "Je peux vous transporter à dos de Peco Peco dans les villes alentours si vous le souhaitez.";
+		mes "Les villes accéssibles ici sont : Gonryun et Lutie.";
+		next;
+		mes @npc$;
+		mes "Dans quelles villes souhaitez-vous aller ?";
+		switch(select("Gonryun","Lutie","Aucune")){
+			case 1:
+				next;
+				mes @npc$;
+				mes "Très bien je demande tout suite à un écuyer de vous préparer votre Peco Peco !";
+				mes "Il sera prêt dans 20s environ,";
+				mes "pendant ce temps là, prenez le temps de préparer 	votre équipement !";
+				addtimer 20000, strnpcinfo(3)+"::OnWarp";
+				addtimer 15000, strnpcinfo(3)+"::OnSec";
+				set gonryun, 1;
+				//warp après 20s
+				set alreadytalk, 1;
+				close;
+			case 2:
+				next;
+				mes @npc$;
+				mes "Très bien je demande tout suite à un écuyer de vous préparer votre Peco Peco !";
+				mes "Il sera prêt dans 20s environ,";
+				mes "pendant ce temps là, prenez le temps de préparer votre équipement !";
+				addtimer 20000, strnpcinfo(3)+"::OnWarp";
+				addtimer 15000, strnpcinfo(3)+"::OnSec";
+				set lutie, 1;
+				//warp après 20s
+				set alreadytalk, 1;
+				close;
+			case 3:
+				mes @npc$;
+				mes "A bientôt j'espère !";
+				close;
+		}
+	}
+	OnWarp:
+		dispbottom "Vous allez être warp";
+		if (gonryun == 1){
+			set alreadytalk, 0;
+			warp "gonryun",159,117;
+		}
+		else if (lutie == 1){
+			set alreadytalk, 0;
+			warp "xmas",147,133;
+		}
+	end;
+
+	OnSec:
+		dispbottom "Encore 5 secondes avant d'être téléporté, préparez-vous !";
+	end;
+	
+}
+
+//=NPC WARPER COMODO=//
+
+comodo,100,100,4	script	Warper#com	4_F_NURSE,{
+set @npc$, "[Warper]"; //Nom NPC
+
+	if (alreadytalk ==1){
+	mes @npc$;
+	mes "Nous préparons votre monture !";
+	close;
+	}
+	else{
+		mes @npc$;
+		mes "Bonjour "+strcharinfo(0)+",";
+		mes "Je peux vous transporter à dos de Peco Peco dans les villes alentours si vous le souhaitez.";
+		mes "Les villes accéssibles ici sont : Morocc et Umbala.";
+		next;
+		mes @npc$;
+		mes "Dans quelles villes souhaitez-vous aller ?";
+		switch(select("Morocc","Umbala","Aucune")){
+			case 1:
+				next;
+				mes @npc$;
+				mes "Très bien je demande tout suite à un écuyer de vous préparer votre Peco Peco !";
+				mes "Il sera prêt dans 20s environ,";
+				mes "pendant ce temps là, prenez le temps de préparer 	votre équipement !";
+				addtimer 20000, strnpcinfo(3)+"::OnWarp";
+				addtimer 15000, strnpcinfo(3)+"::OnSec";
+				set MOROCC, 1;
+				//warp après 20s
+				set alreadytalk, 1;
+				close;
+			case 2:
+				next;
+				mes @npc$;
+				mes "Très bien je demande tout suite à un écuyer de vous préparer votre Peco Peco !";
+				mes "Il sera prêt dans 20s environ,";
+				mes "pendant ce temps là, prenez le temps de préparer votre équipement !";
+				addtimer 20000, strnpcinfo(3)+"::OnWarp";
+				addtimer 15000, strnpcinfo(3)+"::OnSec";
+				set umbala, 1;
+				//warp après 20s
+				set alreadytalk, 1;
+				close;
+			case 3:
+				mes @npc$;
+				mes "A bientôt j'espère !";
+				close;
+		}
+	}
+	OnWarp:
+		dispbottom "Vous allez être warp";
+		if (MOROCC == 1){
+			set alreadytalk, 0;
+			warp "morocc",156,93;
+		}
+		else if (umbala == 1){
+			set alreadytalk, 0;
+			warp "umbala",127,129;
+		}
+	end;
+
+	OnSec:
+		dispbottom "Encore 5 secondes avant d'être téléporté, préparez-vous !";
+	end;
+	
+}
+
+//=NPC WARPER EINBECH=//
+
+einbech,100,100,4	script	Warper#einbe	4_F_NURSE,{
+set @npc$, "[Warper]"; //Nom NPC
+
+	if (alreadytalk ==1){
+	mes @npc$;
+	mes "Nous préparons votre monture !";
+	close;
+	}
+	else{
+		mes @npc$;
+		mes "Bonjour "+strcharinfo(0)+",";
+		mes "Je peux vous transporter à dos de Peco Peco dans les villes alentours si vous le souhaitez.";
+		mes "Les villes accéssibles ici sont : Alde Baran et Rachel.";
+		next;
+		mes @npc$;
+		mes "Dans quelles villes souhaitez-vous aller ?";
+		switch(select("Alde Baran","Rachel","Aucune")){
+			case 1:
+				next;
+				mes @npc$;
+				mes "Très bien je demande tout suite à un écuyer de vous préparer votre Peco Peco !";
+				mes "Il sera prêt dans 20s environ,";
+				mes "pendant ce temps là, prenez le temps de préparer 	votre équipement !";
+				addtimer 20000, strnpcinfo(3)+"::OnWarp";
+				addtimer 15000, strnpcinfo(3)+"::OnSec";
+				set aldebaran, 1;
+				//warp après 20s
+				set alreadytalk, 1;
+				close;
+			case 2:
+				next;
+				mes @npc$;
+				mes "Très bien je demande tout suite à un écuyer de vous préparer votre Peco Peco !";
+				mes "Il sera prêt dans 20s environ,";
+				mes "pendant ce temps là, prenez le temps de préparer votre équipement !";
+				addtimer 20000, strnpcinfo(3)+"::OnWarp";
+				addtimer 15000, strnpcinfo(3)+"::OnSec";
+				set rachel, 1;
+				//warp après 20s
+				set alreadytalk, 1;
+				close;
+			case 3:
+				mes @npc$;
+				mes "A bientôt j'espère !";
+				close;
+		}
+	}
+	OnWarp:
+		dispbottom "Vous allez être warp";
+		if (aldebaran == 1){
+			set alreadytalk, 0;
+			warp "aldebaran",139,114;
+		}
+		else if (rachel == 1){
+			set alreadytalk, 0;
+			warp "rachel",130,113;
+		}
+	end;
+
+	OnSec:
+		dispbottom "Encore 5 secondes avant d'être téléporté, préparez-vous !";
+	end;
+	
+}
+
+//=NPC WARPER EINBROCH=//
+
+einbroch,100,100,4	script	Warper#einbr	4_F_NURSE,{
+set @npc$, "[Warper]"; //Nom NPC
+
+	if (alreadytalk ==1){
+	mes @npc$;
+	mes "Nous préparons votre monture !";
+	close;
+	}
+	else{
+		mes @npc$;
+		mes "Bonjour "+strcharinfo(0)+",";
+		mes "Je peux vous transporter à dos de Peco Peco dans les villes alentours si vous le souhaitez.";
+		mes "Les villes accéssibles ici sont : Rachel et Yuno.";
+		next;
+		mes @npc$;
+		mes "Dans quelles villes souhaitez-vous aller ?";
+		switch(select("Rachel","Yuno","Aucune")){
+			case 1:
+				next;
+				mes @npc$;
+				mes "Très bien je demande tout suite à un écuyer de vous préparer votre Peco Peco !";
+				mes "Il sera prêt dans 20s environ,";
+				mes "pendant ce temps là, prenez le temps de préparer 	votre équipement !";
+				addtimer 20000, strnpcinfo(3)+"::OnWarp";
+				addtimer 15000, strnpcinfo(3)+"::OnSec";
+				set rachel, 1;
+				//warp après 20s
+				set alreadytalk, 1;
+				close;
+			case 2:
+				next;
+				mes @npc$;
+				mes "Très bien je demande tout suite à un écuyer de vous préparer votre Peco Peco !";
+				mes "Il sera prêt dans 20s environ,";
+				mes "pendant ce temps là, prenez le temps de préparer votre équipement !";
+				addtimer 20000, strnpcinfo(3)+"::OnWarp";
+				addtimer 15000, strnpcinfo(3)+"::OnSec";
+				set yuno, 1;
+				//warp après 20s
+				set alreadytalk, 1;
+				close;
+			case 5:
+				mes @npc$;
+				mes "A bientôt j'espère !";
+				close;
+		}
+	}
+	OnWarp:
+		dispbottom "Vous allez être warp";
+		if (rachel == 1){
+			set alreadytalk, 0;
+			warp "rachel",130,113;
+		}
+		else if (yuno == 1){
+			set alreadytalk, 0;
+			warp "yuno",158,187;
+		}
+	end;
+
+	OnSec:
+		dispbottom "Encore 5 secondes avant d'être téléporté, préparez-vous !";
+	end;
+	
+}
+
+
+//=NPC WARPER GEFFEN=//
+
+geffen,122,62,7	script	Warper#gef	4_F_NURSE,{
+set @npc$, "[Warper]"; //Nom NPC
+
+	if (alreadytalk ==1){
+	mes @npc$;
+	mes "Nous préparons votre monture !";
+	close;
+	}
+	else{
+		mes @npc$;
+		mes "Bonjour "+strcharinfo(0)+",";
+		mes "Je peux vous transporter à dos de Peco Peco dans les villes alentours si vous le souhaitez.";
+		mes "Les villes accéssibles ici sont : Izlude et Prontera";
+		next;
+		mes @npc$;
+		mes "Dans quelles villes souhaitez-vous aller ?";
+		switch(select("Izlude","Prontera","Aucune")){
+			case 1:
+				next;
+				mes @npc$;
+				mes "Très bien je demande tout suite à un écuyer de vous préparer votre Peco Peco !";
+				mes "Il sera prêt dans 20s environ,";
+				mes "pendant ce temps là, prenez le temps de préparer 	votre équipement !";
+				addtimer 20000, strnpcinfo(3)+"::OnWarp";
+				addtimer 15000, strnpcinfo(3)+"::OnSec";
+				set izlude, 1;
+				//warp après 20s
+				set alreadytalk, 1;
+				close;
+			case 2:
+				next;
+				mes @npc$;
+				mes "Très bien je demande tout suite à un écuyer de vous préparer votre Peco Peco !";
+				mes "Il sera prêt dans 20s environ,";
+				mes "pendant ce temps là, prenez le temps de préparer votre équipement !";
+				addtimer 20000, strnpcinfo(3)+"::OnWarp";
+				addtimer 15000, strnpcinfo(3)+"::OnSec";
+				set prontera, 1;
+				//warp après 20s
+				set alreadytalk, 1;
+				close;
+			case 3:
+				mes @npc$;
+				mes "A bientôt j'espère !";
+				close;
+		}
+	}
+	OnWarp:
+		dispbottom "Vous allez être warp";
+		if (izlude == 1){
+			set alreadytalk, 0;
+			warp "izlude",128,142;
+		}
+		else if (prontera == 1){
+			set alreadytalk, 0;
+			warp "prontera",155,183;
+		}
+	end;
+
+	OnSec:
+		dispbottom "Encore 5 secondes avant d'être téléporté, préparez-vous !";
+	end;
+	
+}
+
+//=NPC WARPER GONRYUN=//
+
+gonryun,100,100,4	script	Warper#gon	4_F_NURSE,{
+set @npc$, "[Warper]"; //Nom NPC
+
+	if (alreadytalk ==1){
+	mes @npc$;
+	mes "Nous préparons votre monture !";
+	close;
+	}
+	else{
+		mes @npc$;
+		mes "Bonjour "+strcharinfo(0)+",";
+		mes "Je peux vous transporter à dos de Peco Peco dans les villes alentours si vous le souhaitez.";
+		mes "Les villes accéssibles ici sont : Amatsu, Ayothaya, Louyang et Lutie.";
+		next;
+		mes @npc$;
+		mes "Dans quelles villes souhaitez-vous aller ?";
+		switch(select("Amatsu","Ayothaya","Louyang","Lutie","Aucune")){
+			case 1:
+				next;
+				mes @npc$;
+				mes "Très bien je demande tout suite à un écuyer de vous préparer votre Peco Peco !";
+				mes "Il sera prêt dans 20s environ,";
+				mes "pendant ce temps là, prenez le temps de préparer 	votre équipement !";
+				addtimer 20000, strnpcinfo(3)+"::OnWarp";
+				addtimer 15000, strnpcinfo(3)+"::OnSec";
+				set amatsu, 1;
+				//warp après 20s
+				set alreadytalk, 1;
+				close;
+			case 2:
+				next;
+				mes @npc$;
+				mes "Très bien je demande tout suite à un écuyer de vous préparer votre Peco Peco !";
+				mes "Il sera prêt dans 20s environ,";
+				mes "pendant ce temps là, prenez le temps de préparer votre équipement !";
+				addtimer 20000, strnpcinfo(3)+"::OnWarp";
+				addtimer 15000, strnpcinfo(3)+"::OnSec";
+				set ayothaya, 1;
+				//warp après 20s
+				set alreadytalk, 1;
+				close;
+			case 3:
+				next;
+				mes @npc$;
+				mes "Très bien je demande tout suite à un écuyer de vous 	préparer votre Peco Peco !";
+				mes "Il sera prêt dans 20s environ,";
+				mes "pendant ce temps là, prenez le temps de préparer 	votre équipement !";
+				addtimer 20000, strnpcinfo(3)+"::OnWarp";
+				addtimer 15000, strnpcinfo(3)+"::OnSec";
+				set louyang, 1;
+				//warp après 20s
+				set alreadytalk, 1;
+				close;
+			case 4:
+				next;
+				mes @npc$;
+				mes "Très bien je demande tout suite à un écuyer de vous préparer votre Peco Peco !";
+				mes "Il sera prêt dans 20s environ,";
+				mes "pendant ce temps là, prenez le temps de préparer votre équipement !";
+				addtimer 20000, strnpcinfo(3)+"::OnWarp";
+				addtimer 15000, strnpcinfo(3)+"::OnSec";
+				set lutie, 1;
+				//warp après 20s
+				set alreadytalk, 1;
+				close;
+			case 5:
+				mes @npc$;
+				mes "A bientôt j'espère !";
+				close;
+		}
+	}
+	OnWarp:
+		dispbottom "Vous allez être warp";
+		if (amatsu == 1){
+			set alreadytalk, 0;
+			warp "amatsu",193,109;
+		}
+		else if (ayothaya == 1){
+			set alreadytalk, 0;
+			warp "ayothaya",207,166;
+		}
+		else if (louyang == 1){
+			set alreadytalk, 0;
+			warp "louyang",217,105;
+		}
+		else if (lutie == 1){
+			set alreadytalk, 0;
+			warp "xmas",147,133;
+		}
+	end;
+
+	OnSec:
+		dispbottom "Encore 5 secondes avant d'être téléporté, préparez-vous !";
+	end;
+	
+}
+
+//=NPC WARPER HUGEL=//
+
+hugel,100,100,4	script	Warper#hug	4_F_NURSE,{
+set @npc$, "[Warper]"; //Nom NPC
+
+	if (alreadytalk ==1){
+	mes @npc$;
+	mes "Nous préparons votre monture !";
+	close;
+	}
+	else{
+		mes @npc$;
+		mes "Bonjour "+strcharinfo(0)+",";
+		mes "Je peux vous transporter à dos de Peco Peco dans les villes alentours si vous le souhaitez.";
+		mes "Les villes accéssibles ici sont : Alde Baran et Yuno.";
+		next;
+		mes @npc$;
+		mes "Dans quelles villes souhaitez-vous aller ?";
+		switch(select("Alde Baran","Yuno","Aucune")){
+			case 1:
+				next;
+				mes @npc$;
+				mes "Très bien je demande tout suite à un écuyer de vous préparer votre Peco Peco !";
+				mes "Il sera prêt dans 20s environ,";
+				mes "pendant ce temps là, prenez le temps de préparer 	votre équipement !";
+				addtimer 20000, strnpcinfo(3)+"::OnWarp";
+				addtimer 15000, strnpcinfo(3)+"::OnSec";
+				set geffen, 1;
+				//warp après 20s
+				set alreadytalk, 1;
+				close;
+			case 2:
+				next;
+				mes @npc$;
+				mes "Très bien je demande tout suite à un écuyer de vous préparer votre Peco Peco !";
+				mes "Il sera prêt dans 20s environ,";
+				mes "pendant ce temps là, prenez le temps de préparer votre équipement !";
+				addtimer 20000, strnpcinfo(3)+"::OnWarp";
+				addtimer 15000, strnpcinfo(3)+"::OnSec";
+				set MOROCC, 1;
+				//warp après 20s
+				set alreadytalk, 1;
+				close;
+			case 3:
+				mes @npc$;
+				mes "A bientôt j'espère !";
+				close;
+		}
+	}
+	OnWarp:
+		dispbottom "Vous allez être warp";
+		if (aldebaran == 1){
+			set alreadytalk, 0;
+			warp "aldebaran",139,114;
+		}
+		else if (yuno == 1){
+			set alreadytalk, 0;
+			warp "yuno",158,187;
+		}
+	end;
+
+	OnSec:
+		dispbottom "Encore 5 secondes avant d'être téléporté, préparez-vous !";
+	end;
+	
+}
+
+//=NPC WARPER IZLUDE=//
+
+izlude,126,148,4	script	Warper#iz	4_F_NURSE,{
+set @npc$, "[Warper]"; //Nom NPC
+
+	if (alreadytalk ==1){
+	mes @npc$;
+	mes "Nous préparons votre monture !";
+	close;
+	}
+	else{
+		mes @npc$;
+		mes "Bonjour "+strcharinfo(0)+",";
+		mes "Je peux vous transporter à dos de Peco Peco dans les villes alentours si vous le souhaitez.";
+		mes "Les villes accéssibles ici sont : Geffen, Morocc, Payon et Prontera";
+		next;
+		mes @npc$;
+		mes "Dans quelles villes souhaitez-vous aller ?";
+		switch(select("Geffen","Morocc","Payon","Prontera","Aucune")){
+			case 1:
+				next;
+				mes @npc$;
+				mes "Très bien je demande tout suite à un écuyer de vous préparer votre Peco Peco !";
+				mes "Il sera prêt dans 20s environ,";
+				mes "pendant ce temps là, prenez le temps de préparer 	votre équipement !";
+				addtimer 20000, strnpcinfo(3)+"::OnWarp";
+				addtimer 15000, strnpcinfo(3)+"::OnSec";
+				set geffen, 1;
+				//warp après 20s
+				set alreadytalk, 1;
+				close;
+			case 2:
+				next;
+				mes @npc$;
+				mes "Très bien je demande tout suite à un écuyer de vous préparer votre Peco Peco !";
+				mes "Il sera prêt dans 20s environ,";
+				mes "pendant ce temps là, prenez le temps de préparer votre équipement !";
+				addtimer 20000, strnpcinfo(3)+"::OnWarp";
+				addtimer 15000, strnpcinfo(3)+"::OnSec";
+				set MOROCC, 1;
+				//warp après 20s
+				set alreadytalk, 1;
+				close;
+			case 3:
+				next;
+				mes @npc$;
+				mes "Très bien je demande tout suite à un écuyer de vous 	préparer votre Peco Peco !";
+				mes "Il sera prêt dans 20s environ,";
+				mes "pendant ce temps là, prenez le temps de préparer 	votre équipement !";
+				addtimer 20000, strnpcinfo(3)+"::OnWarp";
+				addtimer 15000, strnpcinfo(3)+"::OnSec";
+				set payon, 1;
+				//warp après 20s
+				set alreadytalk, 1;
+				close;
+			case 4:
+				next;
+				mes @npc$;
+				mes "Très bien je demande tout suite à un écuyer de vous préparer votre Peco Peco !";
+				mes "Il sera prêt dans 20s environ,";
+				mes "pendant ce temps là, prenez le temps de préparer votre équipement !";
+				addtimer 20000, strnpcinfo(3)+"::OnWarp";
+				addtimer 15000, strnpcinfo(3)+"::OnSec";
+				set prontera, 1;
+				//warp après 20s
+				set alreadytalk, 1;
+				close;
+			case 5:
+				mes @npc$;
+				mes "A bientôt j'espère !";
+				close;
+		}
+	}
+
+	OnWarp:
+		dispbottom "Vous allez être warp";
+		if (geffen == 1){
+			set alreadytalk, 0;
+			warp "geffen",119,69;
+		}
+		else if (MOROCC == 1){
+			set alreadytalk, 0;
+			warp "morocc",156,93;
+		}
+		else if (payon == 1){
+			set alreadytalk, 0;
+			warp "payon",175,102;
+		}
+		else if (prontera == 1){
+			set alreadytalk, 0;
+			warp "prontera",155,183;
+		}
+	end;
+
+	OnSec:
+		dispbottom "Encore 5 secondes avant d'être téléporté, préparez-vous !";
+	end;
+	
+}
+
+//=NPC WARPER JAWAII=//
+
+jawaii,100,100,4	script	Warper#jaw	4_F_NURSE,{
+set @npc$, "[Warper]"; //Nom NPC
+
+	if (alreadytalk ==1){
+	mes @npc$;
+	mes "Nous préparons votre monture !";
+	close;
+	}
+	else{
+		mes @npc$;
+		mes "Bonjour "+strcharinfo(0)+",";
+		mes "Je peux vous transporter à dos de Peco Peco dans les villes alentours si vous le souhaitez.";
+		mes "Les villes accéssibles ici sont : Alberta, Amatsu et Niflheim";
+		next;
+		mes @npc$;
+		mes "Dans quelles villes souhaitez-vous aller ?";
+		switch(select("Alberta","Amatsu","Niflheim","Aucune")){
+			case 1:
+				next;
+				mes @npc$;
+				mes "Très bien je demande tout suite à un écuyer de vous préparer votre Peco Peco !";
+				mes "Il sera prêt dans 20s environ,";
+				mes "pendant ce temps là, prenez le temps de préparer 	votre équipement !";
+				addtimer 20000, strnpcinfo(3)+"::OnWarp";
+				addtimer 15000, strnpcinfo(3)+"::OnSec";
+				set alberta, 1;
+				//warp après 20s
+				set alreadytalk, 1;
+				close;
+			case 2:
+				next;
+				mes @npc$;
+				mes "Très bien je demande tout suite à un écuyer de vous préparer votre Peco Peco !";
+				mes "Il sera prêt dans 20s environ,";
+				mes "pendant ce temps là, prenez le temps de préparer votre équipement !";
+				addtimer 20000, strnpcinfo(3)+"::OnWarp";
+				addtimer 15000, strnpcinfo(3)+"::OnSec";
+				set amatsu, 1;
+				//warp après 20s
+				set alreadytalk, 1;
+				close;
+			case 3:
+				next;
+				mes @npc$;
+				mes "Très bien je demande tout suite à un écuyer de vous 	préparer votre Peco Peco !";
+				mes "Il sera prêt dans 20s environ,";
+				mes "pendant ce temps là, prenez le temps de préparer 	votre équipement !";
+				addtimer 20000, strnpcinfo(3)+"::OnWarp";
+				addtimer 15000, strnpcinfo(3)+"::OnSec";
+				set nifheim, 1;
+				//warp après 20s
+				set alreadytalk, 1;
+				close;
+			case 4:
+				mes @npc$;
+				mes "A bientôt j'espère !";
+				close;
+		}
+	}
+	OnWarp:
+		dispbottom "Vous allez être warp";
+		if (alberta == 1){
+			set alreadytalk, 0;
+			warp "alberta",116,57;
+		}
+		else if (amatsu == 1){
+			set alreadytalk, 0;
+			warp "amatsu",193,109;
+		}
+		else if (nifheim == 1){
+			set alreadytalk, 0;
+			warp "niflheim",194,186;
+		}
+	end;
+
+	OnSec:
+		dispbottom "Encore 5 secondes avant d'être téléporté, préparez-vous !";
+	end;
+	
+}
+
+//=NPC WARPER LIGHTHALZEN=//
+
+lighthalzen,100,100,4	script	Warper#lig	4_F_NURSE,{
+set @npc$, "[Warper]"; //Nom NPC
+
+	if (alreadytalk ==1){
+	mes @npc$;
+	mes "Nous préparons votre monture !";
+	close;
+	}
+	else{
+		mes @npc$;
+		mes "Bonjour "+strcharinfo(0)+",";
+		mes "Je peux vous transporter à dos de Peco Peco dans les villes alentours si vous le souhaitez.";
+		mes "Les villes accéssibles ici sont : Einbech, Einbroch et Veins.";
+		next;
+		mes @npc$;
+		mes "Dans quelles villes souhaitez-vous aller ?";
+		switch(select("Einbech","Einbroch","Veins","Aucune")){
+			case 1:
+				next;
+				mes @npc$;
+				mes "Très bien je demande tout suite à un écuyer de vous préparer votre Peco Peco !";
+				mes "Il sera prêt dans 20s environ,";
+				mes "pendant ce temps là, prenez le temps de préparer votre équipement !";
+				addtimer 20000, strnpcinfo(3)+"::OnWarp";
+				addtimer 15000, strnpcinfo(3)+"::OnSec";
+				set einbech, 1;
+				//warp après 20s
+				set alreadytalk, 1;
+				close;
+			case 2:
+				next;
+				mes @npc$;
+				mes "Très bien je demande tout suite à un écuyer de vous préparer votre Peco Peco !";
+				mes "Il sera prêt dans 20s environ,";
+				mes "pendant ce temps là, prenez le temps de préparer votre équipement !";
+				addtimer 20000, strnpcinfo(3)+"::OnWarp";
+				addtimer 15000, strnpcinfo(3)+"::OnSec";
+				set einbroch, 1;
+				//warp après 20s
+				set alreadytalk, 1;
+				close;
+			case 3:
+				next;
+				mes @npc$;
+				mes "Très bien je demande tout suite à un écuyer de vous préparer votre Peco Peco !";
+				mes "Il sera prêt dans 20s environ,";
+				mes "pendant ce temps là, prenez le temps de préparer votre équipement !";
+				addtimer 20000, strnpcinfo(3)+"::OnWarp";
+				addtimer 15000, strnpcinfo(3)+"::OnSec";
+				set veins, 1;
+				//warp après 20s
+				set alreadytalk, 1;
+				close;
+			case 4:
+				mes @npc$;
+				mes "A bientôt j'espère !";
+				close;
+		}
+	}
+	OnWarp:
+		dispbottom "Vous allez être warp";
+		if (einbech == 1){
+			set alreadytalk, 0;
+			warp "einbech",176,130;
+		}
+		else if (einbroch == 1){
+			set alreadytalk, 0;
+			warp "einbroch",63,200;
+		}
+		else if (veins == 1){
+			set alreadytalk, 0;
+			warp "veins",208,123;
+		}
+	end;
+
+	OnSec:
+		dispbottom "Encore 5 secondes avant d'être téléporté, préparez-vous !";
+	end;
+	
+}
+
+//=NPC WARPER LOUYANG=//
+
+louyang,100,100,4	script	Warper#lou	4_F_NURSE,{
+set @npc$, "[Warper]"; //Nom NPC
+
+	if (alreadytalk ==1){
+	mes @npc$;
+	mes "Nous préparons votre monture !";
+	close;
+	}
+	else{
+		mes @npc$;
+		mes "Bonjour "+strcharinfo(0)+",";
+		mes "Je peux vous transporter à dos de Peco Peco dans les villes alentours si vous le souhaitez.";
+		mes "Les villes accéssibles ici sont : Lutie";
+		next;
+		mes @npc$;
+		mes "Dans quelles villes souhaitez-vous aller ?";
+		switch(select("Lutie","Aucune")){
+			case 1:
+				next;
+				mes @npc$;
+				mes "Très bien je demande tout suite à un écuyer de vous préparer votre Peco Peco !";
+				mes "Il sera prêt dans 20s environ,";
+				mes "pendant ce temps là, prenez le temps de préparer votre équipement !";
+				addtimer 20000, strnpcinfo(3)+"::OnWarp";
+				addtimer 15000, strnpcinfo(3)+"::OnSec";
+				set geffen, 1;
+				//warp après 20s
+				set alreadytalk, 1;
+				close;
+			case 2:
+				mes @npc$;
+				mes "A bientôt j'espère !";
+				close;
+		}
+	}
+	OnWarp:
+		dispbottom "Vous allez être warp";
+		if (lutie == 1){
+			set alreadytalk, 0;
+			warp "xmas",147,133;
+		}
+	end;
+
+	OnSec:
+		dispbottom "Encore 5 secondes avant d'être téléporté, préparez-vous !";
+	end;
+	
+}
+
+//=NPC WARPER LUTIE=//
+
+xmas,149,136,4	script	Warper#lut	4_F_NURSE,{
+set @npc$, "[Warper]"; //Nom NPC
+
+	if (alreadytalk ==1){
+	mes @npc$;
+	mes "Nous préparons votre monture !";
+	close;
+	}
+	else{
+		mes @npc$;
+		mes "Bonjour "+strcharinfo(0)+",";
+		mes "Je peux vous transporter à dos de Peco Peco dans les villes alentours si vous le souhaitez.";
+		mes "Les villes accéssibles ici sont : Ayothaya, Gonryun et LoUyang.";
+		next;
+		mes @npc$;
+		mes "Dans quelles villes souhaitez-vous aller ?";
+		switch(select("Ayothaya","Gonryun","Louyang","Aucune")){
+			case 1:
+				next;
+				mes @npc$;
+				mes "Très bien je demande tout suite à un écuyer de vous préparer votre Peco Peco !";
+				mes "Il sera prêt dans 20s environ,";
+				mes "pendant ce temps là, prenez le temps de préparer 	votre équipement !";
+				addtimer 20000, strnpcinfo(3)+"::OnWarp";
+				addtimer 15000, strnpcinfo(3)+"::OnSec";
+				set ayothaya, 1;
+				//warp après 20s
+				set alreadytalk, 1;
+				close;
+			case 2:
+				next;
+				mes @npc$;
+				mes "Très bien je demande tout suite à un écuyer de vous préparer votre Peco Peco !";
+				mes "Il sera prêt dans 20s environ,";
+				mes "pendant ce temps là, prenez le temps de préparer votre équipement !";
+				addtimer 20000, strnpcinfo(3)+"::OnWarp";
+				addtimer 15000, strnpcinfo(3)+"::OnSec";
+				set gonryun, 1;
+				//warp après 20s
+				set alreadytalk, 1;
+				close;
+			case 3:
+				next;
+				mes @npc$;
+				mes "Très bien je demande tout suite à un écuyer de vous 	préparer votre Peco Peco !";
+				mes "Il sera prêt dans 20s environ,";
+				mes "pendant ce temps là, prenez le temps de préparer 	votre équipement !";
+				addtimer 20000, strnpcinfo(3)+"::OnWarp";
+				addtimer 15000, strnpcinfo(3)+"::OnSec";
+				set louyang, 1;
+				//warp après 20s
+				set alreadytalk, 1;
+				close;
+			case 4:
+				mes @npc$;
+				mes "A bientôt j'espère !";
+				close;
+		}
+	}
+	OnWarp:
+		dispbottom "Vous allez être warp";
+		if (ayothaya == 1){
+			set alreadytalk, 0;
+			warp "ayothaya",207,166;
+		}
+		else if (gonryun == 1){
+			set alreadytalk, 0;
+			warp "gonryun",159,117;
+		}
+		else if (louyang == 1){
+			set alreadytalk, 0;
+			warp "louyang",217,105;
+		}
+	end;
+
+	OnSec:
+		dispbottom "Encore 5 secondes avant d'être téléporté, préparez-vous !";
+	end;
+	
+}
+
+//=NPC WARPER MOROCC=//
+
+morocc,159,97,4	script	Warper#mor	4_F_NURSE,{
+set @npc$, "[Warper]"; //Nom NPC
+
+	if (alreadytalk ==1){
+	mes @npc$;
+	mes "Nous préparons votre monture !";
+	close;
+	}
+	else{
+		mes @npc$;
+		mes "Bonjour "+strcharinfo(0)+",";
+		mes "Je peux vous transporter à dos de Peco Peco dans les villes alentours si vous le souhaitez.";
+		mes "Les villes accéssibles ici sont : Comodo, Izlude, Prontera et Umbala.";
+		next;
+		mes @npc$;
+		mes "Dans quelles villes souhaitez-vous aller ?";
+		switch(select("Comodo","Izlude","Prontera","Umbala","Aucune")){
+			case 1:
+				next;
+				mes @npc$;
+				mes "Très bien je demande tout suite à un écuyer de vous préparer votre Peco Peco !";
+				mes "Il sera prêt dans 20s environ,";
+				mes "pendant ce temps là, prenez le temps de préparer 	votre équipement !";
+				addtimer 20000, strnpcinfo(3)+"::OnWarp";
+				addtimer 15000, strnpcinfo(3)+"::OnSec";
+				set COMODO, 1;
+				//warp après 20s
+				set alreadytalk, 1;
+				close;
+			case 2:
+				next;
+				mes @npc$;
+				mes "Très bien je demande tout suite à un écuyer de vous préparer votre Peco Peco !";
+				mes "Il sera prêt dans 20s environ,";
+				mes "pendant ce temps là, prenez le temps de préparer votre équipement !";
+				addtimer 20000, strnpcinfo(3)+"::OnWarp";
+				addtimer 15000, strnpcinfo(3)+"::OnSec";
+				set izlude, 1;
+				//warp après 20s
+				set alreadytalk, 1;
+				close;
+			case 3:
+				next;
+				mes @npc$;
+				mes "Très bien je demande tout suite à un écuyer de vous 	préparer votre Peco Peco !";
+				mes "Il sera prêt dans 20s environ,";
+				mes "pendant ce temps là, prenez le temps de préparer 	votre équipement !";
+				addtimer 20000, strnpcinfo(3)+"::OnWarp";
+				addtimer 15000, strnpcinfo(3)+"::OnSec";
+				set prontera, 1;
+				//warp après 20s
+				set alreadytalk, 1;
+				close;
+			case 4:
+				next;
+				mes @npc$;
+				mes "Très bien je demande tout suite à un écuyer de vous préparer votre Peco Peco !";
+				mes "Il sera prêt dans 20s environ,";
+				mes "pendant ce temps là, prenez le temps de préparer votre équipement !";
+				addtimer 20000, strnpcinfo(3)+"::OnWarp";
+				addtimer 15000, strnpcinfo(3)+"::OnSec";
+				set umbala, 1;
+				//warp après 20s
+				set alreadytalk, 1;
+				close;
+			case 5:
+				mes @npc$;
+				mes "A bientôt j'espère !";
+				close;
+		}
+	}
+	OnWarp:
+		dispbottom "Vous allez être warp";
+		if (COMODO == 1){
+			set alreadytalk, 0;
+			warp "comodo",197,145;
+		}
+		else if (izlude == 1){
+			set alreadytalk, 0;
+			warp "izlude",128,142;
+		}
+		else if (prontera == 1){
+			set alreadytalk, 0;
+			warp "prontera",155,183;
+		}
+		else if (umbala == 1){
+			set alreadytalk, 0;
+			warp "umbala",127,129;
+		}
+	end;
+
+	OnSec:
+		dispbottom "Encore 5 secondes avant d'être téléporté, préparez-vous !";
+	end;
+	
+}
+
+//=NPC WARPER NIFHEIM=//
+
+niflheim,100,100,4	script	Warper#nif	4_F_NURSE,{
+set @npc$, "[Warper]"; //Nom NPC
+
+	if (alreadytalk ==1){
+	mes @npc$;
+	mes "Nous préparons votre monture !";
+	close;
+	}
+	else{
+		mes @npc$;
+		mes "Bonjour "+strcharinfo(0)+",";
+		mes "Je peux vous transporter à dos de Peco Peco dans les villes alentours si vous le souhaitez.";
+		mes "Les villes accéssibles ici sont : Amatsu et Jawaii.";
+		next;
+		mes @npc$;
+		mes "Dans quelles villes souhaitez-vous aller ?";
+		switch(select("Amatsu","Jawaii","Aucune")){
+			case 1:
+				next;
+				mes @npc$;
+				mes "Très bien je demande tout suite à un écuyer de vous préparer votre Peco Peco !";
+				mes "Il sera prêt dans 20s environ,";
+				mes "pendant ce temps là, prenez le temps de préparer 	votre équipement !";
+				addtimer 20000, strnpcinfo(3)+"::OnWarp";
+				addtimer 15000, strnpcinfo(3)+"::OnSec";
+				set amatsu, 1;
+				//warp après 20s
+				set alreadytalk, 1;
+				close;
+			case 2:
+				next;
+				mes @npc$;
+				mes "Très bien je demande tout suite à un écuyer de vous préparer votre Peco Peco !";
+				mes "Il sera prêt dans 20s environ,";
+				mes "pendant ce temps là, prenez le temps de préparer votre équipement !";
+				addtimer 20000, strnpcinfo(3)+"::OnWarp";
+				addtimer 15000, strnpcinfo(3)+"::OnSec";
+				set jawaii, 1;
+				//warp après 20s
+				set alreadytalk, 1;
+				close;
+			case 3:
+				mes @npc$;
+				mes "A bientôt j'espère !";
+				close;
+		}
+	}
+	OnWarp:
+		dispbottom "Vous allez être warp";
+		if (amatsu == 1){
+			set alreadytalk, 0;
+			warp "amatsu",193,109;
+		}
+		else if (jawaii == 1){
+			set alreadytalk, 0;
+			warp "jawaii",181,161;
+		}
+	end;
+
+	OnSec:
+		dispbottom "Encore 5 secondes avant d'être téléporté, préparez-vous !";
+	end;
+	
+}
+
+//=NPC WARPER PRONTERA=//
+
+prontera,151,189,4	script	Warper#pro	4_F_NURSE,{
+set @npc$, "[Warper]"; //Nom NPC
+
+	if (alreadytalk ==1){
+	mes @npc$;
+	mes "Nous préparons votre monture !";
+	close;
+	}
+	else{
+		mes @npc$;
+		mes "Bonjour "+strcharinfo(0)+",";
+		mes "Je peux vous transporter à dos de Peco Peco dans les villes alentours si vous le souhaitez.";
+		mes "Les villes accéssibles ici sont : Alde Baran, Geffen, Izlude, Morocc et Payon.";
+		next;
+		mes @npc$;
+		mes "Dans quelles villes souhaitez-vous aller ?";
+		switch(select("Alde Baran","Geffen","Izlude","Morocc","Payon","Aucune")){
+			case 1:
+				next;
+				mes @npc$;
+				mes "Très bien je demande tout suite à un écuyer de vous préparer votre Peco Peco !";
+				mes "Il sera prêt dans 20s environ,";
+				mes "pendant ce temps là, prenez le temps de préparer 	votre équipement !";
+				addtimer 20000, strnpcinfo(3)+"::OnWarp";
+				addtimer 15000, strnpcinfo(3)+"::OnSec";
+				set aldebaran, 1;
+				//warp après 20s
+				set alreadytalk, 1;
+				close;
+			case 2:
+				next;
+				mes @npc$;
+				mes "Très bien je demande tout suite à un écuyer de vous préparer votre Peco Peco !";
+				mes "Il sera prêt dans 20s environ,";
+				mes "pendant ce temps là, prenez le temps de préparer votre équipement !";
+				addtimer 20000, strnpcinfo(3)+"::OnWarp";
+				addtimer 15000, strnpcinfo(3)+"::OnSec";
+				set geffen, 1;
+				//warp après 20s
+				set alreadytalk, 1;
+				close;
+			case 3:
+				next;
+				mes @npc$;
+				mes "Très bien je demande tout suite à un écuyer de vous 	préparer votre Peco Peco !";
+				mes "Il sera prêt dans 20s environ,";
+				mes "pendant ce temps là, prenez le temps de préparer 	votre équipement !";
+				addtimer 20000, strnpcinfo(3)+"::OnWarp";
+				addtimer 15000, strnpcinfo(3)+"::OnSec";
+				set izlude, 1;
+				//warp après 20s
+				set alreadytalk, 1;
+				close;
+			case 4:
+				next;
+				mes @npc$;
+				mes "Très bien je demande tout suite à un écuyer de vous préparer votre Peco Peco !";
+				mes "Il sera prêt dans 20s environ,";
+				mes "pendant ce temps là, prenez le temps de préparer votre équipement !";
+				addtimer 20000, strnpcinfo(3)+"::OnWarp";
+				addtimer 15000, strnpcinfo(3)+"::OnSec";
+				set MOROCC, 1;
+				//warp après 20s
+				set alreadytalk, 1;
+				close;
+			case 5:
+				next;
+				mes @npc$;
+				mes "Très bien je demande tout suite à un écuyer de vous préparer votre Peco Peco !";
+				mes "Il sera prêt dans 20s environ,";
+				mes "pendant ce temps là, prenez le temps de préparer votre équipement !";
+				addtimer 20000, strnpcinfo(3)+"::OnWarp";
+				addtimer 15000, strnpcinfo(3)+"::OnSec";
+				set payon, 1;
+				//warp après 20s
+				set alreadytalk, 1;
+				close;
+			case 6:
+				mes @npc$;
+				mes "A bientôt j'espère !";
+				close;
+		}
+	}
+	OnWarp:
+		dispbottom "Vous allez être warp";
+		if (aldebaran == 1){
+			set alreadytalk, 0;
+			warp "aldebaran",139,114;
+		}
+		else if (geffen == 1){
+			set alreadytalk, 0;
+			warp "geffen",119,69;
+		}
+		else if (izlude == 1){
+			set alreadytalk, 0;
+			warp "izlude",128,142;
+		}
+		else if (MOROCC == 1){
+			set alreadytalk, 0;
+			warp "morocc",156,93;
+		}
+		else if (payon == 1){
+			set alreadytalk, 0;
+			warp "payon",175,102;
+		}
+	end;
+
+	OnSec:
+		dispbottom "Encore 5 secondes avant d'être téléporté, préparez-vous !";
+	end;
+	
+}
+
+//=NPC WARPER PAYON=//
+
+payon,183,103,4	script	Warper#pay	4_F_NURSE,{
+set @npc$, "[Warper]"; //Nom NPC
+
+	if (alreadytalk ==1){
+	mes @npc$;
+	mes "Nous préparons votre monture !";
+	close;
+	}
+	else{
+		mes @npc$;
+		mes "Bonjour "+strcharinfo(0)+",";
+		mes "Je peux vous transporter à dos de Peco Peco dans les villes alentours si vous le souhaitez.";
+		mes "Les villes accéssibles ici sont : Alberta, Izlude et Prontera.";
+		next;
+		mes @npc$;
+		mes "Dans quelles villes souhaitez-vous aller ?";
+		switch(select("Alberta","Izlude","Prontera","Aucune")){
+			case 1:
+				next;
+				mes @npc$;
+				mes "Très bien je demande tout suite à un écuyer de vous préparer votre Peco Peco !";
+				mes "Il sera prêt dans 20s environ,";
+				mes "pendant ce temps là, prenez le temps de préparer 	votre équipement !";
+				addtimer 20000, strnpcinfo(3)+"::OnWarp";
+				addtimer 15000, strnpcinfo(3)+"::OnSec";
+				set alberta, 1;
+				//warp après 20s
+				set alreadytalk, 1;
+				close;
+			case 2:
+				next;
+				mes @npc$;
+				mes "Très bien je demande tout suite à un écuyer de vous préparer votre Peco Peco !";
+				mes "Il sera prêt dans 20s environ,";
+				mes "pendant ce temps là, prenez le temps de préparer votre équipement !";
+				addtimer 20000, strnpcinfo(3)+"::OnWarp";
+				addtimer 15000, strnpcinfo(3)+"::OnSec";
+				set izlude, 1;
+				//warp après 20s
+				set alreadytalk, 1;
+				close;
+			case 3:
+				next;
+				mes @npc$;
+				mes "Très bien je demande tout suite à un écuyer de vous 	préparer votre Peco Peco !";
+				mes "Il sera prêt dans 20s environ,";
+				mes "pendant ce temps là, prenez le temps de préparer 	votre équipement !";
+				addtimer 20000, strnpcinfo(3)+"::OnWarp";
+				addtimer 15000, strnpcinfo(3)+"::OnSec";
+				set prontera, 1;
+				//warp après 20s
+				set alreadytalk, 1;
+				close;
+			case 4:
+				mes @npc$;
+				mes "A bientôt j'espère !";
+				close;
+		}
+	}
+	OnWarp:
+		dispbottom "Vous allez être warp";
+		if (alberta == 1){
+			set alreadytalk, 0;
+			warp "alberta",116,57;
+		}
+		else if (izlude == 1){
+			set alreadytalk, 0;
+			warp "izlude",128,142;
+		}
+		else if (prontera == 1){
+			set alreadytalk, 0;
+			warp "prontera",155,183;
+		}
+	end;
+
+	OnSec:
+		dispbottom "Encore 5 secondes avant d'être téléporté, préparez-vous !";
+	end;
+	
+}
+
+//=NPC WARPER RACHEL=//
+
+rachel,100,100,4	script	Warper#rac	4_F_NURSE,{
+set @npc$, "[Warper]"; //Nom NPC
+
+	if (alreadytalk ==1){
+	mes @npc$;
+	mes "Nous préparons votre monture !";
+	close;
+	}
+	else{
+		mes @npc$;
+		mes "Bonjour "+strcharinfo(0)+",";
+		mes "Je peux vous transporter à dos de Peco Peco dans les villes alentours si vous le souhaitez.";
+		mes "Les villes accéssibles ici sont : Einbech, Einbroch et Veins.";
+		next;
+		mes @npc$;
+		mes "Dans quelles villes souhaitez-vous aller ?";
+		switch(select("Einbech","Einbroch","Veins","Aucune")){
+			case 1:
+				next;
+				mes @npc$;
+				mes "Très bien je demande tout suite à un écuyer de vous préparer votre Peco Peco !";
+				mes "Il sera prêt dans 20s environ,";
+				mes "pendant ce temps là, prenez le temps de préparer 	votre équipement !";
+				addtimer 20000, strnpcinfo(3)+"::OnWarp";
+				addtimer 15000, strnpcinfo(3)+"::OnSec";
+				set einbech, 1;
+				//warp après 20s
+				set alreadytalk, 1;
+				close;
+			case 2:
+				next;
+				mes @npc$;
+				mes "Très bien je demande tout suite à un écuyer de vous préparer votre Peco Peco !";
+				mes "Il sera prêt dans 20s environ,";
+				mes "pendant ce temps là, prenez le temps de préparer votre équipement !";
+				addtimer 20000, strnpcinfo(3)+"::OnWarp";
+				addtimer 15000, strnpcinfo(3)+"::OnSec";
+				set einbroch, 1;
+				//warp après 20s
+				set alreadytalk, 1;
+				close;
+			case 3:
+				next;
+				mes @npc$;
+				mes "Très bien je demande tout suite à un écuyer de vous préparer votre Peco Peco !";
+				mes "Il sera prêt dans 20s environ,";
+				mes "pendant ce temps là, prenez le temps de préparer votre équipement !";
+				addtimer 20000, strnpcinfo(3)+"::OnWarp";
+				addtimer 15000, strnpcinfo(3)+"::OnSec";
+				set veins, 1;
+				//warp après 20s
+				set alreadytalk, 1;
+				close;
+			case 4:
+				mes @npc$;
+				mes "A bientôt j'espère !";
+				close;
+		}
+	}
+	OnWarp:
+		dispbottom "Vous allez être warp";
+		if (einbech == 1){
+			set alreadytalk, 0;
+			warp "einbech",176,130;
+		}
+		else if (einbroch == 1){
+			set alreadytalk, 0;
+			warp "einbroch",63,200;
+		}
+		else if (veins == 1){
+			set alreadytalk, 0;
+			warp "veins",208,123;
+		}
+	end;
+
+	OnSec:
+		dispbottom "Encore 5 secondes avant d'être téléporté, préparez-vous !";
+	end;
+	
+}
+
+//=NPC WARPER UMBALA=//
+
+umbala,100,100,4	script	Warper#um	4_F_NURSE,{
+set @npc$, "[Warper]"; //Nom NPC
+
+	if (alreadytalk ==1){
+	mes @npc$;
+	mes "Nous préparons votre monture !";
+	close;
+	}
+	else{
+		mes @npc$;
+		mes "Bonjour "+strcharinfo(0)+",";
+		mes "Je peux vous transporter à dos de Peco Peco dans les villes alentours si vous le souhaitez.";
+		mes "Les villes accéssibles ici sont : Comodo et Morocc.";
+		next;
+		mes @npc$;
+		mes "Dans quelles villes souhaitez-vous aller ?";
+		switch(select("Comodo","Morocc","Aucune")){
+			case 1:
+				next;
+				mes @npc$;
+				mes "Très bien je demande tout suite à un écuyer de vous préparer votre Peco Peco !";
+				mes "Il sera prêt dans 20s environ,";
+				mes "pendant ce temps là, prenez le temps de préparer 	votre équipement !";
+				addtimer 20000, strnpcinfo(3)+"::OnWarp";
+				addtimer 15000, strnpcinfo(3)+"::OnSec";
+				set COMODO, 1;
+				//warp après 20s
+				set alreadytalk, 1;
+				close;
+			case 2:
+				next;
+				mes @npc$;
+				mes "Très bien je demande tout suite à un écuyer de vous préparer votre Peco Peco !";
+				mes "Il sera prêt dans 20s environ,";
+				mes "pendant ce temps là, prenez le temps de préparer votre équipement !";
+				addtimer 20000, strnpcinfo(3)+"::OnWarp";
+				addtimer 15000, strnpcinfo(3)+"::OnSec";
+				set MOROCC, 1;
+				//warp après 20s
+				set alreadytalk, 1;
+				close;
+			case 3:
+				mes @npc$;
+				mes "A bientôt j'espère !";
+				close;
+		}
+	}
+	OnWarp:
+		dispbottom "Vous allez être warp";
+		if (COMODO == 1){
+			set alreadytalk, 0;
+			warp "COMODO",197,145;
+		}
+		else if (MOROCC == 1){
+			set alreadytalk, 0;
+			warp "morocc",156,93;
+		}
+	end;
+
+	OnSec:
+		dispbottom "Encore 5 secondes avant d'être téléporté, préparez-vous !";
+	end;
+	
+}
+
+//=NPC WARPER VEINS=//
+
+veins,100,100,4	script	Warper#vei	4_F_NURSE,{
+set @npc$, "[Warper]"; //Nom NPC
+
+	if (alreadytalk ==1){
+	mes @npc$;
+	mes "Nous préparons votre monture !";
+	close;
+	}
+	else{
+		mes @npc$;
+		mes "Bonjour "+strcharinfo(0)+",";
+		mes "Je peux vous transporter à dos de Peco Peco dans les villes alentours si vous le souhaitez.";
+		mes "Les villes accéssibles ici sont : Einbech, Einbroch, Lighthalzen et Rachel.";
+		next;
+		mes @npc$;
+		mes "Dans quelles villes souhaitez-vous aller ?";
+		switch(select("Einbech","Einbroch","Lighthalzen","Rachel","Aucune")){
+			case 1:
+				next;
+				mes @npc$;
+				mes "Très bien je demande tout suite à un écuyer de vous préparer votre Peco Peco !";
+				mes "Il sera prêt dans 20s environ,";
+				mes "pendant ce temps là, prenez le temps de préparer 	votre équipement !";
+				addtimer 20000, strnpcinfo(3)+"::OnWarp";
+				addtimer 15000, strnpcinfo(3)+"::OnSec";
+				set einbech, 1;
+				//warp après 20s
+				set alreadytalk, 1;
+				close;
+			case 2:
+				next;
+				mes @npc$;
+				mes "Très bien je demande tout suite à un écuyer de vous préparer votre Peco Peco !";
+				mes "Il sera prêt dans 20s environ,";
+				mes "pendant ce temps là, prenez le temps de préparer votre équipement !";
+				addtimer 20000, strnpcinfo(3)+"::OnWarp";
+				addtimer 15000, strnpcinfo(3)+"::OnSec";
+				set einbroch, 1;
+				//warp après 20s
+				set alreadytalk, 1;
+				close;
+			case 3:
+				next;
+				mes @npc$;
+				mes "Très bien je demande tout suite à un écuyer de vous 	préparer votre Peco Peco !";
+				mes "Il sera prêt dans 20s environ,";
+				mes "pendant ce temps là, prenez le temps de préparer 	votre équipement !";
+				addtimer 20000, strnpcinfo(3)+"::OnWarp";
+				addtimer 15000, strnpcinfo(3)+"::OnSec";
+				set lighthalzen, 1;
+				//warp après 20s
+				set alreadytalk, 1;
+				close;
+			case 4:
+				next;
+				mes @npc$;
+				mes "Très bien je demande tout suite à un écuyer de vous préparer votre Peco Peco !";
+				mes "Il sera prêt dans 20s environ,";
+				mes "pendant ce temps là, prenez le temps de préparer votre équipement !";
+				addtimer 20000, strnpcinfo(3)+"::OnWarp";
+				addtimer 15000, strnpcinfo(3)+"::OnSec";
+				set rachel, 1;
+				//warp après 20s
+				set alreadytalk, 1;
+				close;
+			case 5:
+				mes @npc$;
+				mes "A bientôt j'espère !";
+				close;
+		}
+	}
+	OnWarp:
+		dispbottom "Vous allez être warp";
+		if (einbech == 1){
+			set alreadytalk, 0;
+			warp "einbech",176,130;
+		}
+		else if (einbroch == 1){
+			set alreadytalk, 0;
+			warp "einbroch",63,200;
+		}
+		else if (lighthalzen == 1){
+			set alreadytalk, 0;
+			warp "lighthalzen",159,95;
+		}
+		else if (rachel == 1){
+			set alreadytalk, 0;
+			warp "rachel",130,113;
+		}
+	end;
+
+	OnSec:
+		dispbottom "Encore 5 secondes avant d'être téléporté, préparez-vous !";
+	end;
+	
+}
+
+//=NPC WARPER YUNO=//
+
+yuno,100,100,4	script	Warper#yun	4_F_NURSE,{
+set @npc$, "[Warper]"; //Nom NPC
+
+	if (alreadytalk ==1){
+	mes @npc$;
+	mes "Nous préparons votre monture !";
+	close;
+	}
+	else{
+		mes @npc$;
+		mes "Bonjour "+strcharinfo(0)+",";
+		mes "Je peux vous transporter à dos de Peco Peco dans les villes alentours si vous le souhaitez.";
+		mes "Les villes accéssibles ici sont : Einbech et Einbroch.";
+		next;
+		mes @npc$;
+		mes "Dans quelles villes souhaitez-vous aller ?";
+		switch(select("Einbech","Einbroch","Aucune")){
+			case 1:
+				next;
+				mes @npc$;
+				mes "Très bien je demande tout suite à un écuyer de vous préparer votre Peco Peco !";
+				mes "Il sera prêt dans 20s environ,";
+				mes "pendant ce temps là, prenez le temps de préparer 	votre équipement !";
+				addtimer 20000, strnpcinfo(3)+"::OnWarp";
+				addtimer 15000, strnpcinfo(3)+"::OnSec";
+				set einbech, 1;
+				//warp après 20s
+				set alreadytalk, 1;
+				close;
+			case 2:
+				next;
+				mes @npc$;
+				mes "Très bien je demande tout suite à un écuyer de vous préparer votre Peco Peco !";
+				mes "Il sera prêt dans 20s environ,";
+				mes "pendant ce temps là, prenez le temps de préparer votre équipement !";
+				addtimer 20000, strnpcinfo(3)+"::OnWarp";
+				addtimer 15000, strnpcinfo(3)+"::OnSec";
+				set einbroch, 1;
+				//warp après 20s
+				set alreadytalk, 1;
+				close;
+			case 3:
+				mes @npc$;
+				mes "A bientôt j'espère !";
+				close;
+		}
+	}
+	OnWarp:
+		dispbottom "Vous allez être warp";
+		if (einbech == 1){
+			set alreadytalk, 0;
+			warp "einbech",176,130;
+		}
+		else if (einbroch == 1){
+			set alreadytalk, 0;
+			warp "einbroch",63,200;
+		}
+	end;
+
+	OnSec:
+		dispbottom "Encore 5 secondes avant d'être téléporté, préparez-vous !";
+	end;
+	
+}
+
+
+//NPC Warper Alberta : TURTLE Island, Sunken Ship
+//NPC Warper Amatsu : Amatsu Donjon
+//NPC Warper Ayothaya : Ayothaya Donjon 
+//NPC Warper Geffen : Coal Mine, Geffenia, Glast Heim, Orc Donjon
+//NPC Warper Hugel : Abyss Lake,
+//NPC Warper Lighthalzen : Bio Lab
+//NPC Warper MOROCC : Ant Hell, Sphinx, Pyramide
+//NPC Warper Prontera : Culvert, Hidden Temple
+//NPC Warper Payon : Payon Cave
+//NPC Warper Rachel : Ice Cave, Rachel Sanctuary
+//NPC Warper Veins : Namelass Island/Cursed Abbey, Thor Volcano
+//NPC Warper Yuno : Magma Donjon
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////=NPC WARPER DONJON=/////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+//=NPC WARPER DONJON ALBERTA=//
+
+alberta,100,100,4	script	Explorateur#alb	4_F_NURSE,{
+set @npc$, "[Explorateur]";
+
+	if (questprogress(00000) == -1){
+		mes @npc$;
+		mes "Bonjour jeune aventurier, je peux t'emmener dans certains endroits reculé de cette ville,";
+		mes "certains endroits où les plus gros monstres des environs rodes !";
+		next;
+		mes @npc$;
+		mes "Que voulez-vous ?";
+		switch(select("Parlez moi de votre société","Je souhaites me déplacer")){
+			case 1:
+				mes @npc$;
+				mes "Grâce aux explorateurs de notre monde, nous avons créé Explorateur Corporate.";
+				mes "Nous pouvons vous emmenez dans différents donjons aux alentours de certaines villes.";
+				mes "Il y a peu nous avions un chef mais celui-ci est tombé sous les assaults des Orcs ...";
+				next;
+				mes @npc$;
+				mes "Notre chef, Elriche était un très bon explorateur, il allait souvent avec sa femme découvrir les donjons de ce monde,";
+				mes "mais un beau jour, après une exploration à l'Ouest de Geffen, accompagné de sa femme et d'un autre explorateur,";
+				mes "il succomba...";
+				next;
+				mes @npc$;
+				mes "Un seul survivra, il aurai réussi à s'échapper à temps pour éviter une mort certaine !";
+				mes "Malheureusement il n'a pu sauvé Elriche et sa femme ...";
+				mes "Depuis ce jour, le survivant qui se nomme Ariol est maintenant devenu notre chef !";
+				next;
+				mes @npc$;
+				mes "Je vais m'arrêter là car on dit que le fait d'en parler continu de faire souffrir Ariol !";
+				mes "Si tu veux vraiment en savoir plus, va donc le trouver, il se trouve à la taverne de la Cité Portuaire de Midgard.";
+				setquest 00000;
+				dispbottom "Vous avez reçu une nouvelle quête, vous pouvez la consulter via la commande alt+u";
+				close;
+			case 2:
+				mes @npc$;
+				mes "Voici les donjons accessible :";
+				switch(select("Trutle Island","Sunken Ship")){
+					case 1:
+						mes @npc$;
+						mes "Laisse moi le temps de me préparer pour l'expédition.";
+						set Zeny,Zeny-5000;
+						addtimer 10000, strnpcinfo(3)+"::OnWarp";
+						set TURTLE, 1;
+						set alreadytalk, 1;
+						close;
+					case 2:
+						mes @npc$;
+						mes "Laisse moi le temps de me préparer pour l'expédition.";
+						set Zeny,Zeny-5000;
+						addtimer 10000, strnpcinfo(3)+"::OnWarp";
+						set sunken, 1;
+						set alreadytalk, 1;
+						close;
+				}
+		}
+	}
+	else if (questprogress(00000) == 1){
+		mes @npc$;
+		mes "Que voulez-vous ?";
+		switch(select("Je souhaites me déplacer","Où se trouve Ariol ?")){
+			case 1:
+				mes @npc$;
+				mes "Voici les donjons accessible :";
+				switch(select("Trutle Island","Sunken Ship")){
+					case 1:
+						mes @npc$;
+						mes "Laisse moi le temps de me préparer pour l'expédition.";
+						set Zeny,Zeny-5000;
+						addtimer 10000, strnpcinfo(3)+"::OnWarp";
+						set TURTLE, 1;
+						set alreadytalk, 1;
+						close;
+					case 2:
+						mes @npc$;
+						mes "Laisse moi le temps de me préparer pour l'expédition.";
+						set Zeny,Zeny-5000;
+						addtimer 10000, strnpcinfo(3)+"::OnWarp";
+						set sunken, 1;
+						set alreadytalk, 1;
+						close;
+				}
+			case 2:
+				mes @npc$;
+				mes "Va donc trouver Ariol !";
+				mes "Il se trouve à la taverne de la Cité Portuaire de Midgard.";
+				close;
+		}
+	}
+	else if (questprogress(00000) == 2){
+		mes @npc$;
+		mes "Oh je vois que tu as fini par rejoindre l'entreprise Explorateur Corporate finalement !";
+		mes "Peu de gens y arrive ! Félicitations !";
+		mes "Je te donne donc une réduction sur les tarifs !";
+		next;
+		mes @npc$;
+		mes "Voici les donjons accessible :";
+		switch(select("Trutle Island","Sunken Ship")){
+			case 1:
+				mes @npc$;
+				mes "Laisse moi le temps de me préparer pour l'expédition.";
+				set Zeny,Zeny-2500;
+				addtimer 10000, strnpcinfo(3)+"::OnWarp";
+				set TURTLE, 1;
+				set alreadytalk, 1;
+				close;
+			case 2:
+				mes @npc$;
+				mes "Laisse moi le temps de me préparer pour l'expédition.";
+				set Zeny,Zeny-2500;
+				addtimer 10000, strnpcinfo(3)+"::OnWarp";
+				set sunken, 1;
+				set alreadytalk, 1;
+				close;
+		}
+	}
+	
+	OnWarp:
+		dispbottom "Vous allez être warp";
+		if (TURTLE == 1){
+			set alreadytalk, 0;
+			warp "tur_dun01",0,0;
+		}
+		else if (sunken == 1){
+			set alreadytalk, 0;
+			warp "sunken",0,0;
+		}
+}
+
+
+//=NPC WARPER DONJON AMATSU=//
+
+amatsu,100,100,4	script	Explorateur#ama	4_F_NURSE,{
+set @npc$, "[Explorateur]";
+
+	if (questprogress(00000) == -1){
+		mes @npc$;
+		mes "Bonjour jeune aventurier, je peux t'emmener dans certains endroits reculé de cette ville,";
+		mes "certains endroits où les plus gros monstres des environs rodes !";
+		next;
+		mes @npc$;
+		mes "Que voulez-vous ?";
+		switch(select("Parlez moi de votre société","Je souhaites me déplacer")){
+			case 1:
+				mes @npc$;
+				mes "Grâce aux explorateurs de notre monde, nous avons créé Explorateur Corporate.";
+				mes "Nous pouvons vous emmenez dans différents donjons aux alentours de certaines villes.";
+				mes "Il y a peu nous avions un chef mais celui-ci est tombé sous les assaults des Orcs ...";
+				next;
+				mes @npc$;
+				mes "Notre chef, Elriche était un très bon explorateur, il allait souvent avec sa femme découvrir les donjons de ce monde,";
+				mes "mais un beau jour, après une exploration à l'Ouest de Geffen, accompagné de sa femme et d'un autre explorateur,";
+				mes "il succomba...";
+				next;
+				mes @npc$;
+				mes "Un seul survivra, il aurai réussi à s'échapper à temps pour éviter une mort certaine !";
+				mes "Malheureusement il n'a pu sauvé Elriche et sa femme ...";
+				mes "Depuis ce jour, le survivant qui se nomme Ariol est maintenant devenu notre chef !";
+				next;
+				mes @npc$;
+				mes "Je vais m'arrêter là car on dit que le fait d'en parler continu de faire souffrir Ariol !";
+				mes "Si tu veux vraiment en savoir plus, va donc le trouver, il se trouve à la taverne de la Cité Portuaire de Midgard.";
+				setquest 00000;
+				dispbottom "Vous avez reçu une nouvelle quête, vous pouvez la consulter via la commande alt+u";
+				close;
+			case 2:
+				mes @npc$;
+				mes "Voici les donjons accessible :";
+				switch(select("Amatsu Donjon")){
+					case 1:
+						mes @npc$;
+						mes "Laisse moi le temps de me préparer pour l'expédition.";
+						set Zeny,Zeny-5000;
+						addtimer 10000, strnpcinfo(3)+"::OnWarp";
+						set amatsu, 1;
+						set alreadytalk, 1;
+						close;
+				}
+		}
+	}
+	else if (questprogress(00000) == 1){
+		mes @npc$;
+		mes "Que voulez-vous ?";
+		switch(select("Je souhaites me déplacer","Où se trouve Ariol ?")){
+			case 1:
+				mes @npc$;
+				mes "Voici les donjons accessible :";
+				switch(select("Amatsu")){
+					case 1:
+						mes @npc$;
+						mes "Laisse moi le temps de me préparer pour l'expédition.";
+						set Zeny,Zeny-5000;
+						addtimer 10000, strnpcinfo(3)+"::OnWarp";
+						set amatsu, 1;
+						set alreadytalk, 1;
+						close;
+				}
+			case 2:
+				mes @npc$;
+				mes "Va donc trouver Ariol !";
+				mes "Il se trouve à la taverne de la Cité Portuaire de Midgard.";
+				close;
+		}
+	}
+	else if (questprogress(00000) == 2){
+		mes @npc$;
+		mes "Oh je vois que tu as fini par rejoindre l'entreprise Explorateur Corporate finalement !";
+		mes "Peu de gens y arrive ! Félicitations !";
+		mes "Je te donne donc une réduction sur les tarifs !";
+		next;
+		mes @npc$;
+		mes "Voici les donjons accessible :";
+		switch(select("Amatsu")){
+			case 1:
+				mes @npc$;
+				mes "Laisse moi le temps de me préparer pour l'expédition.";
+				set Zeny,Zeny-2500;
+				addtimer 10000, strnpcinfo(3)+"::OnWarp";
+				set amatsu, 1;
+				set alreadytalk, 1;
+				close;
+		}
+	}
+	
+	OnWarp:
+		dispbottom "Vous allez être warp";
+		if (amatsu == 1){
+			set alreadytalk, 0;
+			warp "ama_fild01",174,328;
+		}
+}
+
+
+//=NPC WARPER DONJON AYOTHAYA=//
+
+ayothaya,100,100,4	script	Explorateur#ayo	4_F_NURSE,{
+set @npc$, "[Explorateur]";
+
+	if (questprogress(00000) == -1){
+		mes @npc$;
+		mes "Bonjour jeune aventurier, je peux t'emmener dans certains endroits reculé de cette ville,";
+		mes "certains endroits où les plus gros monstres des environs rodes !";
+		next;
+		mes @npc$;
+		mes "Que voulez-vous ?";
+		switch(select("Parlez moi de votre société","Je souhaites me déplacer")){
+			case 1:
+				mes @npc$;
+				mes "Grâce aux explorateurs de notre monde, nous avons créé Explorateur Corporate.";
+				mes "Nous pouvons vous emmenez dans différents donjons aux alentours de certaines villes.";
+				mes "Il y a peu nous avions un chef mais celui-ci est tombé sous les assaults des Orcs ...";
+				next;
+				mes @npc$;
+				mes "Notre chef, Elriche était un très bon explorateur, il allait souvent avec sa femme découvrir les donjons de ce monde,";
+				mes "mais un beau jour, après une exploration à l'Ouest de Geffen, accompagné de sa femme et d'un autre explorateur,";
+				mes "il succomba...";
+				next;
+				mes @npc$;
+				mes "Un seul survivra, il aurai réussi à s'échapper à temps pour éviter une mort certaine !";
+				mes "Malheureusement il n'a pu sauvé Elriche et sa femme ...";
+				mes "Depuis ce jour, le survivant qui se nomme Ariol est maintenant devenu notre chef !";
+				next;
+				mes @npc$;
+				mes "Je vais m'arrêter là car on dit que le fait d'en parler continu de faire souffrir Ariol !";
+				mes "Si tu veux vraiment en savoir plus, va donc le trouver, il se trouve à la taverne de la Cité Portuaire de Midgard.";
+				setquest 00000;
+				dispbottom "Vous avez reçu une nouvelle quête, vous pouvez la consulter via la commande alt+u";
+				close;
+			case 2:
+				mes @npc$;
+				mes "Voici les donjons accessible :";
+				switch(select("Ayothaya Donjon")){
+					case 1:
+						mes @npc$;
+						mes "Laisse moi le temps de me préparer pour l'expédition.";
+						set Zeny,Zeny-5000;
+						addtimer 10000, strnpcinfo(3)+"::OnWarp";
+						set ayothaya, 1;
+						set alreadytalk, 1;
+						close;
+				}
+		}
+	}
+	else if (questprogress(00000) == 1){
+		mes @npc$;
+		mes "Que voulez-vous ?";
+		switch(select("Je souhaites me déplacer","Où se trouve Ariol ?")){
+			case 1:
+				mes @npc$;
+				mes "Voici les donjons accessible :";
+				switch(select("Ayothaya Donjon")){
+					case 1:
+						mes @npc$;
+						mes "Laisse moi le temps de me préparer pour l'expédition.";
+						set Zeny,Zeny-5000;
+						addtimer 10000, strnpcinfo(3)+"::OnWarp";
+						set ayothaya, 1;
+						set alreadytalk, 1;
+						close;
+				}
+			case 2:
+				mes @npc$;
+				mes "Va donc trouver Ariol !";
+				mes "Il se trouve à la taverne de la Cité Portuaire de Midgard.";
+				close;
+		}
+	}
+	else if (questprogress(00000) == 2){
+		mes @npc$;
+		mes "Oh je vois que tu as fini par rejoindre l'entreprise Explorateur Corporate finalement !";
+		mes "Peu de gens y arrive ! Félicitations !";
+		mes "Je te donne donc une réduction sur les tarifs !";
+		next;
+		mes @npc$;
+		mes "Voici les donjons accessible :";
+		switch(select("Ayothaya Donjon")){
+			case 1:
+				mes @npc$;
+				mes "Laisse moi le temps de me préparer pour l'expédition.";
+				set Zeny,Zeny-2500;
+				addtimer 10000, strnpcinfo(3)+"::OnWarp";
+				set ayothaya, 1;
+				set alreadytalk, 1;
+				close;
+		}
+	}
+	
+	OnWarp:
+		dispbottom "Vous allez être warp";
+		if (ayothaya == 1){
+			set alreadytalk, 0;
+			warp "ayo_fild02",278,150;
+		}
+}
+
+//=NPC WARPER DONJON GEFFEN=//
+
+geffen,100,100,4	script	Explorateur#gef	4_F_NURSE,{
+set @npc$, "[Explorateur]";
+
+	if (questprogress(00000) == -1){
+		mes @npc$;
+		mes "Bonjour jeune aventurier, je peux t'emmener dans certains endroits reculé de cette ville,";
+		mes "certains endroits où les plus gros monstres des environs rodes !";
+		next;
+		mes @npc$;
+		mes "Que voulez-vous ?";
+		switch(select("Parlez moi de votre société","Je souhaites me déplacer")){
+			case 1:
+				mes @npc$;
+				mes "Grâce aux explorateurs de notre monde, nous avons créé Explorateur Corporate.";
+				mes "Nous pouvons vous emmenez dans différents donjons aux alentours de certaines villes.";
+				mes "Il y a peu nous avions un chef mais celui-ci est tombé sous les assaults des Orcs ...";
+				next;
+				mes @npc$;
+				mes "Notre chef, Elriche était un très bon explorateur, il allait souvent avec sa femme découvrir les donjons de ce monde,";
+				mes "mais un beau jour, après une exploration à l'Ouest de Geffen, accompagné de sa femme et d'un autre explorateur,";
+				mes "il succomba...";
+				next;
+				mes @npc$;
+				mes "Un seul survivra, il aurai réussi à s'échapper à temps pour éviter une mort certaine !";
+				mes "Malheureusement il n'a pu sauvé Elriche et sa femme ...";
+				mes "Depuis ce jour, le survivant qui se nomme Ariol est maintenant devenu notre chef !";
+				next;
+				mes @npc$;
+				mes "Je vais m'arrêter là car on dit que le fait d'en parler continu de faire souffrir Ariol !";
+				mes "Si tu veux vraiment en savoir plus, va donc le trouver, il se trouve à la taverne de la Cité Portuaire de Midgard.";
+				setquest 00000;
+				dispbottom "Vous avez reçu une nouvelle quête, vous pouvez la consulter via la commande alt+u";
+				close;
+			case 2:
+				mes @npc$;
+				mes "Voici les donjons accessible :";
+				switch(select("Coal Mine","Geffenia","Glast Heim","Orc Donjon")){
+					case 1:
+						mes @npc$;
+						mes "Laisse moi le temps de me préparer pour l'expédition.";
+						set Zeny,Zeny-5000;
+						addtimer 10000, strnpcinfo(3)+"::OnWarp";
+						set coalmine, 1;
+						set alreadytalk, 1;
+						close;
+					case 2:
+						mes @npc$;
+						mes "Laisse moi le temps de me préparer pour l'expédition.";
+						set Zeny,Zeny-5000;
+						addtimer 10000, strnpcinfo(3)+"::OnWarp";
+						set geffenia, 1;
+						set alreadytalk, 1;
+						close;
+					case 3:
+						mes @npc$;
+						mes "Laisse moi le temps de me préparer pour l'expédition.";
+						set Zeny,Zeny-5000;
+						addtimer 10000, strnpcinfo(3)+"::OnWarp";
+						set glastheim, 1;
+						set alreadytalk, 1;
+						close;
+					case 4:
+						mes @npc$;
+						mes "Laisse moi le temps de me préparer pour l'expédition.";
+						set Zeny,Zeny-5000;
+						addtimer 10000, strnpcinfo(3)+"::OnWarp";
+						set orcdonjon, 1;
+						set alreadytalk, 1;
+						close;
+				}
+		}
+	}
+	else if (questprogress(00000) == 1){
+		mes @npc$;
+		mes "Que voulez-vous ?";
+		switch(select("Je souhaites me déplacer","Où se trouve Ariol ?")){
+			case 1:
+				mes @npc$;
+				mes "Voici les donjons accessible :";
+				switch(select("Coal Mine","Geffenia","Glast Heim","Orc Donjon")){
+					case 1:
+						mes @npc$;
+						mes "Laisse moi le temps de me préparer pour l'expédition.";
+						set Zeny,Zeny-5000;
+						addtimer 10000, strnpcinfo(3)+"::OnWarp";
+						set coalmine, 1;
+						set alreadytalk, 1;
+						close;
+					case 2:
+						mes @npc$;
+						mes "Laisse moi le temps de me préparer pour l'expédition.";
+						set Zeny,Zeny-5000;
+						addtimer 10000, strnpcinfo(3)+"::OnWarp";
+						set geffenia, 1;
+						set alreadytalk, 1;
+						close;
+					case 3:
+						mes @npc$;
+						mes "Laisse moi le temps de me préparer pour l'expédition.";
+						set Zeny,Zeny-5000;
+						addtimer 10000, strnpcinfo(3)+"::OnWarp";
+						set glastheim, 1;
+						set alreadytalk, 1;
+						close;
+					case 4:
+						mes @npc$;
+						mes "Laisse moi le temps de me préparer pour l'expédition.";
+						set Zeny,Zeny-5000;
+						addtimer 10000, strnpcinfo(3)+"::OnWarp";
+						set orcdonjon, 1;
+						set alreadytalk, 1;
+						close;
+				}
+			case 2:
+				mes @npc$;
+				mes "Va donc trouver Ariol !";
+				mes "Il se trouve à la taverne de la Cité Portuaire de Midgard.";
+				close;
+		}
+	}
+	else if (questprogress(00000) == 2){
+		mes @npc$;
+		mes "Oh je vois que tu as fini par rejoindre l'entreprise Explorateur Corporate finalement !";
+		mes "Peu de gens y arrive ! Félicitations !";
+		mes "Je te donne donc une réduction sur les tarifs !";
+		next;
+		mes @npc$;
+		mes "Voici les donjons accessible :";
+		switch(select("Coal Mine","Geffenia","Glast Heim","Orc Donjon")){
+			case 1:
+				mes @npc$;
+				mes "Laisse moi le temps de me préparer pour l'expédition.";
+				set Zeny,Zeny-5000;
+				addtimer 10000, strnpcinfo(3)+"::OnWarp";
+				set coalmine, 1;
+				set alreadytalk, 1;
+				close;
+			case 2:
+				mes @npc$;
+				mes "Laisse moi le temps de me préparer pour l'expédition.";
+				set Zeny,Zeny-5000;
+				addtimer 10000, strnpcinfo(3)+"::OnWarp";
+				set geffenia, 1;
+				set alreadytalk, 1;
+				close;
+			case 3:
+				mes @npc$;
+				mes "Laisse moi le temps de me préparer pour l'expédition.";
+				set Zeny,Zeny-5000;
+				addtimer 10000, strnpcinfo(3)+"::OnWarp";
+				set glastheim, 1;
+				set alreadytalk, 1;
+				close;
+			case 4:
+				mes @npc$;
+				mes "Laisse moi le temps de me préparer pour l'expédition.";
+				set Zeny,Zeny-5000;
+				addtimer 10000, strnpcinfo(3)+"::OnWarp";
+				set orcdonjon, 1;
+				set alreadytalk, 1;
+				close;
+		}
+	}
+	
+	OnWarp:
+		dispbottom "Vous allez être warp";
+		if (coalmine == 1){
+			set alreadytalk, 0;
+			warp "mjolnir_02",79,360;
+		}
+		else if (geffenia == 1){
+			set alreadytalk, 0;
+			warp "geffenia",0,0;
+		}
+		else if (glastheim == 1){
+			set alreadytalk, 0;
+			warp "glast_01",370,304;
+		}
+		else if (orcdonjon == 1){
+			set alreadytalk, 0;
+			warp "gef_fild10",69,334;
+		}
+}
+
+
+//=NPC WARPER DONJON HUGEL=//
+
+hugel,100,100,4	script	Explorateur#hug	4_F_NURSE,{
+set @npc$, "[Explorateur]";
+
+	if (questprogress(00000) == -1){
+		mes @npc$;
+		mes "Bonjour jeune aventurier, je peux t'emmener dans certains endroits reculé de cette ville,";
+		mes "certains endroits où les plus gros monstres des environs rodes !";
+		next;
+		mes @npc$;
+		mes "Que voulez-vous ?";
+		switch(select("Parlez moi de votre société","Je souhaites me déplacer")){
+			case 1:
+				mes @npc$;
+				mes "Grâce aux explorateurs de notre monde, nous avons créé Explorateur Corporate.";
+				mes "Nous pouvons vous emmenez dans différents donjons aux alentours de certaines villes.";
+				mes "Il y a peu nous avions un chef mais celui-ci est tombé sous les assaults des Orcs ...";
+				next;
+				mes @npc$;
+				mes "Notre chef, Elriche était un très bon explorateur, il allait souvent avec sa femme découvrir les donjons de ce monde,";
+				mes "mais un beau jour, après une exploration à l'Ouest de Geffen, accompagné de sa femme et d'un autre explorateur,";
+				mes "il succomba...";
+				next;
+				mes @npc$;
+				mes "Un seul survivra, il aurai réussi à s'échapper à temps pour éviter une mort certaine !";
+				mes "Malheureusement il n'a pu sauvé Elriche et sa femme ...";
+				mes "Depuis ce jour, le survivant qui se nomme Ariol est maintenant devenu notre chef !";
+				next;
+				mes @npc$;
+				mes "Je vais m'arrêter là car on dit que le fait d'en parler continu de faire souffrir Ariol !";
+				mes "Si tu veux vraiment en savoir plus, va donc le trouver, il se trouve à la taverne de la Cité Portuaire de Midgard.";
+				setquest 00000;
+				dispbottom "Vous avez reçu une nouvelle quête, vous pouvez la consulter via la commande alt+u";
+				close;
+			case 2:
+				mes @npc$;
+				mes "Voici les donjons accessible :";
+				switch(select("Abyss Lake")){
+					case 1:
+						mes @npc$;
+						mes "Laisse moi le temps de me préparer pour l'expédition.";
+						set Zeny,Zeny-5000;
+						addtimer 10000, strnpcinfo(3)+"::OnWarp";
+						set abyss, 1;
+						set alreadytalk, 1;
+						close;
+				}
+		}
+	}
+	else if (questprogress(00000) == 1){
+		mes @npc$;
+		mes "Que voulez-vous ?";
+		switch(select("Je souhaites me déplacer","Où se trouve Ariol ?")){
+			case 1:
+				mes @npc$;
+				mes "Voici les donjons accessible :";
+				switch(select("Abyss Lake")){
+					case 1:
+						mes @npc$;
+						mes "Laisse moi le temps de me préparer pour l'expédition.";
+						set Zeny,Zeny-5000;
+						addtimer 10000, strnpcinfo(3)+"::OnWarp";
+						set abyss, 1;
+						set alreadytalk, 1;
+						close;
+				}
+			case 2:
+				mes @npc$;
+				mes "Va donc trouver Ariol !";
+				mes "Il se trouve à la taverne de la Cité Portuaire de Midgard.";
+				close;
+		}
+	}
+	else if (questprogress(00000) == 2){
+		mes @npc$;
+		mes "Oh je vois que tu as fini par rejoindre l'entreprise Explorateur Corporate finalement !";
+		mes "Peu de gens y arrive ! Félicitations !";
+		mes "Je te donne donc une réduction sur les tarifs !";
+		next;
+		mes @npc$;
+		mes "Voici les donjons accessible :";
+		switch(select("Abyss Lake")){
+			case 1:
+				mes @npc$;
+				mes "Laisse moi le temps de me préparer pour l'expédition.";
+				set Zeny,Zeny-2500;
+				addtimer 10000, strnpcinfo(3)+"::OnWarp";
+				set abyss, 1;
+				set alreadytalk, 1;
+				close;
+		}
+	}
+	
+	OnWarp:
+		dispbottom "Vous allez être warp";
+		if (abyss == 1){
+			set alreadytalk, 0;
+			warp "hu_fild05",170,307;
+		}
+}
+
+
+//=NPC WARPER DONJON LIGHTHALZEN=//
+
+lighthalzen,100,100,4	script	Explorateur#lig	4_F_NURSE,{
+set @npc$, "[Explorateur]";
+
+	if (questprogress(00000) == -1){
+		mes @npc$;
+		mes "Bonjour jeune aventurier, je peux t'emmener dans certains endroits reculé de cette ville,";
+		mes "certains endroits où les plus gros monstres des environs rodes !";
+		next;
+		mes @npc$;
+		mes "Que voulez-vous ?";
+		switch(select("Parlez moi de votre société","Je souhaites me déplacer")){
+			case 1:
+				mes @npc$;
+				mes "Grâce aux explorateurs de notre monde, nous avons créé Explorateur Corporate.";
+				mes "Nous pouvons vous emmenez dans différents donjons aux alentours de certaines villes.";
+				mes "Il y a peu nous avions un chef mais celui-ci est tombé sous les assaults des Orcs ...";
+				next;
+				mes @npc$;
+				mes "Notre chef, Elriche était un très bon explorateur, il allait souvent avec sa femme découvrir les donjons de ce monde,";
+				mes "mais un beau jour, après une exploration à l'Ouest de Geffen, accompagné de sa femme et d'un autre explorateur,";
+				mes "il succomba...";
+				next;
+				mes @npc$;
+				mes "Un seul survivra, il aurai réussi à s'échapper à temps pour éviter une mort certaine !";
+				mes "Malheureusement il n'a pu sauvé Elriche et sa femme ...";
+				mes "Depuis ce jour, le survivant qui se nomme Ariol est maintenant devenu notre chef !";
+				next;
+				mes @npc$;
+				mes "Je vais m'arrêter là car on dit que le fait d'en parler continu de faire souffrir Ariol !";
+				mes "Si tu veux vraiment en savoir plus, va donc le trouver, il se trouve à la taverne de la Cité Portuaire de Midgard.";
+				setquest 00000;
+				dispbottom "Vous avez reçu une nouvelle quête, vous pouvez la consulter via la commande alt+u";
+				close;
+			case 2:
+				mes @npc$;
+				mes "Voici les donjons accessible :";
+				switch(select("Bio Lab")){
+					case 1:
+						mes @npc$;
+						mes "Laisse moi le temps de me préparer pour l'expédition.";
+						set Zeny,Zeny-5000;
+						addtimer 10000, strnpcinfo(3)+"::OnWarp";
+						set bio, 1;
+						set alreadytalk, 1;
+						close;
+				}
+		}
+	}
+	else if (questprogress(00000) == 1){
+		mes @npc$;
+		mes "Que voulez-vous ?";
+		switch(select("Je souhaites me déplacer","Où se trouve Ariol ?")){
+			case 1:
+				mes @npc$;
+				mes "Voici les donjons accessible :";
+				switch(select("Bio Lab")){
+					case 1:
+						mes @npc$;
+						mes "Laisse moi le temps de me préparer pour l'expédition.";
+						set Zeny,Zeny-5000;
+						addtimer 10000, strnpcinfo(3)+"::OnWarp";
+						set bio, 1;
+						set alreadytalk, 1;
+						close;
+				}
+			case 2:
+				mes @npc$;
+				mes "Va donc trouver Ariol !";
+				mes "Il se trouve à la taverne de la Cité Portuaire de Midgard.";
+				close;
+		}
+	}
+	else if (questprogress(00000) == 2){
+		mes @npc$;
+		mes "Oh je vois que tu as fini par rejoindre l'entreprise Explorateur Corporate finalement !";
+		mes "Peu de gens y arrive ! Félicitations !";
+		mes "Je te donne donc une réduction sur les tarifs !";
+		next;
+		mes @npc$;
+		mes "Voici les donjons accessible :";
+		switch(select("Bio Lab")){
+			case 1:
+				mes @npc$;
+				mes "Laisse moi le temps de me préparer pour l'expédition.";
+				set Zeny,Zeny-2500;
+				addtimer 10000, strnpcinfo(3)+"::OnWarp";
+				set bio, 1;
+				set alreadytalk, 1;
+				close;
+		}
+	}
+	
+	OnWarp:
+		dispbottom "Vous allez être warp";
+		if (bio == 1){
+			set alreadytalk, 0;
+			warp "lighthalzen",310,302;
+		}
+}
+
+//=NPC WARPER DONJON MOROCC=//
+
+morocc,100,100,4	script	Explorateur#mor	4_F_NURSE,{
+set @npc$, "[Explorateur]";
+
+	if (questprogress(00000) == -1){
+		mes @npc$;
+		mes "Bonjour jeune aventurier, je peux t'emmener dans certains endroits reculé de cette ville,";
+		mes "certains endroits où les plus gros monstres des environs rodes !";
+		next;
+		mes @npc$;
+		mes "Que voulez-vous ?";
+		switch(select("Parlez moi de votre société","Je souhaites me déplacer")){
+			case 1:
+				mes @npc$;
+				mes "Grâce aux explorateurs de notre monde, nous avons créé Explorateur Corporate.";
+				mes "Nous pouvons vous emmenez dans différents donjons aux alentours de certaines villes.";
+				mes "Il y a peu nous avions un chef mais celui-ci est tombé sous les assaults des Orcs ...";
+				next;
+				mes @npc$;
+				mes "Notre chef, Elriche était un très bon explorateur, il allait souvent avec sa femme découvrir les donjons de ce monde,";
+				mes "mais un beau jour, après une exploration à l'Ouest de Geffen, accompagné de sa femme et d'un autre explorateur,";
+				mes "il succomba...";
+				next;
+				mes @npc$;
+				mes "Un seul survivra, il aurai réussi à s'échapper à temps pour éviter une mort certaine !";
+				mes "Malheureusement il n'a pu sauvé Elriche et sa femme ...";
+				mes "Depuis ce jour, le survivant qui se nomme Ariol est maintenant devenu notre chef !";
+				next;
+				mes @npc$;
+				mes "Je vais m'arrêter là car on dit que le fait d'en parler continu de faire souffrir Ariol !";
+				mes "Si tu veux vraiment en savoir plus, va donc le trouver, il se trouve à la taverne de la Cité Portuaire de Midgard.";
+				setquest 00000;
+				dispbottom "Vous avez reçu une nouvelle quête, vous pouvez la consulter via la commande alt+u";
+				close;
+			case 2:
+				mes @npc$;
+				mes "Voici les donjons accessible :";
+				switch(select("Ant Hell","Sphinx")){
+					case 1:
+						mes @npc$;
+						mes "Laisse moi le temps de me préparer pour l'expédition.";
+						set Zeny,Zeny-5000;
+						addtimer 10000, strnpcinfo(3)+"::OnWarp";
+						set anthell, 1;
+						set alreadytalk, 1;
+						close;
+					case 2:
+						mes @npc$;
+						mes "Laisse moi le temps de me préparer pour l'expédition.";
+						set Zeny,Zeny-5000;
+						addtimer 10000, strnpcinfo(3)+"::OnWarp";
+						set sphinx, 1;
+						set alreadytalk, 1;
+						close;
+					case 3:
+						mes @npc$;
+						mes "Laisse moi le temps de me préparer pour l'expédition.";
+						set Zeny,Zeny-5000;
+						addtimer 10000, strnpcinfo(3)+"::OnWarp";
+						set pyra, 1;
+						set alreadytalk, 1;
+						close;
+				}
+		}
+	}
+	else if (questprogress(00000) == 1){
+		mes @npc$;
+		mes "Que voulez-vous ?";
+		switch(select("Je souhaites me déplacer","Où se trouve Ariol ?")){
+			case 1:
+				mes @npc$;
+				mes "Voici les donjons accessible :";
+				switch(select("Ant Hell","Sphinx")){
+					case 1:
+						mes @npc$;
+						mes "Laisse moi le temps de me préparer pour l'expédition.";
+						set Zeny,Zeny-5000;
+						addtimer 10000, strnpcinfo(3)+"::OnWarp";
+						set anthell, 1;
+						set alreadytalk, 1;
+						close;
+					case 2:
+						mes @npc$;
+						mes "Laisse moi le temps de me préparer pour l'expédition.";
+						set Zeny,Zeny-5000;
+						addtimer 10000, strnpcinfo(3)+"::OnWarp";
+						set sphinx, 1;
+						set alreadytalk, 1;
+						close;
+					case 3:
+						mes @npc$;
+						mes "Laisse moi le temps de me préparer pour l'expédition.";
+						set Zeny,Zeny-5000;
+						addtimer 10000, strnpcinfo(3)+"::OnWarp";
+						set pyra, 1;
+						set alreadytalk, 1;
+						close;	
+				}
+			case 2:
+				mes @npc$;
+				mes "Va donc trouver Ariol !";
+				mes "Il se trouve à la taverne de la Cité Portuaire de Midgard.";
+				close;
+		}
+	}
+	else if (questprogress(00000) == 2){
+		mes @npc$;
+		mes "Oh je vois que tu as fini par rejoindre l'entreprise Explorateur Corporate finalement !";
+		mes "Peu de gens y arrive ! Félicitations !";
+		mes "Je te donne donc une réduction sur les tarifs !";
+		next;
+		mes @npc$;
+		mes "Voici les donjons accessible :";
+		switch(select("Ant Hell","Sphinx")){
+			case 1:
+				mes @npc$;
+				mes "Laisse moi le temps de me préparer pour l'expédition.";
+				set Zeny,Zeny-2500;
+				addtimer 10000, strnpcinfo(3)+"::OnWarp";
+				set anthell, 1;
+				set alreadytalk, 1;
+				close;
+			case 2:
+				mes @npc$;
+				mes "Laisse moi le temps de me préparer pour l'expédition.";
+				set Zeny,Zeny-2500;
+				addtimer 10000, strnpcinfo(3)+"::OnWarp";
+				set sphinx, 1;
+				set alreadytalk, 1;
+				close;
+			case 3:
+				mes @npc$;
+				mes "Laisse moi le temps de me préparer pour l'expédition.";
+				set Zeny,Zeny-5000;
+				addtimer 10000, strnpcinfo(3)+"::OnWarp";
+				set pyra, 1;
+				set alreadytalk, 1;
+				close;
+		}
+	}
+	
+	OnWarp:
+		dispbottom "Vous allez être warp";
+		if (anthell == 1){
+			set alreadytalk, 0;
+			warp "cmd_fild08",325,355;
+		}
+		else if (sphinx == 1){
+			set alreadytalk, 0;
+			warp "moc_fild19",107,99;
+		}
+		else if (pyra == 1){
+			set alreadytalk, 0;
+			warp "moc_ruins",65,161;
+		}
+}
+
+//=NPC WARPER DONJON PRONTERA=//
+
+prontera,100,100,4	script	Explorateur#pro	4_F_NURSE,{
+set @npc$, "[Explorateur]";
+
+	if (questprogress(00000) == -1){
+		mes @npc$;
+		mes "Bonjour jeune aventurier, je peux t'emmener dans certains endroits reculé de cette ville,";
+		mes "certains endroits où les plus gros monstres des environs rodes !";
+		next;
+		mes @npc$;
+		mes "Que voulez-vous ?";
+		switch(select("Parlez moi de votre société","Je souhaites me déplacer")){
+			case 1:
+				mes @npc$;
+				mes "Grâce aux explorateurs de notre monde, nous avons créé Explorateur Corporate.";
+				mes "Nous pouvons vous emmenez dans différents donjons aux alentours de certaines villes.";
+				mes "Il y a peu nous avions un chef mais celui-ci est tombé sous les assaults des Orcs ...";
+				next;
+				mes @npc$;
+				mes "Notre chef, Elriche était un très bon explorateur, il allait souvent avec sa femme découvrir les donjons de ce monde,";
+				mes "mais un beau jour, après une exploration à l'Ouest de Geffen, accompagné de sa femme et d'un autre explorateur,";
+				mes "il succomba...";
+				next;
+				mes @npc$;
+				mes "Un seul survivra, il aurai réussi à s'échapper à temps pour éviter une mort certaine !";
+				mes "Malheureusement il n'a pu sauvé Elriche et sa femme ...";
+				mes "Depuis ce jour, le survivant qui se nomme Ariol est maintenant devenu notre chef !";
+				next;
+				mes @npc$;
+				mes "Je vais m'arrêter là car on dit que le fait d'en parler continu de faire souffrir Ariol !";
+				mes "Si tu veux vraiment en savoir plus, va donc le trouver, il se trouve à la taverne de la Cité Portuaire de Midgard.";
+				setquest 00000;
+				dispbottom "Vous avez reçu une nouvelle quête, vous pouvez la consulter via la commande alt+u";
+				close;
+			case 2:
+				mes @npc$;
+				mes "Voici les donjons accessible :";
+				switch(select("Culvert","Hidden Temple")){
+					case 1:
+						mes @npc$;
+						mes "Laisse moi le temps de me préparer pour l'expédition.";
+						set Zeny,Zeny-5000;
+						addtimer 10000, strnpcinfo(3)+"::OnWarp";
+						set culvert, 1;
+						set alreadytalk, 1;
+						close;
+					case 2:
+						mes @npc$;
+						mes "Laisse moi le temps de me préparer pour l'expédition.";
+						set Zeny,Zeny-5000;
+						addtimer 10000, strnpcinfo(3)+"::OnWarp";
+						set hidden, 1;
+						set alreadytalk, 1;
+						close;
+				}
+		}
+	}
+	else if (questprogress(00000) == 1){
+		mes @npc$;
+		mes "Que voulez-vous ?";
+		switch(select("Je souhaites me déplacer","Où se trouve Ariol ?")){
+			case 1:
+				mes @npc$;
+				mes "Voici les donjons accessible :";
+				switch(select("Culvert","Hidden Temple")){
+					case 1:
+						mes @npc$;
+						mes "Laisse moi le temps de me préparer pour l'expédition.";
+						set Zeny,Zeny-5000;
+						addtimer 10000, strnpcinfo(3)+"::OnWarp";
+						set culvert, 1;
+						set alreadytalk, 1;
+						close;
+					case 2:
+						mes @npc$;
+						mes "Laisse moi le temps de me préparer pour l'expédition.";
+						set Zeny,Zeny-5000;
+						addtimer 10000, strnpcinfo(3)+"::OnWarp";
+						set hidden, 1;
+						set alreadytalk, 1;
+						close;
+				}
+			case 2:
+				mes @npc$;
+				mes "Va donc trouver Ariol !";
+				mes "Il se trouve à la taverne de la Cité Portuaire de Midgard.";
+				close;
+		}
+	}
+	else if (questprogress(00000) == 2){
+		mes @npc$;
+		mes "Oh je vois que tu as fini par rejoindre l'entreprise Explorateur Corporate finalement !";
+		mes "Peu de gens y arrive ! Félicitations !";
+		mes "Je te donne donc une réduction sur les tarifs !";
+		next;
+		mes @npc$;
+		mes "Voici les donjons accessible :";
+		switch(select("Culvert","Hidden Temple")){
+			case 1:
+				mes @npc$;
+				mes "Laisse moi le temps de me préparer pour l'expédition.";
+				set Zeny,Zeny-2500;
+				addtimer 10000, strnpcinfo(3)+"::OnWarp";
+				set culvert, 1;
+				set alreadytalk, 1;
+				close;
+			case 2:
+				mes @npc$;
+				mes "Laisse moi le temps de me préparer pour l'expédition.";
+				set Zeny,Zeny-2500;
+				addtimer 10000, strnpcinfo(3)+"::OnWarp";
+				set hidden, 1;
+				set alreadytalk, 1;
+				close;
+		}
+	}
+	
+	OnWarp:
+		dispbottom "Vous allez être warp";
+		if (culvert == 1){
+			set alreadytalk, 0;
+			warp "prt_fild05",279,218;
+		}
+		else if (hidden == 1){
+			set alreadytalk, 0;
+			warp "prt_fild01",136,368;
+		}
+}
+
+
+//=NPC WARPER DONJON PAYON=//
+
+payon,100,100,4	script	Explorateur#pay	4_F_NURSE,{
+set @npc$, "[Explorateur]";
+
+	if (questprogress(00000) == -1){
+		mes @npc$;
+		mes "Bonjour jeune aventurier, je peux t'emmener dans certains endroits reculé de cette ville,";
+		mes "certains endroits où les plus gros monstres des environs rodes !";
+		next;
+		mes @npc$;
+		mes "Que voulez-vous ?";
+		switch(select("Parlez moi de votre société","Je souhaites me déplacer")){
+			case 1:
+				mes @npc$;
+				mes "Grâce aux explorateurs de notre monde, nous avons créé Explorateur Corporate.";
+				mes "Nous pouvons vous emmenez dans différents donjons aux alentours de certaines villes.";
+				mes "Il y a peu nous avions un chef mais celui-ci est tombé sous les assaults des Orcs ...";
+				next;
+				mes @npc$;
+				mes "Notre chef, Elriche était un très bon explorateur, il allait souvent avec sa femme découvrir les donjons de ce monde,";
+				mes "mais un beau jour, après une exploration à l'Ouest de Geffen, accompagné de sa femme et d'un autre explorateur,";
+				mes "il succomba...";
+				next;
+				mes @npc$;
+				mes "Un seul survivra, il aurai réussi à s'échapper à temps pour éviter une mort certaine !";
+				mes "Malheureusement il n'a pu sauvé Elriche et sa femme ...";
+				mes "Depuis ce jour, le survivant qui se nomme Ariol est maintenant devenu notre chef !";
+				next;
+				mes @npc$;
+				mes "Je vais m'arrêter là car on dit que le fait d'en parler continu de faire souffrir Ariol !";
+				mes "Si tu veux vraiment en savoir plus, va donc le trouver, il se trouve à la taverne de la Cité Portuaire de Midgard.";
+				setquest 00000;
+				dispbottom "Vous avez reçu une nouvelle quête, vous pouvez la consulter via la commande alt+u";
+				close;
+			case 2:
+				mes @npc$;
+				mes "Voici les donjons accessible :";
+				switch(select("Payon Cave")){
+					case 1:
+						mes @npc$;
+						mes "Laisse moi le temps de me préparer pour l'expédition.";
+						set Zeny,Zeny-5000;
+						addtimer 10000, strnpcinfo(3)+"::OnWarp";
+						set payon, 1;
+						set alreadytalk, 1;
+						close;
+				}
+		}
+	}
+	else if (questprogress(00000) == 1){
+		mes @npc$;
+		mes "Que voulez-vous ?";
+		switch(select("Je souhaites me déplacer","Où se trouve Ariol ?")){
+			case 1:
+				mes @npc$;
+				mes "Voici les donjons accessible :";
+				switch(select("Payon Cave")){
+					case 1:
+						mes @npc$;
+						mes "Laisse moi le temps de me préparer pour l'expédition.";
+						set Zeny,Zeny-5000;
+						addtimer 10000, strnpcinfo(3)+"::OnWarp";
+						set payon, 1;
+						set alreadytalk, 1;
+						close;
+				}
+			case 2:
+				mes @npc$;
+				mes "Va donc trouver Ariol !";
+				mes "Il se trouve à la taverne de la Cité Portuaire de Midgard.";
+				close;
+		}
+	}
+	else if (questprogress(00000) == 2){
+		mes @npc$;
+		mes "Oh je vois que tu as fini par rejoindre l'entreprise Explorateur Corporate finalement !";
+		mes "Peu de gens y arrive ! Félicitations !";
+		mes "Je te donne donc une réduction sur les tarifs !";
+		next;
+		mes @npc$;
+		mes "Voici les donjons accessible :";
+		switch(select("Payon Cave")){
+			case 1:
+				mes @npc$;
+				mes "Laisse moi le temps de me préparer pour l'expédition.";
+				set Zeny,Zeny-2500;
+				addtimer 10000, strnpcinfo(3)+"::OnWarp";
+				set payon, 1;
+				set alreadytalk, 1;
+				close;
+		}
+	}
+	
+	OnWarp:
+		dispbottom "Vous allez être warp";
+		if (payon == 1){
+			set alreadytalk, 0;
+			warp "pay_archer",41,131;
+		}
+}
+
+
+//=NPC WARPER DONJON RACHEL=//
+
+rachel,100,100,4	script	Explorateur#rac	4_F_NURSE,{
+set @npc$, "[Explorateur]";
+
+	if (questprogress(00000) == -1){
+		mes @npc$;
+		mes "Bonjour jeune aventurier, je peux t'emmener dans certains endroits reculé de cette ville,";
+		mes "certains endroits où les plus gros monstres des environs rodes !";
+		next;
+		mes @npc$;
+		mes "Que voulez-vous ?";
+		switch(select("Parlez moi de votre société","Je souhaites me déplacer")){
+			case 1:
+				mes @npc$;
+				mes "Grâce aux explorateurs de notre monde, nous avons créé Explorateur Corporate.";
+				mes "Nous pouvons vous emmenez dans différents donjons aux alentours de certaines villes.";
+				mes "Il y a peu nous avions un chef mais celui-ci est tombé sous les assaults des Orcs ...";
+				next;
+				mes @npc$;
+				mes "Notre chef, Elriche était un très bon explorateur, il allait souvent avec sa femme découvrir les donjons de ce monde,";
+				mes "mais un beau jour, après une exploration à l'Ouest de Geffen, accompagné de sa femme et d'un autre explorateur,";
+				mes "il succomba...";
+				next;
+				mes @npc$;
+				mes "Un seul survivra, il aurai réussi à s'échapper à temps pour éviter une mort certaine !";
+				mes "Malheureusement il n'a pu sauvé Elriche et sa femme ...";
+				mes "Depuis ce jour, le survivant qui se nomme Ariol est maintenant devenu notre chef !";
+				next;
+				mes @npc$;
+				mes "Je vais m'arrêter là car on dit que le fait d'en parler continu de faire souffrir Ariol !";
+				mes "Si tu veux vraiment en savoir plus, va donc le trouver, il se trouve à la taverne de la Cité Portuaire de Midgard.";
+				setquest 00000;
+				dispbottom "Vous avez reçu une nouvelle quête, vous pouvez la consulter via la commande alt+u";
+				close;
+			case 2:
+				mes @npc$;
+				mes "Voici les donjons accessible :";
+				switch(select("Ice Donjon","Rachel Sanctuary")){
+					case 1:
+						mes @npc$;
+						mes "Laisse moi le temps de me préparer pour l'expédition.";
+						set Zeny,Zeny-5000;
+						addtimer 10000, strnpcinfo(3)+"::OnWarp";
+						set ice, 1;
+						set alreadytalk, 1;
+						close;
+					case 2:
+						mes @npc$;
+						mes "Laisse moi le temps de me préparer pour l'expédition.";
+						set Zeny,Zeny-5000;
+						addtimer 10000, strnpcinfo(3)+"::OnWarp";
+						set rachel, 1;
+						set alreadytalk, 1;
+						close;
+				}
+		}
+	}
+	else if (questprogress(00000) == 1){
+		mes @npc$;
+		mes "Que voulez-vous ?";
+		switch(select("Je souhaites me déplacer","Où se trouve Ariol ?")){
+			case 1:
+				mes @npc$;
+				mes "Voici les donjons accessible :";
+				switch(select("Ice Donjon","Rachel Sanctuary")){
+					case 1:
+						mes @npc$;
+						mes "Laisse moi le temps de me préparer pour l'expédition.";
+						set Zeny,Zeny-5000;
+						addtimer 10000, strnpcinfo(3)+"::OnWarp";
+						set ice, 1;
+						set alreadytalk, 1;
+						close;
+					case 2:
+						mes @npc$;
+						mes "Laisse moi le temps de me préparer pour l'expédition.";
+						set Zeny,Zeny-5000;
+						addtimer 10000, strnpcinfo(3)+"::OnWarp";
+						set rachel, 1;
+						set alreadytalk, 1;
+						close;
+				}
+			case 2:
+				mes @npc$;
+				mes "Va donc trouver Ariol !";
+				mes "Il se trouve à la taverne de la Cité Portuaire de Midgard.";
+				close;
+		}
+	}
+	else if (questprogress(00000) == 2){
+		mes @npc$;
+		mes "Oh je vois que tu as fini par rejoindre l'entreprise Explorateur Corporate finalement !";
+		mes "Peu de gens y arrive ! Félicitations !";
+		mes "Je te donne donc une réduction sur les tarifs !";
+		next;
+		mes @npc$;
+		mes "Voici les donjons accessible :";
+		switch(select("Ice Donjon","Rachel Sanctuary")){
+			case 1:
+				mes @npc$;
+				mes "Laisse moi le temps de me préparer pour l'expédition.";
+				set Zeny,Zeny-2500;
+				addtimer 10000, strnpcinfo(3)+"::OnWarp";
+				set ice, 1;
+				set alreadytalk, 1;
+				close;
+			case 2:
+				mes @npc$;
+				mes "Laisse moi le temps de me préparer pour l'expédition.";
+				set Zeny,Zeny-2500;
+				addtimer 10000, strnpcinfo(3)+"::OnWarp";
+				set rachel, 1;
+				set alreadytalk, 1;
+				close;
+		}
+	}
+	
+	OnWarp:
+		dispbottom "Vous allez être warp";
+		if (ice == 1){
+			set alreadytalk, 0;
+			warp "ra_fild01",233,327;
+		}
+		else if (rachel == 1){
+			set alreadytalk, 0;
+			warp "ra_temin",27,314;
+		}
+}
+
+
+//=NPC WARPER DONJON VEINS=//
+
+veins,100,100,4	script	Explorateur#vei	4_F_NURSE,{
+set @npc$, "[Explorateur]";
+
+	if (questprogress(00000) == -1){
+		mes @npc$;
+		mes "Bonjour jeune aventurier, je peux t'emmener dans certains endroits reculé de cette ville,";
+		mes "certains endroits où les plus gros monstres des environs rodes !";
+		next;
+		mes @npc$;
+		mes "Que voulez-vous ?";
+		switch(select("Parlez moi de votre société","Je souhaites me déplacer")){
+			case 1:
+				mes @npc$;
+				mes "Grâce aux explorateurs de notre monde, nous avons créé Explorateur Corporate.";
+				mes "Nous pouvons vous emmenez dans différents donjons aux alentours de certaines villes.";
+				mes "Il y a peu nous avions un chef mais celui-ci est tombé sous les assaults des Orcs ...";
+				next;
+				mes @npc$;
+				mes "Notre chef, Elriche était un très bon explorateur, il allait souvent avec sa femme découvrir les donjons de ce monde,";
+				mes "mais un beau jour, après une exploration à l'Ouest de Geffen, accompagné de sa femme et d'un autre explorateur,";
+				mes "il succomba...";
+				next;
+				mes @npc$;
+				mes "Un seul survivra, il aurai réussi à s'échapper à temps pour éviter une mort certaine !";
+				mes "Malheureusement il n'a pu sauvé Elriche et sa femme ...";
+				mes "Depuis ce jour, le survivant qui se nomme Ariol est maintenant devenu notre chef !";
+				next;
+				mes @npc$;
+				mes "Je vais m'arrêter là car on dit que le fait d'en parler continu de faire souffrir Ariol !";
+				mes "Si tu veux vraiment en savoir plus, va donc le trouver, il se trouve à la taverne de la Cité Portuaire de Midgard.";
+				setquest 00000;
+				dispbottom "Vous avez reçu une nouvelle quête, vous pouvez la consulter via la commande alt+u";
+				close;
+			case 2:
+				mes @npc$;
+				mes "Voici les donjons accessible :";
+				switch(select("Abbey Donjon","Thor Volcano")){
+					case 1:
+						mes @npc$;
+						mes "Laisse moi le temps de me préparer pour l'expédition.";
+						set Zeny,Zeny-5000;
+						addtimer 10000, strnpcinfo(3)+"::OnWarp";
+						set abbey, 1;
+						set alreadytalk, 1;
+						close;
+					case 2:
+						mes @npc$;
+						mes "Laisse moi le temps de me préparer pour l'expédition.";
+						set Zeny,Zeny-5000;
+						addtimer 10000, strnpcinfo(3)+"::OnWarp";
+						set thor, 1;
+						set alreadytalk, 1;
+						close;
+				}
+		}
+	}
+	else if (questprogress(00000) == 1){
+		mes @npc$;
+		mes "Que voulez-vous ?";
+		switch(select("Je souhaites me déplacer","Où se trouve Ariol ?")){
+			case 1:
+				mes @npc$;
+				mes "Voici les donjons accessible :";
+				switch(select("Abbey Donjon","Thor Volcano")){
+					case 1:
+						mes @npc$;
+						mes "Laisse moi le temps de me préparer pour l'expédition.";
+						set Zeny,Zeny-5000;
+						addtimer 10000, strnpcinfo(3)+"::OnWarp";
+						set abbey, 1;
+						set alreadytalk, 1;
+						close;
+					case 2:
+						mes @npc$;
+						mes "Laisse moi le temps de me préparer pour l'expédition.";
+						set Zeny,Zeny-5000;
+						addtimer 10000, strnpcinfo(3)+"::OnWarp";
+						set thor, 1;
+						set alreadytalk, 1;
+						close;
+				}
+			case 2:
+				mes @npc$;
+				mes "Va donc trouver Ariol !";
+				mes "Il se trouve à la taverne de la Cité Portuaire de Midgard.";
+				close;
+		}
+	}
+	else if (questprogress(00000) == 2){
+		mes @npc$;
+		mes "Oh je vois que tu as fini par rejoindre l'entreprise Explorateur Corporate finalement !";
+		mes "Peu de gens y arrive ! Félicitations !";
+		mes "Je te donne donc une réduction sur les tarifs !";
+		next;
+		mes @npc$;
+		mes "Voici les donjons accessible :";
+		switch(select("Abbey Donjon","Thor Volcano")){
+			case 1:
+				mes @npc$;
+				mes "Laisse moi le temps de me préparer pour l'expédition.";
+				set Zeny,Zeny-2500;
+				addtimer 10000, strnpcinfo(3)+"::OnWarp";
+				set abbey, 1;
+				set alreadytalk, 1;
+				close;
+			case 2:
+				mes @npc$;
+				mes "Laisse moi le temps de me préparer pour l'expédition.";
+				set Zeny,Zeny-2500;
+				addtimer 10000, strnpcinfo(3)+"::OnWarp";
+				set thor, 1;
+				set alreadytalk, 1;
+				close;
+		}
+	}
+	
+	OnWarp:
+		dispbottom "Vous allez être warp";
+		if (abbey == 1){
+			set alreadytalk, 0;
+			warp "ve_fild07",127,134;
+		}
+		else if (thor == 1){
+			set alreadytalk, 0;
+			warp "ve_fild03",168,235;
+		}
+}
+
+
+//=NPC WARPER DONJON YUNO=//
+
+yuno,100,100,4	script	Explorateur#yun	4_F_NURSE,{
+set @npc$, "[Explorateur]";
+
+	if (questprogress(00000) == -1){
+		mes @npc$;
+		mes "Bonjour jeune aventurier, je peux t'emmener dans certains endroits reculé de cette ville,";
+		mes "certains endroits où les plus gros monstres des environs rodes !";
+		next;
+		mes @npc$;
+		mes "Que voulez-vous ?";
+		switch(select("Parlez moi de votre société","Je souhaites me déplacer")){
+			case 1:
+				mes @npc$;
+				mes "Grâce aux explorateurs de notre monde, nous avons créé Explorateur Corporate.";
+				mes "Nous pouvons vous emmenez dans différents donjons aux alentours de certaines villes.";
+				mes "Il y a peu nous avions un chef mais celui-ci est tombé sous les assaults des Orcs ...";
+				next;
+				mes @npc$;
+				mes "Notre chef, Elriche était un très bon explorateur, il allait souvent avec sa femme découvrir les donjons de ce monde,";
+				mes "mais un beau jour, après une exploration à l'Ouest de Geffen, accompagné de sa femme et d'un autre explorateur,";
+				mes "il succomba...";
+				next;
+				mes @npc$;
+				mes "Un seul survivra, il aurai réussi à s'échapper à temps pour éviter une mort certaine !";
+				mes "Malheureusement il n'a pu sauvé Elriche et sa femme ...";
+				mes "Depuis ce jour, le survivant qui se nomme Ariol est maintenant devenu notre chef !";
+				next;
+				mes @npc$;
+				mes "Je vais m'arrêter là car on dit que le fait d'en parler continu de faire souffrir Ariol !";
+				mes "Si tu veux vraiment en savoir plus, va donc le trouver, il se trouve à la taverne de la Cité Portuaire de Midgard.";
+				setquest 00000;
+				dispbottom "Vous avez reçu une nouvelle quête, vous pouvez la consulter via la commande alt+u";
+				close;
+			case 2:
+				mes @npc$;
+				mes "Voici les donjons accessible :";
+				switch(select("Magma Donjon")){
+					case 1:
+						mes @npc$;
+						mes "Laisse moi le temps de me préparer pour l'expédition.";
+						set Zeny,Zeny-5000;
+						addtimer 10000, strnpcinfo(3)+"::OnWarp";
+						set magma, 1;
+						set alreadytalk, 1;
+						close;
+				}
+		}
+	}
+	else if (questprogress(00000) == 1){
+		mes @npc$;
+		mes "Que voulez-vous ?";
+		switch(select("Je souhaites me déplacer","Où se trouve Ariol ?")){
+			case 1:
+				mes @npc$;
+				mes "Voici les donjons accessible :";
+				switch(select("Magma Donjon")){
+					case 1:
+						mes @npc$;
+						mes "Laisse moi le temps de me préparer pour l'expédition.";
+						set Zeny,Zeny-5000;
+						addtimer 10000, strnpcinfo(3)+"::OnWarp";
+						set magma, 1;
+						set alreadytalk, 1;
+						close;
+				}
+			case 2:
+				mes @npc$;
+				mes "Va donc trouver Ariol !";
+				mes "Il se trouve à la taverne de la Cité Portuaire de Midgard.";
+				close;
+		}
+	}
+	else if (questprogress(00000) == 2){
+		mes @npc$;
+		mes "Oh je vois que tu as fini par rejoindre l'entreprise Explorateur Corporate finalement !";
+		mes "Peu de gens y arrive ! Félicitations !";
+		mes "Je te donne donc une réduction sur les tarifs !";
+		next;
+		mes @npc$;
+		mes "Voici les donjons accessible :";
+		switch(select("Magma Donjon")){
+			case 1:
+				mes @npc$;
+				mes "Laisse moi le temps de me préparer pour l'expédition.";
+				set Zeny,Zeny-2500;
+				addtimer 10000, strnpcinfo(3)+"::OnWarp";
+				set magma, 1;
+				set alreadytalk, 1;
+				close;
+		}
+	}
+
+	OnWarp:
+		dispbottom "Vous allez être warp";
+		if (magma == 1){
+			set alreadytalk, 0;
+			warp "yuno_fild03",38,140;
+		}
+}

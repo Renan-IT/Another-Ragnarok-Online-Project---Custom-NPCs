@@ -1,0 +1,137 @@
+izlude,131,134,5	script	Dead Branch Room	4_F_NURSE,,{
+	
+setarray $@maps$[1], "06guild_01", "06guild_08";
+setarray .@price[1], 10000, 50000;
+
+mes "[Dead Branch Room]";
+mes "Bonjour, je peux vous louer une salle pour votre utilisation personnelle.";
+next;
+mes "[Dead Branch Room]";
+mes "Vous pourrez y utiliser des Dead Branchs comme bon vous semble sans que personne non autorisée vous gêne !";
+mes "Que voulez-vous faire ?";
+next;
+for(set .@b,1; .@b < getarraysize($@maps$); set .@b,.@b + 1) {
+	if(.@b==1){
+		set .@menu$, .@menu$  + "Public- "+((getmapusers($@maps$[.@b])>=30)?"^CD0000Fermée^000000("+getmapusers($@maps$[.@b])+")":"^007700Ouverte^000000("+getmapusers($@maps$[.@b])+") ["+.@price[.@b]+"z]")+":";
+	}
+	else { 
+		set .@menu$, .@menu$  + "Privée["+(.@b-1)+"]- "+((getmapusers(""+$@maps$[.@b]+"")>=5)?"^CD0000Fermée^000000("+getmapusers($@maps$[.@b])+")":"^007700Ouverte^000000("+getmapusers($@maps$[.@b])+") ["+.@price[.@b]+"z]")+":";
+	}
+}
+if(select(.@menu$)) {
+	if(Zeny<.@price[@menu]){mes "Je suis désolé mais vous n'avez pas assez de Zeny, veuillez revenir plus tard."; close;}
+	if(getmapusers($@maps$[@menu])<=30&&@menu==1){
+		set Zeny,Zeny-.@price[@menu];
+		set $@maps$,$@maps$[@menu];
+		setnpctimer 0; attachnpctimer(strcharinfo(0)); startnpctimer; warp $@maps$[@menu],0,0; end;
+	}
+	if(!getmapusers($@maps$[@menu])){
+		mes "Entrez un nouveau mot de passe.";
+		input($password$[@menu]);
+		set Zeny,Zeny-.@price[@menu];
+		set $@maps$,$@maps$[@menu];
+		next; setnpctimer 0; attachnpctimer(strcharinfo(0)); startnpctimer; warp $@maps$[@menu],0,0; end;
+	}
+	if(getmapusers($@maps$[@menu])<=5&&@menu!=1) {
+		mes "Cette salle est protégée par un mot de passe. Entrez le s'il vous plait.";
+		input(@name$);
+		if(@name$==$password$[@menu]){
+			set Zeny,Zeny-.@price[@menu];
+			set $@maps$,$@maps$[@menu];
+			mes "Correct!"; next; setnpctimer 0; attachnpctimer(strcharinfo(0)); startnpctimer; warp $@maps$[@menu],0,0; end;
+		} else {
+			mes "Incorrect!";
+			close;
+		}
+	} else {
+		mes "Je suis désolé mais cette salle est pleine.";
+		close;
+	}
+}
+
+OnTimer3600000:
+if(strcharinfo(3)==$@maps$){
+	warp "izlude",0,0;
+	end;
+}
+}
+
+06guild_01,49,49,5	script	Heal#h1-1::Heal	4_F_NURSE,,{
+
+	mes "Je suis ici pour vous aider à gérer cette salle.";
+	mes "Que voulez-vous faire ?";
+	menu "Nettoyer la salle",L_doubleclick,"Heal",L_Heal,"Partir",L_Partir;
+	
+	
+L_doubleclick:
+	killmonsterall strcharinfo(3);
+	npctalk "J'ai tué tous les monstres de la salle.";
+	close;
+end;
+
+L_Heal:
+	mes "D'accord je vais vous soigner mais je ne pourrai plus le faire pendant un certains temps !";
+	mes "Etes-vous sûre ?";
+	next;
+	switch(select("Oui","Non")){
+		case 1:
+			if (@pdelay > gettimetick(2)){
+					mes "[Heal]";
+					mes "Désolé mais vous devez encore attendre "+ (@pdelay - gettimetick(2)) +" avant de bénéficier de mes services.";
+					close;
+				}
+			else{
+				mes "[Heal]";
+				mes "D'accord voila qui est fait !";
+				mes "Faites attention à vous.";
+				specialeffect2 EF_HEAL; percentheal .hp, .sp;
+				@pdelay = gettimetick(2)+.delay;
+				close;
+			}
+			break;
+		case 2:
+			mes "[Heal]";
+			mes "Très bien, revenez quand vous le souhaité.";
+			close;
+	}
+
+L_Partir:
+	mes "Si vous partez, la salle sera remise à zéro.";
+	mes "Etes-vous sûr ?";
+	switch (select("Oui, faites moi sortir","Euh, je vais rester finalement")){
+		case 1:
+			mes "Très bien, à bientôt j'espère !";
+			warp "prontera",0,0;
+			close;
+		case 2:
+			mes "Prenez le temps qu'il vous faudra !";
+			close;
+	}
+	close;
+end;
+
+if(!getnpctimer(1)){setnpctimer 0; attachnpctimer(strcharinfo(0)); startnpctimer;}
+	end;
+	
+	OnInit:
+		// Configuration
+		.hp = 100;		// Pourcentage d'HP à heal
+		.sp = 100;		// Pourcentage d'SP à heal
+		.delay = 60;	// Nombre en secondes de delay
+	end;
+	
+}
+
+
+
+// --------- NPC Clones ---------
+06guild_08,49,49,5	duplicate(Heal)	Heal#h1-2	4_F_NURSE,
+
+// --------- MapFlag -----------
+
+06guild_08	mapflag	nowarp
+06guild_08	mapflag	nosave
+06guild_08	mapflag	noteleport
+06guild_08	mapflag	nopenalty
+06guild_08	mapflag	nomemo
+06guild_08	mapflag	noreturn

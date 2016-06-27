@@ -1,0 +1,18 @@
+-	script	at_ecall	-1,{
+OnInit:
+	bindatcmd "@ec", strnpcinfo(3)+"::OnEcall";
+	bindatcmd "@ecall", strnpcinfo(3)+"::OnEcall";
+	.delay = 300;
+end;
+
+OnEcall:
+	if (@pdelay < gettimetick(2)) { //Rajouter "Si le skill est prit"
+	unitskilluseid getcharid(3),10013,1;
+	dispbottom "[ Note ] : Vous pourrez utiliser Emergency Call à nouveau dans 5 minutes";
+	@pdelay = gettimetick(2)+.delay;
+	}
+	else {
+		dispbottom "Vous devez encore attendre "+ (@pdelay - gettimetick(2)) +" secondes avant d'utiliser Emergency Call";
+	}
+end;
+}

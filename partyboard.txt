@@ -1,0 +1,270 @@
+/*= Party Notice Board =*/
+/*= Coded by: IeYasuru =*/
+/*= Date: April 11, 2015 =*/
+/*- Revision: 1 =*/
+/*= External Functions:
+	None
+=*/
+
+prontera,164,175,4	script	Party Board#prt	4_BOARD3,{
+
+OnAtCommands:
+	function get_char_name {
+		.@pos = strpos(getarg(0),"[");
+		//mes ".@pos: "+ .@pos;
+		.@charName$ = substr(getarg(0),0,.@pos-2);
+		//mes ".@charName$: "+ .@charName$;
+		return .@charName$;
+	}
+	function strip_color_code {
+		return substr(getarg(0),7,getstrlen(getarg(0))-8);
+	}
+	function parse_party_list {
+		for(.@i = 0; .@i < getarraysize($@PB_PartyBoard$); .@i++) {
+			.@name$ = get_char_name($@PB_PartyBoard$[.@i]);
+			.@name$ = strip_color_code(.@name$);
+			//mes ".@name$: "+ .@name$;
+			if(getarg(0)) {
+				if(.@name$ == strcharinfo(0)) {
+					deletearray $@PB_PartyBoard$[.@i],1;
+					break;
+				}
+			}
+			if(getmapxy(.@m$,.@x,.@y,0,.@name$) || getcharid(1,.@name$)) {
+				deletearray $@PB_PartyBoard$[.@i],1;
+			}
+		}
+		return;
+	}
+	
+	mes .npc$;
+	mes "Bienvenu, "+ strcharinfo(0) +", sur le Party Board Service créer par Crystal Core Group.";
+	if(@PB_Registered) {
+		next;
+		mes .npc$;
+		mes "Vous vous êtes déjà enregistré pour chercher un groupe.";
+		mes "Voulez-vous annuler votre enregistrement ?";
+		next;
+		switch(select("Oui:Non")) {
+			case 1:
+				parse_party_list(1);
+				@PB_Registered = 0;
+				mes .npc$;
+				mes "Vous avez été retiré de la liste d'enregistrement.";
+				mes " ";
+				break;
+				
+			case 2:
+				close;
+		}
+	}
+	next;
+	mes .npc$;
+	mes "Que voulez-vous faire aujourd'hui ?";
+	switch(select(implode(.Menu_Ops$,":"))) {
+		case 1: /*= Looking for Party (LPM) =*/
+			callsub PB_LFP;
+			break;
+			
+		case 2: /*= Looking for Memeber (LFM) =*/
+			callsub PB_LFM;
+			break;
+	}
+end;
+	
+PB_LFP:
+	next;
+	mes .npc$;
+	if(getcharid(1)) {
+		mes "Vous êtes déjà dans un groupe.";
+		mes "Si vous voulez vous enregistrer, il vous faut quitter votre groupe actuel.";
+		close;
+	}
+	mes "Voulez-vous vous enregistrer sur le Party Board ? Si oui, les autres joueurs pourront voir votre nom, classe et level pour savoir s'ils veulent vous prendre dans leur groupe.";
+	next;
+	switch(select("Oui:Non")) {
+		case 1:
+			$@PB_PartyBoard$[getarraysize($@PB_PartyBoard$)] = "^0000FF"+ strcharinfo(0) +"^000000 [^FF0000"+ jobname(Class) +"^000000 ^FF0000Lv.^000000 "+ BaseLevel +"/"+ JobLevel +"]";
+			@PB_Registered = 1;
+			mes .npc$;
+			mes "Je vous ais ajouté à la liste. Une fois que quelqu'un vous choisis, je vous enverrai une invitation à rejoindre leur groupe.";
+			mes "Passez une bonne journée.";
+			close;
+			
+		case 2:
+			mes .npc$;
+			mes "C'est dommage ! Si vous changez d'avis, revenez me voir.";
+			close;
+	}
+	return;
+
+PB_LFM:
+	next;
+	mes .npc$;
+	getpartymember getcharid(1);
+	deletearray $@partymembername;
+	deletearray $@partymembercid;
+	deletearray $@partymemberaid;
+	if($@partymembercount >= $@Max_Party_Size) {
+		$@partymembercount = 0;
+		mes "Vous avez déjà le maximum de personne dans votre groupe !";
+		mes "Vous devez retirer quelqu'un avant de chercher une nouvelle personne !";
+		close;
+	}
+	mes "Voulez-vous regarder la liste des joueurs cherchant un groupe ?";
+	next;
+	switch(select("Oui:Non")) {
+		case 1:
+			if(!getcharid(1)) {
+			mes .npc$;
+			mes "Je suis désolé, mais vous êtes déjà dans un groupe.";
+			mes "Voulez-vous que je vous emmène au menu ^0000FFLooking for Party (LFP)^000000 ?";
+				switch(select("Oui:Non")) {
+					case 1:
+						callsub PB_LFP;
+					
+					case 2:
+						close;
+				}
+			}
+			if(getpartyleader(getcharid(1),2) != getcharid(0)) {
+				mes .npc$;
+				mes "Je suis désolé, mais vous n'êtes pas le leader de votre groupe. Demandez à votre leader de me parler pour chercher de nouveaux joueurs.";
+				close;
+			}
+			next;
+			mes .npc$;
+			if(!getarraysize($@PB_PartyBoard$)) {
+				mes "Je suis désolé, mais il n'y a actuellement personne qui cherche un groupe.";
+				mes "Ré-essayez plus tard !";
+				close;
+			}
+			// /*= If necessary, add in level range selection here =*/
+			mes "Il y a des joueurs interessé à rejoindre votre groupe.";
+			switch(select(implode($@PB_PartyBoard$,":"))) {
+				default:
+					mes "Votre choix était : ^0000FF"+ get_char_name($@PB_PartyBoard$[@menu-1]);
+					mes "^000000";
+					mes "Est-ce correcte ?";
+					switch(select("Oui:Non")) {
+						case 1:
+							mes "Super. Je vais demander à ce joueur s'il veut rejoindre votre groupe.";
+							.@curPl = getcharid(3);
+							.@curPlName$ = strcharinfo(0);
+							.@curPlLv = BaseLevel;
+							getmapxy(.@m$,.@x,.@y,0);
+							//next;	//Changed to close2 because leader will get locked in place if invitee is afk 
+							close2;
+							.@charName$ = strip_color_code(get_char_name($@PB_PartyBoard$[@menu-1]));
+							detachrid;
+							if(!attachrid(getcharid(3,.@charName$))) {
+								if(!attachrid(.@curPl))
+									end;
+								mes .npc$;
+								if(!getstrlen(.@charName$)) {
+									mes "Je suis désolé, ce joueur à déjà rejoint un autre groupe ou annulé son enregistrement.";
+								} else {
+									mes "Je suis désolé, il semblerait que le joueur n'est plus connecté.";
+								}
+								mes "Voulez-vous essayer à nouveau ?";
+								switch(select("Oui:Non")) {
+									case 1:
+										callsub PB_LFM;
+										
+									case 2:
+										close;
+								}
+							}
+							mes .npc$;
+							mes "Vous avez été invité à rejoindre un groupe !";
+							mes "Leader Groupe: ^0000FF"+ .@curPlName$;
+							mes "^000000Party Leader Lv.: ^00FF00"+ .@curPlLv;
+							mes "^000000";
+							mes "Voulez-vous être warp à ^FF0000"+ .@m$ +"^000000 pour rencontrer le leader ?";
+							switch(select("Oui:Non")) {
+								case 1:
+									.@invited = 1;
+									warp .@m$,.@x-2,.@y-2;
+									break;
+									
+								case 2:
+									mes "Je vais informer le leader que vous refuser son invitation.";
+									close2;
+									break;
+							}
+							detachrid;
+							if(!attachrid(.@curPl))
+								end;
+							mes .npc$;
+							if(.@invited) {
+								warp .@m$,.@x,.@y;
+								mes "Votre nouveau groupe devrait apparaitre approximativement à 2 cases autour de vous.";
+								mes "Passez une bonne journée et merci d'avoir utiliser le Party Board Service créer par Crystal Core Group.";
+								close;
+							}
+							mes "Le joueur a refusé votre invitation et à décider de ne pas rejoindre votre groupe.";
+							
+						case 2:
+							mes "Voulez-vous rechercher de nouveau un joueur ?";
+							switch(select("Oui:Non")) {
+								case 1:
+									callsub PB_LFM;
+									
+								case 2:
+									close;
+							}
+							break;
+					}
+			}
+			
+		case 2:
+			close;
+	}
+	return;
+	
+OnInit:
+	.npc$ = "[Party Notice Board]";
+	.Menu_Ops$[0] = "Looking for Party (LFP)";
+	.Menu_Ops$[1] = "Looking for Member (LFM)";
+	$@PB_PartyBoard$[0] = "";
+	$@Max_Party_Size = 12;
+	initnpctimer;
+	bindatcmd "PartyBoard",strnpcinfo(0)+"::OnAtCommands",0,99;
+	end;
+	
+OnTimer1000:
+	parse_party_list(0);
+	delwaitingroom;
+	waitingroom getarraysize($@PB_PartyBoard$) +" Inscriptions",0;
+	setnpctimer 0;
+	end;
+}
+
+morocc,171,102,4	duplicate(Party Board#prt)	Party Board#morocc	4_BOARD3
+geffen,136,55,4	duplicate(Party Board#prt)	Party Board#geffen	4_BOARD3
+payon,164,99,6	duplicate(Party Board#prt)	Party Board#payon	4_BOARD3
+aldebaran,135,117,6	duplicate(Party Board#prt)	Party Board#alde	4_BOARD3
+izlude,135,141,6	duplicate(Party Board#prt)	Party Board#izlude	4_BOARD3
+alberta,125,72,4	duplicate(Party Board#prt)	Party Board#alberta	4_BOARD3
+xmas,164,143,4	duplicate(Party Board#prt)	Party Board#lutie	4_BOARD3
+comodo,203,157,5	duplicate(Party Board#prt)	Party Board#comodo	4_BOARD3
+yuno,172,85,4	duplicate(Party Board#prt)	Party Board#yuno	4_BOARD3
+amatsu,209,81,3	duplicate(Party Board#prt)	Party Board#amatsu	4_BOARD3
+gonryun,166,118,4	duplicate(Party Board#prt)	Party Board#gonryun	4_BOARD3
+umbala,102,168,4	duplicate(Party Board#prt)	Party Board#umbala	4_BOARD3
+niflheim,186,178,0	duplicate(Party Board#prt)	Party Board#niflheim	4_BOARD3
+louyang,227,104,4	duplicate(Party Board#prt)	Party Board#louyang	4_BOARD3
+jawaii,244,144,5	duplicate(Party Board#prt)	Party Board#jawaii	4_BOARD3
+ayothaya,212,178,6	duplicate(Party Board#prt)	Party Board#ayothaya	4_BOARD3
+einbroch,53,203,6	duplicate(Party Board#prt)	Party Board#einbroch	4_BOARD3
+lighthalzen,166,106,4	duplicate(Party Board#prt)	Party Board#light	4_BOARD3
+einbech,165,130,7	duplicate(Party Board#prt)	Party Board#einbech	4_BOARD3
+hugel,99,168,5	duplicate(Party Board#prt)	Party Board#hugel	4_BOARD3
+rachel,124,116,6	duplicate(Party Board#prt)	Party Board#rachel	4_BOARD3
+veins,210,121,7	duplicate(Party Board#prt)	Party Board#veins	4_BOARD3
+moscovia,218,191,6	duplicate(Party Board#prt)	Party Board#mosc	4_BOARD3
+// mid_camp,202,236,4	duplicate(Party Board#prt)	Party Board#camp	4_BOARD3
+// manuk,294,145,4	duplicate(Party Board#prt)	Party Board#manuk	4_BOARD3
+// splendide,181,144,7	duplicate(Party Board#prt)	Party Board#splend	4_BOARD3
+brasilis,180,122,6	duplicate(Party Board#prt)	Party Board#brasilis	4_BOARD3
+dicastes01,201,194,4	duplicate(Party Board#prt)	Party Board#dicaste	4_BOARD3
