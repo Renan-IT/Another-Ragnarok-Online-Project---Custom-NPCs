@@ -1,0 +1,99 @@
+//===== Hercules Script ======================================
+//= Sample: Board Xp
+//===== By: ==================================================
+//= Baps
+//===== Current Version: =====================================
+//= 20131225
+//===== Script Version =======================================
+//= V1 
+//===== Description: =========================================
+//= Event Noël, combat entre Eddga & Stormy Knight
+//============================================================
+
+
+//============================================================
+//==== NPC Annonceur lançant la quête ========================
+//============================================================
+
+izlude,131,148,4 script Annonceur#izl 4_F_NURSE,{
+	mes "[Annonceur]";
+	mes "*Essouflé*";
+	next;
+	mes "*A l'air horrifié...*";
+	switch(select("Partir:Continuer")) {
+		case 1:
+			next;
+			mes "["+strcharinfo(0)+"]";
+			mes "Monsieur ?";
+			mes "Que vous arrive t-il ?";
+			next;
+			mes "[Annonceur]";
+			mes "Hmm ?";
+			mes "*Reprend ses ésprits peu à peu*";
+			mes "Je... j'ai... j'ai vu quelques chose !";
+			mes "Mais je ne sais si je devrais vous en parler...";
+			switch(select("Quoi..? Qu'avez-vous vu ?:Très bien, gardez ça pour vous")) {
+				case 1:
+					next;
+					mes "[Annonceur]";
+					mes "Quelques chose de surréaliste...";
+					mes "Quelques chose qui pourra mettre notre monde en danger...";
+					switch(select("Mais... Qu'est-ce donc ?")) {
+						case 1:
+							next;
+							mes "[Annonceur]";
+							mes "Deux monstres de Midgard, connu depuis la nuit des temps veulent se détruire l'un l'autre...";
+							mes "Je les ai vu de mes propres yeux, leur regard noir et assassin !";
+							mes "*Retombe dans la peur*";
+							switch(select("Monsieur ? Quels monstres ?")) {
+								case 1:
+									next;
+									mes "[Annonceur]";
+									mes "Eddga & Stormy Knight !!";
+									mes "Je ne sais pas encore le pourquoi du comment,";
+									mes "mais je sais une chose, pour arriver à leur fin, ils seront prêt à tout !";
+									mes "Je suis désolé, mais je dois repartir enquêter avec mon groupe pour en savoir plus !";
+									next;
+									mes "[Annonceur]";
+									mes "Si tu souhaites m'aider, je serai de retour ici dans 2h, le temps de récolter des infos et de revenir.";
+									mes "Souhaites-tu m'aider ou pas ?";
+									switch(select("Bien sûr ! Je veux savoir ce qu'il se passe:Hmm... J'ai pas trop le temps en ce moment...")) {
+										case 1:
+											next;
+											mes "[Annonceur]";
+											mes "Très bien, retrouvons nous ici dans 2h, ramène des informations si tu le peux.";
+											mes "Pendant leur dispute, j'ai entendu dire qu'une personne nommé Arkor serait la cause de tout ça.";
+											mes "Je n'ai pas encore chercher mais à mon avis, mais tu devrais trouver des informations aux bars des grandes villes de Midgard";
+											next;
+											mes "[Annonceur]";
+											mes "Mais au fait, comment tu t'appelle ?";
+											next;
+											mes "["+strcharinfo(0)+"]";
+											mes "Je m'appelle "+strcharinfo(0)+"";
+											next;
+											mes "[Annonceur]";
+											mes "Ce nom ne me dit rien mais ça ne saurait peut être tardé..."
+											next;
+											mes "[Annonceur]";
+											mes "Je te laisse, j'ai du travail afin d'éviter une bataille qui pourra mettre notre monde en danger...!";
+											mes "A bientôt "+strcharinfo(0)+"";
+											set alrdytalked, 1;
+											setquest 80100; //Ajout Quête 
+											dispbottom "Vous venez de recevoir une quête, faites alt+u pour la consulter";
+											close;
+											OnInit:
+												questinfo 80500, QTYPE_QUEST, 0; //Ajout Quête dans Alt+U
+											end;
+										case 2:
+											next;
+											mes "[Annonceur]";
+											mes "Je comprends, ce n'est peut être pas encore trop grave, j'espère que tu n'auras pas eu tort...";
+											mes "Au revoir "+(Sex == SEX_MALE ? "Monsieur":"Madame")+"";
+											close;
+									}
+							}
+					}
+
+			}
+	}
+}
